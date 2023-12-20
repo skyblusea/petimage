@@ -19,7 +19,7 @@ module.exports = albumList;
  *  /v1/album/list?sort=&order=&limit=&page=:
  *    get:
  *      summary: "보관함 목록 조회"
- *      description: "Header Authorization에 Bearer token 정보 필요"
+ *      description: "Header Authorization에 Bearer token 정보 필요<br /><br />status: 0이면 이미지 제작중, 1이면 제작 완료"
  *      tags: [Album]
  *      security:
  *        - bearerAuth: []
@@ -27,13 +27,13 @@ module.exports = albumList;
  *        - in: query
  *          name: sort
  *          required: false
- *          description: 정렬 기준. 빈 값이면 createdAt
+ *          description: 정렬 기준. 빈 값이면 createdAt<br />themeName(테마 이름), createdAt, updatedAt
  *          schema:
  *            type: string
  *        - in: query
  *          name: order
  *          required: false
- *          description: 정렬 방법(ASC/DESC). 빈 값이면 desc
+ *          description: 정렬 방법. 빈 값이면 desc<br />asc, desc
  *          schema:
  *            type: string
  *        - in: query
@@ -41,7 +41,7 @@ module.exports = albumList;
  *          required: false
  *          description: 목록 개수
  *          schema:
- *            type: string
+ *            type: integer
  *      responses:
  *        "200":
  *          description: 보관함 목록 조회
@@ -62,7 +62,7 @@ module.exports = albumList;
  *                            "inputFiles": [],
  *                            "outputFiles": [],
  *                            "userId": "string",
- *                            "animal": "string",
+ *                            "status": 0,
  *                            "createdAt": "string",
  *                            "updatedAt": "string"
  *                          }

@@ -27,13 +27,13 @@ module.exports = paymentList;
  *        - in: query
  *          name: sort
  *          required: false
- *          description: 정렬 기준. 빈 값이면 createdAt
+ *          description: 정렬 기준. 빈 값이면 createdAt<br />createdAt, updatedAt ...
  *          schema:
  *            type: string
  *        - in: query
  *          name: order
  *          required: false
- *          description: 정렬 방법(ASC/DESC). 빈 값이면 desc
+ *          description: 정렬 방법. 빈 값이면 desc<br />asc, desc
  *          schema:
  *            type: string
  *        - in: query

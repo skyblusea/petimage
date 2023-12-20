@@ -24,19 +24,19 @@ module.exports = animalList;
  *        - in: query
  *          name: class
  *          required: false
- *          description: 동물 종
+ *          description: 동물 종<br />강아지, 고양이
  *          schema:
  *            type: string
  *        - in: query
  *          name: sort
  *          required: false
- *          description: 정렬 기준
+ *          description: 정렬 기준<br />name, code, class, createdAt, updatedAt
  *          schema:
  *            type: string
  *        - in: query
  *          name: order
  *          required: false
- *          description: 정렬 방법(ASC/DESC)
+ *          description: 정렬 방법<br />asc, desc
  *          schema:
  *            type: string
  *        - in: query
@@ -44,7 +44,7 @@ module.exports = animalList;
  *          required: false
  *          description: 목록 개수
  *          schema:
- *            type: string
+ *            type: integer
  *      responses:
  *        "200":
  *          description: 동물 목록 조회
