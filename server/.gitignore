@@ -7,3 +7,4 @@ pet/*
 uploads/*
 !pet/.gitkeep
 !uploads/.gitkeep
+yolov8s.pt
