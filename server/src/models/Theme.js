@@ -15,6 +15,8 @@ const themeSchema = new Schema({
     type: Number,
     default: 0,
   },
+  amount: Number,
+  category: [],
 });
 
 themeSchema.set('timestamps', true);

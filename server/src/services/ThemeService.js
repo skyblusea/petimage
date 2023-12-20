@@ -7,9 +7,15 @@ const getThemes = async (query) => {
   const skip = limit * (page - 1);
   const total = await Theme.countDocuments({});
   const totalPage = Math.ceil(total / limit);
-  const themes = await Theme.find().sort(sort).skip(skip).limit(limit);
+  const category = query.category ? { category: { $in: [query.category] } } : null;
+
+  const themes = await Theme.find(category).sort(sort).skip(skip).limit(limit);
 
   return { themes, totalPage };
 };
 
-module.exports = { getThemes };
+const getTheme = async (themeId) => {
+  return await Theme.findById(themeId);
+};
+
+module.exports = { getThemes, getTheme };

@@ -24,13 +24,13 @@ module.exports = themeList;
  *        - in: query
  *          name: sort
  *          required: false
- *          description: 정렬 기준
+ *          description: 정렬 기준<br />name, type, price, popular, createdAt, updatedAt
  *          schema:
  *            type: string
  *        - in: query
  *          name: order
  *          required: false
- *          description: 정렬 방법(ASC/DESC)
+ *          description: 정렬 방법<br />asc, desc
  *          schema:
  *            type: string
  *        - in: query
@@ -45,6 +45,12 @@ module.exports = themeList;
  *          description: 페이지 num. 빈 값이면 1
  *          schema:
  *            type: integer
+ *        - in: query
+ *          name: category
+ *          required: false
+ *          description: 카테고리<br />카테고리 조회(/v1/category/list)해서 나오는 목록(지금은 ALL, NEW, HOT, CAT, DOG)
+ *          schema:
+ *            type: string
  *      responses:
  *        "200":
  *          description: 테마 조회
@@ -71,7 +77,9 @@ module.exports = themeList;
  *                              "tag": "string",
  *                              "price": "string",
  *                              "type": "string",
+ *                              "category": [],
  *                              "popular": 0,
+ *                              "amount": 30,
  *                              "createdAt": "string",
  *                              "updatedAt": "string"
  *                            }
