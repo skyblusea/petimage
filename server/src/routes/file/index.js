@@ -6,9 +6,10 @@ const uploadFile = require('./uploadFile');
 const uploadPet = require('./uploadPet');
 const { multerUpload, petUpload } = require('../../middlewares/multer');
 const deleteFile = require('./deleteFile');
+const { verifyAccessToken } = require('../../middlewares/auth');
 
 router.post('/delete', deleteFile);
-router.post('/upload', multerUpload.array('file'), uploadFile);
+router.post('/upload', verifyAccessToken, multerUpload.array('file'), uploadFile);
 router.post('/pet', petUpload.array('file'), uploadPet);
 
 module.exports = router;

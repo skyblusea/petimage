@@ -1,14 +1,15 @@
 const config = require('../../config/config');
+const Album = require('../../models/Album');
 
 const uploadPet = async (req, res) => {
   try {
     const { files } = req;
     if (files?.length > 0) {
       const urls = [];
+      const destArr = files[0].destination.split('./pet/')[1];
       files.map(async (el) => {
-        const destArr = el.destination.split('./pet/');
         const result = {
-          location: destArr[1] + el.filename,
+          location: destArr + el.filename,
           fieldname: el.fieldname,
           originalname: el.originalname,
           encoding: el.encoding,
@@ -19,6 +20,8 @@ const uploadPet = async (req, res) => {
         console.log('filePath??==>>', config.petUrl + result.location);
         urls.push(config.petUrl + result.location);
       });
+
+      // await Album.findByIdAndUpdate(destArr.split('/')[0], { outputFiles: urls, status: 1 });
       res.status(200).json({ ok: true, data: urls });
     } else res.status(200).json({ ok: false, data: {} });
   } catch (e) {
@@ -34,13 +37,13 @@ module.exports = uploadPet;
  * /v1/file/pet?filePath=:
  *  post:
  *    summary: "파일 업로드(ai server)"
- *    description: "서버 pet 폴더에 파일을 업로드 함"
+ *    description: "서버 pet 폴더에 파일을 업로드 함(ai server용)"
  *    tags: [File]
  *    parameters:
  *      - in: query
  *        name: filePath
  *        required: false
- *        description: "파일 경로(폴더 이름: user id) ex.656d5f1794d38c929257af9e"
+ *        description: "파일 경로(폴더 이름: album id)"
  *        schema:
  *          type: string
  *    consumes:

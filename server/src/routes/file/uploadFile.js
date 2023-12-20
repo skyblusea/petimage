@@ -34,13 +34,15 @@ module.exports = uploadFile;
  * /v1/file/upload?filePath=:
  *  post:
  *    summary: "파일 업로드(client)"
- *    description: "서버 uploads 폴더에 파일을 업로드 함"
+ *    description: "Header Authorization에 Bearer token 정보 필요(userId를 참조하여 폴더 생성함)<br /><br />서버 uploads 폴더에 파일을 업로드 함"
  *    tags: [File]
+ *    security:
+ *      - bearerAuth: []
  *    parameters:
  *      - in: query
  *        name: filePath
  *        required: false
- *        description: "파일 경로(폴더 이름: user id) ex.656d5f1794d38c929257af9e"
+ *        description: "파일 경로"
  *        schema:
  *          type: string
  *    consumes:

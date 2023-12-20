@@ -2,14 +2,12 @@ const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
 const crypto = require('crypto');
-const moment = require('moment');
-const now = Date.now();
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    let dir = './uploads/';
-    const now = moment(req._startTime).format('MMDDHHmmss');
-    if (req.query.filePath) dir = dir + req.query.filePath + '/' + now + '/';
-    // else dir = dir + 'admin' + '/' + folderDate + '/';
+    const userId = req.tokenInfo.id;
+    let dir = `./uploads/${userId}/`;
+
+    if (req.query.filePath) dir = `${dir}/${req.query.filePath}/`;
 
     fs.mkdirSync(dir, { recursive: true });
     cb(null, dir);
@@ -32,7 +30,6 @@ const pet = multer.diskStorage({
     let dir = './pet/';
 
     if (req.query.filePath) dir = dir + req.query.filePath + '/';
-    // else dir = dir + 'admin' + '/' + folderDate + '/';
 
     fs.mkdirSync(dir, { recursive: true });
     cb(null, dir);
