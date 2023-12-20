@@ -4,10 +4,7 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
   name: String,
   email: String,
-  provider: {
-    type: String,
-    default: 'kakao',
-  },
+  provider: String,
   providerId: String,
   status: {
     type: Number,
