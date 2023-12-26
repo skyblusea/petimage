@@ -46,6 +46,9 @@ const reset = css`
     --body1: 1.5rem;
     --body2: 1.125rem;
     --body3: 1rem;
+    --font-lg: 1.25rem;
+    --font-md: 1.125rem;
+    --font-sm: 1rem;
 
     /* border-radius */
     --border-radius-big: 20px;
@@ -59,9 +62,9 @@ const reset = css`
     --swiper-theme-color: #fff;
 
     /* padding */
-    --pd-lg: 2.5rem;
-    --pd-md: 1.875rem;
-    --pd-sm: 1.25rem;
+    --pd-lg: 0 8rem;
+    --pd-md: 0 3rem;
+    --pd-sm: 0 1rem;
 
     /* gap */
     --gap-lg: 24px;
