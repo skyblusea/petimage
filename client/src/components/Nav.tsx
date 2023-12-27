@@ -65,7 +65,7 @@ const HeaderContainer = styled.header`
 const Nav = styled.nav`
   font-size: var(--font-lg);
   display: flex;
-  gap: var(--gap-sm);
+  gap: 1.5rem;
   width: 100%;
   align-items: end;
   padding: 0 var(--gap-lg);
