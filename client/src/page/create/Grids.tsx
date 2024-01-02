@@ -13,7 +13,7 @@ export const CreateBox = styled.div`
   img{
     border-radius: var(--border-radius-lg);
     width: 100%;
-    height: 100%;
+    height: auto;
     aspect-ratio: 3/4;
     object-fit: cover;
   }

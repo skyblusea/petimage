@@ -15,13 +15,17 @@ import Trial from './page/trial/page.tsx'
 import SelectBreed from './page/create/SelectBreed.tsx'
 import SelectAnimal from './page/create/SelectAnimal.tsx'
 import Upload from './page/create/Upload.tsx'
-import axios from 'axios'
 import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import { breedsLoader } from './util/loader.ts'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
 
 const queryClient = new QueryClient()
+
+
 
 
 
@@ -41,11 +45,7 @@ const router = createBrowserRouter([
           {
             path: ':animal',
             element: <SelectBreed />,
-            loader: async ({ params }) => {
-              const animal = params.animal === 'dog' ? '강아지' : '고양이'
-              const { data: { data } } = await axios.get(`https://petimage.kr/api/v1/animal/list?class=${animal}`)
-              return data
-            },
+            loader: breedsLoader(queryClient)
           },
           { path: ':animal/:breed', element: <Upload /> },
         ]
@@ -62,6 +62,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Global styles={reset} />
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </ThemeProvider>
   </React.StrictMode>,

@@ -65,7 +65,7 @@ function GuideBox(props: GuideBoxProps) {
       </Grid>
       {guide.map((ele, index) => {
         return (
-          <Grid xs={4}>
+          <Grid xs={4} key={index}>
             <SquareCreateBox>
               <ImgWrraper>
                 <img src={ele.img} alt="강아지" key={index} />
