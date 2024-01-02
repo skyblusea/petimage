@@ -22,7 +22,7 @@ export default function Upload() {
   return (
     <Grid container spacing={3}>
       <Grid xs={5} alignItems="center">
-        <Paper sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: 'var(--border-radius-lg)', padding:'var(--pd-md)' }}>
+        <Paper sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: 'var(--border-radius-lg)', padding: 'var(--pd-md)' }}>
           <GuideBox title="잘못된 사진" guide={correct} />
           <GuideBox title="올바른 사진" guide={wrong} />
         </Paper>
@@ -61,15 +61,20 @@ function GuideBox(props: GuideBoxProps) {
   return (
     <Grid container xs={12} spacing={1}>
       <Grid xs={12} display="flex">
-        <Typography component="span" variant="subtitle3" color={props.title==="올바른 사진" ?'success.main' :'error.main' } sx={{ fontWeight: '600', marginTop:'var(--pd-md)' }}>{props.title}</Typography>
+        <Typography component="span" variant="subtitle3" color={props.title === "올바른 사진" ? 'success.main' : 'error.main'} sx={{ fontWeight: '600', marginTop: 'var(--pd-md)' }}>{props.title}</Typography>
       </Grid>
       {guide.map((ele, index) => {
         return (
           <Grid xs={4}>
             <SquareCreateBox>
-              <img src={ele.img} alt="강아지" key={index} />
-              <HighlightOffRoundedIcon fontSize="small" color="error" sx={{ position: 'absolute', bottom: 'var(--pd-xs)', right: 'var(--pd-xs)' }} />
-              {ele.name}
+              <ImgWrraper>
+                <img src={ele.img} alt="강아지" key={index} />
+                { props.title === "올바른 사진"
+                  ? <CheckCircleOutlineRoundedIcon fontSize="medium" color="success"/>
+                  : <HighlightOffRoundedIcon fontSize="medium" color="error"/>
+                }
+                {ele.name}
+              </ImgWrraper>
               {/* <Typography component="span" variant="body1" color="secondary" sx={{ typography: { xs: 'body3', lg: 'body1' } }}>흐린 사진</Typography> */}
             </SquareCreateBox>
           </Grid>
@@ -81,16 +86,29 @@ function GuideBox(props: GuideBoxProps) {
 
 
 
+
 const DragNDropBox = styled.div`
   flex:1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  text-align: center;
   align-items: center;
   gap: var(--gap-md);
   height: 100%;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: var(--border-radius-lg);
   border: 2px dashed var(--white);
+`
+
+const ImgWrraper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--border-radius-lg);
+  svg {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+  }
 `
