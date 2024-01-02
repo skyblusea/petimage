@@ -1,7 +1,7 @@
 import { Link, LinkProps } from "react-router-dom";
 import Button, { ButtonProps } from "@mui/material/Button";
 
-import {styled} from "@mui/material/styles";
+import styled from '@emotion/styled'
 
 interface LinkButtonProps extends ButtonProps {
   to: LinkProps['to'];

@@ -51,8 +51,8 @@ const reset = css`
     --font-sm: 1rem;
 
     /* border-radius */
-    --border-radius-big: 20px;
-    --border-radius-small: 10px;
+    --border-radius-lg: 20px;
+    --border-radius-sm: 10px;
 
     /* box shadow */
     --main_banner: 2px 2px 22px 0px rgba(0, 0, 0, 0.15);
@@ -61,15 +61,32 @@ const reset = css`
     /* swiper(banner) theme */
     --swiper-theme-color: #fff;
 
-    /* padding */
-    --pd-lg: 0 8rem;
-    --pd-md: 0 3rem;
-    --pd-sm: 0 1rem;
+    /* nav-padding */
+    --pd-nav-lg: 0 8rem;
+    --pd-nav-md: 0 3rem;
+    --pd-nav-sm: 0 1rem;
 
+    /* padding */
+    --pd-lg: 24px;
+    --pd-md: 16px;
+    --pd-sm: 8px;
+    --pd-xs: 4px;
+    
     /* gap */
     --gap-lg: 24px;
     --gap-md: 16px;
     --gap-sm: 8px;
+    @media screen and (max-width: 900px){
+      --gap-lg: 16px;
+      --gap-md: 8px;
+      --gap-sm: 4px;
+    }
+
+    --nav-h: 92px;
+    --footer-h: 30px;
+    @media screen and (max-width: 900px){
+      --nav-h: 60px;
+    }
   }
 
 

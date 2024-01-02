@@ -26,7 +26,6 @@ export default function Header() {
             flexShrink: 0,
             borderRadius: '100px',
             borderColor: 'var(--white)',
-
           }}
           variant="outlined" color="primary" startIcon={<AccountCircleOutlinedIcon />}>
           내 정보
@@ -42,22 +41,23 @@ const HeaderContainer = styled.header`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 92px;
-  padding: var(--pd-lg);
+  height: var(--nav-h);
+  padding: var(--pd-nav-lg);
   border-bottom: 1px solid var(--white);
   position: fixed;
-  z-index: 1;
-  color: var(--white);
+  top:0;
+  z-index: 100;
+  background-color: darkblue;
+  color: white;
    & .logo{
     display: inline-flex;
     align-items: center;
    }
   @media screen and (max-width: 1200px){
-    padding: var(--pd-md);
+    padding: var(--pd-nav-md);
   }
   @media screen and (max-width: 900px){
-    height: 60px;
-    padding: var(--pd-sm);
+    padding: var(--pd-nav-sm);
     font-size: var(--font-md);
   }
   `

@@ -87,12 +87,6 @@ export default function Banner() {
           left: { xs: 'calc(-2.25rem - 16px)', lg: 'calc(-3rem - 16px)' }
         }} 
         />
-      {/* <SvgIcon component={ArrowIcon} inheritViewBox 
-        className="arrow-right" color="primary"
-        sx={{
-          fontSize: { xs: '2.25rem', lg: '3rem' },
-          right: { xs: 'calc(-2.25rem - 16px)', lg: 'calc(-3rem - 16px)' }
-        }} /> */}
       <ArrowForwardIosRoundedIcon
         className="arrow-right" color="primary"
         sx={{
