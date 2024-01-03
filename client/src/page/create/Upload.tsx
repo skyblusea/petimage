@@ -69,12 +69,12 @@ function GuideBox(props: GuideBoxProps) {
             <SquareCreateBox>
               <ImgWrraper>
                 <img src={ele.img} alt="강아지" key={index} />
-                { props.title === "올바른 사진"
-                  ? <CheckCircleOutlineRoundedIcon fontSize="medium" color="success"/>
-                  : <HighlightOffRoundedIcon fontSize="medium" color="error"/>
+                {props.title === "올바른 사진"
+                  ? <CheckCircleOutlineRoundedIcon fontSize="medium" color="success" />
+                  : <HighlightOffRoundedIcon fontSize="medium" color="error" />
                 }
-                {ele.name}
               </ImgWrraper>
+              {ele.name}
               {/* <Typography component="span" variant="body1" color="secondary" sx={{ typography: { xs: 'body3', lg: 'body1' } }}>흐린 사진</Typography> */}
             </SquareCreateBox>
           </Grid>
@@ -103,7 +103,7 @@ const DragNDropBox = styled.div`
 const ImgWrraper = styled.div`
   position: relative;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 1/1;
   overflow: hidden;
   border-radius: var(--border-radius-lg);
   svg {
