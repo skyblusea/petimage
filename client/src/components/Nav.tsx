@@ -1,10 +1,17 @@
 import styled from "@emotion/styled"
-import { Button, SvgIcon } from "@mui/material"
+import Button from '@mui/material/Button';
+import SvgIcon from '@mui/material/SvgIcon';
 import { Link } from "react-router-dom"
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import Logo from "../assets/logo.svg?react"
+import { useState } from "react";
+import LoginModal from "./LoginModal";
 
 export default function Header() {
+  const [isLogin, setIsLogin] = useState(false)
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+
+
   return (
     <HeaderContainer>
       <NavWrraper>
@@ -27,9 +34,11 @@ export default function Header() {
             borderRadius: '100px',
             borderColor: 'var(--white)',
           }}
+          onClick={() => setIsLoginModalOpen(!isLoginModalOpen)}
           variant="outlined" color="primary" startIcon={<AccountCircleOutlinedIcon />}>
-          내 정보
+          {isLogin ? '내 정보' : '로그인'}
         </Button>
+        <LoginModal isOpen={isLoginModalOpen} setIsOpen={setIsLoginModalOpen} />
       </NavWrraper>
     </HeaderContainer>
   )

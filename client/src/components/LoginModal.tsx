@@ -4,8 +4,10 @@ import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import GoogleLoginBtn from './GoogleLoginBtn';
-
-
+import AppleLoginBtn from './AppleLoginBtn';
+import Button from '@mui/material/Button';
+import styled from '@emotion/styled';
+import { DialogActions } from '@mui/material';
 
 export default function LoginModal({
   isOpen,
@@ -14,10 +16,10 @@ export default function LoginModal({
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  
 
 
-    return (
+
+  return (
     <Dialog
       open={isOpen}
       onClose={() => setIsOpen(!isOpen)}
@@ -33,7 +35,20 @@ export default function LoginModal({
       </IconButton>
       <DialogContent>
         <GoogleLoginBtn />
+        <AppleLoginBtn />
       </DialogContent>
+      <BtnWrapper>
+        <Button variant='text' sx={{color:'var(--black)'}}>이용약관</Button>
+        <Button variant='text' sx={{color:'var(--black)'}}>개인정보처리방침</Button>
+      </BtnWrapper>
     </Dialog>
-    )
+  )
 }
+
+
+const BtnWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 16px;
+  text-align: center;
+`

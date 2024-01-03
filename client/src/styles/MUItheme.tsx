@@ -22,7 +22,9 @@ const theme = createTheme({
     },
     secondary: {
       main: '#000000',
+      // light: '#333333',
     },
+
   },
   typography: {
     fontFamily: [

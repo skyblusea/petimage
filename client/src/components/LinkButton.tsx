@@ -15,6 +15,7 @@ export default function LinkButton({ to, children, sx, size, endIcon, variant, c
 
         <LinkBtn 
         LinkComponent={Link} size={size} sx={sx}
-        to={to} variant={variant} color={color} endIcon={endIcon}>{children}</LinkBtn>
+        to={to} variant={variant} color={color} endIcon={endIcon}>{children}
+        </LinkBtn>
   )
 }
