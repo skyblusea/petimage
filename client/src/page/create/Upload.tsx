@@ -34,7 +34,7 @@ export default function Upload() {
             <Typography component="p" variant="body1" color="primary" sx={{ typography: { xs: 'body3', lg: 'body1' } }}>드래그로 파일 첨부하기</Typography>
           </div>
           <Typography component="p" variant="body1" color="primary" sx={{ typography: { xs: 'body3', lg: 'body1' } }}>또는</Typography>
-          <Button variant="contained">파일 선택</Button>
+          <Button variant="contained" sx={{borderRadius: 'var(--border-radius-lg)', color:'transparent'}}>파일 선택</Button>
         </DragNDropBox>
       </Grid>
     </Grid>
@@ -93,6 +93,7 @@ const DragNDropBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
   gap: var(--gap-md);
   height: 100%;
   background-color: rgba(255, 255, 255, 0.1);
