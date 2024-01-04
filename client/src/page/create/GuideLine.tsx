@@ -1,15 +1,14 @@
-import { SquareCreateBox } from "./Grids";
+
 import Paper from '@mui/material/Paper';
-import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
-import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded';
+
 import Typography from "@mui/material/Typography";
 import styled from '@emotion/styled'
 import Grid from '@mui/material/Unstable_Grid2';
+import SquareImgBox from '../../components/Boxes';
+
 
 
 export default function GuideLine() {
-
-
   const correct = new Array(6).fill({ 'id': 0, 'name': '흐린 사진', 'img': '/dog.jpeg' });
   const wrong = new Array(6).fill({ 'id': 0, 'name': '올바른 사진', 'img': '/dog.jpeg' });
 
@@ -21,20 +20,6 @@ export default function GuideLine() {
   )
 }
 
-
-
-const ImgWrraper = styled.div`
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1/1;
-  overflow: hidden;
-  border-radius: var(--border-radius-lg);
-  svg {
-    position: absolute;
-    bottom: 4px;
-    right: 4px;
-  }
-`
 
 
 interface Guide {
@@ -58,19 +43,26 @@ function GuideBox(props: GuideBoxProps) {
       {guide.map((ele, index) => {
         return (
           <Grid xs={4} key={index}>
-            <SquareCreateBox>
-              <ImgWrraper>
-                <img src={ele.img} alt="강아지" key={index} />
-                {props.title === "올바른 사진"
-                  ? <CheckCircleOutlineRoundedIcon fontSize="medium" color="success" />
-                  : <HighlightOffRoundedIcon fontSize="medium" color="error" />
-                }
-              </ImgWrraper>
+            <SquareImgBox src={ele.img} success={props.title === "올바른 사진" ? true : false} error={props.title === "올바른 사진" ? false : true}>
               {ele.name}
-            </SquareCreateBox>
+            </SquareImgBox>
           </Grid>
         )
       })}
     </Grid>
   )
 }
+
+
+export const ImgWrraper = styled.div`
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  border-radius: var(--border-radius-lg);
+  svg {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+  }
+`
