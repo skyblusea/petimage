@@ -29,6 +29,11 @@ export default function Upload() {
         if (isExist) {
           alert("이미 추가된 이미지 입니다.")
         }
+        const isMax = imgUrls.length + results.length > 12
+        if (isMax) {
+          alert("이미지는 12개까지만 추가할 수 있습니다.")
+        }
+        results = results.slice(0, 12 - imgUrls.length)
         const filteredResults = results.filter(result => !imgUrls.includes(result))
         setImgUrls([...imgUrls, ...filteredResults])
       })
@@ -127,6 +132,16 @@ export default function Upload() {
               }
             </Album>
           </DragNDropBox>
+        </Grid>
+        <Grid xs={12}>
+          <Button
+            disabled={!imgUrls.length && imgUrls.length < 12}
+            color="petimage"
+            variant="contained"
+            sx={{ width: '100%' }}
+          >
+            이미지 생성하기
+          </Button>
         </Grid>
     </Grid >
   )

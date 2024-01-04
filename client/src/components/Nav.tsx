@@ -11,13 +11,12 @@ export default function Header() {
   const [isLogin, setIsLogin] = useState(false)
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
 
-
   return (
     <HeaderContainer>
       <NavWrraper>
         <Link to="/" className="logo">
           <SvgIcon component={Logo}
-            color="primary"
+            color="petimage"
             inheritViewBox
             sx={{
               height: '100%',
