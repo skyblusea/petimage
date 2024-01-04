@@ -32,12 +32,14 @@ const reset = css`
 
   :root {
     /* color */
-    --primary: #ff5658;
-    --white: #fff;
+    /* --primary: #ff5658; */
     --black: #333;
     --sub-red: #ED1C00;
     --btn-gray: #999;
     --stroke-gray: #eee;
+    --primary: #333;
+    --secondary: #ffffff;
+
 
     /* font */
     --h1: 3.125rem;

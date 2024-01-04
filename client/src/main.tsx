@@ -27,8 +27,6 @@ const queryClient = new QueryClient()
 
 
 
-
-
 // Data API 사용위한 Router 선언 방식
 const router = createBrowserRouter([
   {

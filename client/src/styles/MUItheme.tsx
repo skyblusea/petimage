@@ -18,14 +18,24 @@ interface ExtendedTypographyOptions extends TypographyOptions {
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#ffffff',
+      main: '#333333',
     },
     secondary: {
-      main: '#000000',
-      // light: '#333333',
-    },
-
+      main: '#ffffff',
+    }
   },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: ({ ownerState }) => ({
+          ...((ownerState.variant === 'contained' || ownerState.variant === 'outlined') && {
+             borderRadius: '24px',
+            }),
+        }),
+      }, 
+    }, 
+  },
+
   typography: {
     fontFamily: [
       'Pretendard',

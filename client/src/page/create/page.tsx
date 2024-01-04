@@ -7,6 +7,7 @@ import { Outlet, useNavigate, useParams } from "react-router-dom";
 import Grid from '@mui/material/Unstable_Grid2';
 import Box from "@mui/material/Box";
 
+import Paper from '@mui/material/Paper';
 
 export default function Create() {
 
@@ -16,7 +17,7 @@ export default function Create() {
 
   return (
     <SingleSection>
-      <Grid container spacing={{ xs: 2, md: 5.5 }} color="primary.main">
+      <Grid container spacing={{ xs: 2, md: 5.5 }} color="primary.main" sx={{width : '100%'}}>
         <Grid xs={12} display="flex" alignItems="center" justifyContent="center">
           <IconButton
             onClick={() => navigate(-1)}
@@ -30,8 +31,15 @@ export default function Create() {
             </Typography>
           </Box>
         </Grid>
-        <Grid xs={12}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Grid xs={12} display="flex">
+          {/* <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={2}>
+              <Grid xs={12}>
+                <Paper>Email subscribe section</Paper>
+              </Grid>
+            </Grid>
+          </Box> */}
+          <Box sx={{ flex: 1 }}>
             <Outlet />
           </Box>
         </Grid>

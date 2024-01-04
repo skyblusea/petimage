@@ -6,7 +6,6 @@ export const MainContainer = styled.main`
   height: 100%;
   min-height: 100vh;
   padding-top: var( --nav-h);
-  background-color: darkblue;
   flex-direction: column;
   display: flex;
 `

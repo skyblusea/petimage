@@ -16,7 +16,9 @@ export default function Header() {
     <HeaderContainer>
       <NavWrraper>
         <Link to="/" className="logo">
-          <SvgIcon component={Logo} inheritViewBox
+          <SvgIcon component={Logo}
+            color="primary"
+            inheritViewBox
             sx={{
               height: '100%',
               width: 'auto',
@@ -31,8 +33,7 @@ export default function Header() {
         <Button
           sx={{
             flexShrink: 0,
-            borderRadius: '100px',
-            borderColor: 'var(--white)',
+            borderColor: 'var(--primary)',
           }}
           onClick={() => setIsLoginModalOpen(!isLoginModalOpen)}
           variant="outlined" color="primary" startIcon={<AccountCircleOutlinedIcon />}>
@@ -52,12 +53,12 @@ const HeaderContainer = styled.header`
   width: 100%;
   height: var(--nav-h);
   padding: var(--pd-nav-lg);
-  border-bottom: 1px solid var(--white);
+  border-bottom: 1px solid var(--primary);
   position: fixed;
   top:0;
   z-index: 100;
-  background-color: darkblue;
-  color: white;
+  background-color: white;
+  color: var(--primary);
    & .logo{
     display: inline-flex;
     align-items: center;
