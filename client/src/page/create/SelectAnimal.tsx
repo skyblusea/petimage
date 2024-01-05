@@ -1,7 +1,7 @@
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import Grid from '@mui/material/Unstable_Grid2';
-import { CreateBox } from "./Grids";
+import { CreateBox } from "../../components/Boxes";
 
 
 export default function SelectAnimal() {

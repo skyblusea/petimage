@@ -1,21 +1,20 @@
 
 import Paper from '@mui/material/Paper';
-
 import Typography from "@mui/material/Typography";
-import styled from '@emotion/styled'
 import Grid from '@mui/material/Unstable_Grid2';
 import SquareImgBox from '../../components/Boxes';
-
+import guildeline from './guildeline.json'
 
 
 export default function GuideLine() {
-  const correct = new Array(6).fill({ 'id': 0, 'name': '흐린 사진', 'img': '/dog.jpeg' });
-  const wrong = new Array(6).fill({ 'id': 0, 'name': '올바른 사진', 'img': '/dog.jpeg' });
+
+  const correct = guildeline.correct;
+  const wrong = guildeline.wrong;
 
   return (
     <Paper sx={{ display: 'flex', flex: '1', flexDirection: 'column', alignItems: 'center', borderRadius: 'var(--border-radius-lg)', padding: 'var(--pd-md)' }}>
-      <GuideBox title="잘못된 사진" guide={correct} />
-      <GuideBox title="올바른 사진" guide={wrong} />
+      <GuideBox title="올바른 사진" guide={correct} />
+      <GuideBox title="잘못된 사진" guide={wrong} />
     </Paper>
   )
 }
@@ -43,7 +42,7 @@ function GuideBox(props: GuideBoxProps) {
       {guide.map((ele, index) => {
         return (
           <Grid xs={4} key={index}>
-            <SquareImgBox src={ele.img} success={props.title === "올바른 사진" ? true : false} error={props.title === "올바른 사진" ? false : true}>
+            <SquareImgBox src={ele.img} success={props.title === "올바른 사진"} error={props.title === "잘못된 사진"}>
               {ele.name}
             </SquareImgBox>
           </Grid>
@@ -53,16 +52,3 @@ function GuideBox(props: GuideBoxProps) {
   )
 }
 
-
-export const ImgWrraper = styled.div`
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1/1;
-  overflow: hidden;
-  border-radius: var(--border-radius-lg);
-  svg {
-    position: absolute;
-    bottom: 4px;
-    right: 4px;
-  }
-`

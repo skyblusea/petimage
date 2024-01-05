@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
 import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded';
+import { Typography } from '@mui/material';
 
 export default function SquareImgBox({
   children,
@@ -16,17 +17,19 @@ export default function SquareImgBox({
   return (
     <SquareCreateBox>
       <ImgWrraper>
-        <img src={src} alt="강아지"/>
+        <img src={src} alt="강아지" />
         {success && <CheckCircleOutlineRoundedIcon fontSize="medium" color="success" />}
         {error && <HighlightOffRoundedIcon fontSize="medium" color="error" />}
       </ImgWrraper>
-      {children}
+      <Typography variant='body3'>
+        {children}
+      </Typography>
     </SquareCreateBox>
   )
 }
 
 
-export const ImgWrraper = styled.div`
+const ImgWrraper = styled.div`
   position: relative;
   width: 100%;
   aspect-ratio: 1/1;
@@ -38,7 +41,6 @@ export const ImgWrraper = styled.div`
     right: 4px;
   }
 `
-
 
 
 export const CreateBox = styled.div` 
