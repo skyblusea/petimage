@@ -37,6 +37,11 @@ export default function Upload() {
     }
     selectedFiles.splice(12 - files.length)
     const results = await Promise.allSettled(selectedFiles.map(file => getBase64(file)))
+    const fulfilled = results.filter(result => result.status === 'fulfilled') as PromiseFulfilledResult<FileWithUrl>[]
+    console.log('fulfilled', fulfilled)
+    if (fulfilled.length) {
+      setFiles([...files, ...fulfilled.map(result => result.value)])
+    }
     const rejected = results.filter(result => result.status === 'rejected') as PromiseRejectedResult[]
     if (rejected.length) {
       alert(rejected[0].reason)
@@ -49,17 +54,12 @@ export default function Upload() {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        const isExist = files.some(file => file.imgUrl === reader.result)
+        const imgUrl = reader.result as string
+        const isExist = files.some(file => file.imgUrl === imgUrl)
         if (isExist) {
-          console.log('이미 존재')
           reject('이미 존재하는 파일입니다.')
         }else {
-          console.log('추가 됨')
-          const result = {
-            file,
-            imgUrl: reader.result as string
-          }
-          setFiles([...files, result])
+          const result = { file, imgUrl}
           resolve(result as FileWithUrl)
         }
       }
