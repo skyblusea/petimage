@@ -1,9 +1,11 @@
-
 import Paper from '@mui/material/Paper';
 import Typography from "@mui/material/Typography";
 import Grid from '@mui/material/Unstable_Grid2';
-import SquareImgBox from '../../components/Boxes';
 import guildeline from './guildeline.json'
+import SquareImgBoxWIcon from '../../../../components/Boxes';
+
+
+
 
 
 export default function GuideLine() {
@@ -42,9 +44,9 @@ function GuideBox(props: GuideBoxProps) {
       {guide.map((ele, index) => {
         return (
           <Grid xs={4} key={index}>
-            <SquareImgBox src={ele.img} success={props.title === "올바른 사진"} error={props.title === "잘못된 사진"}>
+            <SquareImgBoxWIcon src={ele.img} success={props.title === "올바른 사진"} error={props.title === "잘못된 사진"}>
               {ele.name}
-            </SquareImgBox>
+            </SquareImgBoxWIcon>
           </Grid>
         )
       })}

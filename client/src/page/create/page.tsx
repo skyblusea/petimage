@@ -1,19 +1,30 @@
-import styled from "@emotion/styled";
 import { SingleSection } from "../../components/Containers";
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import Grid from '@mui/material/Unstable_Grid2';
 import Box from "@mui/material/Box";
-
-import Paper from '@mui/material/Paper';
 
 export default function Create() {
 
   const params = useParams();
-
   const navigate = useNavigate();
+  const pathname = useLocation().pathname;
+
+
+  const title = {
+    animal : '동물을 선택해주세요.',
+    breeds : {
+      dog : '견종을 선택해주세요.',
+      cat : '묘종을 선택해주세요.'
+    },
+    upload : '10-12장의 사진을 업로드 해주세요.',
+    checkout : '결제를 진행해주세요.'
+    }
+
+
+
 
   return (
     <SingleSection>
@@ -26,20 +37,20 @@ export default function Create() {
           </IconButton>
           <Box sx={{ flex: '1' }}>
             <Typography component="h1" sx={{ textAlign: "center", width: '100%', margin: 0, typography: { xs: 'h5', lg: 'h4' } }}>
-              {!params.breed && `${params.animal ? (params.animal === 'dog' ? '견종' : '묘종') : '동물'}을 선택해주세요`}
-              {params.breed && '10-12장의 사진을 업로드 해주세요.'}
+              {
+                params.animal
+                  ? params.breed
+                    ? pathname.includes('checkout')
+                      ? title.checkout 
+                      : title.upload
+                    : title.breeds[params.animal as keyof typeof title.breeds]
+                  : title.animal
+              }
             </Typography>
           </Box>
         </Grid>
         <Grid xs={12} display="flex">
-          {/* <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={2}>
-              <Grid xs={12}>
-                <Paper>Email subscribe section</Paper>
-              </Grid>
-            </Grid>
-          </Box> */}
-          <Box sx={{ flex: 1 }}>
+          <Box sx={{ flex: 1 }} display="flex" flexDirection="column">
             <Outlet />
           </Box>
         </Grid>

@@ -2,19 +2,21 @@ import Typography from "@mui/material/Typography";
 import Grid from '@mui/material/Unstable_Grid2';
 import styled from '@emotion/styled'
 import Button from '@mui/material/Button';
-import Collapse from '@mui/material/Collapse';
-import UploadIcon from '../../assets/upload-cloud.svg?react';
-import { Form } from "react-router-dom";
-import { useState } from "react";
-import { TransitionGroup } from 'react-transition-group';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { Form, useParams } from "react-router-dom";
+import { useState } from "react"
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import GuideLine from "./GuideLine";
-import { ImgWrraper } from "../../components/Boxes";
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from "@mui/material";
+import LinkButton from "../../../../components/LinkButton";
+
+
 
 export default function Upload() {
+
+  const { animal, breed } = useParams() as { animal: string, breed: string }
+
   interface FileWithUrl {
     file: File,
     imgUrl: string
@@ -38,7 +40,6 @@ export default function Upload() {
     selectedFiles.splice(12 - files.length)
     const results = await Promise.allSettled(selectedFiles.map(file => getBase64(file)))
     const fulfilled = results.filter(result => result.status === 'fulfilled') as PromiseFulfilledResult<FileWithUrl>[]
-    console.log('fulfilled', fulfilled)
     if (fulfilled.length) {
       setFiles([...files, ...fulfilled.map(result => result.value)])
     }
@@ -47,10 +48,8 @@ export default function Upload() {
       alert(rejected[0].reason)
     }
   }
-  console.log('files', files)
   const getBase64 = (file: File) => {
     return new Promise((resolve, reject) => {
-      console.log('file', file)
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
@@ -98,7 +97,7 @@ export default function Upload() {
           {!files.length &&
             <>
               <div>
-                <UploadIcon />
+                <CloudUploadIcon />
                 <Typography component="p" variant="body1" color="primary" sx={{ typography: { xs: 'body3', lg: 'body1' } }}>드래그로 파일 첨부하기</Typography>
               </div>
               <Typography component="p" variant="body1" color="primary" sx={{ typography: { xs: 'body3', lg: 'body1' } }}>또는</Typography>
@@ -159,14 +158,15 @@ export default function Upload() {
         </DragNDropBox>
       </Grid>
       <Grid xs={12}>
-        <Button
+        <LinkButton
+          to={`/create/${animal}/${breed}/checkout`}
           disabled={files.length < 10 || files.length > 12}
           color="petimage"
           variant="contained"
           sx={{ width: '100%' }}
         >
           이미지 생성하기
-        </Button>
+        </LinkButton>
       </Grid>
     </Grid >
   )
@@ -189,7 +189,8 @@ const AlbumItemWrapper = styled.div`
 interface AlbumItemProps {
   $src: string;
 }
-const AlbumItem = styled.div<AlbumItemProps>`
+
+export const AlbumItem = styled.div<AlbumItemProps>`
   width: 100%;
   height: 100%;
   border-radius: var(--border-radius-lg);
@@ -213,7 +214,6 @@ const DragNDropBox = styled.div`
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: var(--border-radius-lg);
   border: 2px dashed var(--primary);
-
   form {
     display: none;
   }

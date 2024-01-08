@@ -12,15 +12,21 @@ import theme from './styles/MUItheme.tsx'
 import { ThemeProvider } from "@mui/material/styles";
 import Create from './page/create/page.tsx'
 import Trial from './page/trial/page.tsx'
-import SelectBreed from './page/create/SelectBreed.tsx'
+import SelectBreed from './page/create/[animal]/page.tsx'
 import SelectAnimal from './page/create/SelectAnimal.tsx'
-import Upload from './page/create/Upload.tsx'
 import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { breedsLoader } from './util/loader.ts'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import Notice from './page/create/[animal]/notice/page.tsx'
+import Upload from './page/create/[animal]/upload/page.tsx'
+import Checkout from './page/create/[animal]/checkout/page.tsx'
+import Payment from './page/payment/page.tsx'
+import PaymentComplete from './page/payment-complete/page.tsx'
+import Collection from './page/collection/page.tsx'
+
 
 
 const queryClient = new QueryClient()
@@ -45,10 +51,13 @@ const router = createBrowserRouter([
             element: <SelectBreed />,
             loader: breedsLoader(queryClient)
           },
-          { path: ':animal/:breed', element: <Upload /> },
+          { path: ':animal/:breed/notice', element: <Notice /> },
+          { path: ':animal/:breed/upload', element: <Upload /> },
+          { path: ':animal/:breed/checkout', element: <Checkout /> },
         ]
       },
-      { path: '/trial', element: <Trial /> },
+      { path: '/payment-complete', element: <PaymentComplete /> },
+      { path: '/collection', element: <Collection /> },
     ]
   },
 ])
