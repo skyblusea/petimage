@@ -13,7 +13,6 @@ export const MainContainer = styled.main`
 export const SingleSection = styled.section`
   flex: 1;
   display: flex;
-  width: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -29,4 +28,21 @@ export const MultiSection = styled.section`
   padding: var(--pd-nav);
 `
 
+export const PetimageThemeBG = styled.section`
+  background-color: var(--petimage);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 200px;
+`
 
+export const PetimegeThemeWH = styled.div`
+  border-top-right-radius: 80px;
+  border-top-left-radius: 80px;
+  background-color: white;
+  padding: var(--pd-nav);
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+`

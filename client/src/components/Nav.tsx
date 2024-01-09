@@ -48,7 +48,7 @@ const HeaderContainer = styled.header`
   padding: var(--pd-nav);
   padding-top: 10px;
   padding-bottom: 10px;
-  border-bottom: 1px solid var(--primary);
+  border-bottom: 1px solid #EAEDEF;;
   position: fixed;
   top:0;
   z-index: 100;

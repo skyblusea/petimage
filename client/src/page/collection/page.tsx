@@ -1,5 +1,5 @@
 
-import { SingleSection } from "../../components/Containers";
+import { PetimageThemeBG, PetimegeThemeWH } from "../../components/Containers";
 import styled from "@emotion/styled"
 import { useState } from "react";
 import { RoundPaper } from "../create/[animal]/notice/page";
@@ -12,34 +12,36 @@ export default function Collection() {
   const [tab, setTab] = useState<'payments' | 'gallery'>('payments')
 
   return (
-    <SingleSection>
-      <TabContainer>
-        <Tabs elevation={3}>
-          <Tab onClick={() => setTab('payments')} role="tab" aria-label="payments" aria-selected={tab === 'payments'}>
-            결제 내역
-          </Tab>
-          <Tab onClick={() => setTab('gallery')} role="tab" aria-label="gallery" aria-selected={tab === 'gallery'}>
-            갤러리
-          </Tab>
-        </Tabs>
-        <TabPanel role="tabpanel" hidden={tab === 'payments'}>
-          <Stack spacing={2}>
-            <Gallery />
-            <Gallery />
-            <Gallery />
-            <Gallery />
-          </Stack>
-        </TabPanel>
-        <TabPanel role="tabpanel" hidden={tab === 'gallery'}>
-          <Stack spacing={2}>
-            <Payment />
-            <Payment />
-            <Payment />
-            <Payment />
-          </Stack>
-        </TabPanel>
-      </TabContainer>
-    </SingleSection>
+    <PetimageThemeBG>
+      <PetimegeThemeWH>
+        <TabContainer>
+          <Tabs elevation={3}>
+            <Tab onClick={() => setTab('payments')} role="tab" aria-label="payments" aria-selected={tab === 'payments'}>
+              결제 내역
+            </Tab>
+            <Tab onClick={() => setTab('gallery')} role="tab" aria-label="gallery" aria-selected={tab === 'gallery'}>
+              갤러리
+            </Tab>
+          </Tabs>
+          <TabPanel role="tabpanel" hidden={tab === 'payments'}>
+            <Stack spacing={2}>
+              <Gallery />
+              <Gallery />
+              <Gallery />
+              <Gallery />
+            </Stack>
+          </TabPanel>
+          <TabPanel role="tabpanel" hidden={tab === 'gallery'}>
+            <Stack spacing={2}>
+              <Payment />
+              <Payment />
+              <Payment />
+              <Payment />
+            </Stack>
+          </TabPanel>
+        </TabContainer>
+      </PetimegeThemeWH>
+    </PetimageThemeBG>
   )
 }
 
@@ -87,8 +89,10 @@ const Tabs = styled(RoundPaper)`
   width: 100%;
   flex-direction: row;
   max-width: 900px;
+  margin-top: -50px;
   justify-content: space-around;
   align-items: center;
+  margin-bottom: var(--gap-lg);
 `
 
 

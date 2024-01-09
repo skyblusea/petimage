@@ -77,4 +77,5 @@ export const CollectionBox = styled(Stack)`
   border-radius: var(--border-radius-sm);
   padding: 2.12rem 2.94rem;
   width: 100%;
+  gap: var(--gap-md);
 `
