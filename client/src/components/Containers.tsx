@@ -42,6 +42,7 @@ export const PetimegeThemeWH = styled.div`
   border-top-left-radius: 80px;
   background-color: white;
   padding: var(--pd-nav);
+  padding-top: 40px;
   width: 100%;
   height: 100%;
   flex-grow: 1;

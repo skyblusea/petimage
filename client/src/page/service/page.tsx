@@ -9,15 +9,18 @@ export default function Service() {
   return (
     <PetimageThemeBG>
       <PetimegeThemeWH>
-        <ServiceHeader>
-          <Typography flexShrink="0" variant="h2" color="petimage.main">서비스 소개</Typography>
-          <Typography sx={{ typography: { xs: 'subtitle2', lg: 'subtitle1' } }}>페티마제(petimage)는 Pet + Image를 합친 말로 부르기 쉽게
-            ‘페티마제’라는 국문명으로 서비스 명칭을 정하였습니다.</Typography>
-        </ServiceHeader>
-        <ServiceBody>
-          <Divider flexItem />
-          
-          <Grid container spacing={1}>
+          <Grid container spacing={3}>
+            <Grid xs={12} md={4}>
+              <Typography variant="h2" color="petimage.main">서비스 소개</Typography>
+            </Grid>
+            <Grid xs={12} md={8}>
+              <Typography sx={{ typography: { xs: 'subtitle2', lg: 'subtitle1' } }}>페티마제(petimage)는 Pet + Image를 합친 말로 부르기 쉽게
+                ‘페티마제’라는 국문명으로 서비스 명칭을 정하였습니다.
+              </Typography>
+            </Grid>
+            <Grid xs={12}>
+              <Divider />
+            </Grid>
             <Grid xs={12}>
               <Typography variant="body1">페티마제(Petimage)에서 개발 중인 인공지능 기술을 통해 반려동물의 새로운 모습을 만나볼 수 있으며, 사용자에게 가치 있는 소비와 재미를 드리기 위해 기술 연구와 다양한 서비스를 기획하고 있습니다.</Typography>
             </Grid>
@@ -35,35 +38,10 @@ export default function Service() {
             <Grid xs={6}>
               <Image src="/service/service3.png" alt="service_intro1" />
             </Grid>
+
           </Grid>
-        </ServiceBody>
       </PetimegeThemeWH>
     </PetimageThemeBG>
   )
 }
 
-
-
-const ServiceHeader = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: var(--gap-lg);
-  gap: var(--gap-lg);
-`
-
-const ImgWrapper = styled.div`
-  img{
-    width: 100%;
-  }
-`
-
-const ServiceBody = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  align-items: center;
-  padding-top: var(--gap-lg);
-  gap: var(--gap-lg);
-`
