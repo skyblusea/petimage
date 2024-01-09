@@ -4,6 +4,7 @@ import SvgIcon from '@mui/material/SvgIcon';
 import { Link } from "react-router-dom"
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import Logo from "../assets/logo.svg?react"
+import Logo2 from "../assets/logo2.svg?react"
 import { useState } from "react";
 import LoginModal from "./LoginModal";
 
@@ -13,16 +14,9 @@ export default function Header() {
 
   return (
     <HeaderContainer>
-      <NavWrraper>
+      {/* <NavWrraper> */}
         <Link to="/" className="logo">
-          <SvgIcon component={Logo}
-            color="petimage"
-            inheritViewBox
-            sx={{
-              height: '100%',
-              width: 'auto',
-            }}
-          />
+          <Logo />
         </Link>
         <Nav>
           <Link to="/service">Service</Link>
@@ -39,7 +33,7 @@ export default function Header() {
           {isLogin ? '내 정보' : '로그인'}
         </Button>
         <LoginModal isOpen={isLoginModalOpen} setIsOpen={setIsLoginModalOpen} />
-      </NavWrraper>
+      {/* </NavWrraper> */}
     </HeaderContainer>
   )
 }
@@ -51,24 +45,26 @@ const HeaderContainer = styled.header`
   align-items: center;
   width: 100%;
   height: var(--nav-h);
-  padding: var(--pd-nav-lg);
+  padding: var(--pd-nav);
+  padding-top: 10px;
+  padding-bottom: 10px;
   border-bottom: 1px solid var(--primary);
   position: fixed;
   top:0;
   z-index: 100;
   background-color: white;
   color: var(--primary);
-   & .logo{
-    display: inline-flex;
-    align-items: center;
-   }
-  @media screen and (max-width: 1200px){
-    padding: var(--pd-nav-md);
+  .logo {
+    width: auto;
+    height: 100%;
+    max-height: 60px;
+    svg {
+      color: var(--petimage);
+      height: 100%;
+      width: auto;
+    }
   }
-  @media screen and (max-width: 900px){
-    padding: var(--pd-nav-sm);
-    font-size: var(--font-md);
-  }
+
   `
 
 const Nav = styled.nav`
@@ -76,12 +72,10 @@ const Nav = styled.nav`
   display: flex;
   gap: 1.5rem;
   width: 100%;
+  height: 100%;
   align-items: end;
   padding: 0 var(--gap-lg);
   line-height: 1;
-`
-
-const NavWrraper = styled.div`
-  display: flex;
-  width: 100%;
+  mix-blend-mode: normal; // 투과 모드
+  padding-bottom: 12px; //로고랑 높이 맞추기
 `

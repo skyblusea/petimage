@@ -21,7 +21,15 @@ declare module "@mui/material/styles" {
   }
 }
 declare module '@mui/material/Button' {
+  interface ButtonPropsVariantOverrides {
+    reverseContained: true;
+  }
   interface ButtonPropsColorOverrides {
+    petimage: true;
+  }
+}
+declare module '@mui/material/IconButton' {
+  interface IconButtonPropsColorOverrides {
     petimage: true;
   }
 }
@@ -51,6 +59,21 @@ const theme = createTheme({
   },
   components: {
     MuiButton: {
+      variants: [
+        {
+          props: { variant: 'reverseContained' },
+          style: {
+            textTransform: 'none',
+            color: 'rgba(0, 0, 0, 0.26)',
+            backgroundColor: 'rgba(0, 0, 0, 0.12)',
+            borderRadius: '24px',
+            '&:hover': {
+              backgroundColor: '#ff5658',
+              color: '#fff',
+            },
+            }
+        },
+      ],
       styleOverrides: {
         root: ({ ownerState }) => ({
           ...((ownerState.variant === 'contained' || ownerState.variant === 'outlined') && {
@@ -71,19 +94,16 @@ const theme = createTheme({
       fontWeight: '400',
     },
     body1: {
-      margin: "0px 0px 0.35em",
       fontWeight: '400',
       fontSize: '1.125rem',
       letterSpacing: "0.00805em"
     },
     body2: {
-      margin: "0px 0px 0.35em",
       fontWeight: '400',
       fontSize: '1rem',
       letterSpacing: "0.00938em"
     },
     body3: {
-      margin: "0px 0px 0.35em",
       fontWeight: '400',
       fontSize: '0.875rem',
       letterSpacing: "0.01071em"

@@ -17,13 +17,7 @@ export const SingleSection = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: var(--pd-nav-lg);
-  @media screen and (max-width: 1200px){
-    padding: var(--pd-nav-md);
-  }
-  @media screen and (max-width: 900px){
-    padding: var(--pd-nav-sm);
-  }
+  padding: var(--pd-nav);
 `
 
 export const MultiSection = styled.section`
@@ -32,11 +26,7 @@ export const MultiSection = styled.section`
   height: 100%;
   align-items: center;
   justify-content: center;
-  padding: var(--pd-nav-lg);
-  @media screen and (max-width: 1200px){
-    padding: var(--pd-nav-md);
-  }
-  @media screen and (max-width: 900px){
-    padding: var(--pd-nav-sm);
-  }
+  padding: var(--pd-nav);
 `
+
+

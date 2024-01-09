@@ -26,7 +26,7 @@ export default function PaymentComplete() {
 const ButtonWrraper = styled.div`
   display: flex;
   gap: 1rem;
-  
+  justify-content: center;
 `
 
 
@@ -36,7 +36,6 @@ const MsgContainer = styled.div`
   gap: 2rem;
   text-align: center;
 `
-
 
 const Msg = styled.div`
   display: flex;

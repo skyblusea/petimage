@@ -13,7 +13,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import Create from './page/create/page.tsx'
 import Trial from './page/trial/page.tsx'
 import SelectBreed from './page/create/[animal]/page.tsx'
-import SelectAnimal from './page/create/SelectAnimal.tsx'
+import SelectAnimal from './page/create/SelectAnimalGrid.tsx'
 import {
   QueryClient,
   QueryClientProvider,
@@ -23,7 +23,6 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import Notice from './page/create/[animal]/notice/page.tsx'
 import Upload from './page/create/[animal]/upload/page.tsx'
 import Checkout from './page/create/[animal]/checkout/page.tsx'
-import Payment from './page/payment/page.tsx'
 import PaymentComplete from './page/payment-complete/page.tsx'
 import Collection from './page/collection/page.tsx'
 

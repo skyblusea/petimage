@@ -8,14 +8,17 @@ interface LinkButtonProps extends ButtonProps {
 }
 
 
-export default function LinkButton({ to, children, sx, size, endIcon, variant, color}: LinkButtonProps) {
-  
-  const LinkBtn = styled(Button)<LinkProps>(() => ({...sx}));
-  return (
+export default function LinkButton({ to, children, sx, size, endIcon, variant, color, disabled,
+  startIcon
+}: LinkButtonProps) {
 
-        <LinkBtn 
-        LinkComponent={Link} size={size} sx={sx}
-        to={to} variant={variant} color={color} endIcon={endIcon}>{children}
-        </LinkBtn>
+  const LinkBtn = styled(Button)<LinkProps>(() => ({ ...sx }));
+  return (
+    <LinkBtn
+      startIcon={startIcon}
+      disabled={disabled}
+      LinkComponent={Link} size={size} sx={sx}
+      to={to} variant={variant} color={color} endIcon={endIcon}>{children}
+    </LinkBtn>
   )
 }

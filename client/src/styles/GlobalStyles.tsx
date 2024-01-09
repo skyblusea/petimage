@@ -13,6 +13,12 @@ const reset = css`
     list-style: none;
   }
 
+  button {
+	outline: none;
+	border: none;
+	background: none;
+	cursor: pointer;
+  }
 
   a {
       text-decoration: none;
@@ -31,8 +37,7 @@ const reset = css`
   }
 
   :root {
-    /* color */
-    /* --primary: #ff5658; */
+    --petimage: #ff5658;
     --black: #333;
     --sub-red: #ED1C00;
     --btn-gray: #999;
@@ -64,9 +69,17 @@ const reset = css`
     --swiper-theme-color: #fff;
 
     /* nav-padding */
-    --pd-nav-lg: 0 8rem;
-    --pd-nav-md: 0 3rem;
-    --pd-nav-sm: 0 1rem;
+    --pd-nav: 0 22.72rem;
+    @media screen and (max-width: 1600px){
+      --pd-nav: 0 8rem;
+    }
+    @media screen and (max-width: 1200px){
+      --pd-nav: 0 3rem;
+    }
+    @media screen and (max-width: 900px){
+      --pd-nav: 0 1rem;
+    }
+
 
     /* padding */
     --pd-lg: 24px;
@@ -86,9 +99,9 @@ const reset = css`
 
     --nav-h: 92px;
     --footer-h: 30px;
-    @media screen and (max-width: 900px){
+    /* @media screen and (max-width: 900px){
       --nav-h: 60px;
-    }
+    } */
   }
 
 

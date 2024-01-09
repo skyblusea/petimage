@@ -1,29 +1,32 @@
 import styled from '@emotion/styled'
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
 import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded';
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import CustomImage from './CustomImage';
+import { Stack } from '@mui/material';
 
-export default function SquareImgBox({
+
+export default function SquareImgBoxWIcon({
   children,
   src,
+  alt,
   success,
   error,
 }: {
   children?: React.ReactNode
   src: string,
+  alt?: string,
   success?: boolean,
   error?: boolean,
 }) {
   return (
     <SquareCreateBox>
       <ImgWrraper>
-        <img src={src} alt="강아지" />
+        <CustomImage src={src} alt={alt} />
         {success && <CheckCircleOutlineRoundedIcon fontSize="medium" color="success" />}
         {error && <HighlightOffRoundedIcon fontSize="medium" color="error" />}
       </ImgWrraper>
-      <Typography variant='body3'>
-        {children}
-      </Typography>
+      {children && <Typography variant='body3'>{children}</Typography>}
     </SquareCreateBox>
   )
 }
@@ -43,7 +46,7 @@ const ImgWrraper = styled.div`
 `
 
 
-export const CreateBox = styled.div` 
+export const RectangleCreateBox = styled.div` 
   width: 100%;
   height: 100%;
   display: flex;
@@ -60,8 +63,18 @@ export const CreateBox = styled.div`
 `
 
 
-export const SquareCreateBox = styled(CreateBox)`
+export const SquareCreateBox = styled(RectangleCreateBox)`
   img {
     aspect-ratio: 1/1;
   }
+`
+
+export const CollectionBox = styled(Stack)` 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid var(--petimage);
+  border-radius: var(--border-radius-sm);
+  padding: 2.12rem 2.94rem;
+  width: 100%;
 `
