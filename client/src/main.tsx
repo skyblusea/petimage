@@ -25,6 +25,7 @@ import Checkout from './page/create/[animal]/checkout/page.tsx'
 import PaymentComplete from './page/payment-complete/page.tsx'
 import Collection from './page/collection/page.tsx'
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import AuthProvider from './context/AuthProvider.tsx'
 
 
 const queryClient = new QueryClient()
@@ -65,10 +66,12 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <Global styles={reset} />
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+      <AuthProvider>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </AuthProvider>
     </ThemeProvider>
   </React.StrictMode >,
 )

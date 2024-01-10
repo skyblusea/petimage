@@ -3,11 +3,12 @@ import Button from '@mui/material/Button';
 import { Link } from "react-router-dom"
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import Logo from "../assets/logo.svg?react"
-import { useState } from "react";
+import { useContext, useState } from "react";
 import LoginModal from "./LoginModal";
+import { AuthContext } from "../context/AuthProvider";
 
 export default function Header() {
-  const [isLogin, setIsLogin] = useState(false)
+  const { isAuthenticated } = useContext(AuthContext)
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
 
   return (
@@ -27,7 +28,7 @@ export default function Header() {
         }}
         onClick={() => setIsLoginModalOpen(!isLoginModalOpen)}
         variant="outlined" color="primary" startIcon={<AccountCircleOutlinedIcon />}>
-        {isLogin ? '내 정보' : '로그인'}
+        {isAuthenticated ? '내 정보' : '로그인'}
       </Button>
       <LoginModal isOpen={isLoginModalOpen} setIsOpen={setIsLoginModalOpen} />
     </HeaderContainer>
