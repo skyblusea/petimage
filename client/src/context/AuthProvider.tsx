@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createContext, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
 
 type User = {
   email: string;
@@ -90,6 +90,17 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   const signout = async () => {
   
   }
+
+  useEffect(() => {
+    //https://developers.google.com/identity/gsi/web/reference/js-reference#google.accounts.id.initialize
+    //에 따라 mehtod 를 한번만 call 하고 인증 관련 함수를 중앙화 하기 위해 이동
+    const initGoogleAPIClient = () => {
+      google.accounts.id.initialize({
+        client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+        callback: signInWithGoogle
+    })}
+    initGoogleAPIClient();
+  }, [])
 
 
 
