@@ -35,6 +35,7 @@ export default function GoogleLoginBtn() {
         type: "standard",
         theme: "filled_blue", 
         size: "large",
+        width: divRef.current.clientWidth,
       }  // customization attributes
       );
       // google.accounts.id.prompt(); // also display the One Tap dialog
