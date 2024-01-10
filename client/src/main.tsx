@@ -11,7 +11,6 @@ import reset from './styles/GlobalStyles.tsx'
 import theme from './styles/MUItheme.tsx'
 import { ThemeProvider } from "@mui/material/styles";
 import Create from './page/create/page.tsx'
-import Trial from './page/trial/page.tsx'
 import SelectBreed from './page/create/[animal]/page.tsx'
 import SelectAnimal from './page/create/SelectAnimalGrid.tsx'
 import {
@@ -25,7 +24,7 @@ import Upload from './page/create/[animal]/upload/page.tsx'
 import Checkout from './page/create/[animal]/checkout/page.tsx'
 import PaymentComplete from './page/payment-complete/page.tsx'
 import Collection from './page/collection/page.tsx'
-
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 
 const queryClient = new QueryClient()
@@ -66,10 +65,12 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <Global styles={reset} />
+      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
-    </ThemeProvider>
-  </React.StrictMode>,
+      </GoogleOAuthProvider>
+  </ThemeProvider>
+  </React.StrictMode >,
 )

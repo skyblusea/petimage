@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import { PetimageThemeBG, PetimegeThemeWH } from "../../components/Containers";
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
@@ -8,7 +7,7 @@ import Image from "../../components/Image";
 export default function Service() {
   return (
     <PetimageThemeBG>
-      <PetimegeThemeWH>
+      <PetimegeThemeWH full={true}>
           <Grid container spacing={3}>
             <Grid xs={12} md={4}>
               <Typography variant="h2" color="petimage.main">서비스 소개</Typography>
@@ -38,7 +37,6 @@ export default function Service() {
             <Grid xs={6}>
               <Image src="/service/service3.png" alt="service_intro1" />
             </Grid>
-
           </Grid>
       </PetimegeThemeWH>
     </PetimageThemeBG>

@@ -1,10 +1,8 @@
 import styled from "@emotion/styled"
 import Button from '@mui/material/Button';
-import SvgIcon from '@mui/material/SvgIcon';
 import { Link } from "react-router-dom"
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import Logo from "../assets/logo.svg?react"
-import Logo2 from "../assets/logo2.svg?react"
 import { useState } from "react";
 import LoginModal from "./LoginModal";
 
@@ -14,26 +12,24 @@ export default function Header() {
 
   return (
     <HeaderContainer>
-      {/* <NavWrraper> */}
-        <Link to="/" className="logo">
-          <Logo />
-        </Link>
-        <Nav>
-          <Link to="/service">Service</Link>
-          <Link to="/about">About</Link>
-          <Link to="/product">Product</Link>
-        </Nav>
-        <Button
-          sx={{
-            flexShrink: 0,
-            borderColor: 'var(--primary)',
-          }}
-          onClick={() => setIsLoginModalOpen(!isLoginModalOpen)}
-          variant="outlined" color="primary" startIcon={<AccountCircleOutlinedIcon />}>
-          {isLogin ? '내 정보' : '로그인'}
-        </Button>
-        <LoginModal isOpen={isLoginModalOpen} setIsOpen={setIsLoginModalOpen} />
-      {/* </NavWrraper> */}
+      <Link to="/" className="logo">
+        <Logo />
+      </Link>
+      <Nav>
+        <Link to="/service">Service</Link>
+        <Link to="/about">About</Link>
+        <Link to="/product">Product</Link>
+      </Nav>
+      <Button
+        sx={{
+          flexShrink: 0,
+          borderColor: 'var(--primary)',
+        }}
+        onClick={() => setIsLoginModalOpen(!isLoginModalOpen)}
+        variant="outlined" color="primary" startIcon={<AccountCircleOutlinedIcon />}>
+        {isLogin ? '내 정보' : '로그인'}
+      </Button>
+      <LoginModal isOpen={isLoginModalOpen} setIsOpen={setIsLoginModalOpen} />
     </HeaderContainer>
   )
 }

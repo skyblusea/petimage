@@ -37,13 +37,18 @@ export const PetimageThemeBG = styled.section`
   padding-top: 200px;
 `
 
-export const PetimegeThemeWH = styled.div`
+interface PetimageThemeProps {
+  color?: string;
+  full?: boolean;
+}
+
+export const PetimegeThemeWH = styled.div<PetimageThemeProps>`
   border-top-right-radius: 80px;
   border-top-left-radius: 80px;
-  background-color: white;
+  background-color: ${props => props.color || "white"};
   padding: var(--pd-nav);
   padding-top: 40px;
   width: 100%;
   height: 100%;
-  flex-grow: 1;
+  flex-grow: ${props => props.full};
 `

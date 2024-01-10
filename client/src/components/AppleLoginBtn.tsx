@@ -1,14 +1,32 @@
-export default function AppleLoginBtn() { 
+import { useEffect } from "react";
 
-//   AppleID.auth.init({
-//     clientId : 'com.src.petimage',
-//     scope : '[SCOPES]',
-//     redirectURI : '[REDIRECT_URI]',
-//     state : '[STATE]',
-//     nonce : '[NONCE]',
-//     usePopup : true
-// });
+export default function AppleLoginBtn() {
 
 
-  return  <div id="appleid-signin" data-color="black" data-border="true" data-type="sign in"></div>
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.AppleID) {
+      return;
+    }
+    AppleID.auth.init({
+      clientId: 'petimage.src.com',
+      scope: 'name email',
+      redirectURI: 'https://petimage.vercel.app/',
+      state: 'state',
+      nonce: 'nonce',
+      usePopup: true
+    });
+
+    try {
+      // const data = await AppleID.auth.signIn()
+
+      // Handle successful response.
+    } catch (error) {
+      // Handle error.
+    }
+
+
+  }, [])
+
+
+  return <div id="appleid-signin" data-color="black" data-border="true" data-type="sign in"></div>
 }
