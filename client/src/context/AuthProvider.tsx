@@ -1,5 +1,7 @@
 import axios from "axios";
 import { createContext, useEffect, useReducer } from "react";
+import Cookies from 'js-cookie';
+
 
 type User = {
   email: string;
@@ -78,7 +80,9 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     })
     if (res.ok){
       const { acessToken, refreshToken, user:{ email, name } } = res.data
-      dispatch({ type: 'LOGIN', user:{email, name}, token:{ acessToken, refreshToken }, isAuthenticated: true })
+      const token = { acessToken, refreshToken }
+      dispatch({ type: 'LOGIN', user:{email, name}, token, isAuthenticated: true })
+      Cookies.set('TOKEN', token, { expires: 7 })
     }else {
       alert(res.message) // TODO: error handling
     }

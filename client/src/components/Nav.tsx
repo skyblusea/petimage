@@ -6,6 +6,7 @@ import Logo from "../assets/logo.svg?react"
 import { useContext, useState } from "react";
 import LoginModal from "./LoginModal";
 import { AuthContext } from "../context/AuthProvider";
+import LinkButton from "./LinkButton";
 
 export default function Header() {
   const { isAuthenticated } = useContext(AuthContext)
@@ -21,15 +22,26 @@ export default function Header() {
         <Link to="/about">About</Link>
         <Link to="/product">Product</Link>
       </Nav>
-      <Button
-        sx={{
-          flexShrink: 0,
-          borderColor: 'var(--primary)',
-        }}
-        onClick={() => setIsLoginModalOpen(!isLoginModalOpen)}
-        variant="outlined" color="primary" startIcon={<AccountCircleOutlinedIcon />}>
-        {isAuthenticated ? '내 정보' : '로그인'}
-      </Button>
+      {isAuthenticated
+        ? <LinkButton
+          sx={{
+            flexShrink: 0,
+            borderColor: 'var(--primary)',
+          }}
+          startIcon={<AccountCircleOutlinedIcon />}
+          variant="outlined" color="primary" to="/collection">내 정보</LinkButton>
+        : <Button
+          sx={{
+            flexShrink: 0,
+            borderColor: 'var(--primary)',
+          }}
+          onClick={() => setIsLoginModalOpen(!isLoginModalOpen)}
+          variant="outlined" color="primary" startIcon={<AccountCircleOutlinedIcon />}>
+          로그인
+        </Button>
+
+      }
+
       <LoginModal isOpen={isLoginModalOpen} setIsOpen={setIsLoginModalOpen} />
     </HeaderContainer>
   )
