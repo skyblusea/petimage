@@ -9,23 +9,21 @@ export default function GoogleLoginBtn() {
 
 
   useEffect(() => {
-    if (typeof window === "undefined" || !window.google || !divRef.current) {
-      return;
-    }
-    try {
-      google.accounts.id.renderButton(divRef.current,{ 
+
+    const renderGoogleLoginBtn = () => {
+      if(!divRef.current) return
+      google.accounts.id.renderButton(divRef.current, {
         type: "standard",
-        theme: "filled_blue", 
+        theme: "filled_blue",
         size: "large",
         width: divRef.current.clientWidth,
-      }
-      );
-    } catch (error) {
-      console.error(error);
+      })
     }
+
+    renderGoogleLoginBtn()
   }, [])
 
   return (
-      <div ref={divRef}></div>
+    <div ref={divRef}></div>
   )
 }
