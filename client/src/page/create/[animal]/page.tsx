@@ -1,10 +1,10 @@
 import { Link, useLocation, useParams } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Grid from '@mui/material/Unstable_Grid2';
-import { breedsQuery } from "../../../util/loader";
 import { useQuery } from "@tanstack/react-query";
 import CustomImage from "../../../components/CustomImage";
 import { SquareCreateBox } from "../../../components/Boxes";
+import { breedsQuery } from "../../../util/loaders/breedLoader";
 
 
 

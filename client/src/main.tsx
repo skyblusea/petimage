@@ -17,15 +17,16 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
-import { breedsLoader } from './util/loader.ts'
+
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import Notice from './page/create/[animal]/notice/page.tsx'
 import Upload from './page/create/[animal]/upload/page.tsx'
 import Checkout from './page/create/[animal]/checkout/page.tsx'
 import PaymentComplete from './page/payment-complete/page.tsx'
 import Collection from './page/collection/page.tsx'
-import { GoogleOAuthProvider } from '@react-oauth/google';
 import AuthProvider from './context/AuthProvider.tsx'
+import { breedsLoader } from './util/loaders/breedLoader.ts'
+import { collectionLoader } from './util/loaders/collectionLoader.ts'
 
 
 const queryClient = new QueryClient()
@@ -56,7 +57,10 @@ const router = createBrowserRouter([
         ]
       },
       { path: '/payment-complete', element: <PaymentComplete /> },
-      { path: '/collection', element: <Collection /> },
+      { path: '/collection', 
+        element: <Collection /> ,
+        loader: collectionLoader(queryClient)
+      },
     ]
   },
 ])

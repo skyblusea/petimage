@@ -1,17 +1,20 @@
 import axios from "axios";
 import { createContext, useEffect, useReducer } from "react";
-import Cookies from 'js-cookie';
+import Cookies from 'js-cookie'
 
+// Context
 
 type User = {
   email: string;
   name: string;
 }
 
-type Token = {
-  acessToken: string;
-  refreshToken: string;
-}
+type Token = string
+
+// {
+//   acessToken: string;
+//   refreshToken: string;
+// }
 
 type AuthContextType = {
   user: User | null;
@@ -33,6 +36,10 @@ const initialContextState: AuthContextType = {
 
 
 export const AuthContext = createContext<AuthContextType>(initialContextState);
+
+
+// Reducer
+
 
 type AuthAction =
   | { type: 'LOGIN', user: User, token: Token, isAuthenticated: boolean }
@@ -65,6 +72,7 @@ const authReducer = (state: AuthState, action: AuthAction) => {
 };
 
 
+
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(authReducer, initialReducerState);
 
@@ -79,10 +87,10 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
       }
     })
     if (res.ok){
-      const { acessToken, refreshToken, user:{ email, name } } = res.data
-      const token = { acessToken, refreshToken }
-      dispatch({ type: 'LOGIN', user:{email, name}, token, isAuthenticated: true })
+      const { accessToken, refreshToken, user:{ email, name } } = res.data
+      const token = accessToken
       Cookies.set('TOKEN', token, { expires: 7 })
+      dispatch({ type: 'LOGIN', user:{email, name}, token, isAuthenticated: true })
     }else {
       alert(res.message) // TODO: error handling
     }

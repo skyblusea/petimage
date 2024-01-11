@@ -1,5 +1,5 @@
 import { QueryClient } from "@tanstack/react-query"
-import { Breed } from "../types";
+import { Breed } from "../../types";
 import axios from "axios";
 import type { Params } from '@remix-run/router/utils';
 
@@ -8,7 +8,7 @@ export const breedsQuery = (animal: string) => ({
   queryKey: ['breeds', animal],
   queryFn: async () :Promise<Array<Breed>>=> {
     const en = animal === 'dog' ? '강아지' : '고양이'
-    const { data: { data } } = await axios.get(`https://petimage.kr/api/v1/animal/list?class=${en}`).catch(
+    const { data: { data } } = await axios.get(`${import.meta.env.VITE_URL}/animal/list?class=${en}`).catch(
     (error) => {
       if (error.response) {
         // 요청이 전송되었고, 서버는 2xx 외의 상태 코드로 응답했습니다.

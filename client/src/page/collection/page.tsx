@@ -1,14 +1,14 @@
 
 import { PetimageThemeBG, PetimegeThemeWH } from "../../components/Containers";
 import styled from "@emotion/styled"
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { RoundPaper } from "../create/[animal]/notice/page";
 import Gallery from "./Gallery";
 import Payment from "./Payment";
 import { Stack } from "@mui/material";
+import { AuthContext } from "../../context/AuthProvider";
 
 export default function Collection() {
-
   const [tab, setTab] = useState<'payments' | 'gallery'>('payments')
 
   return (
