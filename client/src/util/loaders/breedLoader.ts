@@ -1,29 +1,16 @@
 import { QueryClient } from "@tanstack/react-query"
 import { Breed } from "../../types";
-import axios from "axios";
 import type { Params } from '@remix-run/router/utils';
+import { apiClient } from "../axiosInstance";
 
 
 export const breedsQuery = (animal: string) => ({
   queryKey: ['breeds', animal],
   queryFn: async () :Promise<Array<Breed>>=> {
     const en = animal === 'dog' ? '강아지' : '고양이'
-    const { data: { data } } = await axios.get(`${import.meta.env.VITE_URL}/animal/list?class=${en}`).catch(
+    const { data: { data } } = await apiClient.get(`/animal/list?class=${en}`).catch(
     (error) => {
-      if (error.response) {
-        // 요청이 전송되었고, 서버는 2xx 외의 상태 코드로 응답했습니다.
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        // 요청이 전송되었지만, 응답이 수신되지 않았습니다. 
-        // 'error.request'는 브라우저에서 XMLHtpRequest 인스턴스이고,
-        // node.js에서는 http.ClientRequest 인스턴스입니다.
-        console.log('server error',error.request);
-      } else {
-        // 오류가 발생한 요청을 설정하는 동안 문제가 발생했습니다.
-        console.log('Error', error.message);
-      }
+      console.log('breedsQuery',error)
       //! 서버 에러시 더미 데이터 반환 !! 나중에 삭제
       return {data : dummy} 
     } 
@@ -40,17 +27,6 @@ export const breedsLoader = (queryClient:QueryClient) => async ({params}:{params
   return data
 }
 
-
-// export const breedsLoader2 = (queryClient: QueryClient) => async ({ params }: Params<string>) => {
-//   const { animal } = params; 
-//   return queryClient.fetchQuery({
-//     queryKey: ['breeds', animal],
-//     queryFn: async (): Promise<Array<Breed>> => {
-//       const { data: { data } } = await axios.get(`https://petimage.kr/api/v1/animal/list?class=${animal}`);
-//       return data;
-//     }
-//   });
-// }
 
 const dummy = {
   "ok": true,
