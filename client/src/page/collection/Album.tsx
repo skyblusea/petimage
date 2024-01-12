@@ -8,14 +8,14 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 
-export default function Gallery() {
+export default function Album() {
 
   return (
-    <GalleryContainer>
-      <GalleryHeader>
+    <AlbumContainer>
+      <AlbumHeader>
         <Typography variant="subtitle1">2023.12.04</Typography>
         <DownloadIcon fontSize="large" />
-      </GalleryHeader>
+      </AlbumHeader>
       <AccordionBox>
         <AccordionSummary
           expandIcon={<ExpandMoreRoundedIcon fontSize="large" color="petimage" />}
@@ -65,19 +65,19 @@ export default function Gallery() {
           </Grid>
         </AccordionDetails>
       </AccordionBox>
-    </GalleryContainer>
+    </AlbumContainer>
   )
 }
 
 
 
-const GalleryContainer = styled.div`
+const AlbumContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
 `
 
-const GalleryHeader = styled.div`
+const AlbumHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;

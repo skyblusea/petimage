@@ -1,15 +1,21 @@
 
 import { PetimageThemeBG, PetimegeThemeWH } from "../../components/Containers";
 import styled from "@emotion/styled"
-import { useContext, useState } from "react";
 import { RoundPaper } from "../create/[animal]/notice/page";
 import Gallery from "./Gallery";
 import Payment from "./Payment";
 import { Stack } from "@mui/material";
-import { AuthContext } from "../../context/AuthProvider";
+import { useQuery } from "@tanstack/react-query";
+import { albumQuery, paymentQuery } from "../../util/loaders/collectionLoader";
+import { useState } from "react";
 
 export default function Collection() {
-  const [tab, setTab] = useState<'payments' | 'gallery'>('payments')
+  const [tab, setTab] = useState<'payments' | 'gallery'>('payments') 
+  const payment = useQuery(paymentQuery()).data
+  const album = useQuery(albumQuery()).data
+  console.log('payment', payment)
+  console.log('album', album)
+
 
   return (
     <PetimageThemeBG>
