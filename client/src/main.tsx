@@ -30,86 +30,104 @@ import Error from './error.tsx'
 import Login from './page/login/page.tsx'
 import ProtectedRoute from './components/ProtectedRoute.tsx'
 import { collectionLoader } from './util/loaders/collectionLoader.ts'
-import AuthProvider from './provider/AuthProvider.tsx'
+import { TestProvider } from './provider/testProvider.tsx'
+import { testClient } from './util/axiosInstance.ts'
+import { AxiosInstance } from 'axios'
+
+import type { Params } from '@remix-run/router/utils';
 
 
 
 const queryClient = new QueryClient()
 
 
+const testLoader = (apiClient:AxiosInstance) => async ({
+  params, request
+}:{
+  params:Params 
+  request: Request
+}) => {
+  console.log('testloader req', request)
+  return null
+}
 
 // Data API 사용위한 Router 선언 방식
 // loader 는 fetching before amount 를 실현시킴
 // react query와 결합하면 캐싱과 재사용을 통해 성능을 향상시킴(fetcing too often 방지)
 const router = createBrowserRouter([
-  { element : <AuthProvider />, children: [
-    {
-      path: '/',
-      element: <Root />,
-      errorElement: <Error />,
-      children: [
-        { path: '', element: <Home /> },
-        { path: '/login', element: <Login />  },
-        { path: '/service', element: <Service /> },
-        { path: '/product', element: <Product /> },
-        { path: '/about', element: <About /> },
-        {
-          path: '/create', element: <Create />, children: [
-            { path: '', element: <SelectAnimal /> },
-            {
-              path: ':animal',
-              element: <SelectBreed />,
-              loader: breedsLoader(queryClient)
-            },
-            { path: ':animal/:breed/notice', element: <Notice /> },
-            {
-              path: ':animal/:breed/upload',
-              element: <Upload />,
-              action: async ({ params, request }) => {
-                console.log('upload params', params)
-                console.log('upload request', request)
-                const formData = await request.formData()
-                const files = formData.getAll('files')
-                console.log('files', files)
-              }
-            },
-            { path: ':animal/:breed/checkout', element: <Checkout /> },
-          ]
-        },
-        { path: '/payment-complete', element: <PaymentComplete /> },
-        {
-          path: '/test',
-          action: async ({ params, request }) => {
-            console.log('upload params', params)
-            console.log('upload request', request)
-            const formData = await request.formData()
-            const files = formData.getAll('files')
-            console.log('files', files)
+  {
+    element: <TestProvider apiClient={testClient}/>, 
+    loader: testLoader(testClient),
+    children: [
+      {
+        path: '/',
+        element: <Root />,
+        errorElement: <Error />,
+        children: [
+          { path: '', element: <Home /> },
+          { path: '/login', element: <Login /> },
+          { path: '/service', element: <Service /> },
+          { path: '/product', element: <Product /> },
+          { path: '/about', element: <About /> },
+          {
+            path: '/create', element: <Create />, children: [
+              { path: '', element: <SelectAnimal /> },
+              {
+                path: ':animal',
+                element: <SelectBreed />,
+                loader: breedsLoader(queryClient)
+              },
+              { path: ':animal/:breed/notice', element: <Notice /> },
+              {
+                path: ':animal/:breed/upload',
+                element: <Upload />,
+                action: async ({ params, request }) => {
+                  console.log('upload params', params)
+                  console.log('upload request', request)
+                  const formData = await request.formData()
+                  const files = formData.getAll('files')
+                  console.log('files', files)
+                }
+              },
+              { path: ':animal/:breed/checkout', element: <Checkout /> },
+            ]
           },
-          element: <Trial />
-        },
-        {
-          path: '/protectedcollection',
-          element: <ProtectedRoute><Collection /></ProtectedRoute>,
-          loader: collectionLoader(queryClient)
-         },
-        {
-          path: '/collection',
-          element: <Collection />,
-          loader: ({ params, request }) => {
-            console.log('collection params', params)
-            console.log('collection request', request)
-            console.log('collection headers', request.headers)
-            for (const key of request.headers.keys()) {
-              console.log(key);
+          { path: '/payment-complete', element: <PaymentComplete /> },
+          {
+            path: '/test',
+            action: async ({ params, request }) => {
+              console.log('upload params', params)
+              console.log('upload request', request)
+              const formData = await request.formData()
+              const files = formData.getAll('files')
+              console.log('files', files)
+            },
+            element: <Trial />
+          },
+          {
+            path: '/protectedcollection',
+            element: <ProtectedRoute><Collection /></ProtectedRoute>,
+            loader: collectionLoader(queryClient)
+          },
+          {
+            path: '/collection',
+            element: <Collection />,
+            loader: ({ params, request }) => {
+              console.log('collection params', params)
+              console.log('collection request', request)
+              console.log('collection headers', request.headers)
+
+              for (const key of request.headers.keys()) {
+                console.log(key);
+              }
+              console.log('collection headers token', request.headers.get('Authorization'))
+              return collectionLoader(queryClient)
             }
-            console.log('collection headers token', request.headers.get('Authorization'))
-            return collectionLoader(queryClient)
-          }
-         },
-      ]
-    },
-  ]},
+          },
+        ]
+      },
+    ]
+  },
 ])
 
 
@@ -117,12 +135,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <Global styles={reset} />
-      <AuthProvider>
-        <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
-      </AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </ThemeProvider>
   </React.StrictMode >,
 )

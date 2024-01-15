@@ -114,6 +114,7 @@ export default function AuthProvider() {
     //https://developers.google.com/identity/gsi/web/reference/js-reference#google.accounts.id.initialize
     //에 따라 mehtod 를 한번만 call 하고 인증 관련 함수를 중앙화 하기 위해 이동
     const initGoogleAPIClient = () => {
+      console.log('init google api client')
       google.accounts.id.initialize({
         client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
         callback: signInWithGoogle
@@ -135,16 +136,15 @@ export default function AuthProvider() {
     //   },
     // )
     console.log('token 셋팅완료')
-    if(!token) delete axios.defaults.headers.common['Authorization']
+    if (!token) delete axios.defaults.headers.common['Authorization']
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access');
   }, [token])
 
 
 
   return (
-    <AuthContext.Provider value={{ user, token, isAuthenticated, signInWithGoogle, signInWithApple, signout }}>
-      {/* {isLoading ? <div>Loading...</div> : children} */}
-      <Outlet />
-    </AuthContext.Provider>
+      <AuthContext.Provider value={{ user, token, isAuthenticated, signInWithGoogle, signInWithApple, signout }}>
+        <Outlet />
+      </AuthContext.Provider>
   )
 }

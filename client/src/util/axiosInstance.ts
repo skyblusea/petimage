@@ -61,3 +61,10 @@ authClient.interceptors.response.use(
 );
 
 
+
+export const testClient = axios.create({
+  baseURL: `http://localhost:3000`,
+  headers: {
+    "Content-Type": "application/json",
+  },
+})
