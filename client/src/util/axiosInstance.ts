@@ -41,7 +41,6 @@ export const authClient = axios.create({
 authClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    
     const errorMsg = error.response.data.data;
     switch (error.response.status) {
       case 401:
@@ -61,9 +60,8 @@ authClient.interceptors.response.use(
 );
 
 
-
-export const testClient = axios.create({
-  baseURL: `http://localhost:3000`,
+export const testClinet = axios.create({
+  baseURL: `${import.meta.env.VITE_URL}`,
   headers: {
     "Content-Type": "application/json",
   },

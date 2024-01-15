@@ -10,36 +10,37 @@ import { useState } from "react";
 import Album from "./Album";
 
 export default function Collection() {
-  const [tab, setTab] = useState<'payments' | 'album'>('payments')
-  const payments = useQuery(paymentQuery()).data
-  const album = useQuery(albumQuery()).data
-  return (
-    <PetimageThemeBG>
-      <PetimegeThemeWH full>
-        <TabContainer>
-          <Tabs elevation={3}>
-            <Tab onClick={() => setTab('payments')} role="tab" aria-label="payments" aria-selected={tab === 'payments'}>
-              결제 내역
-            </Tab>
-            <Tab onClick={() => setTab('album')} role="tab" aria-label="album" aria-selected={tab === 'album'}>
-              갤러리
-            </Tab>
-          </Tabs>
-          <TabPanel role="tabpanel" hidden={tab === 'album'}>
-            <Stack spacing={2}>
-              {payments?.map((payment) => <Payment key={payment._id} data={payment} />)
-              }
-            </Stack>
-          </TabPanel>
-          <TabPanel role="tabpanel" hidden={tab === 'payments'}>
-            <Stack spacing={2}>
-              {album?.map((album) => <Album key={album._id} data={album} />)}
-            </Stack>
-          </TabPanel>
-        </TabContainer>
-      </PetimegeThemeWH>
-    </PetimageThemeBG>
-  )
+  // const [tab, setTab] = useState<'payments' | 'album'>('payments')
+  // const payments = useQuery(paymentQuery()).data
+  // const album = useQuery(albumQuery()).data
+  // return (
+  //   <PetimageThemeBG>
+  //     <PetimegeThemeWH full>
+  //       <TabContainer>
+  //         <Tabs elevation={3}>
+  //           <Tab onClick={() => setTab('payments')} role="tab" aria-label="payments" aria-selected={tab === 'payments'}>
+  //             결제 내역
+  //           </Tab>
+  //           <Tab onClick={() => setTab('album')} role="tab" aria-label="album" aria-selected={tab === 'album'}>
+  //             갤러리
+  //           </Tab>
+  //         </Tabs>
+  //         <TabPanel role="tabpanel" hidden={tab === 'album'}>
+  //           <Stack spacing={2}>
+  //             {payments?.map((payment) => <Payment key={payment._id} data={payment} />)
+  //             }
+  //           </Stack>
+  //         </TabPanel>
+  //         <TabPanel role="tabpanel" hidden={tab === 'payments'}>
+  //           <Stack spacing={2}>
+  //             {album?.map((album) => <Album key={album._id} data={album} />)}
+  //           </Stack>
+  //         </TabPanel>
+  //       </TabContainer>
+  //     </PetimegeThemeWH>
+  //   </PetimageThemeBG>
+  // )
+  return (<></>)
 }
 
 

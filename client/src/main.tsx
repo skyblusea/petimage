@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Root from './Root.tsx'
@@ -31,23 +31,46 @@ import Login from './page/login/page.tsx'
 import ProtectedRoute from './components/ProtectedRoute.tsx'
 import { collectionLoader } from './util/loaders/collectionLoader.ts'
 import { TestProvider } from './provider/testProvider.tsx'
-import { testClient } from './util/axiosInstance.ts'
-import { AxiosInstance } from 'axios'
+import axios, { AxiosInstance } from 'axios'
 
 import type { Params } from '@remix-run/router/utils';
-
-
+import { testClinet } from './util/axiosInstance.ts'
 
 const queryClient = new QueryClient()
 
 
-const testLoader = (apiClient:AxiosInstance) => async ({
+const testLoader = (apiClient: AxiosInstance) => async ({
   params, request
-}:{
-  params:Params 
+}: {
+  params: Params
   request: Request
 }) => {
-  console.log('testloader req', request)
+  try {
+    console.log('testLoader', params, request)
+    const collection = await apiClient.get(`/payment/list?sort=&order=&limit=&page=`)
+    console.log('collection', collection)
+  } catch (err) {
+    console.log('err', err)
+  }
+  // console.log('드디러 로더에서 user 참조?!', user)
+  return null
+}
+
+const testLoader2 = async ({
+  params, request
+}: {
+  params: Params
+  request: Request
+}) => {
+  console.log('test2', params, request)
+  try {
+    console.log('testLoader', params, request)
+    const collection = await testClinet.get(`/payment/list?sort=&order=&limit=&page=`)
+    console.log('collection', collection)
+  } catch (err) {
+    console.log('err', err)
+  }
+  // console.log('드디러 로더에서 user 참조?!', user)
   return null
 }
 
@@ -56,8 +79,8 @@ const testLoader = (apiClient:AxiosInstance) => async ({
 // react query와 결합하면 캐싱과 재사용을 통해 성능을 향상시킴(fetcing too often 방지)
 const router = createBrowserRouter([
   {
-    element: <TestProvider apiClient={testClient}/>, 
-    loader: testLoader(testClient),
+    // element: <TestProvider />, //! 이 방법은 provider내에 router이 live 되게 함 -> 로그인 후 navigation 가능
+    // loader: testLoader(testClient),
     children: [
       {
         path: '/',
@@ -104,25 +127,26 @@ const router = createBrowserRouter([
             },
             element: <Trial />
           },
-          {
-            path: '/protectedcollection',
-            element: <ProtectedRoute><Collection /></ProtectedRoute>,
-            loader: collectionLoader(queryClient)
-          },
+          // {
+          //   path: '/protectedcollection',
+          //   element: <ProtectedRoute><Collection /></ProtectedRoute>,
+          //   loader: collectionLoader(queryClient)
+          // },
           {
             path: '/collection',
             element: <Collection />,
-            loader: ({ params, request }) => {
-              console.log('collection params', params)
-              console.log('collection request', request)
-              console.log('collection headers', request.headers)
+            loader: testLoader2
+            // ({ params, request }) => {
+            //   console.log('collection params', params)
+            //   console.log('collection request', request)
+            //   console.log('collection headers', request.headers)
 
-              for (const key of request.headers.keys()) {
-                console.log(key);
-              }
-              console.log('collection headers token', request.headers.get('Authorization'))
-              return collectionLoader(queryClient)
-            }
+            //   for (const key of request.headers.keys()) {
+            //     console.log(key);
+            //   }
+            //   console.log('collection headers token', request.headers.get('Authorization'))
+            //   return collectionLoader(queryClient)
+            // }
           },
         ]
       },
@@ -135,10 +159,12 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <Global styles={reset} />
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+      <TestProvider>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </TestProvider>
     </ThemeProvider>
   </React.StrictMode >,
 )

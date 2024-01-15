@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Form, useActionData, useSubmit } from "react-router-dom";
 
 
@@ -12,7 +12,8 @@ export default function Trial() {
   }
 
   const [files, setFiles] = useState<FileWithUrl[]>([])
-
+  const testRef = useRef()
+  console.log('???',testRef.current === '')
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) readFile(e.target.files)

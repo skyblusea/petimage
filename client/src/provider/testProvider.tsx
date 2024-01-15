@@ -1,34 +1,47 @@
 import axios, { AxiosInstance } from "axios";
-import { createContext, useEffect, useRef, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Children, createContext, useContext, useEffect, useRef, useState } from "react";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import { testClient } from "../main";
+import { testClinet } from "../util/axiosInstance";
 
+type User = {
+  email: string;
+  name: string;
+}
 
+type Token = {
+  access: string;
+  refresh: string;
+}
 
-type AuthContextType = {
-  user : {
-    email: string;
-    name: string;
-  } | null;
+type TestContextType = {
+  user: User | undefined;
+  isAuthenticated: () => boolean;
   signInWithGoogle: (response: google.accounts.id.CredentialResponse) => Promise<void>;
 };
 
-const AuthContext = createContext<AuthContextType>({
+export const TestContext = createContext<TestContextType>({
+  user: undefined,
+  isAuthenticated: () => false,
   signInWithGoogle: () => Promise.resolve(),
-  user: null,
 });
 
 
 
-export function TestProvider({ apiClient }: { apiClient: AxiosInstance }) {
-  const [user, setUser] = useState({ email: '', name: '' });
-  const accessTokenRef = useRef();
 
+export function TestProvider({ children }: { children: JSX.Element | JSX.Element[] }) {
+  const [user, setUser] = useState<User | undefined>();
+  const tokenRef = useRef<Token | undefined>();
+  // const navigate = useNavigate();
+
+  const apiClient = testClinet
   useEffect(() => {
+    console.log('useEffect 작동중')
     const requestInterceptor = apiClient.interceptors.request.use(
       (config) => {
         console.log('requestInterceptor 작동중')
         // Attach current access token ref value to outgoing request headers
-        config.headers["Authorization"] = `Bearer ${accessTokenRef}`
+        config.headers["Authorization"] = `Bearer ${tokenRef.current?.access}`;
         return config;
       },
     );
@@ -37,12 +50,29 @@ export function TestProvider({ apiClient }: { apiClient: AxiosInstance }) {
       (response) => {
         // Cache new token from incoming response headers
         console.log('responseInterceptor 작동중')
-        const { data: res } = response
-        const { accessToken, user: { email, name } } = res.data
-        setUser({ email, name })
-        accessTokenRef.current = accessToken;
+        if (response.config.url === '/user/google') {
+          const { data: res } = response
+          const { accessToken, refreshToken, user: { email, name } } = res.data
+          setUser({ email, name })
+          tokenRef.current = { access: accessToken, refresh: refreshToken };
+        }
         return response;
       },
+      (error) => {
+        const errorMsg = error.response.data.data;
+        switch (error.response.status) {
+          case 401:
+            console.error("refresh token error | ", errorMsg);
+            break;
+          case 403: {
+            console.error("access token error | ", errorMsg);
+            // tokenRefresh(tokenRef.current);
+            break;
+          }
+          default:
+            return Promise.reject(error);
+        }
+      }
     );
 
     // Return cleanup function to remove interceptors if apiClient updates
@@ -65,13 +95,23 @@ export function TestProvider({ apiClient }: { apiClient: AxiosInstance }) {
     initGoogleAPIClient();
   }, [])
 
+  const isAuthenticated = () => {
+    return tokenRef.current !== undefined;
+  }
+
   const signInWithGoogle = async (response: google.accounts.id.CredentialResponse) => {
+    console.log('signin with google 실행중')
     try {
       await apiClient({
         method: 'post',
         url: `/user/google`,
         data: {
           token: response.credential
+        }
+      }).then((res) => {
+        if (res.status === 200) {
+          alert('로그인 성공')
+          // navigate('x')
         }
       })
     } catch (error) {
@@ -81,14 +121,19 @@ export function TestProvider({ apiClient }: { apiClient: AxiosInstance }) {
   }
 
   const context = {
-    signInWithGoogle: signInWithGoogle,
     user: user,
+    isAuthenticated: isAuthenticated,
+    signInWithGoogle: signInWithGoogle,
   }
 
 
   return (
-    <AuthContext.Provider value={context}>
-      <Outlet />
-    </AuthContext.Provider>
+    <TestContext.Provider value={context}>
+      {/* <Outlet /> */}
+      {children}
+    </TestContext.Provider>
   );
 }
+
+
+

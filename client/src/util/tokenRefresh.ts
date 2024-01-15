@@ -1,11 +1,12 @@
 import axios from "axios";
 
-const tokenRefresh = async () => {
+const tokenRefresh = async (token:{access:string|undefined,refresh:string|undefined}) => {
+  console.log('tokenRefresh',token)
   axios
     .get(`${import.meta.env.VITE_URL}/user/refresh`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("access")}`,
-        refresh: localStorage.getItem("refresh"),
+        Authorization: `Bearer ${token.access}`,
+        refresh: token.refresh,
       },
     })
     .then((res) => {
