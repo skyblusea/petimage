@@ -58,8 +58,13 @@ const reset = css`
     --font-sm: 1rem;
 
     /* border-radius */
+    --border-radius-xl: 80px;
     --border-radius-lg: 20px;
     --border-radius-sm: 10px;
+    @media screen and (max-width: 900px){
+      --border-radius-xl : 40px;
+    }
+
 
     /* box shadow */
     --main_banner: 2px 2px 22px 0px rgba(0, 0, 0, 0.15);

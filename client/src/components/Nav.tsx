@@ -3,14 +3,15 @@ import Button from '@mui/material/Button';
 import { Link } from "react-router-dom"
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import Logo from "../assets/logo.svg?react"
-import { useContext, useState } from "react";
-import LoginModal from "./LoginModal";
-import { AuthContext } from "../context/AuthProvider";
+import { useState } from "react";
+import LoginModal from "../page/login/page";
+
 import LinkButton from "./LinkButton";
+import useAuth from "../util/useAuth";
 
 export default function Header() {
-  const { isAuthenticated } = useContext(AuthContext)
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+  const auth = useAuth()
+  const isAuthenticated = auth.isAuthenticated
 
   return (
     <HeaderContainer>
@@ -21,6 +22,7 @@ export default function Header() {
         <Link to="/service">Service</Link>
         <Link to="/about">About</Link>
         <Link to="/product">Product</Link>
+        <Link to="/collection">Collection</Link>
       </Nav>
       {isAuthenticated
         ? <LinkButton
@@ -30,19 +32,16 @@ export default function Header() {
           }}
           startIcon={<AccountCircleOutlinedIcon />}
           variant="outlined" color="primary" to="/collection">내 정보</LinkButton>
-        : <Button
+        : <LinkButton
+          to="/login"
           sx={{
             flexShrink: 0,
             borderColor: 'var(--primary)',
           }}
-          onClick={() => setIsLoginModalOpen(!isLoginModalOpen)}
           variant="outlined" color="primary" startIcon={<AccountCircleOutlinedIcon />}>
           로그인
-        </Button>
-
+        </LinkButton>
       }
-
-      <LoginModal isOpen={isLoginModalOpen} setIsOpen={setIsLoginModalOpen} />
     </HeaderContainer>
   )
 }

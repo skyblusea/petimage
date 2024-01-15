@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createContext, useEffect, useReducer } from "react";
 import Cookies from 'js-cookie'
+import { Outlet } from "react-router-dom";
 
 // Context
 
@@ -72,7 +73,7 @@ const authReducer = (state: AuthState, action: AuthAction) => {
 
 
 
-export default function AuthProvider({ children }: { children: React.ReactNode }) {
+export default function AuthProvider() {
   const [state, dispatch] = useReducer(authReducer, initialReducerState);
 
   const { user, token, isAuthenticated, isLoading } = state;
@@ -143,7 +144,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   return (
     <AuthContext.Provider value={{ user, token, isAuthenticated, signInWithGoogle, signInWithApple, signout }}>
       {/* {isLoading ? <div>Loading...</div> : children} */}
-      {children}
+      <Outlet />
     </AuthContext.Provider>
   )
 }

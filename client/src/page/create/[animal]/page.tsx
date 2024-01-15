@@ -9,7 +9,7 @@ import { breedsQuery } from "../../../util/loaders/breedLoader";
 
 
 export default function SelectBreed() {
-
+  
   const pathname = useLocation().pathname;
   const animal = useParams().animal ?? 'dog';
   const breeds = useQuery(breedsQuery(animal)).data;

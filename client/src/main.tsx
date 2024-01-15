@@ -24,9 +24,14 @@ import Upload from './page/create/[animal]/upload/page.tsx'
 import Checkout from './page/create/[animal]/checkout/page.tsx'
 import PaymentComplete from './page/payment-complete/page.tsx'
 import Collection from './page/collection/page.tsx'
-import AuthProvider from './context/AuthProvider.tsx'
 import { breedsLoader } from './util/loaders/breedLoader.ts'
+import Trial from './page/trial/page.tsx'
+import Error from './error.tsx'
+import Login from './page/login/page.tsx'
+import ProtectedRoute from './components/ProtectedRoute.tsx'
 import { collectionLoader } from './util/loaders/collectionLoader.ts'
+import AuthProvider from '../AuthProvider.tsx'
+
 
 
 const queryClient = new QueryClient()
@@ -34,35 +39,77 @@ const queryClient = new QueryClient()
 
 
 // Data API 사용위한 Router 선언 방식
+// loader 는 fetching before amount 를 실현시킴
+// react query와 결합하면 캐싱과 재사용을 통해 성능을 향상시킴(fetcing too often 방지)
 const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Root />,
-    children: [
-      { path: '', element: <Home /> },
-      { path: '/service', element: <Service /> },
-      { path: '/product', element: <Product /> },
-      { path: '/about', element: <About /> },
-      {
-        path: '/create', element: <Create />, children: [
-          { path: '', element: <SelectAnimal /> },
-          {
-            path: ':animal',
-            element: <SelectBreed />,
-            loader: breedsLoader(queryClient)
+  { element : <AuthProvider />, children: [
+    {
+      path: '/',
+      element: <Root />,
+      errorElement: <Error />,
+      children: [
+        { path: '', element: <Home /> },
+        { path: '/login', element: <Login />  },
+        { path: '/service', element: <Service /> },
+        { path: '/product', element: <Product /> },
+        { path: '/about', element: <About /> },
+        {
+          path: '/create', element: <Create />, children: [
+            { path: '', element: <SelectAnimal /> },
+            {
+              path: ':animal',
+              element: <SelectBreed />,
+              loader: breedsLoader(queryClient)
+            },
+            { path: ':animal/:breed/notice', element: <Notice /> },
+            {
+              path: ':animal/:breed/upload',
+              element: <Upload />,
+              action: async ({ params, request }) => {
+                console.log('upload params', params)
+                console.log('upload request', request)
+                const formData = await request.formData()
+                const files = formData.getAll('files')
+                console.log('files', files)
+              }
+            },
+            { path: ':animal/:breed/checkout', element: <Checkout /> },
+          ]
+        },
+        { path: '/payment-complete', element: <PaymentComplete /> },
+        {
+          path: '/test',
+          action: async ({ params, request }) => {
+            console.log('upload params', params)
+            console.log('upload request', request)
+            const formData = await request.formData()
+            const files = formData.getAll('files')
+            console.log('files', files)
           },
-          { path: ':animal/:breed/notice', element: <Notice /> },
-          { path: ':animal/:breed/upload', element: <Upload /> },
-          { path: ':animal/:breed/checkout', element: <Checkout /> },
-        ]
-      },
-      { path: '/payment-complete', element: <PaymentComplete /> },
-      { path: '/collection', 
-        element: <Collection /> ,
-        loader: collectionLoader(queryClient)
-      },
-    ]
-  },
+          element: <Trial />
+        },
+        {
+          path: '/protectedcollection',
+          element: <ProtectedRoute><Collection /></ProtectedRoute>,
+          loader: collectionLoader(queryClient)
+         },
+        {
+          path: '/collection',
+          element: <Collection />,
+          loader: ({ params, request }) => {
+            console.log('collection params', params)
+            console.log('collection request', request)
+            console.log('collection headers', request.headers)
+            for (const key of request.headers.keys()) {
+              console.log(key);
+            }
+            console.log('collection headers token', request.headers.get('Authorization'))
+            return collectionLoader(queryClient)
+          }
+         },
+      ]
+    },
+  ]},
 ])
 
 

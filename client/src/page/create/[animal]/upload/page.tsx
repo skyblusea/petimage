@@ -3,13 +3,12 @@ import Grid from '@mui/material/Unstable_Grid2';
 import styled from '@emotion/styled'
 import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { Form, useParams } from "react-router-dom";
+import { Form, useParams, useSubmit } from "react-router-dom";
 import { useState } from "react"
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import GuideLine from "./GuideLine";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from "@mui/material";
-import LinkButton from "../../../../components/LinkButton";
 
 
 
@@ -26,7 +25,8 @@ export default function Upload() {
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) readFile(e.target.files)
-    // reset for triggering onChange on a same file
+    // reset for triggering onChange on a same file 
+    // 같은 파일 선택시 onChange가 발생하지 않는 문제 해결
     e.target.value = ''
   }
 
@@ -57,8 +57,8 @@ export default function Upload() {
         const isExist = files.some(file => file.imgUrl === imgUrl)
         if (isExist) {
           reject('이미 존재하는 파일입니다.')
-        }else {
-          const result = { file, imgUrl}
+        } else {
+          const result = { file, imgUrl }
           resolve(result as FileWithUrl)
         }
       }
@@ -86,32 +86,51 @@ export default function Upload() {
     if (fileList) readFile(fileList);
   }
 
+  const submit = useSubmit()
+  const submitHandler = (e) => {
+    e.preventDefault();
+    console.log('submit triggered')
+    const formData = new FormData(e.currentTarget)
+    files.forEach(file => {
+      formData.append('files', file.file)
+    })
+    submit(formData)
+  }
+  const clickHandler = (e) => {
+    console.log('onclick triggered')
+    const formData = new FormData()
+    files.forEach(file => {
+      formData.append('files', file.file)
+    })
+    submit(formData)
+  }
 
   return (
-    <Grid container spacing={3}>
-      <Grid xs={6} display={!files.length ? 'flex' : 'none'}>
-        <GuideLine />
-      </Grid>
-      <Grid xs={!files.length ? 6 : 12} >
-        <DragNDropBox>
-          {!files.length &&
-            <>
-              <div>
-                <CloudUploadIcon />
-                <Typography component="p" variant="body1" color="primary" sx={{ typography: { xs: 'body3', lg: 'body1' } }}>드래그로 파일 첨부하기</Typography>
-              </div>
-              <Typography component="p" variant="body1" color="primary" sx={{ typography: { xs: 'body3', lg: 'body1' } }}>또는</Typography>
-              <Button
-                htmlFor="file-input"
-                role="button"
-                component="label"
-                variant="contained"
-              >
-                파일 선택
-              </Button>
-            </>
-          }
-          <Form>
+    <Form method="post" onSubmit={submitHandler} action="/test">
+      <Grid container spacing={3}>
+        <Grid xs={6} display={!files.length ? 'flex' : 'none'}>
+          <GuideLine />
+        </Grid>
+        <Grid xs={!files.length ? 6 : 12} >
+          <DragNDropBox>
+            {!files.length &&
+              <>
+                <div>
+                  <CloudUploadIcon />
+                  <Typography component="p" variant="body1" color="primary" sx={{ typography: { xs: 'body3', lg: 'body1' } }}>드래그로 파일 첨부하기</Typography>
+                </div>
+                <Typography component="p" variant="body1" color="primary" sx={{ typography: { xs: 'body3', lg: 'body1' } }}>또는</Typography>
+                <Button
+                  htmlFor="file-input"
+                  role="button"
+                  component="label"
+                  variant="contained"
+                >
+                  파일 선택
+                </Button>
+              </>
+            }
+
             <input
               id="file-input"
               type="file"
@@ -120,8 +139,8 @@ export default function Upload() {
               hidden
               multiple
               onChange={onChangeHandler} />
-          </Form>
-
+            <input type="text" name="animal" value={animal} hidden readOnly />
+            <input type="text" name="breed" value={breed} hidden readOnly />
           <Grid container spacing={1} sx={{ width: '100%' }}>
             {/* <TransitionGroup component={null}> */}
             {files.map((file) => (
@@ -158,7 +177,20 @@ export default function Upload() {
         </DragNDropBox>
       </Grid>
       <Grid xs={12}>
-        <LinkButton
+        <Button
+          // disabled={files.length < 10 || files.length > 12}
+          color="petimage"
+          variant="contained"
+          type="submit"
+        >submit 생성하기</Button>
+        <Button
+          // disabled={files.length < 10 || files.length > 12}
+          onClick={clickHandler}
+          color="petimage"
+          variant="contained"
+        >onClick 생성하기</Button>
+
+        {/* <LinkButton
           to={`/create/${animal}/${breed}/checkout`}
           disabled={files.length < 10 || files.length > 12}
           color="petimage"
@@ -166,9 +198,11 @@ export default function Upload() {
           sx={{ width: '100%' }}
         >
           이미지 생성하기
-        </LinkButton>
+        </LinkButton> */}
       </Grid>
     </Grid >
+    </Form >
+
   )
 }
 

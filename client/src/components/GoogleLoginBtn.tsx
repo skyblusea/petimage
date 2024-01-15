@@ -22,3 +22,9 @@ export default function GoogleLoginBtn() {
     <div ref={divRef}></div>
   )
 }
+
+//로그인 작동원리
+//AuthProvider.tsx 에서 google api client 실행
+//google api client가 로그인 버튼을 렌더링
+//로그인 버튼 클릭시 google api client가 로그인 팝업을 띄움
+//로그인 이후 signInWithGoogle 콜백 실행

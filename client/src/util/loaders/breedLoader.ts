@@ -23,6 +23,7 @@ export const breedsQuery = (animal: string) => ({
 
 export const breedsLoader = (queryClient:QueryClient) => async ({params}:{params:Params}) => {
   const query = breedsQuery(params.animal ?? 'dog')
+  //return data or fech it
   const data = queryClient.getQueryData(query.queryKey) ?? (await queryClient.fetchQuery(query))
   return data
 }

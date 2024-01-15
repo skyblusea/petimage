@@ -10,6 +10,7 @@ import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import { AlbumItem } from "../../types";
 
 export default function Album({ data }: { data: AlbumItem}) {
+  //TODO : rendering delay
   return (
     <AlbumContainer>
       <AlbumHeader>

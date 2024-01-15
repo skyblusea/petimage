@@ -43,12 +43,12 @@ interface PetimageThemeProps {
 }
 
 export const PetimegeThemeWH = styled.div<PetimageThemeProps>`
-  border-top-right-radius: 80px;
-  border-top-left-radius: 80px;
+  border-top-right-radius: var(--border-radius-xl);
+  border-top-left-radius: var(--border-radius-xl);
   background-color: ${props => props.color || "white"};
   padding: var(--pd-nav);
   padding-top: 40px;
   width: 100%;
   height: 100%;
-  flex-grow: ${props => props.full};
+  flex-grow: ${props => props.full && 1};
 `

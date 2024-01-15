@@ -3,33 +3,26 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import GoogleLoginBtn from './GoogleLoginBtn';
-import AppleLoginBtn from './AppleLoginBtn';
+import GoogleLoginBtn from '../../components/GoogleLoginBtn';
+import AppleLoginBtn from '../../components/AppleLoginBtn';
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
 import styled from '@emotion/styled';
-import axios from 'axios';
-import LinkButton from './LinkButton';
-import { Typography } from '@mui/material';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
-
-export default function LoginModal({
-  isOpen,
-  setIsOpen
-}: {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+export default function Login() {
+  const pathname =  useLocation().pathname;
+  const navigate = useNavigate();
 
   return (
     <Dialog
-      open={isOpen}
-      onClose={() => setIsOpen(!isOpen)}
+      open={true}
+      onClick={() => navigate(-1)}
       aria-labelledby="login-dialog"
     >
       <DialogTitle id="login-dialog">로그인</DialogTitle>
       <IconButton
-        aria-label="close" onClick={() => setIsOpen(!isOpen)}
+        aria-label="close"
+        onClick={() => navigate(-1)}
         sx={{ position: 'absolute', right: '8px', top: '8px' }}
       >
         <CloseIcon />
