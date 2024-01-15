@@ -2,47 +2,39 @@
 import { PetimageThemeBG, PetimegeThemeWH } from "../../components/Containers";
 import styled from "@emotion/styled"
 import { RoundPaper } from "../create/[animal]/notice/page";
-import Gallery from "./Gallery";
 import Payment from "./Payment";
 import { Stack } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { albumQuery, paymentQuery } from "../../util/loaders/collectionLoader";
 import { useState } from "react";
+import Album from "./Album";
 
 export default function Collection() {
-  const [tab, setTab] = useState<'payments' | 'gallery'>('payments') 
-  const payment = useQuery(paymentQuery()).data
+  const [tab, setTab] = useState<'payments' | 'album'>('payments')
+  const payments = useQuery(paymentQuery()).data
   const album = useQuery(albumQuery()).data
-  console.log('payment', payment)
-  console.log('album', album)
-
-
+  console.log(tab)
   return (
     <PetimageThemeBG>
-      <PetimegeThemeWH>
+      <PetimegeThemeWH full>
         <TabContainer>
           <Tabs elevation={3}>
             <Tab onClick={() => setTab('payments')} role="tab" aria-label="payments" aria-selected={tab === 'payments'}>
               결제 내역
             </Tab>
-            <Tab onClick={() => setTab('gallery')} role="tab" aria-label="gallery" aria-selected={tab === 'gallery'}>
+            <Tab onClick={() => setTab('album')} role="tab" aria-label="album" aria-selected={tab === 'album'}>
               갤러리
             </Tab>
           </Tabs>
-          <TabPanel role="tabpanel" hidden={tab === 'payments'}>
+          <TabPanel role="tabpanel" hidden={tab === 'album'}>
             <Stack spacing={2}>
-              <Gallery />
-              <Gallery />
-              <Gallery />
-              <Gallery />
+              {payments?.map((payment) => <Payment key={payment._id} data={payment} />)
+              }
             </Stack>
           </TabPanel>
-          <TabPanel role="tabpanel" hidden={tab === 'gallery'}>
+          <TabPanel role="tabpanel" hidden={tab === 'payments'}>
             <Stack spacing={2}>
-              <Payment />
-              <Payment />
-              <Payment />
-              <Payment />
+              {album?.map((album) => <Album key={album._id} data={album} />)}
             </Stack>
           </TabPanel>
         </TabContainer>
@@ -91,11 +83,11 @@ const Tab = styled.button`
 `
 
 const Tabs = styled(RoundPaper)`
+  transform: translateY(calc(-50% - 40px));
   display: flex;
   width: 100%;
   flex-direction: row;
   max-width: 900px;
-  margin-top: -50px;
   justify-content: space-around;
   align-items: center;
   margin-bottom: var(--gap-lg);

@@ -2,18 +2,29 @@ import { CollectionBox } from "../../components/Boxes";
 import styled from "@emotion/styled"
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
+import { Payment } from "../../types";
+import countryToCurrency, { Countries } from "country-to-currency";
 
-export default function Payment() {
+
+
+export default function Payment({ data }: { data: Payment}) {
+  console.log('payment', data)
+
   return (
     <CollectionBox>
       <PaymentWrapper>
-        <Typography variant="h4" >컨셉사진 / 우주비행사 / 30장</Typography>
-        <Typography variant="h4" color="petimage.main" >5,900원</Typography>
+        <Typography variant="h4" >{data.orderName}</Typography>
+        <Typography variant="h4" color="petimage.main" >{new Intl.NumberFormat(undefined, { style: 'currency', currency: countryToCurrency[data.country as Countries] }).format(data.totalAmount)}</Typography>
       </PaymentWrapper>
       <Divider flexItem />
       <PaymentWrapper>
         <Typography variant="h4" >승인 일자</Typography>
-        <Typography variant="h4" color="text.secondary" >2023.11.28 오후 5:52:37</Typography>
+        <Typography variant="h4" color="text.secondary" >{
+          new Intl.DateTimeFormat(undefined, { // undefined 시 browser default locale
+            dateStyle: 'long',
+            timeStyle: 'medium'
+          }).format(new Date(data.createdAt))
+        }</Typography>
       </PaymentWrapper>
     </CollectionBox>
   );

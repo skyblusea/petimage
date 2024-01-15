@@ -7,13 +7,14 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
+import { AlbumItem } from "../../types";
 
-export default function Album() {
-
+export default function Album({ data }: { data: AlbumItem}) {
+  console.log('data', data)
   return (
     <AlbumContainer>
       <AlbumHeader>
-        <Typography variant="subtitle1">2023.12.04</Typography>
+        <Typography variant="subtitle1">{new Intl.DateTimeFormat(undefined, {dateStyle:'medium'}).format(new Date(data.createdAt))}</Typography>
         <DownloadIcon fontSize="large" />
       </AlbumHeader>
       <AccordionBox>
