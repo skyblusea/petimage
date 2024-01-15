@@ -8,7 +8,6 @@ import countryToCurrency, { Countries } from "country-to-currency";
 
 
 export default function Payment({ data }: { data: Payment}) {
-  console.log('payment', data)
 
   return (
     <CollectionBox>

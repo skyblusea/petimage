@@ -23,46 +23,15 @@ export default function Album({ data }: { data: AlbumItem}) {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography variant="h4" color="petimage.main">컨셉사진 / 우주비행사 / 30장</Typography>
+          <Typography variant="h4" color="petimage.main">컨셉사진 / {data.themeName} / {data.inputFiles.length}장</Typography>
         </AccordionSummary>
         <AccordionDetails>
         <Grid container spacing={1}>
-            <Grid xs={12/5}>
-              <SquareImgBoxWIcon src="/dog.jpeg" alt="dog"></SquareImgBoxWIcon>
+            {data.inputFiles.map((file,idx) => 
+            <Grid key={idx} xs={12/5}>
+              <SquareImgBoxWIcon src={file} alt="dog"></SquareImgBoxWIcon>
             </Grid>
-            <Grid xs={12/5}>
-              <SquareImgBoxWIcon src="/dog.jpeg" alt="dog"></SquareImgBoxWIcon>
-            </Grid>
-            <Grid xs={12/5}>
-              <SquareImgBoxWIcon src="/dog.jpeg" alt="dog"></SquareImgBoxWIcon>
-            </Grid>
-            <Grid xs={12/5}>
-              <SquareImgBoxWIcon src="/dog.jpeg" alt="dog"></SquareImgBoxWIcon>
-            </Grid>
-            <Grid xs={12/5}>
-              <SquareImgBoxWIcon src="/dog.jpeg" alt="dog"></SquareImgBoxWIcon>
-            </Grid>
-            <Grid xs={12/5}>
-              <SquareImgBoxWIcon src="/dog.jpeg" alt="dog"></SquareImgBoxWIcon>
-            </Grid>
-            <Grid xs={12/5}>
-              <SquareImgBoxWIcon src="/dog.jpeg" alt="dog"></SquareImgBoxWIcon>
-            </Grid>
-            <Grid xs={12/5}>
-              <SquareImgBoxWIcon src="/dog.jpeg" alt="dog"></SquareImgBoxWIcon>
-            </Grid>
-            <Grid xs={12/5}>
-              <SquareImgBoxWIcon src="/dog.jpeg" alt="dog"></SquareImgBoxWIcon>
-            </Grid>
-            <Grid xs={12/5}>
-              <SquareImgBoxWIcon src="/dog.jpeg" alt="dog"></SquareImgBoxWIcon>
-            </Grid>
-            <Grid xs={12/5}>
-              <SquareImgBoxWIcon src="/dog.jpeg" alt="dog"></SquareImgBoxWIcon>
-            </Grid>
-            <Grid xs={12/5}>
-              <SquareImgBoxWIcon src="/dog.jpeg" alt="dog"></SquareImgBoxWIcon>
-            </Grid>
+            )}
           </Grid>
         </AccordionDetails>
       </AccordionBox>
