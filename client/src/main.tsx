@@ -30,7 +30,7 @@ import Error from './error.tsx'
 import Login from './page/login/page.tsx'
 import ProtectedRoute from './components/ProtectedRoute.tsx'
 import { collectionLoader } from './util/loaders/collectionLoader.ts'
-import AuthProvider from '../AuthProvider.tsx'
+import AuthProvider from './provider/AuthProvider.tsx'
 
 
 
