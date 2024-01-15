@@ -13,7 +13,6 @@ export default function Collection() {
   const [tab, setTab] = useState<'payments' | 'album'>('payments')
   const payments = useQuery(paymentQuery()).data
   const album = useQuery(albumQuery()).data
-  console.log(tab)
   return (
     <PetimageThemeBG>
       <PetimegeThemeWH full>

@@ -10,7 +10,6 @@ import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import { AlbumItem } from "../../types";
 
 export default function Album({ data }: { data: AlbumItem}) {
-  console.log('data', data)
   return (
     <AlbumContainer>
       <AlbumHeader>
