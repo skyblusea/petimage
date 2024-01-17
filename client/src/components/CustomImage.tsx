@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useLayoutEffect } from "react";
 
 export default function CustomImage(props: React.ImgHTMLAttributes<HTMLImageElement>) {
   //placeholder 이미지 컴포넌트
@@ -14,7 +14,7 @@ export default function CustomImage(props: React.ImgHTMLAttributes<HTMLImageElem
     }
   };
 
-  React.useEffect(() => {
+  useLayoutEffect(() => {
     const imgElCurrent = imgEl.current;
     if (imgElCurrent) {
       imgElCurrent.addEventListener('load', onImageLoaded);
