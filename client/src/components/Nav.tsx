@@ -1,17 +1,19 @@
 import styled from "@emotion/styled"
-import Button from '@mui/material/Button';
 import { Link } from "react-router-dom"
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import Logo from "../assets/logo.svg?react"
-import { useState } from "react";
-import LoginModal from "../page/login/page";
-
-import LinkButton from "./LinkButton";
+import { LinkButton } from "./LinkButtons";
 import useAuth from "../util/useAuth";
+import Button from '@mui/material/Button';
+import { useState } from "react";
+import MenuModal from "./MenuModal";
+
 
 export default function Header() {
   const auth = useAuth()
   const isAuthenticated = auth.isAuthenticated
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
 
   return (
     <HeaderContainer>
@@ -23,15 +25,23 @@ export default function Header() {
         <Link to="/about">About</Link>
         <Link to="/product">Product</Link>
         <Link to="/collection">Collection</Link>
+        <Link to="/test">test</Link>
       </Nav>
       {isAuthenticated
-        ? <LinkButton
+        ? <Button
+          id="user-menu-btn"
           sx={{
             flexShrink: 0,
             borderColor: 'var(--primary)',
           }}
+          onClick={(e) => setAnchorEl(e.currentTarget)}
           startIcon={<AccountCircleOutlinedIcon />}
-          variant="outlined" color="primary" to="/collection">내 정보</LinkButton>
+          aria-controls={open ? 'user-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          variant="outlined" 
+          color="primary"
+          >내 정보</Button>
         : <LinkButton
           to="/login"
           sx={{
@@ -42,6 +52,7 @@ export default function Header() {
           로그인
         </LinkButton>
       }
+      {open && <MenuModal anchorEl={anchorEl} setAnchorEl={setAnchorEl} />}
     </HeaderContainer>
   )
 }
