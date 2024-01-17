@@ -1,60 +1,93 @@
-import { createContext, useEffect, useRef, useState } from "react";
-import { Outlet, useNavigate, useSubmit } from "react-router-dom";
+
+import { createContext, useEffect, useLayoutEffect, useReducer, useRef } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import { apiClient, authClient } from "../util/axiosInstance";
 
-
-
-
+// Context
 
 type User = {
   email: string;
   name: string;
-}
+} | undefined
 
 type Token = {
   access: string;
   refresh: string;
 } | undefined
 
-type TestContextType = {
-  user: User | undefined;
-  isAuthenticated: () => boolean;
-  signInWithGoogle: (response: google.accounts.id.CredentialResponse) => Promise<void>;
+type AuthContextType = {
+  user: User | null;
+  isAuthenticated: boolean;
+  // signInWithApple: () => Promise<void>;
+  // signout: () => Promise<void>;
+  logout: () => void;
 };
 
-export const TestContext = createContext<TestContextType>({
+const initialContextState: AuthContextType = {
+  user: null,
+  isAuthenticated: false,
+  // signInWithApple: () => Promise.resolve(),
+  // signout: () => Promise.resolve(),
+  logout: () => { },
+};
+
+
+export const AuthContext = createContext<AuthContextType>(initialContextState);
+
+
+// Reducer
+
+
+type AuthAction =
+  | { type: 'LOGIN', user: User }
+  | { type: 'LOGOUT' }
+  | { type: 'LOADING', isLoading: boolean }
+
+type AuthState = {
+  user: User;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+};
+
+const initialReducerState: AuthState = {
   user: undefined,
-  isAuthenticated: () => false,
-  signInWithGoogle: () => Promise.resolve(),
-});
+  isAuthenticated: false,
+  isLoading: false
+};
+
+const authReducer = (state: AuthState, action: AuthAction) => {
+  switch (action.type) {
+    case "LOGIN":
+      return { ...state, user: action.user, isAuthenticated: true };
+    case "LOGOUT":
+      return { ...state, user: undefined, isAuthenticated: false };
+    default:
+      return state;
+  }
+};
 
 
 
-export function TestProvider() {
-  const [user, setUser] = useState<User | undefined>();
+export default function AuthProvider() {
+  const [state, dispatch] = useReducer(authReducer, initialReducerState);
+  const { user, isAuthenticated, isLoading } = state;
   const tokenRef = useRef<Token | undefined>();
-  // 토큰은 ui 렌더링에 영향을 주지 않으므로 ref 로 관리
-  // app 이 token changea에 대해 re-rendering 되지 않도록 하기 위함, ui components들과 decoupling 하기 위함
   const navigate = useNavigate();
 
   useEffect(() => {
     console.log('init interceptor')
 
-    if(tokenRef.current === undefined){
+    if (tokenRef.current === undefined) {
       console.log('토큰 로컬에서 저장')
-      const access = localStorage.getItem('access') 
+      const access = localStorage.getItem('access')
       const refresh = localStorage.getItem('refresh')
-      if(access && refresh){
-        tokenRef.current = {access, refresh}
+      if (access && refresh) {
+        tokenRef.current = { access, refresh }
+        dispatch({ type: 'LOGIN', user: { email: '', name: '' } })
+      } else {
+        dispatch({ type: 'LOGOUT' })
       }
     }
-
-    // if(tokenRef.current){
-      console.log('토큰 액션에 전달')
-      const formData = new FormData()
-      formData.append('isLoggedin', 'true`')
-      submit(formData, { method: 'post' })
-    // }
 
     const authRequestInterceptor = authClient.interceptors.request.use(
       (config) => {
@@ -91,7 +124,7 @@ export function TestProvider() {
         if (response.config.url === '/user/google' || response.config.url === '/user/refresh') {
           const { data: res } = response
           const { accessToken, refreshToken, user: { email, name } } = res.data
-          setUser({ email, name })
+          dispatch({ type: 'LOGIN', user: { email, name } })
           //TODO : 수정 필요 cookie
           localStorage.setItem('access', accessToken);
           localStorage.setItem('refresh', refreshToken);
@@ -99,7 +132,6 @@ export function TestProvider() {
         }
         return response;
       },
-
     );
 
     // Return cleanup function to remove interceptors if apiClient updates
@@ -108,11 +140,24 @@ export function TestProvider() {
       authClient.interceptors.response.eject(authResponseInterceptor);
       apiClient.interceptors.response.eject(apiResponseInterceptor);
     };
-  }, []);
+  }, [tokenRef]);
 
   useEffect(() => {
     //https://developers.google.com/identity/gsi/web/reference/js-reference#google.accounts.id.initialize
     //에 따라 mehtod 를 한번만 call 하고 인증 관련 함수를 중앙화 하기 위해 이동
+    const signInWithGoogle = async (response: google.accounts.id.CredentialResponse) => {
+      console.log('signInWithGoogle 실행중')
+      try {
+        const res = await apiClient.post('/user/google', { token: response.credential })
+        if (res.data.ok) {
+          alert('로그인 성공')
+          navigate('/')
+        }
+      } catch (error) {
+        console.log(error)
+        throw error;
+      }
+    }
     const initGoogleAPIClient = () => {
       console.log('init google api client')
       google.accounts.id.initialize({
@@ -121,40 +166,13 @@ export function TestProvider() {
       })
     }
     initGoogleAPIClient();
-
-
-
   }, [])
-
-  const isAuthenticated = () => {
-    return tokenRef.current !== undefined;
-  }
-
-  const signInWithGoogle = async (response: google.accounts.id.CredentialResponse) => {
-    console.log('signin with google 실행중')
-    try {
-      await apiClient({
-        method: 'post',
-        url: `/user/google`,
-        data: {
-          token: response.credential
-        }
-      }).then((res) => {
-        if (res.status === 200) {
-          alert('로그인 성공')
-          navigate('/')
-        }
-      })
-    } catch (error) {
-      console.log(error)
-      throw error;
-    }
-  }
 
   const tokenRefresh = async (token: Token) => {
     console.log('토큰 리프레시 실행중')
     if (!token) {
       alert('토큰이 없습니다.')
+      dispatch({ type: 'LOGOUT' })
       navigate('/')
       return
     }
@@ -169,26 +187,27 @@ export function TestProvider() {
         console.log('발급 실패!')
         if (err.response.status === 401) {
           alert("로그인이 만료되었습니다.")
+          dispatch({ type: 'LOGOUT' })
           navigate("/")
         }
       });
   }
 
+  const logout = () => { }
 
 
   const context = {
     user,
     isAuthenticated,
-    signInWithGoogle,
-  }
+    logout
+  };
+
 
 
   return (
-    <TestContext.Provider value={context}>
+    <AuthContext.Provider value={context}>
       <Outlet />
-    </TestContext.Provider>
-  );
+    </AuthContext.Provider>
+  )
+
 }
-
-
-
