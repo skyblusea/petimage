@@ -2,6 +2,8 @@
 import { createContext, useEffect, useLayoutEffect, useReducer, useRef } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { apiClient, authClient } from "../util/axiosInstance";
+import Loading from "../components/Loading";
+import { Backdrop } from "@mui/material";
 
 // Context
 
@@ -207,6 +209,9 @@ export default function AuthProvider() {
   return (
     <AuthContext.Provider value={context}>
       <Outlet />
+      <Backdrop open>
+        <Loading />
+      </Backdrop>
     </AuthContext.Provider>
   )
 
