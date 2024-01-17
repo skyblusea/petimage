@@ -2,7 +2,9 @@ import styled from "@emotion/styled";
 import React from "react";
 
 export default function CustomImage(props: React.ImgHTMLAttributes<HTMLImageElement>) {
-  //Next Image component 의 placeholder 속성을 사용하기 위해 만든 컴포넌트
+  //placeholder 이미지 컴포넌트
+  //이미지 로딩 되는 동안 레이아웃이 깨지는 것 방지
+
   const imgEl = React.useRef<HTMLImageElement>(null);
   const [loaded, setLoaded] = React.useState(false);
 
@@ -24,7 +26,7 @@ export default function CustomImage(props: React.ImgHTMLAttributes<HTMLImageElem
   return (
     <>
       <Image src={props.src} alt={props.alt} ref={imgEl} loaded={loaded} />
-      <Placeholder src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO8UA8AAiUBUcc3qzwAAAAASUVORK5CYII=" loaded={loaded}/>
+      {!loaded && <Placeholder src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO8UA8AAiUBUcc3qzwAAAAASUVORK5CYII=" loaded={loaded}/>}
     </>
   )
 }
