@@ -4,11 +4,12 @@ import DialogContentText from '@mui/material/DialogContentText';
 import Tooltip from '@mui/material/Tooltip';
 import Box from '@mui/material/Box';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
-import LinkButton from '../../../../components/LinkButton';
+import { LinkButton } from '../../../../components/LinkButtons';
 import { loadPaymentWidget, ANONYMOUS } from "@tosspayments/payment-widget-sdk";
 import { nanoid } from "nanoid";
 import { useEffect, useRef, useState } from "react";
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 
 
 export default function Checkout() {
@@ -106,6 +107,7 @@ export default function Checkout() {
         </Tooltip>
       </TossCheckboxWrapper>
       <LinkButton
+        component={Link}
         to="/payment-complete"
         endIcon={<ArrowForwardRoundedIcon />}
         variant="contained" color="petimage" disabled={!agree} sx={{ width: '100%' }}>결제하기</LinkButton>
