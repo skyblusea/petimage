@@ -3,26 +3,27 @@ import Grid from '@mui/material/Unstable_Grid2';
 import styled from '@emotion/styled'
 import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { Form, useParams, useSubmit } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useState } from "react"
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import GuideLine from "./GuideLine";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Box, IconButton } from "@mui/material";
-import { uploadFiles } from "../../../../../util/uploadFiles";
-import { validateFiles } from "../../../../../util/validateFiles";
-import { LoadingContext } from "../../../../../provider/LoadingProvider";
+import { uploadFiles } from "../../../../../../util/uploadFiles";
+import { validateFiles } from "../../../../../../util/validateFiles";
 import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded';
-import { SingleSection } from "../../../../../components/Containers";
+import { LoadingContext } from "../../../../../../provider/LoadingProvider";
 
 
 
 
 export default function Upload() {
 
-  const { animal, breed } = useParams() as { animal: string, breed: string }
-  const animalKor = animal === 'dog' ? '강아지' : '고양이'
+  const { theme, animal, breed } = useParams()
+  const animalKor = animal==='dog' ? '강아지' : '고양이'  
   const { setIsLoading } = useContext(LoadingContext)
+  const navigate = useNavigate()
+
 
   interface FileWithUrl {
     file: File,
@@ -33,14 +34,12 @@ export default function Upload() {
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) readFile(e.target.files)
-    // reset for triggering onChange on a same file 
-    // 같은 파일 선택시 onChange가 발생하지 않는 문제 해결
+    // reset for triggering onChange on a same file, 같은 파일 선택시 onChange가 발생하지 않는 문제 해결
     e.target.value = ''
   }
 
   const readFile = async (fileList: FileList) => {
     const selectedFiles = [...fileList]
-
     const isMax = files.length + selectedFiles.length > 12
     if (isMax) {
       alert("이미지는 12개까지만 추가할 수 있습니다.")
@@ -112,6 +111,8 @@ export default function Upload() {
         return { ...ele, isValid: validated[idx].check }
       })
       setFiles(validationResult)
+    }else {
+      navigate(`/create/${theme}/${animal}/${breed}/checkout`, { state: { files: uploaded } })
     }
   }
 
@@ -193,7 +194,7 @@ export default function Upload() {
         </Grid>
         <Grid xs={12}>
           <Button
-            disabled={files.length < 10 || files.length > 12}
+            // disabled={files.length < 10 || files.length > 12}
             color="petimage"
             variant="contained"
             onClick={onClickHandler}

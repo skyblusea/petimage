@@ -6,7 +6,7 @@ import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import Grid from '@mui/material/Unstable_Grid2';
 import Box from "@mui/material/Box";
 
-export default function CreatLayout() {
+export default function CreateLayout() {
 
   const params = useParams();
   const navigate = useNavigate();

@@ -4,16 +4,17 @@ import DialogContentText from '@mui/material/DialogContentText';
 import Tooltip from '@mui/material/Tooltip';
 import Box from '@mui/material/Box';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
-import { LinkButton } from '../../../../components/LinkButtons';
 import { loadPaymentWidget, ANONYMOUS } from "@tosspayments/payment-widget-sdk";
 import { nanoid } from "nanoid";
 import { useEffect, useRef, useState } from "react";
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { LinkButton } from '../../../../../../components/LinkComponents';
 
 
 export default function Checkout() {
-
+  const location = useLocation()
+  console.log(location)
   const [agree, setAgree] = useState(false)
   const widgetClientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
   const customerKey = "DImXqF5T0UgxfpA_DROI4";

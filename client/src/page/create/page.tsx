@@ -3,19 +3,16 @@ import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { Box, Button, SvgIcon, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Button, SvgIcon, Typography } from '@mui/material';
 import styled from '@emotion/styled';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import LinkButton from '../../components/LinkButton';
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 import { RoundPaper, SingleSection } from '../../components/Containers';
 import { apiClient } from '../../util/axiosInstance';
 import { QueryClient } from "@tanstack/react-query"
-import { useLoaderData } from 'react-router-dom';
-import CustomImage from '../../components/CustomImage';
-import BaseImgBox, { BaseCreateBox } from '../../components/Boxes';
-import { LinkBox } from '../../components/LinkComponents';
+import { Link, useLoaderData } from 'react-router-dom';
+import BaseImgBox from '../../components/Boxes';
+import { Theme } from '../../types';
 
 
 export const loader = (queryClient: QueryClient) =>
@@ -25,23 +22,6 @@ export const loader = (queryClient: QueryClient) =>
     return data
   }
 
-type Theme = {
-  _id: string;
-  name: string;
-  desc: string;
-  prompt: string[];
-  background: string;
-  tag: string;
-  type: string;
-  price: string;
-  popular: number;
-  amount: number;
-  sample: string[];
-  trial: string[];
-  createdAt: string;
-  updatedAt: string;
-  category: string[];
-}
 
 const themeQuery = () => ({
   queryKey: ['theme'],
@@ -74,30 +54,31 @@ export default function Theme() {
         >
           {theme.map((content, idx) =>
             <SwiperSlide key={content._id}>
-              <LinkBox to={`/create/${content._id}`}
-              {...{padding:"var(--pd-sm)", paddingBottom:"calc(var(--gap-lg) + 20px)"}}>
-                <RoundPaper elevation={3}>
-                  <BaseImgBox ratio="16/9" src={content.sample[0]} alt={`banner${idx}`} />
-                  <Box display="flex" alignItems="center" justifyContent="space-between" width="100%">
-                    <Typography variant="h4" component="h1" sx={{ typography: { xs: 'h4', lg: 'h3' } }}>
-                      {content.name}
-                    </Typography>
-                    <Typography
-                      variant="subtitle2"
-                      sx={{
-                        color: 'error.main',
-                        typography: { xs: 'subtitle1', lg: 'subtitle0' }
-                      }}>
-                      {content.price} 원
-                    </Typography>
-                  </Box>
-                  <Box display="flex" width="100%">
-                    <Typography variant="body1" sx={{ typography: { xs: 'body2', md: 'body1' } }}>
-                      {content.desc}
-                    </Typography>
-                  </Box>
-                </RoundPaper>
-              </LinkBox>
+              <Box padding="var(--pd-sm)" paddingBottom="calc(var(--gap-lg) + 20px)">
+                <Link to={`/create/${content._id}`}>
+                  <RoundPaper elevation={3}>
+                    <BaseImgBox ratio="16/9" src={content.sample[0]} alt={`banner${idx}`} />
+                    <Box display="flex" alignItems="center" justifyContent="space-between" width="100%">
+                      <Typography variant="h4" component="h1" sx={{ typography: { xs: 'h4', lg: 'h3' } }}>
+                        {content.name}
+                      </Typography>
+                      <Typography
+                        variant="subtitle2"
+                        sx={{
+                          color: 'error.main',
+                          typography: { xs: 'subtitle1', lg: 'subtitle0' }
+                        }}>
+                        {content.price} 원
+                      </Typography>
+                    </Box>
+                    <Box display="flex" width="100%">
+                      <Typography variant="body1" sx={{ typography: { xs: 'body2', md: 'body1' } }}>
+                        {content.desc}
+                      </Typography>
+                    </Box>
+                  </RoundPaper>
+                </Link>
+              </Box>
             </SwiperSlide>)}
         </Swiper>
         <ArrowBackIosNewRoundedIcon

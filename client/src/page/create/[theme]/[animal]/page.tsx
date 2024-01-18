@@ -1,4 +1,4 @@
-import { Link, useLoaderData, useParams } from "react-router-dom";
+import { Link, useLoaderData, useLocation, useParams } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Grid from '@mui/material/Unstable_Grid2';
 import CustomImage from "../../../../components/CustomImage";
@@ -41,14 +41,15 @@ export const loader =
 export default function SelectBreed() {
 
   const breeds = useLoaderData() as Awaited<ReturnType<ReturnType<typeof loader>>>;
-  const { theme } = useParams()
+  const pathname = useLocation().pathname;
+
 
   return (
     <Grid container spacing={3}>
       {breeds?.map((breed) => (
         <Grid xs={4} md={3} lg={12 / 5} key={breed._id}>
           <SquareCreateBox >
-            <Link to={`/create/${theme}/${breed.code}/notice`}>
+            <Link to={`${pathname}/${breed.code}/notice`}>
               <CustomImage src={breed.img} alt={breed.name} />
             </Link>
             <Typography component="span" sx={{

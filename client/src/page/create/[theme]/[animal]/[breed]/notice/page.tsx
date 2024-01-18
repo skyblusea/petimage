@@ -1,15 +1,16 @@
 import Typography from '@mui/material/Typography';
 import styled from '@emotion/styled'
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
-import { LinkButton } from '../../../../../components/LinkComponents';
 import { Link, useParams } from 'react-router-dom';
-import { RoundPaper, SingleSection } from '../../../../../components/Containers';
-import BaseImgBox from '../../../../../components/Boxes';
+import { RoundPaper, SingleSection } from '../../../../../../components/Containers';
+import BaseImgBox from '../../../../../../components/Boxes';
+import { LinkButton } from '../../../../../../components/LinkComponents';
+
 
 
 export default function Notice() {
 
-  const { theme, breed } = useParams()
+  const { theme, animal, breed } = useParams()
 
   return (
     <SingleSection>
@@ -31,7 +32,7 @@ export default function Notice() {
         </ImgWrraper>
         <LinkButton
           component={Link}
-          to={`/create/${theme}/${breed}/upload`}
+          to={`/create/${theme}/${animal}/${breed}/upload`}
           variant="reverseContained" color="petimage" startIcon={<CheckRoundedIcon />}>
           상기 내용을 확인하였습니다.
         </LinkButton>

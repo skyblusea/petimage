@@ -2,7 +2,7 @@ import Paper from '@mui/material/Paper';
 import Typography from "@mui/material/Typography";
 import Grid from '@mui/material/Unstable_Grid2';
 import guildeline from './guildeline.json'
-import BaseImgBox from '../../../../../components/Boxes';
+import BaseImgBox from '../../../../../../components/Boxes';
 
 
 
