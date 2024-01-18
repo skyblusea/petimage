@@ -6,28 +6,34 @@ import CustomImage from './CustomImage';
 import { Stack } from '@mui/material';
 
 
-export default function SquareImgBoxWIcon({
+export default function BaseImgBox({
   children,
   src,
   alt,
   success,
   error,
+  square,
+  ratio,
 }: {
   children?: React.ReactNode
   src: string,
   alt?: string,
   success?: boolean,
   error?: boolean,
+  square?: boolean,
+  ratio?: string,
 }) {
+  console.log('ratio', ratio)
+
   return (
-    <SquareCreateBox>
+    <BaseCreateBox ratio={square ? '1/1' :ratio}>
       <ImgWrraper>
         <CustomImage src={src} alt={alt} />
         {success && <CheckCircleOutlineRoundedIcon fontSize="medium" color="success" />}
         {error && <HighlightOffRoundedIcon fontSize="medium" color="error" />}
       </ImgWrraper>
       {children && <Typography variant='body3'>{children}</Typography>}
-    </SquareCreateBox>
+    </BaseCreateBox>
   )
 }
 
@@ -35,7 +41,6 @@ export default function SquareImgBoxWIcon({
 const ImgWrraper = styled.div`
   position: relative;
   width: 100%;
-  aspect-ratio: 1/1;
   overflow: hidden;
   border-radius: var(--border-radius-lg);
   svg {
@@ -45,8 +50,12 @@ const ImgWrraper = styled.div`
   }
 `
 
+type BaseCreateBoxProps = {
+  ratio?: string
+}
 
-export const RectangleCreateBox = styled.div` 
+
+export const BaseCreateBox = styled.div<BaseCreateBoxProps>` 
   width: 100%;
   height: 100%;
   display: flex;
@@ -57,13 +66,13 @@ export const RectangleCreateBox = styled.div`
     border-radius: var(--border-radius-lg);
     width: 100%;
     height: auto;
-    aspect-ratio: 3/4;
     object-fit: cover;
+    aspect-ratio: ${props => props.ratio};
   }
 `
 
 
-export const SquareCreateBox = styled(RectangleCreateBox)`
+export const SquareCreateBox = styled(BaseCreateBox)`
   img {
     aspect-ratio: 1/1;
   }

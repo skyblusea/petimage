@@ -8,7 +8,7 @@ import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Link, useLocation } from 'react-router-dom';
-import { LinkListItemButton, LinkMenuItem } from './LinkButtons';
+import { LinkListItemButton, LinkMenuItem } from './LinkComponents';
 import Menu from '@mui/material/Menu';
 import { MenuItem } from '@mui/material';
 

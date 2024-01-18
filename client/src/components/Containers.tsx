@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import Paper from '@mui/material/Paper';
 
 
 export const MainContainer = styled.main`
@@ -12,6 +13,7 @@ export const MainContainer = styled.main`
 
 export const SingleSection = styled.section`
   flex: 1;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,4 +53,15 @@ export const PetimegeThemeWH = styled.div<PetimageThemeProps>`
   width: 100%;
   height: 100%;
   flex-grow: ${props => props.full && 1};
+`
+
+
+
+export const RoundPaper = styled(Paper)`
+  border-radius: var(--border-radius-lg);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: var(--gap-md);
+  padding: var(--gap-lg);
 `

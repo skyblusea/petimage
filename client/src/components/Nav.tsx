@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 import { Link } from "react-router-dom"
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import Logo from "../assets/logo.svg?react"
-import { LinkButton } from "./LinkButtons";
+import { LinkButton } from "./LinkComponents";
 import useAuth from "../util/useAuth";
 import Button from '@mui/material/Button';
 import { useState } from "react";
@@ -24,7 +24,6 @@ export default function Header() {
         <Link to="/service">Service</Link>
         <Link to="/about">About</Link>
         <Link to="/product">Product</Link>
-        <Link to="/collection">Collection</Link>
         <Link to="/test">test</Link>
       </Nav>
       {isAuthenticated
@@ -39,10 +38,11 @@ export default function Header() {
           aria-controls={open ? 'user-menu' : undefined}
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
-          variant="outlined" 
+          variant="outlined"
           color="primary"
-          >내 정보</Button>
+        >내 정보</Button>
         : <LinkButton
+          component={Link}
           to="/login"
           sx={{
             flexShrink: 0,
