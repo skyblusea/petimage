@@ -14,6 +14,7 @@ export default function CustomImage(props: React.ImgHTMLAttributes<HTMLImageElem
     }
   };
 
+  
   useLayoutEffect(() => {
     const imgElCurrent = imgEl.current;
     if (imgElCurrent) {
@@ -25,6 +26,7 @@ export default function CustomImage(props: React.ImgHTMLAttributes<HTMLImageElem
 
   return (
     <>
+      {/* <Placeholder src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO8UA8AAiUBUcc3qzwAAAAASUVORK5CYII=" loaded={false}/> */}
       <Image src={props.src} alt={props.alt} ref={imgEl} loaded={loaded} />
       {!loaded && <Placeholder src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO8UA8AAiUBUcc3qzwAAAAASUVORK5CYII=" loaded={loaded}/>}
     </>
@@ -37,8 +39,8 @@ interface PlaceholderProps {
 
 const Placeholder = styled.img<PlaceholderProps>`
   object-fit: cover !important;
-  width: 300px !important;
-  max-width: 100%;
+  /* width: 500px !important; */
+  flex-grow: 1;
   background-size: cover;
   background-position: 50% 50%;
   background-repeat: no-repeat;

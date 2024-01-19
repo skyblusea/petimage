@@ -1,46 +1,80 @@
 
-import { PetimageThemeBG, PetimegeThemeWH } from "../../components/Containers";
+import { PetimageThemeBG, PetimegeThemeWH, RoundPaper } from "../../components/Containers";
 import styled from "@emotion/styled"
-import { RoundPaper } from "../create/[animal]/notice/page";
 import Payment from "./Payment";
 import { Stack } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { albumQuery, paymentQuery } from "../../util/loaders/collectionLoader";
-import { useState } from "react";
 import Album from "./Album";
+import { QueryClient } from "@tanstack/react-query";
+import { useLoaderData, useLocation } from "react-router-dom";
+import { AlbumItem, Payment as PaymentType } from "../../types";
+import { authClient } from "../../util/axiosInstance";
+
+
+
+
+const collectionQuery = () => ({
+  queryKey: ["collection"],
+  queryFn: async ():Promise<{payments: PaymentType[]; album: AlbumItem[]}> => {
+    try {
+      const { data: { data: { payments } } } = await authClient.get(`/payment/list?sort=&order=&limit=&page=`)
+      const { data: { data: album } } = await authClient.get(`/album/list?sort=&order=&limit=&page=`);
+      return { payments, album }
+    } catch (error) {
+      console.error('collectionQuery error')
+      throw error
+    }
+  },
+  staleTime: 1000 * 60 * 60 * 24 * 7, // 7 days
+});
+
+
+export const loader =
+  (queryClient: QueryClient) =>
+    async () => {
+      const query = collectionQuery()
+      const data = queryClient.ensureQueryData(query)
+      return data;
+    }
+
+
 
 export default function Collection() {
-  // const [tab, setTab] = useState<'payments' | 'album'>('payments')
-  // const payments = useQuery(paymentQuery()).data
-  // const album = useQuery(albumQuery()).data
-  // return (
-  //   <PetimageThemeBG>
-  //     <PetimegeThemeWH full>
-  //       <TabContainer>
-  //         <Tabs elevation={3}>
-  //           <Tab onClick={() => setTab('payments')} role="tab" aria-label="payments" aria-selected={tab === 'payments'}>
-  //             결제 내역
-  //           </Tab>
-  //           <Tab onClick={() => setTab('album')} role="tab" aria-label="album" aria-selected={tab === 'album'}>
-  //             갤러리
-  //           </Tab>
-  //         </Tabs>
-  //         <TabPanel role="tabpanel" hidden={tab === 'album'}>
-  //           <Stack spacing={2}>
-  //             {payments?.map((payment) => <Payment key={payment._id} data={payment} />)
-  //             }
-  //           </Stack>
-  //         </TabPanel>
-  //         <TabPanel role="tabpanel" hidden={tab === 'payments'}>
-  //           <Stack spacing={2}>
-  //             {album?.map((album) => <Album key={album._id} data={album} />)}
-  //           </Stack>
-  //         </TabPanel>
-  //       </TabContainer>
-  //     </PetimegeThemeWH>
-  //   </PetimageThemeBG>
-  // )
-  return (<></>)
+  const initialData = useLoaderData() as Awaited<ReturnType<ReturnType<typeof loader>>>;
+  const { data } = useQuery({
+    ...collectionQuery(),
+    initialData,
+  })
+  const { payments, album } = data || initialData
+  const pathname = useLocation().pathname
+
+  return (
+    <PetimageThemeBG>
+      <PetimegeThemeWH full>
+        <TabContainer>
+          <Tabs elevation={3}>
+            <Tab role="tab" aria-label="payments" aria-selected={pathname === '/payments'}>
+              결제 내역
+            </Tab>
+            <Tab role="tab" aria-label="album" aria-selected={pathname === '/collection'}>
+              갤러리
+            </Tab>
+          </Tabs>
+          <TabPanel role="tabpanel" hidden={pathname === '/collection'}>
+            <Stack spacing={2}>
+              {payments?.map((payment) => <Payment key={payment._id} data={payment} />)
+              }
+            </Stack>
+          </TabPanel>
+          <TabPanel role="tabpanel" hidden={pathname === '/payments'}>
+            <Stack spacing={2}>
+              {album?.map((album) => <Album key={album._id} data={album} />)}
+            </Stack>
+          </TabPanel>
+        </TabContainer>
+      </PetimegeThemeWH>
+    </PetimageThemeBG>
+  )
 }
 
 

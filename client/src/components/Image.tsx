@@ -16,5 +16,6 @@ export default function Image({ src, alt, width, height }: ImageProps) {
 
 const Img = styled.img<ImageProps>`
   width: ${(props) => props.width || '100%'};
-  height: ${(props) => props.height || 'auto'};
+  height: ${(props) => props.height || '100%'};
+  object-fit: cover;
 `

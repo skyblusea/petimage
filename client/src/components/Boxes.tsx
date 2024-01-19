@@ -4,6 +4,9 @@ import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded';
 import Typography from '@mui/material/Typography';
 import CustomImage from './CustomImage';
 import { Stack } from '@mui/material';
+import { LinkBox } from './LinkComponents';
+import { Link, LinkProps } from "react-router-dom";
+
 
 
 export default function BaseImgBox({
@@ -14,6 +17,7 @@ export default function BaseImgBox({
   error,
   square,
   ratio,
+  to,
 }: {
   children?: React.ReactNode
   src: string,
@@ -22,11 +26,15 @@ export default function BaseImgBox({
   error?: boolean,
   square?: boolean,
   ratio?: string,
+  to?: LinkProps['to'];
 }) {
-  console.log('ratio', ratio)
 
   return (
-    <BaseCreateBox ratio={square ? '1/1' :ratio}>
+    <BaseCreateBox
+      component={to ? Link : 'div'}
+      to={to}
+      ratio={square ? '1/1' : ratio}
+    >
       <ImgWrraper>
         <CustomImage src={src} alt={alt} />
         {success && <CheckCircleOutlineRoundedIcon fontSize="medium" color="success" />}
@@ -55,7 +63,7 @@ type BaseCreateBoxProps = {
 }
 
 
-export const BaseCreateBox = styled.div<BaseCreateBoxProps>` 
+export const BaseCreateBox = styled(LinkBox) <BaseCreateBoxProps>` 
   width: 100%;
   height: 100%;
   display: flex;
