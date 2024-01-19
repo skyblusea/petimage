@@ -12,6 +12,7 @@ import { Link, redirect, useActionData, useLocation } from 'react-router-dom';
 import { getThemeDetails } from '../../../util/getThemeDetails';
 import { LinkButton } from '../../../components/LinkComponents';
 import { AuthContext } from '../../../provider/AuthProvider';
+import { Button } from '@mui/material';
 
 
 
@@ -45,30 +46,8 @@ export default function Checkout() {
   // const data = useActionData()
   const { state : paymentDatails } = useLocation()
   console.log('paymentDatails',paymentDatails)
-
-//   {
-//     "theme": {
-//         "id": "657953f6ed59584aa4b2c983",
-//         "name": "우주비행사",
-//         "price": "4,900"
-//     },
-//     "animalCode": "maltese_dog",
-//     "inputFiles": [
-//         "https://petimage.kr/files/uploads/658a43a4e26d9227a64da419/17056270740130cce.jpeg",
-//         "https://petimage.kr/files/uploads/658a43a4e26d9227a64da419/17056270740156b65.jpeg",
-//         "https://petimage.kr/files/uploads/658a43a4e26d9227a64da419/17056270740168afd.jpeg",
-//         "https://petimage.kr/files/uploads/658a43a4e26d9227a64da419/170562707401990d6.jpeg",
-//         "https://petimage.kr/files/uploads/658a43a4e26d9227a64da419/17056270740205a9a.jpeg",
-//         "https://petimage.kr/files/uploads/658a43a4e26d9227a64da419/1705627074029c065.jpeg",
-//         "https://petimage.kr/files/uploads/658a43a4e26d9227a64da419/17056270740387033.jpeg",
-//         "https://petimage.kr/files/uploads/658a43a4e26d9227a64da419/17056270740400a79.jpeg",
-//         "https://petimage.kr/files/uploads/658a43a4e26d9227a64da419/1705627074041df16.jpeg",
-//         "https://petimage.kr/files/uploads/658a43a4e26d9227a64da419/170562707405039c2.jpeg",
-//         "https://petimage.kr/files/uploads/658a43a4e26d9227a64da419/170562707405137b2.jpeg",
-//         "https://petimage.kr/files/uploads/658a43a4e26d9227a64da419/17056270740539d00.jpeg"
-//     ]
-// }
-  const price = 0
+  const { theme, animalCode, inputFiles } = paymentDatails
+  const priceNumber = Number(theme.price?.replaceAll(',', ''))
   const { user } = useContext(AuthContext) ?? { name: '익명', email: ANONYMOUS }
   const [agree, setAgree] = useState(false)
 
@@ -94,20 +73,20 @@ export default function Checkout() {
     if (paymentWidget == null) {
       return;
     }
-
+    // 결제창 렌더링
     const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
       "#payment-widget",
-      { value: price },
+      { value: priceNumber },
       { variantKey: "DEFAULT" }
     );
-
+    // 결제약관 렌더링
     paymentWidget.renderAgreement(
       "#agreement",
       { variantKey: "AGREEMENT" }
     );
 
     paymentMethodsWidgetRef.current = paymentMethodsWidget;
-  }, [paymentWidget, price]);
+  }, [paymentWidget, priceNumber]);
 
   useEffect(() => {
     const paymentMethodsWidget = paymentMethodsWidgetRef.current;
@@ -116,8 +95,8 @@ export default function Checkout() {
       return;
     }
 
-    paymentMethodsWidget.updateAmount(price);
-  }, [price]);
+    paymentMethodsWidget.updateAmount(priceNumber);
+  }, [priceNumber]);
 
   const handlePaymentRequest = async () => {
     // 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
@@ -125,10 +104,10 @@ export default function Checkout() {
     try {
       await paymentWidget?.requestPayment({
         orderId: nanoid(),
-        orderName: 'fefe',
+        orderName: theme.name,
         customerName: user?.name || "익명",
         customerEmail: user?.email || ANONYMOUS,
-        successUrl: `${window.location.origin}/success`,
+        successUrl: `${window.location.origin}/payment/success`,
         failUrl: `${window.location.origin}/fail`,
         _skipAuth: "FORCE_SUCCESS",
       });
@@ -144,10 +123,10 @@ export default function Checkout() {
       <DialogContent dividers>
         <Box display="flex" justifyContent="space-between">
           <DialogContentText>
-            스쿠버다이빙 테마 / 30장
+            {theme.name} 테마 / {theme.amount} 장
           </DialogContentText>
           <DialogContentText color="error">
-            5,900원
+            {theme.price} 원
           </DialogContentText>
         </Box>
       </DialogContent>
@@ -161,11 +140,10 @@ export default function Checkout() {
           </TossCheckboxLabel>
         </Tooltip>
       </TossCheckboxWrapper>
-      <LinkButton
-        component={Link}
-        to="/payment-complete"
+      <Button
+        onClick={handlePaymentRequest}
         endIcon={<ArrowForwardRoundedIcon />}
-        variant="contained" color="petimage" disabled={!agree} sx={{ width: '100%' }}>결제하기</LinkButton>
+        variant="contained" color="petimage" disabled={!agree} sx={{ width: '100%' }}>결제하기</Button>
     </>
   )
 }

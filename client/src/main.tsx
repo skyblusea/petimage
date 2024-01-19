@@ -16,7 +16,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import PaymentComplete from './page/payment-complete/page.tsx'
+
 import Error from './error.tsx'
 import Login from './page/login/page.tsx'
 import AuthProvider from './provider/AuthProvider.tsx'
@@ -24,10 +24,11 @@ import LoadingProvider from './provider/LoadingProvider.tsx'
 import Theme, { loader as themeLoader } from './page/create/page.tsx'
 import CreateLayout from './page/create/[theme]/layout.tsx'
 import SelectBreed, { loader as breedLoader } from './page/create/[theme]/[animal]/page.tsx'
-import Trial from './page/trial/page.tsx'
 import Upload from './page/create/[theme]/[animal]/[breed]/upload/page.tsx'
 import Notice from './page/create/[theme]/[animal]/[breed]/notice/page.tsx'
-import Checkout from './page/create/[theme]/[animal]/[breed]/checkout/page.tsx'
+import Checkout, { action as checkoutAction } from './page/payment/checkout/page.tsx'
+import PaymentComplete from './page/payment/success/page.tsx'
+import Collection, { loader as collectionLoader } from './page/collection/page.tsx'
 
 
 
@@ -54,7 +55,9 @@ const router = createBrowserRouter([
           { path: '/service', element: <Service /> },
           { path: '/product', element: <Product /> },
           { path: '/about', element: <About /> },
-          { path: '/create', 
+          { 
+            id: 'theme', // id 를 통해 theme 라우터를 찾을 수 있음
+            path: '/create',
             element: <Theme />,
             loader: themeLoader(queryClient),
           },
@@ -64,70 +67,22 @@ const router = createBrowserRouter([
               { path: '', element: <SelectAnimal /> },
               { path: ':animal', element: <SelectBreed />, loader: breedLoader(queryClient) },
               { path: ':animal/:breed/upload', element: <Upload /> },
-              { path: ':animal/:breed/checkout', element: <Checkout /> },
             ]
           },
+          {
+            path: '/payment', element: <CreateLayout />, children: [
+              { path: 'checkout', element: <Checkout /> },
+            ]
+          },
+          { path: '/payment/success', element: <PaymentComplete /> },
+          { path: '/collection', element: <Collection />, loader: collectionLoader(queryClient)},
+          { path: '/payments', element: <Collection />, loader: collectionLoader(queryClient)},
         ]
-        // children: [
-        //   {
-        //     path: ':theme', element: <CreateLayout />, children: [
-        //       { path: '', element: <SelectAnimal /> },
-        // {
-        //   path: '/dog',
-        //   element: <SelectBreed />,
-        //   loader: breedsLoader(queryClient)
-        // },
-        // { path: ':animal/:breed/notice', element: <Notice /> },
-        // {
-        //   path: ':animal/:breed/upload',
-        //   element: <Upload />,
-        //   action: async ({ params, request }) => {
-        //     console.log('upload params', params)
-        //     console.log('upload request', request)
-        //     const formData = await request.formData()
-        //     const updates = Object.fromEntries(formData)
-        //     console.log('updates', updates)
-        //   }
-        // },
-        // { path: ':animal/:breed/checkout', element: <Checkout /> },
-        // ],
-        // action: async ({ params, request }) => {
-        //   console.log('upload params', params)
-        //   console.log('upload request', request)
-        //   const formData = await request.formData()
-        //   const updates = Object.fromEntries(formData)
-        //   console.log('updates', updates)
-        // }
-        // ]
       },
-      { path: '/payment-complete', element: <PaymentComplete /> },
-      { path: '/test', element: <Trial /> },
-      // {
-      //   path: '/test',
-      //   action: async ({ params, request }) => {
-
-      //   },
-      //   element: <Trial />
-      // },
-      // {
-      //   path: '/protectedcollection',
-      //   element: <ProtectedRoute><Collection /></ProtectedRoute>,
-      //   loader: collectionLoader(queryClient)
-      // },
-      // {
-      //   path: '/collection',
-      //   element: <Collection />,
-      //   loader: collectionLoader(queryClient),
-      // },
-      // {
-      //   path: '/payments',
-      //   element: <Collection />,
-      //   loader: collectionLoader(queryClient),
-      // },
     ]
+
+
   }
-
-
 ])
 
 
