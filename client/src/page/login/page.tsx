@@ -10,7 +10,6 @@ import styled from '@emotion/styled';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 export default function Login() {
-  const pathname =  useLocation().pathname;
   const navigate = useNavigate();
 
   return (
@@ -22,7 +21,9 @@ export default function Login() {
       <DialogTitle id="login-dialog">로그인</DialogTitle>
       <IconButton
         aria-label="close"
-        onClick={() => navigate(-1)}
+        onClick={(e) => {
+          e.stopPropagation()
+          navigate(-1)}}
         sx={{ position: 'absolute', right: '8px', top: '8px' }}
       >
         <CloseIcon />
