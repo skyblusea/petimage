@@ -1,22 +1,38 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import useAuth from "../util/useAuth";
 
 export default function GoogleLoginBtn() {
-
+  const { signInWithGoogle } = useAuth();
   const divRef = useRef<HTMLDivElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
+  //modal이라 clientWidth 잘못 계산되는 문제 해결
 
   //Component Reusability, Conditional Rendering, Separation of Concerns의 이유로 코드 분리
   useEffect(() => {
-    const renderGoogleLoginBtn = () => {
-      if(!divRef.current) return
+    setIsMounted(true);
+    if (!divRef.current) return;
+
+    // Initialize Google API client
+    google.accounts.id.initialize({
+      client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+      callback: signInWithGoogle
+    });
+
+    // Render the Google login button
+    if (isMounted) {
       google.accounts.id.renderButton(divRef.current, {
         type: "standard",
         theme: "filled_blue",
         size: "large",
         width: divRef.current.clientWidth,
-      })
+      });
     }
-    renderGoogleLoginBtn()
-  }, [])
+
+  }, [isMounted]);
+
+  useEffect(() => {
+    console.log('clientWidth', divRef.current?.clientWidth)
+  }, [divRef.current])
 
   return (
     <div ref={divRef}></div>
