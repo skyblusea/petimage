@@ -1,13 +1,45 @@
 import { Typography } from "@mui/material";
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import styled from "@emotion/styled";
-import { Link, useActionData } from "react-router-dom";
+import { Link, Params } from "react-router-dom";
 import { SingleSection } from "../../../components/Containers";
 import { LinkButton } from "../../../components/LinkComponents";
 
-export default function PaymentComplete() {
-  const result = useActionData()
-  console.log('result', result)
+
+export const loader = async ({ params, request }: { params : Params, request: Request }) => {
+  console.log('sucess loader', params)
+  console.log('sucess loader', request)
+  return null
+//   const response = await fetch("/confirm", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(requestData),
+//   });
+
+//   const json = await response.json();
+
+//   if (!response.ok) {
+//     // 결제 실패 비즈니스 로직을 구현하세요.
+//     navigate(`/fail?message=${json.message}&code=${json.code}`);
+//     return;
+//   }
+
+//   // 결제 성공 비즈니스 로직을 구현하세요.
+// }
+// confirm();
+// }, []);
+}
+
+export const action = async ({ request }: { request: Request }) => {
+  console.log('sucess action', request)
+  return Promise.resolve()
+}
+
+
+export default function PaymentSuccess() {
+
   return (
     <SingleSection>
       <MsgContainer>

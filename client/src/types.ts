@@ -1,5 +1,3 @@
-import { AlbumItem } from "./page/create/[animal]/upload/page";
-
 export interface Breed {
   _id: string;
   name: string;
@@ -11,7 +9,7 @@ export interface Breed {
 }
 
 
-export interface Payment {
+export type Payment = {
   _id: string;
   totalAmount: number;
   method: string;
@@ -26,7 +24,28 @@ export interface Payment {
 }
 
 
-export interface AlbumItem {
+export interface PaymentDetails {
+  method : string;
+  orderId : string;
+  orderName : string;
+  country : string;
+  totalAmount : number;
+  receipt : string;
+}
+
+
+export interface AlbumDetails {
+  theme : {
+    id: string;
+    amount: number;
+    name: string;
+    price: string;
+  }
+  animalCode : string | undefined;
+  inputFiles : string[] | null;
+}
+
+export type AlbumItem = {
   _id: string;
   themeName: string;
   inputFiles: string[];
@@ -36,4 +55,35 @@ export interface AlbumItem {
   createdAt: string;
   updatedAt: string;
   __v: number;
+}
+
+export type Theme = {
+  _id: string;
+  name: string;
+  desc: string;
+  prompt: string[];
+  background: string;
+  tag: string;
+  type: string;
+  price: string;
+  popular: number;
+  amount: number;
+  sample: string[];
+  trial: string[];
+  createdAt: string;
+  updatedAt: string;
+  category: string[];
+}
+
+
+//context
+export type User = {
+  id: string;
+  email: string;
+  name: string;
+}
+
+export type Token = {
+  access: string | null;
+  refresh: string | null;
 }

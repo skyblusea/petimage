@@ -4,148 +4,123 @@ import DialogContentText from '@mui/material/DialogContentText';
 import Tooltip from '@mui/material/Tooltip';
 import Box from '@mui/material/Box';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
-import { loadPaymentWidget, ANONYMOUS } from "@tosspayments/payment-widget-sdk";
+import { loadPaymentWidget, ANONYMOUS, PaymentWidgetInstance } from "@tosspayments/payment-widget-sdk";
 import { nanoid } from "nanoid";
 import { useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
 import styled from '@emotion/styled';
-import { Link, redirect, useActionData, useLocation } from 'react-router-dom';
-import { getThemeDetails } from '../../../util/getThemeDetails';
-import { LinkButton } from '../../../components/LinkComponents';
-import { AuthContext } from '../../../provider/AuthProvider';
+import { Navigate, redirect, useLoaderData, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext, AuthContextType, Token } from '../../../provider/AuthProvider';
 import { Button } from '@mui/material';
+import { QueryClient, useQuery } from "@tanstack/react-query"
+import useAuth from '../../../util/useAuth';
+import { PaymentDetails } from '../../../types';
+import { PaymentContext } from '../../../provider/OrderProvider';
 
 
 
 
 
-export const action = async ({ request }: { request: Request }) => {
-    const formData = await request.formData()
-    const { themeId, animalCode } = Object.fromEntries(formData.entries())
-    const inputFiles = formData.getAll('inputFiles')
-    const themeDetails = await getThemeDetails(themeId);
-    if(!themeDetails) {
-      return redirect('/create')
-    }
-    const paymentDetails = { 
-      theme : {
-        id : themeId,
-        name : themeDetails.name,
-        price : themeDetails.price,
-      },
-      animalCode : animalCode,
-      inputFiles : inputFiles,
-    }
-    return paymentDetails
-  }
 
-const loader = () => {
+export const tossWidgetQuery = (customerkey: string) => ({
+  queryKey: ['tossWidget', customerkey],
+  queryFn: () => {
+    return loadPaymentWidget(import.meta.env.VITE_TOSS_CLIENT_KEY, customerkey)
+  },
+  staleTime: 1000 * 60 * 60 * 24 // 1 days
+})
 
-}
+
 
 export default function Checkout() {
-  // const data = useActionData()
-  const { state : paymentDatails } = useLocation()
-  console.log('paymentDatails',paymentDatails)
-  const { theme, animalCode, inputFiles } = paymentDatails
-  const priceNumber = Number(theme.price?.replaceAll(',', ''))
-  const { user } = useContext(AuthContext) ?? { name: '익명', email: ANONYMOUS }
+  // 결제 정보 불러오기
+  const { albumDetails } = useContext(PaymentContext)
+  console.log('paymentDetails', albumDetails)
+  const { user } = useAuth() ?? { id:'', name: '익명', email: ANONYMOUS }
+  console.log('user', user)
+  const { data: paymentWidget } = useQuery(tossWidgetQuery(user?.id ?? 'ANONYMOUS'))
+  console.log('paymentWidget', paymentWidget)
+  const paymentMethodsWidgetRef = useRef<ReturnType<PaymentWidgetInstance["renderPaymentMethods"]> | null>(null);
+  const priceNumber = Number(albumDetails?.theme.price?.replaceAll(',', ''))
+
+
   const [agree, setAgree] = useState(false)
 
-  const widgetClientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
-  const customerKey = "DImXqF5T0UgxfpA_DROI4";
-  const [paymentWidget, setPaymentWidget] = useState(null);
-  const paymentMethodsWidgetRef = useRef(null);
-  
   useEffect(() => {
-    const fetchPaymentWidget = async () => {
-      try {
-        const loadedWidget = await loadPaymentWidget(widgetClientKey, customerKey);
-        setPaymentWidget(loadedWidget);
-      } catch (error) {
-        console.error("Error fetching payment widget:", error);
-      }
-    };
-
-    fetchPaymentWidget();
-  }, []);
-
-  useLayoutEffect(() => {
-    if (paymentWidget == null) {
+    if (!paymentWidget) {
       return;
     }
-    // 결제창 렌더링
-    const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
-      "#payment-widget",
-      { value: priceNumber },
-      { variantKey: "DEFAULT" }
-    );
-    // 결제약관 렌더링
-    paymentWidget.renderAgreement(
-      "#agreement",
-      { variantKey: "AGREEMENT" }
-    );
-
+    // ------  결제 UI 렌더링 ------
+    const paymentMethodsWidget = paymentWidget.renderPaymentMethods("#payment-widget", { value: priceNumber }, { variantKey: "DEFAULT" });
+    // ------  이용약관 UI 렌더링 ------
+    paymentWidget.renderAgreement("#agreement", { variantKey: "AGREEMENT" });
     paymentMethodsWidgetRef.current = paymentMethodsWidget;
   }, [paymentWidget, priceNumber]);
 
+
+
+
   useEffect(() => {
     const paymentMethodsWidget = paymentMethodsWidgetRef.current;
-
     if (paymentMethodsWidget == null) {
       return;
     }
-
+    // 결제 금액 업데이트
     paymentMethodsWidget.updateAmount(priceNumber);
   }, [priceNumber]);
+
+
 
   const handlePaymentRequest = async () => {
     // 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
     // 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
+
     try {
+
+
       await paymentWidget?.requestPayment({
         orderId: nanoid(),
-        orderName: theme.name,
-        customerName: user?.name || "익명",
-        customerEmail: user?.email || ANONYMOUS,
+        orderName: albumDetails!.theme.name,
+        customerName: user?.name,
+        customerEmail: user?.email,
         successUrl: `${window.location.origin}/payment/success`,
-        failUrl: `${window.location.origin}/fail`,
-        _skipAuth: "FORCE_SUCCESS",
+        failUrl: `${window.location.origin}/payment/fail`,
       });
     } catch (error) {
       console.error("Error requesting payment:", error);
     }
+
   };
 
-
-  return (
-    <>
-      <DialogTitle component="h4" sx={{ fontWeight: "700" }}>구매 상품</DialogTitle>
-      <DialogContent dividers>
-        <Box display="flex" justifyContent="space-between">
-          <DialogContentText>
-            {theme.name} 테마 / {theme.amount} 장
-          </DialogContentText>
-          <DialogContentText color="error">
-            {theme.price} 원
-          </DialogContentText>
-        </Box>
-      </DialogContent>
-      <div id="payment-widget" />
-      <div id="agreement" />
-      <TossCheckboxWrapper>
-        <Tooltip title="결제 내용을 확인 후 동의해주세요." arrow>
-          <TossCheckboxLabel htmlFor="agree">
-            <TossCheckbox type="checkbox" id="agree" name="agree" value="agree" checked={agree} onChange={() => { setAgree(!agree) }} />
-            <span>상기 결제 건에 대한 내용을 확인했습니다.</span>
-          </TossCheckboxLabel>
-        </Tooltip>
-      </TossCheckboxWrapper>
-      <Button
-        onClick={handlePaymentRequest}
-        endIcon={<ArrowForwardRoundedIcon />}
-        variant="contained" color="petimage" disabled={!agree} sx={{ width: '100%' }}>결제하기</Button>
-    </>
-  )
+  //TODO
+    return (
+      <>
+        <DialogTitle component="h4" sx={{ fontWeight: "700" }}>구매 상품</DialogTitle>
+        <DialogContent dividers>
+          <Box display="flex" justifyContent="space-between">
+            <DialogContentText>
+              {albumDetails?.theme.name} 테마 / {albumDetails?.theme.amount} 장
+            </DialogContentText>
+            <DialogContentText color="error">
+              {albumDetails?.theme.price} 원
+            </DialogContentText>
+          </Box>
+        </DialogContent>
+        <div id="payment-widget" />
+        <div id="agreement" />
+        <TossCheckboxWrapper>
+          <Tooltip title="결제 내용을 확인 후 동의해주세요." arrow>
+            <TossCheckboxLabel htmlFor="agree">
+              <TossCheckbox type="checkbox" id="agree" name="agree" value="agree" checked={agree} onChange={() => { setAgree(!agree) }} />
+              <span>상기 결제 건에 대한 내용을 확인했습니다.</span>
+            </TossCheckboxLabel>
+          </Tooltip>
+        </TossCheckboxWrapper>
+        <Button
+          onClick={handlePaymentRequest}
+          endIcon={<ArrowForwardRoundedIcon />}
+          variant="contained" color="petimage" disabled={!agree} sx={{ width: '100%' }}>결제하기</Button>
+      </>
+    )
 }
 
 const TossCheckboxLabel = styled.label`
