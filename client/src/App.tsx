@@ -33,64 +33,61 @@ import useAuth from './util/useAuth.ts';
 
 export default function App() {
 
-
-
   const queryClient = new QueryClient()
-  const auth = useAuth();
-  console.log('auth', auth)
 
-  const router = createBrowserRouter([
-    {
-      path: '/',
-      element: <RootLayout />,
-      errorElement: <Error />,
-      children: [
-        // public
-        { path: '', element: <Home /> },
-        { path: '/service', element: <Service /> },
-        { path: '/product', element: <Product /> },
-        { path: '/about', element: <About /> },
-        { path: '/auth', element: <Login /> },
+  const router = createBrowserRouter([{
+    element: <AuthProvider queryClient={queryClient} />,
+    children:
+      [{
+        path: '/',
+        element: <RootLayout />,
+        errorElement: <Error />,
+        children: [
+          // public
+          { path: '', element: <Home /> },
+          { path: '/service', element: <Service /> },
+          { path: '/product', element: <Product /> },
+          { path: '/about', element: <About /> },
+          { path: '/auth', element: <Login /> },
 
-        // protected
-        {
-          element: <ProtectedRoute />,
-          // loader: async () => {
-          // console.log('auth.isAuthenticated', auth.isAuthenticated)
-          // return auth.isAuthenticated
-          // }, Loader을 통한 ProtectedRoute 는 새로고침 시 token 정보가 없어서 로그인이 필요합니다. 라고 뜸
-          children: [
-            {
-              path: '/create',
-              element: <SelectTheme />,
-              loader: themeLoader(queryClient),
-            },
-            { path: '/create/:theme/:animal/:breed/notice', element: <Notice /> },
-            {
-              id: 'createWithTheme',
-              path: '/create/:theme', element: <CreateLayout />, children: [
-                { path: '', element: <SelectAnimal /> },
-                { path: ':animal', element: <SelectBreed />, loader: breedLoader(queryClient) },
-                { path: ':animal/:breed/upload', element: <Upload /> },
-              ],
-              loader: themeDataLoader(queryClient)
-            },
-            {
-              path: '/payment', element: <CreateLayout />, children: [
-                { path: 'checkout', element: <Checkout /> },
-              ]
-            },
-            { path: '/payment/success', element: <PaymentSuccess />, loader: paymentSuccessLoader, action: paymentSuccessAction },
-            { path: '/collection', element: <Collection />, loader: collectionLoader(queryClient) },
-            { path: '/payments', element: <Collection />, loader: collectionLoader(queryClient) },
-          ]
-        },
-      ]
-    }])
+          // protected
+          {
+            element: <ProtectedRoute />,
+            children: [
+              {
+                path: '/create',
+                element: <SelectTheme />,
+                loader: themeLoader(queryClient),
+              },
+              { path: '/create/:theme/:animal/:breed/notice', element: <Notice /> },
+              {
+                id: 'createWithTheme',
+                path: '/create/:theme', element: <CreateLayout />, children: [
+                  { path: '', element: <SelectAnimal /> },
+                  { path: ':animal', element: <SelectBreed />, loader: breedLoader(queryClient) },
+                  { path: ':animal/:breed/upload', element: <Upload /> },
+                ],
+                loader: themeDataLoader(queryClient)
+              },
+              {
+                path: '/payment', element: <CreateLayout />, children: [
+                  { path: 'checkout', element: <Checkout /> },
+                ]
+              },
+              { path: '/payment/success', element: <PaymentSuccess />, loader: paymentSuccessLoader, action: paymentSuccessAction },
+              { path: '/collection', element: <Collection />, loader: collectionLoader(queryClient) },
+              { path: '/payments', element: <Collection />, loader: collectionLoader(queryClient) },
+            ]
+          },
+        ]
+      }]
+  }
+
+  ])
 
   return (
 
-    <AuthProvider>
+
       <PaymentProvider>
         <LoadingProvider>
           {/* 기존 방식 */}
@@ -102,7 +99,6 @@ export default function App() {
           {/* <Routes /> */}
         </LoadingProvider>
       </PaymentProvider>
-    </AuthProvider>
 
   )
 }
