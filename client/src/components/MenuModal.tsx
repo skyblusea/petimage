@@ -8,9 +8,9 @@ import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Link, useLocation } from 'react-router-dom';
-import { LinkListItemButton, LinkMenuItem } from './LinkComponents';
+import { LinkListItemButton } from './LinkComponents';
 import Menu from '@mui/material/Menu';
-import { MenuItem } from '@mui/material';
+import useAuth from '../util/useAuth';
 
 export default function MenuModal({
   anchorEl,
@@ -20,6 +20,7 @@ export default function MenuModal({
   setAnchorEl: React.Dispatch<React.SetStateAction<HTMLElement | null>>
 }) {
   const pathname = useLocation().pathname
+  const { logout } = useAuth()
 
   return (
     <Menu
@@ -60,6 +61,10 @@ export default function MenuModal({
       <Divider />
       <ListItem >
         <Button
+          onClick={()=>{
+            setAnchorEl(null)
+            logout()
+          }}
           color="error"
           startIcon={<LogoutIcon />}
         >
