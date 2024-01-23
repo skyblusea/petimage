@@ -2,8 +2,8 @@ import Typography from "@mui/material/Typography";
 import Grid from '@mui/material/Unstable_Grid2';
 import styled from '@emotion/styled'
 import Button from '@mui/material/Button';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { useNavigate, useParams } from "react-router-dom";
+import CloudUploadIcon from '../../../../../../assets/upload-cloud.svg?react';
+import { useNavigate, useParams, useRouteLoaderData } from "react-router-dom";
 import { useContext, useState } from "react"
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import GuideLine from "./GuideLine";
@@ -13,18 +13,22 @@ import { uploadFiles } from "../../../../../../util/uploadFiles";
 import { validateFiles } from "../../../../../../util/validateFiles";
 import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded';
 import { LoadingContext } from "../../../../../../provider/LoadingProvider";
-
+import { PaymentContext } from "../../../../../../provider/OrderProvider";
+import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 
 
 
 export default function Upload() {
-
-  const { theme, animal, breed } = useParams()
-  const animalKor = animal==='dog' ? '강아지' : '고양이'  
-  const { setIsLoading } = useContext(LoadingContext)
   const navigate = useNavigate()
+  const { setAlbumDetails } = useContext(PaymentContext)
+  const { setIsLoading } = useContext(LoadingContext)
+  const { animal } = useParams()
+  //상품정보 잘 안바뀌므로 QueryData 사용 or Action 통해 api 호출(이 방법 사용시 상태XX Context setting 필요)
+  const themeData = useRouteLoaderData('createWithTheme') as { id: string, amount: number, name: string, price: string }
 
+  const animalKor = animal === 'dog' ? '강아지' : '고양이'
 
+  //Handling InputFile for Preview
   interface FileWithUrl {
     file: File,
     imgUrl: string,
@@ -55,6 +59,7 @@ export default function Upload() {
       alert(rejected[0].reason)
     }
   }
+
   const getBase64 = (file: File) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -73,7 +78,7 @@ export default function Upload() {
     })
   }
 
-
+  //Drag & Drop
   const onDragEnterHandler = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -93,115 +98,125 @@ export default function Upload() {
     if (fileList) readFile(fileList);
   }
 
-
+  //Submit
   const onClickHandler = async () => {
-    console.log('click triggered')
+    //서버에 이미지 업로드
     const formData = new FormData()
     files.forEach(file => {
       formData.append('file', file.file)
     })
     setIsLoading(true)
     const uploaded = await uploadFiles(formData)
+    //서버에 유효성 검사
     const validated = await validateFiles(uploaded, animalKor) as { check: boolean, url: string }[]
     const isAllValid = validated.every(ele => ele.check)
-    setIsLoading(false)
     if (!isAllValid) {
-      alert('유효하지 않은 파일이 존재합니다.')
       const validationResult = files.map((ele, idx) => {
         return { ...ele, isValid: validated[idx].check }
       })
       setFiles(validationResult)
-    }else {
-      navigate(`/create/${theme}/${animal}/${breed}/checkout`, { state: { files: uploaded } })
+      setIsLoading(false)
+      alert('유효하지 않은 파일이 존재합니다.')
+    } else {
+      //결제 페이지로 이동
+      setIsLoading(false)
+      setAlbumDetails({ theme: themeData, animalCode: animal, inputFiles: uploaded })
+      navigate(`/payment/checkout`)
     }
   }
 
 
   return (
-      <Grid container spacing={3}>
-        <Grid xs={6} display={!files.length ? 'flex' : 'none'}>
-          <GuideLine />
-        </Grid>
-        <Grid xs={!files.length ? 6 : 12} >
-          <DragNDropBox>
-            {!files.length &&
-              <>
-                <div>
-                  <CloudUploadIcon />
-                  <Typography component="p" variant="body1" color="primary" sx={{ typography: { xs: 'body3', lg: 'body1' } }}>드래그로 파일 첨부하기</Typography>
-                </div>
-                <Typography component="p" variant="body1" color="primary" sx={{ typography: { xs: 'body3', lg: 'body1' } }}>또는</Typography>
+    <Grid container spacing={3}>
+      <Grid xs={6} display={!files.length ? 'flex' : 'none'}>
+        <GuideLine />
+      </Grid>
+      <Grid xs={!files.length ? 6 : 12} >
+        <DragNDropBox
+          onDragEnter={onDragEnterHandler}
+          onDragLeave={onDragLeaveHandler}
+          onDragOver={onDragOverHandler}
+          onDrop={onDropHandler}
+        >
+          {!files.length &&
+            <>
+              <div>
+                <CloudUploadIcon />
+                <Typography component="p" variant="body1" color="primary" sx={{ typography: { xs: 'body3', lg: 'body1' } }}>드래그로 파일 첨부하기</Typography>
+              </div>
+              <Typography component="p" variant="body1" color="primary" sx={{ typography: { xs: 'body3', lg: 'body1' } }}>또는</Typography>
+              <Button
+                htmlFor="file-input"
+                role="button"
+                component="label"
+                variant="contained"
+              >
+                파일 선택
+              </Button>
+            </>
+          }
+          <input
+            id="file-input"
+            type="file"
+            accept="image/*"
+            hidden
+            multiple
+            onChange={onChangeHandler} />
+          <Grid container spacing={1} sx={{ width: '100%' }}>
+            {files.map((file) => (
+              <Grid key={file.imgUrl} xs={2}>
+                <AlbumItemWrapper>
+                  <Box
+                    sx={{
+                      width: '100%',
+                      height: '100%',
+                      borderRadius: 'var(--border-radius-lg)',
+                      backgroundPosition: 'center',
+                      backgroundImage: `url(${file.imgUrl})` || "none",
+                      backgroundSize: 'cover',
+                      border: `${file.isValid ? 'none' : '2px solid'}`,
+                      borderColor: `${file.isValid ? 'none' : 'error.main'}`
+                    }} />
+                  <IconButton
+                    onClick={() => {
+                      const filtered = files.filter(f => f.imgUrl !== file.imgUrl)
+                      setFiles(filtered)
+                    }}
+                    aria-label="delete" size="small">
+                    <DeleteIcon />
+                  </IconButton>
+                  {!file.isValid && <HighlightOffRoundedIcon fontSize="medium" color="error" />}
+                </AlbumItemWrapper>
+              </Grid>
+            ))}
+            {(0 < files.length && files.length < 12)
+              &&
+              <Grid xs={2} display="flex">
                 <Button
                   htmlFor="file-input"
                   role="button"
                   component="label"
-                  variant="contained"
+                  variant="outlined"
+                  sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', aspectRatio: '1/1' }}
                 >
-                  파일 선택
+                  <AddRoundedIcon fontSize="large" />
                 </Button>
-              </>
+              </Grid>
             }
-            <input
-              id="file-input"
-              type="file"
-              accept="image/*"
-              hidden
-              multiple
-              onChange={onChangeHandler} />
-            <Grid container spacing={1} sx={{ width: '100%' }}>
-              {files.map((file) => (
-                <Grid key={file.imgUrl} xs={2}>
-                  <AlbumItemWrapper>
-                    <Box
-                      sx={{
-                        width: '100%',
-                        height: '100%',
-                        borderRadius: 'var(--border-radius-lg)',
-                        backgroundPosition: 'center',
-                        backgroundImage: `url(${file.imgUrl})` || "none",
-                        backgroundSize: 'cover',
-                        border: `${file.isValid ? 'none' : '2px solid'}`,
-                        borderColor: `${file.isValid ? 'none' : 'error.main'}`
-                      }} />
-                    <IconButton
-                      onClick={() => {
-                        const filtered = files.filter(f => f.imgUrl !== file.imgUrl)
-                        setFiles(filtered)
-                      }}
-                      aria-label="delete" size="small">
-                      <DeleteIcon />
-                    </IconButton>
-                    {!file.isValid && <HighlightOffRoundedIcon fontSize="medium" color="error" />}
-                  </AlbumItemWrapper>
-                </Grid>
-              ))}
-              {(0 < files.length && files.length < 12)
-                &&
-                <Grid xs={2} display="flex">
-                  <Button
-                    htmlFor="file-input"
-                    role="button"
-                    component="label"
-                    variant="outlined"
-                    sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', aspectRatio: '1/1' }}
-                  >
-                    <AddRoundedIcon fontSize="large" />
-                  </Button>
-                </Grid>
-              }
-            </Grid>
-          </DragNDropBox>
-        </Grid>
-        <Grid xs={12}>
-          <Button
-            // disabled={files.length < 10 || files.length > 12}
-            color="petimage"
-            variant="contained"
-            onClick={onClickHandler}
-            sx={{ width: '100%' }}
-          >submit 생성하기</Button>
-        </Grid>
-      </Grid >
+          </Grid>
+        </DragNDropBox>
+      </Grid>
+      <Grid xs={12}>
+        <Button
+          // disabled={files.length < 10 || files.length > 12}
+          endIcon={<ArrowForwardRoundedIcon />}
+          color="petimage"
+          variant="contained"
+          onClick={onClickHandler}
+          sx={{ width: '100%' }}
+        >이미지 생성하기</Button>
+      </Grid>
+    </Grid >
   )
 }
 
