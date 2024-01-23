@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { StyledEngineProvider } from "@mui/material";
 import Paper from '@mui/material/Paper';
 
 
@@ -9,6 +10,16 @@ export const MainContainer = styled.main`
   padding-top: var( --nav-h);
   flex-direction: column;
   display: flex;
+  position: relative;
+  .bg{
+    position: absolute;
+    top: 0;
+    z-index: -100;
+    display: flex;
+    video {
+      object-fit: cover;
+    }
+  }
 `
 
 export const SingleSection = styled.section`
@@ -64,4 +75,17 @@ export const RoundPaper = styled(Paper)`
   flex-direction: column;
   gap: var(--gap-md);
   padding: var(--gap-lg);
+`
+
+export const BgContainer = styled.div`
+  display: flex;
+  flex: 1;
+  background-color: aliceblue;
+  /* overflow: hidden; */
+  position: relative;
+  >div {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 `
