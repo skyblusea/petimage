@@ -31,7 +31,6 @@ export default function GoogleLoginBtn() {
   }, [isMounted]);
 
   useEffect(() => {
-    console.log('clientWidth', divRef.current?.clientWidth)
   }, [divRef.current])
 
   return (

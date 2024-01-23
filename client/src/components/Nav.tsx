@@ -10,8 +10,7 @@ import MenuModal from "./MenuModal";
 
 
 export default function Header() {
-  const auth = useAuth()
-  const isAuthenticated = auth.isAuthenticated
+  const { user } = useAuth()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -26,7 +25,7 @@ export default function Header() {
         <Link to="/product">Product</Link>
         <Link to="/test">test</Link>
       </Nav>
-      {isAuthenticated
+      {user
         ? <Button
           id="user-menu-btn"
           sx={{
@@ -43,7 +42,7 @@ export default function Header() {
         >내 정보</Button>
         : <LinkButton
           component={Link}
-          to="/login"
+          to="/auth"
           sx={{
             flexShrink: 0,
             borderColor: 'var(--primary)',
