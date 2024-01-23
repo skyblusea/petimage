@@ -2,16 +2,41 @@ import { SingleSection } from "../../../components/Containers";
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Outlet, redirect, useLocation, useNavigate, useParams } from "react-router-dom";
 import Grid from '@mui/material/Unstable_Grid2';
 import Box from "@mui/material/Box";
+import { QueryClient } from "@tanstack/react-query"
+import type { Params } from '@remix-run/router/utils';
+import { Theme } from '../../../types'
+import { themeQuery } from "../page";
+
+
+export const loader = (queryClient: QueryClient) =>
+  async ({ params }: { params: Params }) => {
+    const { theme : themeId } = params
+    const query = themeQuery()
+    const data = await queryClient.ensureQueryData(query) as Theme[]
+    const filtered = data?.filter(ele => ele._id === themeId)[0]
+    if(!filtered){
+      alert('존재하지 않는 테마입니다.')
+      return redirect('/create')
+    }
+    const themeData = {
+      id : filtered._id,
+      amount : filtered.amount,
+      name : filtered.name,
+      price : filtered.price
+    }
+    return themeData
+  }
+
+
 
 export default function CreateLayout() {
 
   const params = useParams();
   const navigate = useNavigate();
   const pathname = useLocation().pathname;
-
 
   const title = {
     animal : '동물을 선택해주세요.',
@@ -22,9 +47,6 @@ export default function CreateLayout() {
     upload : '10-12장의 사진을 업로드 해주세요.',
     checkout : '결제를 진행해주세요.'
     }
-
-
-
 
   return (
     <SingleSection>
@@ -40,11 +62,11 @@ export default function CreateLayout() {
               {
                 params.animal
                   ? params.breed
-                    ? pathname.includes('checkout')
-                      ? title.checkout 
-                      : title.upload
+                    ? title.upload
                     : title.breeds[params.animal as keyof typeof title.breeds]
-                  : title.animal
+                  : pathname.includes('checkout')
+                    ? title.checkout
+                    : title.animal
               }
             </Typography>
           </Box>

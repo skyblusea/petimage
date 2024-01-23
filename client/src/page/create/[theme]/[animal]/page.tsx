@@ -1,8 +1,8 @@
-import { Link, useLoaderData, useLocation, useParams } from "react-router-dom";
+import { Link, redirect, useLoaderData, useLocation, useParams } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Grid from '@mui/material/Unstable_Grid2';
 import CustomImage from "../../../../components/CustomImage";
-import { SquareCreateBox } from "../../../../components/Boxes";
+import BaseImgBox, { SquareCreateBox } from "../../../../components/Boxes";
 import type { Params } from '@remix-run/router/utils';
 import { QueryClient } from "@tanstack/react-query"
 import { Breed } from "../../../../types";
@@ -13,15 +13,15 @@ import { apiClient } from "../../../../util/axiosInstance";
 
 export const breedsQuery = (animal: string) => ({
   queryKey: ['breeds', animal],
-  queryFn: async () :Promise<Array<Breed>>=> {
+  queryFn: async (): Promise<Array<Breed>> => {
     const en = animal === 'dog' ? '강아지' : '고양이'
     const { data: { data } } = await apiClient.get(`/animal/list?class=${en}`)
-    .catch((error) => {
-      console.log('breedsQuery',error)
-      //! 서버 에러시 더미 데이터 반환 !! 나중에 삭제
-      return {data : dummy} 
-    } 
-    )
+      .catch((error) => {
+        console.log('breedsQuery', error)
+        //! 서버 에러시 더미 데이터 반환 !! 나중에 삭제
+        return { data: dummy }
+      }
+      )
     return data
   },
   staleTime: 1000 * 60 * 60 * 24 // 1 days
@@ -31,7 +31,12 @@ export const breedsQuery = (animal: string) => ({
 export const loader =
   (queryClient: QueryClient) =>
     async ({ params }: { params: Params }) => {
-      const query = breedsQuery(params.animal ?? 'dog')
+      const { animal } = params
+      if (animal !== 'dog' && animal !== 'cat') {
+        alert('잘못된 접근입니다.')
+        redirect('/create')
+      }
+      const query = breedsQuery(animal ?? 'dog')
       const data = queryClient.ensureQueryData(query)
       return data
     }
@@ -43,22 +48,18 @@ export default function SelectBreed() {
   const breeds = useLoaderData() as Awaited<ReturnType<ReturnType<typeof loader>>>;
   const pathname = useLocation().pathname;
 
-
   return (
     <Grid container spacing={3}>
       {breeds?.map((breed) => (
         <Grid xs={4} md={3} lg={12 / 5} key={breed._id}>
-          <SquareCreateBox >
-            <Link to={`${pathname}/${breed.code}/notice`}>
-              <CustomImage src={breed.img} alt={breed.name} />
-            </Link>
+          <BaseImgBox square to={`${pathname}/${breed.code}/notice`} src={breed.img} alt={breed.name}>
             <Typography component="span" sx={{
               color: 'primary',
               typography: { xs: 'subtitle2', lg: 'subtitle1' }
             }}>
               {breed.name}
             </Typography>
-          </SquareCreateBox>
+          </BaseImgBox>
         </Grid>
       ))}
     </Grid>
