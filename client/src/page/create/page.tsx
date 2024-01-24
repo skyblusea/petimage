@@ -1,15 +1,17 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation, Pagination, EffectCoverflow } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+
+
 import { Box, Button, SvgIcon, Typography } from '@mui/material';
 import styled from '@emotion/styled';
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 import { RoundPaper, SingleSection } from '../../components/Containers';
 import { apiClient } from '../../util/axiosInstance';
-import { QueryClient } from "@tanstack/react-query"
+import { QueryClient, useQuery } from "@tanstack/react-query"
 import { Link, useLoaderData } from 'react-router-dom';
 import BaseImgBox from '../../components/Boxes';
 import { Theme } from '../../types';
@@ -23,7 +25,7 @@ export const loader = (queryClient: QueryClient) =>
   }
 
 
-const themeQuery = () => ({
+export const themeQuery = () => ({
   queryKey: ['theme'],
   queryFn: async (): Promise<Array<Theme>> => {
     const { data: { data: { themes: data } } } = await apiClient.get('/theme/list')
@@ -36,18 +38,20 @@ const themeQuery = () => ({
 
 
 //TODO 추후 migration 필요
-export default function Theme() {
-  const theme = useLoaderData() as Array<Theme>
-  console.log('theme', theme)
+export default function SelectTheme() {
+  const initialData = useLoaderData() as Array<Theme>
+  const { data : theme } = useQuery({
+    ...themeQuery(),
+    initialData,
+  })
 
   return (
     <SingleSection>
       <BannerWrapper>
         <Swiper
           modules={[Pagination]}
-          // autoplay={{ delay: 3000 }}
-          centeredSlides={true}
-          slidesPerView={1}
+          // centeredSlides={true}
+          // slidesPerView={3}
           pagination={true}
           grabCursor={true}
           navigation={{ nextEl: ".arrow-left", prevEl: ".arrow-right" }}
@@ -55,6 +59,34 @@ export default function Theme() {
           {theme.map((content, idx) =>
             <SwiperSlide key={content._id}>
               <Box padding="var(--pd-sm)" paddingBottom="calc(var(--gap-lg) + 20px)">
+                <Link to={`/create/${content._id}`}>
+                  <RoundPaper elevation={3}>
+                    <BaseImgBox ratio="16/9" src={content.sample[0]} alt={`banner${idx}`} />
+                    <Box display="flex" alignItems="center" justifyContent="space-between" width="100%">
+                      <Typography variant="h4" component="h1" sx={{ typography: { xs: 'h4', lg: 'h3' } }}>
+                        {content.name}
+                      </Typography>
+                      <Typography
+                        variant="subtitle2"
+                        sx={{
+                          color: 'error.main',
+                          typography: { xs: 'subtitle1', lg: 'subtitle0' }
+                        }}>
+                        {content.price} 원
+                      </Typography>
+                    </Box>
+                    <Box display="flex" width="100%">
+                      <Typography variant="body1" sx={{ typography: { xs: 'body2', md: 'body1' } }}>
+                        {content.desc}
+                      </Typography>
+                    </Box>
+                  </RoundPaper>
+                </Link>
+              </Box>
+            </SwiperSlide>)}
+          {theme.map((content, idx) =>
+            <SwiperSlide key={content._id}>
+              <Box padding="var(--pd-sm)"  paddingBottom="calc(var(--gap-lg) + 20px)">
                 <Link to={`/create/${content._id}`}>
                   <RoundPaper elevation={3}>
                     <BaseImgBox ratio="16/9" src={content.sample[0]} alt={`banner${idx}`} />

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import Logo from "../assets/logo.svg?react"
 import { LinkButton } from "./LinkComponents";
@@ -13,32 +13,32 @@ export default function Header() {
   const { user } = useAuth()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const pathname = useLocation().pathname
+  const hasGifBG = pathname === '/' || pathname === '/create'
 
   return (
-    <HeaderContainer>
+    <HeaderContainer hasGifBG={hasGifBG}>
       <Link to="/" className="logo">
         <Logo />
       </Link>
-      <Nav>
+      <Nav hasGifBG={hasGifBG} >
         <Link to="/service">Service</Link>
         <Link to="/about">About</Link>
         <Link to="/product">Product</Link>
-        <Link to="/test">test</Link>
       </Nav>
       {user
         ? <Button
           id="user-menu-btn"
           sx={{
             flexShrink: 0,
-            borderColor: 'var(--primary)',
           }}
           onClick={(e) => setAnchorEl(e.currentTarget)}
-          startIcon={<AccountCircleOutlinedIcon />}
+          endIcon={<AccountCircleOutlinedIcon />}
           aria-controls={open ? 'user-menu' : undefined}
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
           variant="outlined"
-          color="primary"
+          color={hasGifBG ?'secondary' :'primary'}
         >내 정보</Button>
         : <LinkButton
           component={Link}
@@ -47,7 +47,9 @@ export default function Header() {
             flexShrink: 0,
             borderColor: 'var(--primary)',
           }}
-          variant="outlined" color="primary" startIcon={<AccountCircleOutlinedIcon />}>
+          variant="outlined"
+          color="primary"
+          endIcon={<AccountCircleOutlinedIcon />}>
           로그인
         </LinkButton>
       }
@@ -56,8 +58,11 @@ export default function Header() {
   )
 }
 
+type HeaderContainerProps = {
+  hasGifBG: boolean
+}
 
-const HeaderContainer = styled.header`
+const HeaderContainer = styled.header<HeaderContainerProps>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -70,7 +75,7 @@ const HeaderContainer = styled.header`
   position: fixed;
   top:0;
   z-index: 100;
-  background-color: white;
+  background-color: ${props => props.hasGifBG ? 'transparent' : 'white'};
   color: var(--primary);
   .logo {
     width: auto;
@@ -85,8 +90,9 @@ const HeaderContainer = styled.header`
 
   `
 
-const Nav = styled.nav`
+const Nav = styled.nav<HeaderContainerProps>`
   font-size: var(--font-lg);
+  color: ${props => props.hasGifBG ? 'white' : 'inherit'};
   display: flex;
   gap: 1.5rem;
   width: 100%;

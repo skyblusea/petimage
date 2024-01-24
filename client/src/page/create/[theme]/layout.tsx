@@ -9,6 +9,7 @@ import { QueryClient } from "@tanstack/react-query"
 import type { Params } from '@remix-run/router/utils';
 import { Theme } from '../../../types'
 import { themeQuery } from "../page";
+import { Children } from "react";
 
 
 export const loader = (queryClient: QueryClient) =>

@@ -25,14 +25,18 @@ export type Payment = {
 
 
 export interface PaymentDetails {
-  method : string;
-  orderId : string;
-  orderName : string;
-  country : string;
-  totalAmount : number;
-  receipt : string;
+  orderId : string 
+  orderName : string
+  customerName :  string 
+  customerEmail : string 
+  amount: number
 }
 
+export type RedirectDate = {
+  orderId: string | null;
+  amount: string | null;
+  paymentKey: string | null;
+}
 
 export interface AlbumDetails {
   theme : {

@@ -74,7 +74,11 @@ export default function App() {
                   { path: 'checkout', element: <Checkout /> },
                 ]
               },
-              { path: '/payment/success', element: <PaymentSuccess />, loader: paymentSuccessLoader, action: paymentSuccessAction },
+              { path: '/checkout', element: <CreateLayout/>, children: [
+                { path: '', element: <Checkout /> },
+              ]},
+              { path: '/payment/:paymentId', element: <PaymentSuccess />, loader: paymentSuccessLoader, action: paymentSuccessAction },
+              { path: '/payment/success/:paymentId', element: <PaymentSuccess />, loader: paymentSuccessLoader, action: paymentSuccessAction },
               { path: '/collection', element: <Collection />, loader: collectionLoader(queryClient) },
               { path: '/payments', element: <Collection />, loader: collectionLoader(queryClient) },
             ]

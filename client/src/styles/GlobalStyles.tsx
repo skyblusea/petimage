@@ -71,7 +71,7 @@ const reset = css`
     --card: 2px 4px 15px 2px rgba(0, 0, 0, 0.10);
 
     /* swiper(banner) theme */
-    --swiper-theme-color: #fff;
+    --swiper-theme-color: var(--petimage);
 
     /* nav-padding */
     --pd-nav: 0 22.72rem;
@@ -91,7 +91,7 @@ const reset = css`
     --pd-md: 16px;
     --pd-sm: 8px;
     --pd-xs: 4px;
-    
+
     /* gap */
     --gap-lg: 24px;
     --gap-md: 16px;

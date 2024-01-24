@@ -1,27 +1,16 @@
 
-import { createContext, useEffect, useReducer, useRef } from "react";
+import { createContext, useEffect, useReducer } from "react";
 import { apiClient, authClient } from "../util/axiosInstance";
 import { QueryClient } from "@tanstack/react-query"
 import { tossWidgetQuery } from "../page/payment/checkout/page";
 import { Outlet, useNavigate } from "react-router-dom";
-
+import { User, Token } from "../types"
 
 
 // Context
 
-type User = {
-  email: string;
-  name: string;
-} | null
-
-export type Token = {
-  access: string | null;
-  refresh: string | null;
-}
-
 export type AuthContextType = {
   user: User | null;
-  isAuthenticated: () => void;
   signInWithGoogle?: (response: google.accounts.id.CredentialResponse) => Promise<void>;
   // signInWithApple: () => Promise<void>;
   logout: () => void;
@@ -34,7 +23,6 @@ const initialContextState: AuthContextType = {
     access: localStorage.getItem('access'),
     refresh: localStorage.getItem('access'),
   },
-  isAuthenticated: () => { },
   signInWithGoogle: () => Promise.resolve(),
   // signInWithApple: () => Promise.resolve(),
   logout: () => { },
@@ -54,12 +42,13 @@ type AuthAction =
   | { type: 'TOKEN REFRESH', token: Token }
 
 type AuthState = {
-  user: User;
+  user: User | null;
   token: Token;
 };
 
+
 const initialReducerState: AuthState = {
-  user: null,
+  user: JSON.parse(localStorage.getItem('user') || 'null'),
   token: {
     access: localStorage.getItem('access'),
     refresh: localStorage.getItem('refresh'),
@@ -90,26 +79,10 @@ export default function AuthProvider({
   const { user, token } = state;
   // const tokenRef = useRef<Token>(null);
   const navigate = useNavigate();
-  const isAuthenticated = () => {
-    if (token) return true
-    return false
-  }
 
 
   useEffect(() => {
     console.log('init interceptor')
-
-    const prefetchingTossWidget = async (acessToken: string) => {
-      const query = tossWidgetQuery(acessToken)
-      await queryClient.prefetchQuery(query)
-    }
-
-    if (token.access && token.refresh) {
-      prefetchingTossWidget(token.access)
-    } else {
-      dispatch({ type: 'LOGOUT' })
-    }
-
     const authRequestInterceptor = authClient.interceptors.request.use(
       (config) => {
         console.log('requestInterceptor 작동중')
@@ -139,17 +112,29 @@ export default function AuthProvider({
 
     const apiResponseInterceptor = apiClient.interceptors.response.use(
       async (response) => {
-        // Cache new token from incoming response headers
         console.log('responseInterceptor 작동중')
-        // 로그인 시에만 토큰 저장
-        if (response.config.url === '/user/google' || response.config.url === '/user/refresh') {
+        // 로그인 
+        if (response.config.url === '/user/google') {
           const { data: res } = response
-          const { accessToken, refreshToken, user: { email, name } } = res.data
-          dispatch({ type: 'LOGIN', user: { email, name }, token: { access: accessToken, refresh: refreshToken } })
-          //TODO : 수정 필요 cookie
+          const { accessToken, refreshToken, user: { _id: id, email, name } } = res.data
+          const user = { id, email, name }
+          dispatch({ type: 'LOGIN', user, token: { access: accessToken, refresh: refreshToken } })
+          //TODO : 수정 필요 maybe cookie
+          localStorage.setItem('user', JSON.stringify(user));
           localStorage.setItem('access', accessToken);
           localStorage.setItem('refresh', refreshToken);
-          prefetchingTossWidget(accessToken)
+          //TOSS 위젯 prefetching
+          const query = tossWidgetQuery(id)
+          await queryClient.prefetchQuery(query)
+        }
+        // 토큰 리프레시
+        if (response.config.url === '/user/refresh') {
+          const { data: res } = response
+          const { accessToken, refreshToken } = res.data
+          dispatch({ type: 'TOKEN REFRESH', token: { access: accessToken, refresh: refreshToken } })
+          //TODO : 수정 필요 maybe cookie
+          localStorage.setItem('access', accessToken);
+          localStorage.setItem('refresh', refreshToken);
         }
         return response;
       },
@@ -161,7 +146,7 @@ export default function AuthProvider({
       authClient.interceptors.response.eject(authResponseInterceptor);
       apiClient.interceptors.response.eject(apiResponseInterceptor);
     };
-  }, [token]);
+  }, []);
 
   const signInWithGoogle = async (response: google.accounts.id.CredentialResponse) => {
     console.log('signInWithGoogle 실행중')
@@ -176,6 +161,8 @@ export default function AuthProvider({
       throw error;
     }
   }
+
+
 
   const tokenRefresh = async (token: Token) => {
     console.log('토큰 리프레시 실행중')
@@ -205,6 +192,7 @@ export default function AuthProvider({
   const logout = () => {
     localStorage.removeItem('access')
     localStorage.removeItem('refresh')
+    localStorage.removeItem('user')
     dispatch({ type: 'LOGOUT' })
     navigate('/')
     alert('로그아웃 되었습니다.')
@@ -213,7 +201,6 @@ export default function AuthProvider({
   const context = {
     user,
     token,
-    isAuthenticated,
     signInWithGoogle,
     logout,
   };

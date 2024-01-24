@@ -8,35 +8,39 @@ import AppleLoginBtn from '../../components/AppleLoginBtn';
 import Button from '@mui/material/Button';
 import styled from '@emotion/styled';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { SingleSection } from '../../components/Containers';
 
 export default function Login() {
   const navigate = useNavigate();
 
   return (
-    <Dialog
-      open={true}
-      onClick={() => navigate(-1)}
-      aria-labelledby="login-dialog"
-    >
-      <DialogTitle id="login-dialog">로그인</DialogTitle>
-      <IconButton
-        aria-label="close"
-        onClick={(e) => {
-          e.stopPropagation()
-          navigate(-1)}}
-        sx={{ position: 'absolute', right: '8px', top: '8px' }}
+    <SingleSection>
+      <Dialog
+        open={true}
+        onClick={() => navigate(-1)}
+        aria-labelledby="login-dialog"
       >
-        <CloseIcon />
-      </IconButton>
-      <DialogContent>
-        <GoogleLoginBtn />
-        <AppleLoginBtn />
-      </DialogContent>
-      <BtnWrapper>
-        <Button variant='text' sx={{ color: 'var(--black)' }}>이용약관</Button>
-        <Button variant='text' sx={{ color: 'var(--black)' }}>개인정보처리방침</Button>
-      </BtnWrapper>
-    </Dialog>
+        <DialogTitle id="login-dialog">로그인</DialogTitle>
+        <IconButton
+          aria-label="close"
+          onClick={(e) => {
+            e.stopPropagation()
+            navigate(-1)
+          }}
+          sx={{ position: 'absolute', right: '8px', top: '8px' }}
+        >
+          <CloseIcon />
+        </IconButton>
+        <DialogContent>
+          <GoogleLoginBtn />
+          <AppleLoginBtn />
+        </DialogContent>
+        <BtnWrapper>
+          <Button variant='text' sx={{ color: 'var(--black)' }}>이용약관</Button>
+          <Button variant='text' sx={{ color: 'var(--black)' }}>개인정보처리방침</Button>
+        </BtnWrapper>
+      </Dialog>
+    </SingleSection>
   )
 }
 

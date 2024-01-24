@@ -1,19 +1,20 @@
 import { authClient } from "./axiosInstance";
+import { PaymentDetails } from "../types"
 
-export const uploadFiles = async (formData:FormData) => {
+export const placeOrder = async (paymentId, orderId, amount, paymentKey) => {
   try {
-    const res = await authClient.post("/file/upload?filePath=", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const res = await authClient.post("/payment/toss", {
+      paymentId,
+      orderId,
+      amount,
+      paymentKey
+    })
     if(res.status === 200) {
       const { data : { ok, data} } = res;
       if(ok) {
-        return data;
-      }else {
-        throw new Error("파일 업로드에 실패했습니다.");
-      }
+        console.log('placeorder',data);
+      }else
+      return false
     }
   }catch (error) {
     console.log(error);

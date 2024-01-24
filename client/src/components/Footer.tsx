@@ -2,10 +2,10 @@ import styled from "@emotion/styled"
 import { Link, useLocation } from "react-router-dom"
 
 export default function Footer() {
-  const isHome = useLocation().pathname === '/'
-
+  const pathname = useLocation().pathname
+  const hasGifBG = pathname === '/' || pathname === '/create'
   return (
-    <FooterContainer isHome={isHome}>
+    <FooterContainer hasGifBG={hasGifBG}>
       <Link to="#">개인정보처리방침</Link>
       <Link to="#">이용약관</Link>
       <Link to="#">문의하기</Link>
@@ -14,13 +14,13 @@ export default function Footer() {
 }
 
 type FooterProps = {
-  isHome: boolean
+  hasGifBG: boolean
 }
 
 const FooterContainer = styled.footer<FooterProps>`
   width: 100%;
   height: 30px;
-  color: ${props => props.isHome ? 'white' : 'var(--black)'};
+  color: ${props => props.hasGifBG ? 'white' : 'var(--black)'};
   display: flex;
   justify-content: center;
   align-items: center;

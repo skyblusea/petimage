@@ -1,0 +1,218 @@
+로그인 res
+
+
+{
+    "data": {
+        "ok": true,
+        "data": {
+            "user": {
+                "_id": "658a43a4e26d9227a64da419",
+                "name": "김민지",
+                "email": "blueseablueskyblueme@gmail.com",
+                "provider": "google",
+                "providerId": "111467942398670186641",
+                "status": 1,
+                "createdAt": "2023-12-26T03:08:20.443Z",
+                "updatedAt": "2024-01-17T06:20:25.476Z",
+                "__v": 0,
+                "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDU0NzI0MjUsImV4cCI6MTcxMzI0ODQyNX0.VsM5TFubbl8dxSgFhMdxfuULJfEv59w0jFPqMo65wsc"
+            },
+            "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OGE0M2E0ZTI2ZDkyMjdhNjRkYTQxOSIsImlhdCI6MTcwNTQ3MjQ2MywiZXhwIjoxNzA2MDc3MjYzfQ.pXeC6W0TO4_oXWBYWkrCp3Igx2K8FX7wOar0gyrTG-E",
+            "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDU0NzI0NjMsImV4cCI6MTcxMzI0ODQ2M30.VvnMPySicEkUw0o_JYONHVeK91RpRcSTy8ag0MYRiYg"
+        }
+    },
+    "status": 200,
+    "statusText": "OK",
+    "headers": {
+        "content-length": "751",
+        "content-type": "application/json; charset=utf-8"
+    },
+    "config": {
+        "transitional": {
+            "silentJSONParsing": true,
+            "forcedJSONParsing": true,
+            "clarifyTimeoutError": false
+        },
+        "adapter": [
+            "xhr",
+            "http"
+        ],
+        "transformRequest": [
+            null
+        ],
+        "transformResponse": [
+            null
+        ],
+        "timeout": 0,
+        "xsrfCookieName": "XSRF-TOKEN",
+        "xsrfHeaderName": "X-XSRF-TOKEN",
+        "maxContentLength": -1,
+        "maxBodyLength": -1,
+        "env": {},
+        "headers": {
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json"
+        },
+        "baseURL": "https://petimage.kr/api/v1",
+        "method": "post",
+        "url": "/user/google",
+        "data": "{\"token\":\"eyJhbGciOiJSUzI1NiIsImtpZCI6IjFmNDBmMGE4ZWYzZDg4MDk3OGRjODJmMjVjM2VjMzE3YzZhNWI3ODEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIxNzUzNzkzMTAwMTctNHJhZ2NnbzNvcDA3Y2s2cHBtcTA1cnZvdmsxMGduc2suYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIxNzUzNzkzMTAwMTctNHJhZ2NnbzNvcDA3Y2s2cHBtcTA1cnZvdmsxMGduc2suYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMTE0Njc5NDIzOTg2NzAxODY2NDEiLCJlbWFpbCI6ImJsdWVzZWFibHVlc2t5Ymx1ZW1lQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYmYiOjE3MDU0NzIxNjMsIm5hbWUiOiLquYDrr7zsp4AiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jSjVpeUdpV0RJbzIyWEhVQUx5eVVibV9ydE9KdElNNlJIZmpxeHQ0a25DPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IuuvvOyngCIsImZhbWlseV9uYW1lIjoi6rmAIiwibG9jYWxlIjoia28iLCJpYXQiOjE3MDU0NzI0NjMsImV4cCI6MTcwNTQ3NjA2MywianRpIjoiZWU2ZmViOGM2ZTBjMTZlZTEwNjFjYjFiOGUwYTI4N2M0MDJmZTQ0NSJ9.K5z5rOIkRKSLJUQHc4MxhYC0fOQV_NcBMEOgoOEJbDnEuWe2gchDq8p3SPWmSDbmYHEVOcKK5CqWYHJOJV6myIsmJ6KDED_Z0fvAMYojz5nwkUKtgZRTkfWaJF9dbGEpdFMcrdOHbT_kXMXituV8V0rTZYG8v9sMlxEJjlr81YRomo7DCVpzCTV8jf3sAq5oC8i3r12YdDqwyFBspvhRb9Ubt8MRQs2sXuunqMr8xNEutzHxazVNCLZzcMPn7xMaMPKvYrrRNcmIY-nJJM_az4Ih7l_8wNsiDUs6O2H9ttQKOBVktymxKO20vTt6Y5zlA_A4HmtFOCBFtF73jMLySg\"}"
+    },
+    "request": {}
+}
+
+{
+    "ok": true,
+    "data": {
+      "themes": [
+        {
+          "_id": "657953f6ed59584aa4b2c983",
+          "name": "우주비행사",
+          "desc": "반려동물이 우주비행사가 되어 광활한 우주를 여행하는 모습은 어떠신가요?",
+          "prompt": [
+          ],
+          "background": "background example",
+          "tag": "우주비행사,우주비행사 운전,우주여행,달 탐사,달 기지",
+          "type": "AI 컨셉사진",
+          "price": "4,900",
+          "popular": 146,
+          "amount": 30,
+          "sample": [
+            "https://petimage.kr/files/pet/admin/ast1.png",
+            "https://petimage.kr/files/pet/admin/ast2.png",
+            "https://petimage.kr/files/pet/admin/ast3.png",
+            "https://petimage.kr/files/pet/admin/ast4.png",
+            "https://petimage.kr/files/pet/admin/ast5.png"
+          ],
+          "trial": [
+            {
+              "class": "고양이",
+              "img": "https://petimage.kr/files/uploads/admin/샴.jpg",
+              "output": "https://petimage.kr/files/pet/admin/ast1.png"
+            },
+            {
+              "class": "강아지(임시)",
+              "img": "https://petimage.kr/files/uploads/admin/샴.jpg",
+              "output": "https://petimage.kr/files/pet/admin/ast2.png"
+            }
+          ],
+          "createdAt": "2023-12-14T05:34:05.617Z",
+          "updatedAt": "2024-01-17T07:39:05.298Z",
+          "category": [
+            "NEW",
+            "HOT"
+          ]
+        },
+        {
+          "_id": "657953f6ed59584aa4b2c984",
+          "name": "스쿠버다이빙",
+          "desc": "반려동물이 바다에서 스쿠버다이빙을 하는 모습은 어떠신가요?",
+          "prompt": [
+            {
+              "prompt": "([qwer animal_name:species_name animal_name:39]:1.4) (is swimming:1.8) under the sea (without diving mask), (fishes and small sea anemone:1.5) is nearby (qwer animal_name:1.5), (straight on:1.5), (medium shot:1.5), looking at viewer, sunshine over the sea surface, 4k, Ultra-High-Definition, (Masterpiece:1.5), (best quality:1.5), realistic, Cinemascope, film grain, (sharp focus on (qwer animal_name) face:1.5), <lora:user_idpetlora:1>",
+              "steps": "40",
+              "cfg_scale": "9.5",
+              "sampler_index": "DPM++ 2M SDE Karras",
+              "negative_prompt": "qwer animal_name with fish-like anatomy, more than one animal_name, qwer animal_name is over the sea, qwer animal_name laying on ground, human, (close-up), selfie, bad anatomy, no fishes, anime style",
+              "batch_size": "10",
+              "width": "1024",
+              "height": "1024"
+            },
+            {
+              "prompt": "([qwer animal_name:species_name animal_name:34]:1.4) (is swimming:1.8), (is wearing diving suit:2.0), (only upper suit:2.0), (straight on:1.5), (is under the sea:2.0), sea, (is near the whale:2.0), sunshine over the sea surface, 4k, Ultra-High-Definition, (Masterpiece:1.5), (best quality:1.5), realistic, Cinemascope, film grain, (sharp focus on (qwer animal_name) face:1.5), <lora:user_idpetlora:1>",
+              "steps": "35",
+              "cfg_scale": "9.5",
+              "sampler_index": "DPM++ 2M Karras",
+              "negative_prompt": "qwer animal_name with fish-like anatomy, more than one animal_name, is over the sea, laying on ground, standing pose, letters on suit, (bedding), painting, sunglasses, human, (close-up), selfie, bad anatomy, (no fish), (whale outside of sea), ID photo style, anime style",
+              "batch_size": "10",
+              "width": "1024",
+              "height": "1024"
+            },
+            {
+              "steps": "41",
+              "cfg_scale": "7.5",
+              "sampler_index": "DPM++ 2M Karras",
+              "negative_prompt": "qwer animal_name with bad feet, bad hand, human, human hands, (hind legs)",
+              "batch_size": "10",
+              "width": "1024",
+              "height": "1024",
+              "prompt": "([qwer animal_name:species_name animal_name:40]:1.4):), (animal_name is surf nicely with fancy surfing board in the sea:1.4) , best quality, masterpiece, beautiful and aesthetic:1.2, colorful, dynamic angle, realistic, Cinemascope ,Full shot, sunshine over the sea surface,  digital camera style, qwer animal_name <lora:user_idpetlora:1>"
+            }
+          ],
+          "background": null,
+          "tag": "스쿠버다이빙,바다,수영,잠수",
+          "type": "AI 컨셉사진",
+          "price": "4,900",
+          "popular": 66,
+          "amount": 30,
+          "sample": [
+            "https://petimage.kr/files/pet/admin/scb1.png",
+            "https://petimage.kr/files/pet/admin/scb2.png",
+            "https://petimage.kr/files/pet/admin/scb3.png",
+            "https://petimage.kr/files/pet/admin/scb4.png",
+            "https://petimage.kr/files/pet/admin/scb5.png"
+          ],
+          "trial": [
+            {
+              "class": "고양이",
+              "img": "https://petimage.kr/files/uploads/admin/샴.jpg",
+              "output": "https://petimage.kr/files/pet/admin/scb1.png"
+            },
+            {
+              "class": "강아지(임시)",
+              "img": "https://petimage.kr/files/uploads/admin/샴.jpg",
+              "output": "https://petimage.kr/files/pet/admin/scb2.png"
+            }
+          ],
+          "createdAt": "2023-12-14T05:34:05.617Z",
+          "updatedAt": "2024-01-17T22:53:38.884Z",
+          "category": [
+            "NEW",
+            "HOT",
+            "TEST",
+            "TEMP"
+          ]
+        },
+        {
+          "_id": "65a47fda2cb46337695875b9",
+          "name": "test",
+          "desc": "반려동물이 바다에서 스쿠버다이빙을 하는 모습은 어떠신가요?",
+          "prompt": [],
+          "background": "https://petimage.kr/files/uploads/admin/샴.jpg",
+          "tag": "스쿠버다이빙,바다,수영,잠수",
+          "type": "AI 컨셉사진",
+          "price": "4,900",
+          "popular": 1,
+          "amount": 30,
+          "sample": [
+            "https://petimage.kr/files/pet/admin/scb1.png",
+            "https://petimage.kr/files/pet/admin/scb2.png",
+            "https://petimage.kr/files/pet/admin/scb3.png",
+            "https://petimage.kr/files/pet/admin/scb4.png",
+            "https://petimage.kr/files/pet/admin/scb5.png"
+          ],
+          "trial": [
+            {
+              "class": "고양이",
+              "img": "https://petimage.kr/files/uploads/admin/샴.jpg",
+              "output": "https://petimage.kr/files/pet/admin/scb1.png"
+            },
+            {
+              "img": "https://petimage.kr/files/uploads/admin/샴.jpg",
+              "output": "https://petimage.kr/files/pet/admin/scb2.png",
+              "class": "강아지"
+            }
+          ],
+          "createdAt": "2023-12-14T05:34:05.617Z",
+          "updatedAt": "2024-01-17T07:41:37.392Z",
+          "category": [
+            "NEW",
+            "HOT"
+          ]
+        }
+      ],
+      "totalPage": 1
+    }
+
+ success시
+    'http://localhost:5173/payment/success?paymentType=…p&paymentKey=tviva20240123113226cIMi0&amount=4900'

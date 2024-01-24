@@ -14,7 +14,7 @@ export default function RootLayout() {
       <MainContainer>
         <Outlet />
         <Footer />
-        {pathname === '/' && <ReactPlayer className="bg" url="bg.mp4" width="100%" height="100%" playing={true} />}
+        {(pathname === '/' || pathname === '/create') && <ReactPlayer className="bg" url="bg.mp4" width="100%" height="100%" playing={true} />}
       </MainContainer>
     </>
   )

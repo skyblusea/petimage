@@ -41,11 +41,10 @@ export const loader =
 
 export default function Collection() {
   const initialData = useLoaderData() as Awaited<ReturnType<ReturnType<typeof loader>>>;
-  const { data } = useQuery({
+  const { data : { payments, album } } = useQuery({
     ...collectionQuery(),
     initialData,
   })
-  const { payments, album } = data || initialData
   const pathname = useLocation().pathname
 
   return (

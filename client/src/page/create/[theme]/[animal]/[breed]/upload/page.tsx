@@ -121,7 +121,7 @@ export default function Upload() {
       //결제 페이지로 이동
       setIsLoading(false)
       setAlbumDetails({ theme: themeData, animalCode: animal, inputFiles: uploaded })
-      navigate(`/payment/checkout`)
+      navigate('/checkout')
     }
   }
 
