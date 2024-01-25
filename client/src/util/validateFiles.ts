@@ -1,8 +1,9 @@
-import { authClient } from "./axiosInstance";
+import { AxiosInstance } from "axios";
 
 export const validateFiles = async (
   uploaded: string[],
-  animal: '강아지' | '고양이'
+  animal: '강아지' | '고양이',
+  authClient: AxiosInstance
 ) => {
   try {
     const data = {

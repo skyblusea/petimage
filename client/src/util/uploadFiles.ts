@@ -1,6 +1,6 @@
-import { authClient } from "./axiosInstance";
+import { AxiosInstance } from "axios";
 
-export const uploadFiles = async (formData:FormData) => {
+export const uploadFiles = async (formData:FormData, authClient:AxiosInstance) => {
   try {
     const res = await authClient.post("/file/upload?filePath=", formData, {
       headers: {

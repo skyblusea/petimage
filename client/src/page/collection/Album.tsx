@@ -23,11 +23,11 @@ export default function Album({ data }: { data: AlbumItem}) {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography variant="h4" color="petimage.main">컨셉사진 / {data.themeName} / {data.inputFiles.length}장</Typography>
+          <Typography variant="h4" color="petimage.main">컨셉사진 / {data.themeName} / {data.outputFiles.length}장</Typography>
         </AccordionSummary>
         <AccordionDetails>
         <Grid container spacing={1}>
-            {data.inputFiles.map((file,idx) => 
+            {data.outputFiles.map((file,idx) => 
             <Grid key={idx} xs={12/5}>
               <BaseImgBox square src={file} alt="dog"></BaseImgBox>
             </Grid>

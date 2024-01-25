@@ -40,7 +40,7 @@ export type RedirectDate = {
 
 export interface AlbumDetails {
   theme : {
-    id: string;
+    themeId: string;
     amount: number;
     name: string;
     price: string;
@@ -90,4 +90,11 @@ export type User = {
 export type Token = {
   access: string | null;
   refresh: string | null;
+}
+
+//upload
+export interface FileWithUrl {
+  file: File,
+  imgUrl: string,
+  isValid?: boolean
 }

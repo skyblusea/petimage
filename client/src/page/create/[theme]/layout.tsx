@@ -9,7 +9,6 @@ import { QueryClient } from "@tanstack/react-query"
 import type { Params } from '@remix-run/router/utils';
 import { Theme } from '../../../types'
 import { themeQuery } from "../page";
-import { Children } from "react";
 
 
 export const loader = (queryClient: QueryClient) =>
@@ -23,7 +22,7 @@ export const loader = (queryClient: QueryClient) =>
       return redirect('/create')
     }
     const themeData = {
-      id : filtered._id,
+      themeId : filtered._id,
       amount : filtered.amount,
       name : filtered.name,
       price : filtered.price

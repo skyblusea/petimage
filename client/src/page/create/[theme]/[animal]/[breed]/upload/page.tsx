@@ -13,69 +13,31 @@ import { uploadFiles } from "../../../../../../util/uploadFiles";
 import { validateFiles } from "../../../../../../util/validateFiles";
 import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded';
 import { LoadingContext } from "../../../../../../provider/LoadingProvider";
-import { PaymentContext } from "../../../../../../provider/OrderProvider";
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
-
+import { AlbumDetails } from "../../../../../../types";
+import { FileWithUrl } from "../../../../../../types";
+import { readFile } from "../../../../../../util/readFile";
+import useAuth from "../../../../../../util/useAuth";
 
 
 export default function Upload() {
   const navigate = useNavigate()
-  const { setAlbumDetails } = useContext(PaymentContext)
   const { setIsLoading } = useContext(LoadingContext)
   const { animal } = useParams()
-  //상품정보 잘 안바뀌므로 QueryData 사용 or Action 통해 api 호출(이 방법 사용시 상태XX Context setting 필요)
-  const themeData = useRouteLoaderData('createWithTheme') as { id: string, amount: number, name: string, price: string }
+  const { authClient } = useAuth()
 
+  //상품정보 잘 안바뀌므로 QueryData 사용 or Action 통해 api 호출(이 방법 사용시 상태XX Context setting 필요)
+  const themeData = useRouteLoaderData('createWithTheme') as AlbumDetails['theme']
+  console.log(themeData)
   const animalKor = animal === 'dog' ? '강아지' : '고양이'
 
   //Handling InputFile for Preview
-  interface FileWithUrl {
-    file: File,
-    imgUrl: string,
-    isValid?: boolean
-  }
   const [files, setFiles] = useState<FileWithUrl[]>([])
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) readFile(e.target.files)
+    if (e.target.files) readFile(e.target.files, files, setFiles)
     // reset for triggering onChange on a same file, 같은 파일 선택시 onChange가 발생하지 않는 문제 해결
     e.target.value = ''
-  }
-
-  const readFile = async (fileList: FileList) => {
-    const selectedFiles = [...fileList]
-    const isMax = files.length + selectedFiles.length > 12
-    if (isMax) {
-      alert("이미지는 12개까지만 추가할 수 있습니다.")
-    }
-    selectedFiles.splice(12 - files.length)
-    const results = await Promise.allSettled(selectedFiles.map(file => getBase64(file)))
-    const fulfilled = results.filter(result => result.status === 'fulfilled') as PromiseFulfilledResult<FileWithUrl>[]
-    if (fulfilled.length) {
-      setFiles([...files, ...fulfilled.map(result => result.value)])
-    }
-    const rejected = results.filter(result => result.status === 'rejected') as PromiseRejectedResult[]
-    if (rejected.length) {
-      alert(rejected[0].reason)
-    }
-  }
-
-  const getBase64 = (file: File) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        const imgUrl = reader.result as string
-        const isExist = files.some(file => file.imgUrl === imgUrl)
-        if (isExist) {
-          reject('이미 존재하는 파일입니다.')
-        } else {
-          const result = { file, imgUrl, isValid: true }
-          resolve(result as FileWithUrl)
-        }
-      }
-      reader.onerror = (error) => reject(error)
-    })
   }
 
   //Drag & Drop
@@ -95,7 +57,7 @@ export default function Upload() {
     e.preventDefault();
     e.stopPropagation();
     const fileList = e.dataTransfer.files;
-    if (fileList) readFile(fileList);
+    if (fileList) readFile(fileList, files, setFiles);
   }
 
   //Submit
@@ -106,9 +68,9 @@ export default function Upload() {
       formData.append('file', file.file)
     })
     setIsLoading(true)
-    const uploaded = await uploadFiles(formData)
+    const uploaded = await uploadFiles(formData, authClient)
     //서버에 유효성 검사
-    const validated = await validateFiles(uploaded, animalKor) as { check: boolean, url: string }[]
+    const validated = await validateFiles(uploaded, animalKor, authClient) as { check: boolean, url: string }[]
     const isAllValid = validated.every(ele => ele.check)
     if (!isAllValid) {
       const validationResult = files.map((ele, idx) => {
@@ -120,8 +82,7 @@ export default function Upload() {
     } else {
       //결제 페이지로 이동
       setIsLoading(false)
-      setAlbumDetails({ theme: themeData, animalCode: animal, inputFiles: uploaded })
-      navigate('/checkout')
+      navigate('/checkout',{ state: { theme: themeData, animalCode: animal, inputFiles: uploaded } })
     }
   }
 

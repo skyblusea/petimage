@@ -8,45 +8,49 @@ import Album from "./Album";
 import { QueryClient } from "@tanstack/react-query";
 import { useLoaderData, useLocation } from "react-router-dom";
 import { AlbumItem, Payment as PaymentType } from "../../types";
-import { authClient } from "../../util/axiosInstance";
+import { AxiosInstance } from "axios";
+import useAuth from "../../util/useAuth";
 
 
 
 
-const collectionQuery = () => ({
-  queryKey: ["collection"],
-  queryFn: async ():Promise<{payments: PaymentType[]; album: AlbumItem[]}> => {
+
+const collectionQuery = (authClient:AxiosInstance) => ({
+  queryKey: ["collection",authClient],
+  queryFn: async () => {
     try {
-      const { data: { data: { payments } } } = await authClient.get(`/payment/list?sort=&order=&limit=&page=`)
-      const { data: { data: album } } = await authClient.get(`/album/list?sort=&order=&limit=&page=`);
-      return { payments, album }
+      console.log('collectionQuery작동')
+      const { data: { data: { payments } } } = await authClient.get(`/payment/list?sort=&order=&limit=&page=`) 
+      const { data: { data: albums } } = await authClient.get(`/album/list?sort=&order=&limit=&page=`)
+      return { payments, albums }
     } catch (error) {
       console.error('collectionQuery error')
-      throw error
+      return null
     }
   },
   staleTime: 1000 * 60 * 60 * 24 * 7, // 7 days
 });
 
 
-export const loader =
-  (queryClient: QueryClient) =>
-    async () => {
-      const query = collectionQuery()
-      const data = queryClient.ensureQueryData(query)
-      return data;
-    }
+export const loader = (queryClient: QueryClient, authClient:AxiosInstance) =>
+  () => {
+    const query = collectionQuery(authClient)
+    const data = queryClient.ensureQueryData(query)
+    return data;
+  }
 
 
 
 export default function Collection() {
-  const initialData = useLoaderData() as Awaited<ReturnType<ReturnType<typeof loader>>>;
-  const { data : { payments, album } } = useQuery({
-    ...collectionQuery(),
-    initialData,
+  const initialData = useLoaderData() as Awaited<ReturnType<ReturnType<typeof loader>>>
+  // console.log('initialData', initialData ? initialData : undefined)
+  const authClient = useAuth().authClient
+  const { data } = useQuery({
+    ...collectionQuery(authClient),
   })
   const pathname = useLocation().pathname
-
+  // const { payments, albums } = data
+  // if(!data) return 
   return (
     <PetimageThemeBG>
       <PetimegeThemeWH full>
@@ -59,17 +63,16 @@ export default function Collection() {
               갤러리
             </Tab>
           </Tabs>
-          <TabPanel role="tabpanel" hidden={pathname === '/collection'}>
+          {/* <TabPanel role="tabpanel" hidden={pathname === '/collection'}>
             <Stack spacing={2}>
-              {payments?.map((payment) => <Payment key={payment._id} data={payment} />)
-              }
+              {payments?.map((payment) => <Payment key={payment._id} data={payment} />)}
             </Stack>
-          </TabPanel>
-          <TabPanel role="tabpanel" hidden={pathname === '/payments'}>
+          </TabPanel> */}
+          {/* <TabPanel role="tabpanel" hidden={pathname === '/payments'}>
             <Stack spacing={2}>
-              {album?.map((album) => <Album key={album._id} data={album} />)}
+              {albums?.map((album) => <Album key={album._id} data={album} />)}
             </Stack>
-          </TabPanel>
+          </TabPanel> */}
         </TabContainer>
       </PetimegeThemeWH>
     </PetimageThemeBG>

@@ -1,8 +1,7 @@
-import { Link, redirect, useLoaderData, useLocation, useParams } from "react-router-dom";
+import { redirect, useLoaderData, useLocation } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Grid from '@mui/material/Unstable_Grid2';
-import CustomImage from "../../../../components/CustomImage";
-import BaseImgBox, { SquareCreateBox } from "../../../../components/Boxes";
+import BaseImgBox from "../../../../components/Boxes";
 import type { Params } from '@remix-run/router/utils';
 import { QueryClient } from "@tanstack/react-query"
 import { Breed } from "../../../../types";

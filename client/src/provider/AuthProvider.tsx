@@ -1,10 +1,11 @@
 
 import { createContext, useEffect, useReducer } from "react";
-import { apiClient, authClient } from "../util/axiosInstance";
 import { QueryClient } from "@tanstack/react-query"
-import { tossWidgetQuery } from "../page/payment/checkout/page";
+import { tossWidgetQuery } from "../page/checkout/page";
 import { Outlet, useNavigate } from "react-router-dom";
 import { User, Token } from "../types"
+import axios, { AxiosInstance } from "axios";
+import { apiClient } from "../util/axiosInstance";
 
 
 // Context
@@ -15,14 +16,21 @@ export type AuthContextType = {
   // signInWithApple: () => Promise<void>;
   logout: () => void;
   token: Token;
+  authClient: AxiosInstance;
 };
 
 const initialContextState: AuthContextType = {
   user: null,
   token: {
     access: localStorage.getItem('access'),
-    refresh: localStorage.getItem('access'),
+    refresh: localStorage.getItem('refresh'),
   },
+  authClient: axios.create({
+    baseURL: `${import.meta.env.VITE_URL}`,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }),
   signInWithGoogle: () => Promise.resolve(),
   // signInWithApple: () => Promise.resolve(),
   logout: () => { },
@@ -70,16 +78,20 @@ const authReducer = (state: AuthState, action: AuthAction) => {
 
 
 
+
 export default function AuthProvider({
   queryClient,
+  authClient,
 }: {
   queryClient: QueryClient
+  authClient: AxiosInstance
 }) {
   const [state, dispatch] = useReducer(authReducer, initialReducerState);
   const { user, token } = state;
   // const tokenRef = useRef<Token>(null);
   const navigate = useNavigate();
 
+  console.log('AuthProvider 실행중 토큰', token)
 
   useEffect(() => {
     console.log('init interceptor')
@@ -91,9 +103,11 @@ export default function AuthProvider({
         return config;
       })
 
+    
     const authResponseInterceptor = authClient.interceptors.response.use(undefined,
       (error) => {
         const errorMsg = error.response.data.data;
+        const originalRequest = error.config;
         console.log('interceptor catched error', error)
         switch (error.response.status) {
           case 401:
@@ -101,7 +115,8 @@ export default function AuthProvider({
             break;
           case 403: {
             console.error("access token error | ", errorMsg);
-            tokenRefresh(token);
+            tokenRefresh();
+            return authClient(originalRequest);
             break;
           }
           default:
@@ -109,6 +124,7 @@ export default function AuthProvider({
         }
       }
     );
+    
 
     const apiResponseInterceptor = apiClient.interceptors.response.use(
       async (response) => {
@@ -146,7 +162,7 @@ export default function AuthProvider({
       authClient.interceptors.response.eject(authResponseInterceptor);
       apiClient.interceptors.response.eject(apiResponseInterceptor);
     };
-  }, []);
+  }, [token, queryClient]);
 
   const signInWithGoogle = async (response: google.accounts.id.CredentialResponse) => {
     console.log('signInWithGoogle 실행중')
@@ -164,14 +180,9 @@ export default function AuthProvider({
 
 
 
-  const tokenRefresh = async (token: Token) => {
-    console.log('토큰 리프레시 실행중')
-    if (!token) {
-      alert('토큰이 없습니다.')
-      dispatch({ type: 'LOGOUT' })
-      navigate('/')
-      return
-    }
+  const tokenRefresh = async () => {
+    const token = getTokenfromLocalStorage()
+    if (!token) return logout()
     authClient
       .get(`/user/refresh`, {
         headers: {
@@ -183,10 +194,18 @@ export default function AuthProvider({
         console.log('발급 실패!')
         if (err.response.status === 401) {
           alert("로그인이 만료되었습니다.")
-          dispatch({ type: 'LOGOUT' })
-          navigate("/")
+          return logout()
         }
       });
+  }
+
+  const getTokenfromLocalStorage = () => {
+    const access = localStorage.getItem('access')
+    const refresh = localStorage.getItem('refresh')
+    if (!access || !refresh) return null
+    const token = { access, refresh }
+    dispatch({ type: 'TOKEN REFRESH', token })
+    return token
   }
 
   const logout = () => {
@@ -194,13 +213,14 @@ export default function AuthProvider({
     localStorage.removeItem('refresh')
     localStorage.removeItem('user')
     dispatch({ type: 'LOGOUT' })
-    navigate('/')
     alert('로그아웃 되었습니다.')
+    return navigate('/')
   }
 
   const context = {
     user,
     token,
+    authClient,
     signInWithGoogle,
     logout,
   };

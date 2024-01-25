@@ -1,10 +1,6 @@
 import AuthProvider from './provider/AuthProvider.tsx'
 import LoadingProvider from './provider/LoadingProvider.tsx'
-import Routes from './provider/Routes.tsx'
-import PaymentProvider from './provider/OrderProvider.tsx'
-
-import { Outlet, RouterProvider, createBrowserRouter, redirect } from "react-router-dom";
-
+import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import Error from "./error";
 import Home from "./page/home/page";
 import Login from "./page/login/page";
@@ -16,27 +12,36 @@ import RootLayout from "./RootLayout";
 import Service from "./page/service/page";
 import Product from "./page/product/page";
 import About from "./page/about/page";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import SelectTheme, { loader as themeLoader } from "./page/create/page";
 import Notice from "./page/create/[theme]/[animal]/[breed]/notice/page";
 import CreateLayout, { loader as themeDataLoader } from "./page/create/[theme]/layout";
 import SelectAnimal from "./page/create/[theme]/SelectAnimalGrid";
 import SelectBreed, { loader as breedLoader } from "./page/create/[theme]/[animal]/page";
-import Upload from "./page/create/[theme]/[animal]/[breed]/upload/page";
-import PaymentSuccess, { loader as paymentSuccessLoader, action as paymentSuccessAction } from "./page/payment/success/page";
 import Collection, { loader as collectionLoader } from "./page/collection/page";
-import Checkout, { loader as checkoutLoader } from "./page/payment/checkout/page";
-import usePayment from "./util/usePaymemt";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import useAuth from './util/useAuth.ts';
+import Checkout from './page/checkout/page.tsx';
+import PaymentComplete from './page/payment-complete/page.tsx';
+import Upload from './page/create/[theme]/[animal]/[breed]/upload/page.tsx';
+import Redirect from './page/redirect/page.tsx';
+import axios from 'axios';
 
+function newApiClient() {
+  return axios.create({
+    baseURL: `${import.meta.env.VITE_URL}`,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+}
 
 export default function App() {
 
   const queryClient = new QueryClient()
+  const authClient = newApiClient()
 
   const router = createBrowserRouter([{
-    element: <AuthProvider queryClient={queryClient} />,
+    element: <AuthProvider queryClient={queryClient} authClient={authClient}/>,
     children:
       [{
         path: '/',
@@ -49,7 +54,6 @@ export default function App() {
           { path: '/product', element: <Product /> },
           { path: '/about', element: <About /> },
           { path: '/auth', element: <Login /> },
-
           // protected
           {
             element: <ProtectedRoute />,
@@ -57,52 +61,42 @@ export default function App() {
               {
                 path: '/create',
                 element: <SelectTheme />,
-                loader: themeLoader(queryClient),
+                loader: themeLoader(queryClient, authClient),
               },
               { path: '/create/:theme/:animal/:breed/notice', element: <Notice /> },
               {
                 id: 'createWithTheme',
                 path: '/create/:theme', element: <CreateLayout />, children: [
                   { path: '', element: <SelectAnimal /> },
-                  { path: ':animal', element: <SelectBreed />, loader: breedLoader(queryClient) },
+                  { path: ':animal', element: <SelectBreed />, loader: breedLoader(queryClient, authClient) },
                   { path: ':animal/:breed/upload', element: <Upload /> },
                 ],
-                loader: themeDataLoader(queryClient)
+                loader: themeDataLoader(queryClient, authClient)
               },
               {
-                path: '/payment', element: <CreateLayout />, children: [
-                  { path: 'checkout', element: <Checkout /> },
+                path: '/checkout', element: <CreateLayout />, children: [
+                  { path: '', element: <Checkout /> },
                 ]
               },
-              { path: '/checkout', element: <CreateLayout/>, children: [
-                { path: '', element: <Checkout /> },
-              ]},
-              { path: '/payment/:paymentId', element: <PaymentSuccess />, loader: paymentSuccessLoader, action: paymentSuccessAction },
-              { path: '/payment/success/:paymentId', element: <PaymentSuccess />, loader: paymentSuccessLoader, action: paymentSuccessAction },
-              { path: '/collection', element: <Collection />, loader: collectionLoader(queryClient) },
-              { path: '/payments', element: <Collection />, loader: collectionLoader(queryClient) },
+              { path: '/payment/:paymentId', element: <Redirect /> },
+              { path: '/payment-complete', element: <PaymentComplete /> },
+              { path: '/collection', element: <Collection />, loader: collectionLoader(queryClient, authClient) },
+              { path: '/payments', element: <Collection />, loader: collectionLoader(queryClient, authClient) },
             ]
           },
         ]
       }]
   }
-
   ])
 
+
   return (
-
-
-      <PaymentProvider>
-        <LoadingProvider>
-          {/* 기존 방식 */}
-          <QueryClientProvider client={queryClient}>
-            <RouterProvider router={router} />
-            <ReactQueryDevtools initialIsOpen={false} />
-          </QueryClientProvider>
-          {/* loader 에서 auth context를 사용하기 위한 방식 */}
-          {/* <Routes /> */}
-        </LoadingProvider>
-      </PaymentProvider>
+    <LoadingProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </LoadingProvider>
 
   )
 }

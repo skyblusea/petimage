@@ -1,5 +1,9 @@
 import { apiClient } from "./axiosInstance";
 
+
+
+
+
 export const getThemeDetails = async (themeId:FormDataEntryValue) => {
   try {
     const res = await apiClient.get(`/theme/${themeId}`)

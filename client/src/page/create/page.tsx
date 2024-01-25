@@ -10,11 +10,13 @@ import styled from '@emotion/styled';
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 import { RoundPaper, SingleSection } from '../../components/Containers';
-import { apiClient } from '../../util/axiosInstance';
+
 import { QueryClient, useQuery } from "@tanstack/react-query"
 import { Link, useLoaderData } from 'react-router-dom';
 import BaseImgBox from '../../components/Boxes';
 import { Theme } from '../../types';
+import { apiClient } from '../../util/axiosInstance';
+
 
 
 export const loader = (queryClient: QueryClient) =>

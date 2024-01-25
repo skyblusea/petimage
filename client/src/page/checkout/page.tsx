@@ -6,19 +6,13 @@ import Box from '@mui/material/Box';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import { loadPaymentWidget, ANONYMOUS, PaymentWidgetInstance } from "@tosspayments/payment-widget-sdk";
 import { nanoid } from "nanoid";
-import { useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from '@emotion/styled';
-import { Navigate, redirect, useLoaderData, useLocation, useNavigate } from 'react-router-dom';
-import { AuthContext, AuthContextType, Token } from '../../../provider/AuthProvider';
 import { Button } from '@mui/material';
-import { QueryClient, useQuery } from "@tanstack/react-query"
-import useAuth from '../../../util/useAuth';
-import { PaymentContext } from '../../../provider/OrderProvider';
-import { getPaymentId } from '../../../util/getPaymentId';
-
-
-
-
+import { useQuery } from "@tanstack/react-query"
+import useAuth from '../../util/useAuth';
+import { getPaymentId } from '../../util/getPaymentId';
+import { useLocation } from 'react-router-dom';
 
 
 
@@ -33,14 +27,14 @@ export const tossWidgetQuery = (customerkey: string) => ({
 
 
 export default function Checkout() {
-  // 결제 정보 불러오기
-  const { albumDetails } = useContext(PaymentContext)
+  //결제 정보 불러오기
+  const { state : albumDetails } = useLocation()
   const user = useAuth().user ?? { id: '', name: '익명', email: ANONYMOUS }
   //위젯 로드
   const { data: paymentWidget } = useQuery(tossWidgetQuery(user?.id ?? 'ANONYMOUS'))
   const paymentMethodsWidgetRef = useRef<ReturnType<PaymentWidgetInstance["renderPaymentMethods"]> | null>(null);
   const amount = Number(albumDetails?.theme.price?.replaceAll(',', ''))
-  //결제 동의
+  // //결제 동의
   const [agree, setAgree] = useState(false)
 
   useEffect(() => {
@@ -83,6 +77,7 @@ export default function Checkout() {
         alert('주문 생성에 실패했습니다.')
         return
       }
+      localStorage.setItem('albumDetails', JSON.stringify(albumDetails));
       await paymentWidget?.requestPayment({
         ...paymentInfo,
         successUrl: `${window.location.origin}/payment/${paymentId}`,

@@ -1,14 +1,15 @@
-import { Theme } from "../types";
-import { authClient } from "./axiosInstance";
+import { AxiosInstance } from "axios";
 
-export const createAlbum = async (theme:Theme, animalCode:string, uploaded:string[]) => {
+export const createAlbum = async (albumDetails:any, token:string|null, authClient:AxiosInstance) => {
   try {
-    const data = {
-      themeId : theme,
-      inputFiles : uploaded,
-      animalCode,
-    }
-    const res = await authClient.post("/album/new",data)
+    console.log('createAlbum 실행중', token)
+    console.log('albumDetails', albumDetails)
+    const res = await authClient.post("/album/new",{
+      themeId : albumDetails.theme.themeId,
+      animalCode : albumDetails.animalCode,
+      inputFiles : albumDetails.inputFiles
+    },
+  )
     if(res.status === 200) {
       console.log(res);
       const { data : { ok } } = res;

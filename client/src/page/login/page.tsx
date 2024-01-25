@@ -7,7 +7,7 @@ import GoogleLoginBtn from '../../components/GoogleLoginBtn';
 import AppleLoginBtn from '../../components/AppleLoginBtn';
 import Button from '@mui/material/Button';
 import styled from '@emotion/styled';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { SingleSection } from '../../components/Containers';
 
 export default function Login() {
