@@ -25,6 +25,8 @@ import PaymentComplete from './page/payment-complete/page.tsx';
 import Upload from './page/create/[theme]/[animal]/[breed]/upload/page.tsx';
 import Redirect from './page/redirect/page.tsx';
 import axios from 'axios';
+import PaymentHistory, { loader as paymenyHistoryLoader } from './page/payment/history/page.tsx';
+
 
 function newApiClient() {
   return axios.create({
@@ -61,17 +63,17 @@ export default function App() {
               {
                 path: '/create',
                 element: <SelectTheme />,
-                loader: themeLoader(queryClient, authClient),
+                loader: themeLoader(queryClient),
               },
               { path: '/create/:theme/:animal/:breed/notice', element: <Notice /> },
               {
                 id: 'createWithTheme',
                 path: '/create/:theme', element: <CreateLayout />, children: [
                   { path: '', element: <SelectAnimal /> },
-                  { path: ':animal', element: <SelectBreed />, loader: breedLoader(queryClient, authClient) },
-                  { path: ':animal/:breed/upload', element: <Upload /> },
+                  { path: ':animal', element: <SelectBreed />, loader: breedLoader(queryClient) },
+                  { path: ':animal/:breed/upload', element: <LoadingProvider><Upload /></LoadingProvider>},
                 ],
-                loader: themeDataLoader(queryClient, authClient)
+                loader: themeDataLoader(queryClient)
               },
               {
                 path: '/checkout', element: <CreateLayout />, children: [
@@ -81,7 +83,7 @@ export default function App() {
               { path: '/payment/:paymentId', element: <Redirect /> },
               { path: '/payment-complete', element: <PaymentComplete /> },
               { path: '/collection', element: <Collection />, loader: collectionLoader(queryClient, authClient) },
-              { path: '/payments', element: <Collection />, loader: collectionLoader(queryClient, authClient) },
+              { path: '/payment/history', element: <PaymentHistory />, loader: paymenyHistoryLoader(queryClient, authClient) },
             ]
           },
         ]
@@ -91,12 +93,10 @@ export default function App() {
 
 
   return (
-    <LoadingProvider>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
-    </LoadingProvider>
 
   )
 }

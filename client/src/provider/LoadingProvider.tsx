@@ -20,11 +20,9 @@ export default function LoadingProvider({ children }: { children: React.ReactNod
 
   return (
     <LoadingContext.Provider value={{ setIsLoading }}>
-      {isLoading &&
-        <Backdrop sx={{ zIndex: '1000' }} open={true}>
-          <Loading />
-        </Backdrop>
-      }
+      <Backdrop sx={{ zIndex: '1000' }} open={isLoading}>
+        <Loading />
+      </Backdrop>
       {children}
     </LoadingContext.Provider>
   )
