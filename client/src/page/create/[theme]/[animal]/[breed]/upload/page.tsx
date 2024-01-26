@@ -7,8 +7,8 @@ import { useNavigate, useParams, useRouteLoaderData } from "react-router-dom";
 import { useContext, useState } from "react"
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import GuideLine from "./GuideLine";
-import DeleteIcon from '@mui/icons-material/Delete';
-import { Box, IconButton } from "@mui/material";
+import DeleteIcon from '../../../../../../assets/delete.svg?react';
+import { Box, IconButton, SvgIcon } from "@mui/material";
 import { uploadFiles } from "../../../../../../util/uploadFiles";
 import { validateFiles } from "../../../../../../util/validateFiles";
 import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded';
@@ -18,12 +18,13 @@ import { AlbumDetails } from "../../../../../../types";
 import { FileWithUrl } from "../../../../../../types";
 import { readFile } from "../../../../../../util/readFile";
 import useAuth from "../../../../../../util/useAuth";
+import { ConstructionOutlined } from "@mui/icons-material";
 
 
 export default function Upload() {
   const navigate = useNavigate()
   const { setIsLoading } = useContext(LoadingContext)
-  const { animal } = useParams()
+  const { breed, animal } = useParams()
   const { authClient } = useAuth()
 
   //상품정보 잘 안바뀌므로 QueryData 사용 or Action 통해 api 호출(이 방법 사용시 상태XX Context setting 필요)
@@ -35,11 +36,13 @@ export default function Upload() {
   const [files, setFiles] = useState<FileWithUrl[]>([])
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) readFile(e.target.files, files, setFiles)
+    if (e.target.files) readFile(e.target.files, files, setFiles, setIsLoading)
     // reset for triggering onChange on a same file, 같은 파일 선택시 onChange가 발생하지 않는 문제 해결
     e.target.value = ''
   }
 
+
+  console.log('file',files)
   //Drag & Drop
   const onDragEnterHandler = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -57,22 +60,22 @@ export default function Upload() {
     e.preventDefault();
     e.stopPropagation();
     const fileList = e.dataTransfer.files;
-    if (fileList) readFile(fileList, files, setFiles);
+    if (fileList) readFile(fileList, files, setFiles, setIsLoading);
   }
 
   //Submit
-  const onClickHandler = async () => {
-    //서버에 이미지 업로드
+  const submitHandler = async () => {
+    //서버에 이미지 업로드 후 url 받아오기
     const formData = new FormData()
-    files.forEach(file => {
-      formData.append('file', file.file)
-    })
+    files.forEach(file => { formData.append('file', file.file) })
+    //로딩 lottie trigger
     setIsLoading(true)
     const uploaded = await uploadFiles(formData, authClient)
     //서버에 유효성 검사
     const validated = await validateFiles(uploaded, animalKor, authClient) as { check: boolean, url: string }[]
     const isAllValid = validated.every(ele => ele.check)
     if (!isAllValid) {
+      //유효성 검사 결과 표시 위해 state 변경
       const validationResult = files.map((ele, idx) => {
         return { ...ele, isValid: validated[idx].check }
       })
@@ -80,19 +83,19 @@ export default function Upload() {
       setIsLoading(false)
       alert('유효하지 않은 파일이 존재합니다.')
     } else {
-      //결제 페이지로 이동
+      //유효성 검사 모두 통과하면 결제 페이지로 이동
       setIsLoading(false)
-      navigate('/checkout',{ state: { theme: themeData, animalCode: animal, inputFiles: uploaded } })
+      navigate('/checkout', { state: { theme: themeData, animalCode: breed, inputFiles: uploaded } })
     }
   }
 
 
   return (
     <Grid container spacing={3}>
-      <Grid xs={6} display={!files.length ? 'flex' : 'none'}>
+      <Grid xs={6}>
         <GuideLine />
       </Grid>
-      <Grid xs={!files.length ? 6 : 12} >
+      <Grid xs={6} >
         <DragNDropBox
           onDragEnter={onDragEnterHandler}
           onDragLeave={onDragLeaveHandler}
@@ -125,7 +128,7 @@ export default function Upload() {
             onChange={onChangeHandler} />
           <Grid container spacing={1} sx={{ width: '100%' }}>
             {files.map((file) => (
-              <Grid key={file.imgUrl} xs={2}>
+              <Grid key={file.id} xs={4}>
                 <AlbumItemWrapper>
                   <Box
                     sx={{
@@ -140,11 +143,13 @@ export default function Upload() {
                     }} />
                   <IconButton
                     onClick={() => {
-                      const filtered = files.filter(f => f.imgUrl !== file.imgUrl)
+                      const filtered = files.filter(f => f.id !== file.id)
                       setFiles(filtered)
                     }}
+                    color="inherit"
+                    sx={{ color: "#bbb" }}
                     aria-label="delete" size="small">
-                    <DeleteIcon />
+                      <SvgIcon component={DeleteIcon} inheritViewBox />
                   </IconButton>
                   {!file.isValid && <HighlightOffRoundedIcon fontSize="medium" color="error" />}
                 </AlbumItemWrapper>
@@ -169,11 +174,11 @@ export default function Upload() {
       </Grid>
       <Grid xs={12}>
         <Button
-          // disabled={files.length < 10 || files.length > 12}
+          disabled={files.length < 10 || files.length > 12}
           endIcon={<ArrowForwardRoundedIcon />}
           color="petimage"
           variant="contained"
-          onClick={onClickHandler}
+          onClick={submitHandler}
           sx={{ width: '100%' }}
         >이미지 생성하기</Button>
       </Grid>
