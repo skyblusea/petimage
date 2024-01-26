@@ -17,6 +17,7 @@ export type AuthContextType = {
   logout: () => void;
   token: Token;
   authClient: AxiosInstance;
+  isAuthenticated: boolean;
 };
 
 const initialContextState: AuthContextType = {
@@ -34,6 +35,7 @@ const initialContextState: AuthContextType = {
   signInWithGoogle: () => Promise.resolve(),
   // signInWithApple: () => Promise.resolve(),
   logout: () => { },
+  isAuthenticated: false,
 };
 
 
@@ -48,10 +50,12 @@ type AuthAction =
   | { type: 'LOGOUT' }
   | { type: 'LOADING', isLoading: boolean }
   | { type: 'TOKEN REFRESH', token: Token }
+  | { type: 'SETAUTH', isAuthenticated: boolean }
 
 type AuthState = {
   user: User | null;
   token: Token;
+  isAuthenticated: boolean;
 };
 
 
@@ -61,6 +65,7 @@ const initialReducerState: AuthState = {
     access: localStorage.getItem('access'),
     refresh: localStorage.getItem('refresh'),
   },
+  isAuthenticated: false,
 };
 
 const authReducer = (state: AuthState, action: AuthAction) => {
@@ -71,6 +76,8 @@ const authReducer = (state: AuthState, action: AuthAction) => {
       return { ...state, user: null, token: { access: null, refresh: null } };
     case "TOKEN REFRESH":
       return { ...state, token: action.token };
+    case "SETAUTH":
+      return { ...state, isAuthenticated: action.isAuthenticated };
     default:
       return state;
   }
@@ -87,7 +94,7 @@ export default function AuthProvider({
   authClient: AxiosInstance
 }) {
   const [state, dispatch] = useReducer(authReducer, initialReducerState);
-  const { user, token } = state;
+  const { user, token, isAuthenticated} = state;
   // const tokenRef = useRef<Token>(null);
   const navigate = useNavigate();
 
@@ -152,10 +159,12 @@ export default function AuthProvider({
         }
         return response;
       },
-    );
-
+      );
+    console.log('interceptor attached')
+    dispatch({ type: 'SETAUTH', isAuthenticated: true })
     // Return cleanup function to remove interceptors if apiClient updates
     return () => {
+      console.log('cleanup interceptor')
       authClient.interceptors.request.eject(authRequestInterceptor);
       authClient.interceptors.response.eject(authResponseInterceptor);
       apiClient.interceptors.response.eject(apiResponseInterceptor);
@@ -175,8 +184,6 @@ export default function AuthProvider({
       throw error;
     }
   }
-
-
 
   const tokenRefresh = async () => {
     const token = getTokenfromLocalStorage()
@@ -219,6 +226,7 @@ export default function AuthProvider({
     user,
     token,
     authClient,
+    isAuthenticated,
     signInWithGoogle,
     logout,
   };

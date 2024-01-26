@@ -12,30 +12,31 @@ import Payment from "./Payment";
 
 
 
-const paymentHistoryQuery = (authClient:AxiosInstance) => ({
-  queryKey: ['paymentHistory',authClient],
+const paymentHistoryQuery = (authClient: AxiosInstance) => ({
+  queryKey: ['paymentHistory'],
   queryFn: async () => {
     try {
-      console.log('paymentHistoryQuery 작동')
-      const { data: { data: { payments : paymentHistory } } } = await authClient.get(`/payment/list?sort=&order=&limit=&page=`) 
-      console.log('paymentHistory', paymentHistory)
+      const { data: { data: { payments: paymentHistory } } } = await authClient.get(`/payment/list?sort=&order=&limit=&page=`)
       return paymentHistory as PaymentHistory[]
     } catch (error) {
-      console.error('paymentHistoryQuery error',error)
-      return null
+      console.error('paymentHistoryQuery error', error)
+      throw error
     }
   },
   staleTime: 1000 * 60 * 60 * 24 * 7, // 7 days
 });
 
 
-export const loader = (queryClient: QueryClient, authClient:AxiosInstance) =>
-  () => {
-    console.log('loader작동')
-    const query = paymentHistoryQuery(authClient)
-    const data = queryClient.ensureQueryData(query)
-    console.log('data', data)
-    return null
+export const loader = (queryClient: QueryClient, authClient: AxiosInstance) =>
+  async () => {
+    const query = paymentHistoryQuery(authClient);
+    try {
+      const data = await queryClient.fetchQuery(query); // Use await here
+      return data;
+    } catch (error) {
+      queryClient.removeQueries(query);
+      return null;
+    }
   }
 
 
@@ -43,15 +44,12 @@ export const loader = (queryClient: QueryClient, authClient:AxiosInstance) =>
 
 export default function PaymentHistory() {
   const initialData = useLoaderData() as Awaited<ReturnType<ReturnType<typeof loader>>>
-  // console.log('initialData', initialData ? initialData : undefined)
   const authClient = useAuth().authClient
-  const user = useAuth().user
-
-  console.log('initialData', initialData)
+  const isAuthenticated = useAuth().isAuthenticated
   const { data : payments } = useQuery({
     ...paymentHistoryQuery(authClient),
-    initialData,
-    enabled: !!user
+    initialData : initialData ? initialData : undefined,
+    enabled: isAuthenticated,
   })
   const pathname = useLocation().pathname
 
@@ -72,11 +70,6 @@ export default function PaymentHistory() {
               {payments?.map((payment) => <Payment key={payment._id} data={payment} />)}
             </Stack>
           </TabPanel>
-          {/* <TabPanel role="tabpanel" hidden={pathname === '/payments'}>
-            <Stack spacing={2}>
-              {albums?.map((album) => <Album key={album._id} data={album} />)}
-            </Stack>
-          </TabPanel> */}
         </TabContainer>
       </PetimegeThemeWH>
     </PetimageThemeBG>

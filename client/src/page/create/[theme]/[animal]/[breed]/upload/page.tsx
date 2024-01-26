@@ -42,7 +42,6 @@ export default function Upload() {
   }
 
 
-  console.log('file',files)
   //Drag & Drop
   const onDragEnterHandler = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();

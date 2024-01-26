@@ -18,7 +18,6 @@ export default function BaseImgBox({
   square,
   ratio,
   to,
-  inValid,
 }: {
   children?: React.ReactNode
   src: string,
@@ -28,7 +27,6 @@ export default function BaseImgBox({
   square?: boolean,
   ratio?: string,
   to?: LinkProps['to'];
-  inValid?: boolean
 }) {
 
   return (
@@ -66,7 +64,7 @@ type BaseCreateBoxProps = {
 }
 
 
-export const BaseCreateBox = styled(LinkBox)<BaseCreateBoxProps>` 
+export const BaseCreateBox = styled(LinkBox) <BaseCreateBoxProps>` 
   width: 100%;
   height: 100%;
   display: flex;

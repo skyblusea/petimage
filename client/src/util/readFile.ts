@@ -3,7 +3,7 @@ import { FileWithUrl } from "../types";
 import { nanoid } from "nanoid";
 
 
-export const readFile = async (fileList: FileList, state : FileWithUrl[], setState : React.Dispatch<React.SetStateAction<FileWithUrl[]>>, setIsLoading:LoadingContextType) => {
+export const readFile = async (fileList: FileList, state : FileWithUrl[], setState : React.Dispatch<React.SetStateAction<FileWithUrl[]>>, setIsLoading:LoadingContextType['setIsLoading']) => {
   const selectedFiles = [...fileList]
 
   //이미지가 12개 초과하면 원본배열 자르기

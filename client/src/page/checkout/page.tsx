@@ -42,7 +42,7 @@ export default function Checkout() {
   //위젯 로드
   const { data: paymentWidget } = useQuery({
     ...tossWidgetQuery(user.id),
-    initialData: useLoaderData() as Awaited<ReturnType<ReturnType<typeof loader>>>,
+    // initialData: useLoaderData() as Awaited<ReturnType<ReturnType<typeof loader>>>,
   })
   const paymentMethodsWidgetRef = useRef<ReturnType<PaymentWidgetInstance["renderPaymentMethods"]> | null>(null);
   const amount = Number(albumDetails?.theme.price?.replaceAll(',', ''))

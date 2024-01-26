@@ -40,7 +40,7 @@ function newApiClient() {
 export default function App() {
 
   const queryClient = new QueryClient()
-  const authClient = newApiClient()
+  const authClient = newApiClient() //for using singleton axios instance
 
   const router = createBrowserRouter([{
     element: <AuthProvider queryClient={queryClient} authClient={authClient}/>,
@@ -77,13 +77,13 @@ export default function App() {
               },
               {
                 path: '/checkout', element: <CreateLayout />, children: [
-                  { path: '', element: <Checkout />, loader : checkoutLoader(queryClient)},
+                  { path: '', element: <Checkout />},
                 ]
               },
               { path: '/payment/:paymentId', element: <Redirect /> },
               { path: '/payment-complete', element: <PaymentComplete /> },
               { path: '/collection', element: <Collection />, loader: collectionLoader(queryClient, authClient) },
-              { path: '/payment/history', element: <PaymentHistory />, loader: paymenyHistoryLoader(queryClient, authClient) },
+              { path: '/payment/history', element: <PaymentHistory />, loader: paymenyHistoryLoader(queryClient, authClient)},
             ]
           },
         ]
