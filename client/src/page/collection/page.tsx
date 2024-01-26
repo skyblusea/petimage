@@ -15,7 +15,7 @@ import useAuth from "../../util/useAuth";
 
 
 
-const collectionQuery = (authClient:AxiosInstance) => ({
+const collectionQuery = (authClient: AxiosInstance) => ({
   queryKey: ["collection"],
   queryFn: async () => {
     try {
@@ -30,7 +30,7 @@ const collectionQuery = (authClient:AxiosInstance) => ({
 });
 
 
-  export const loader = (queryClient: QueryClient, authClient: AxiosInstance) =>
+export const loader = (queryClient: QueryClient, authClient: AxiosInstance) =>
   async () => {
     const query = collectionQuery(authClient);
     try {
@@ -46,14 +46,15 @@ const collectionQuery = (authClient:AxiosInstance) => ({
 export default function Collection() {
   const initialData = useLoaderData() as Awaited<ReturnType<ReturnType<typeof loader>>>
   // console.log('initialData', initialData ? initialData : undefined)
-  const authClient = useAuth().authClient
-  const { data : albums } = useQuery({
+  const { authClient, isAuthenticated } = useAuth()
+  const { data: albums } = useQuery({
     ...collectionQuery(authClient),
-    initialData
+    initialData: initialData ? initialData : undefined,
+    enabled: isAuthenticated,
   })
   const pathname = useLocation().pathname
 
-  
+
   return (
     <PetimageThemeBG>
       <PetimegeThemeWH full>

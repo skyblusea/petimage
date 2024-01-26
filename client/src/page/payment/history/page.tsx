@@ -43,11 +43,10 @@ export const loader = (queryClient: QueryClient, authClient: AxiosInstance) =>
 
 export default function PaymentHistory() {
   const initialData = useLoaderData() as Awaited<ReturnType<ReturnType<typeof loader>>>
-  const authClient = useAuth().authClient
-  const isAuthenticated = useAuth().isAuthenticated
-  const { data : payments } = useQuery({
+  const { authClient, isAuthenticated } = useAuth()
+  const { data: payments } = useQuery({
     ...paymentHistoryQuery(authClient),
-    initialData : initialData ? initialData : undefined,
+    initialData: initialData ? initialData : undefined,
     enabled: isAuthenticated,
   })
   const pathname = useLocation().pathname
