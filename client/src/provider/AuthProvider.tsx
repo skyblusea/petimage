@@ -121,7 +121,7 @@ export default function AuthProvider({
           case 403: {
             console.error("access token error | ", errorMsg);
             tokenRefresh();
-            return authClient(originalRequest);
+            // return authClient(originalRequest);
             break;
           }
           default:

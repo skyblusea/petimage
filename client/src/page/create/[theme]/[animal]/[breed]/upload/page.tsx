@@ -29,7 +29,6 @@ export default function Upload() {
 
   //상품정보 잘 안바뀌므로 QueryData 사용 or Action 통해 api 호출(이 방법 사용시 상태XX Context setting 필요)
   const themeData = useRouteLoaderData('createWithTheme') as AlbumDetails['theme']
-  console.log(themeData)
   const animalKor = animal === 'dog' ? '강아지' : '고양이'
 
   //Handling InputFile for Preview

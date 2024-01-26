@@ -1,6 +1,6 @@
 import AuthProvider from './provider/AuthProvider.tsx'
 import LoadingProvider from './provider/LoadingProvider.tsx'
-import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Navigate, Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import Error from "./error";
 import Home from "./page/home/page";
 import Login from "./page/login/page";
@@ -20,12 +20,14 @@ import SelectAnimal from "./page/create/[theme]/SelectAnimalGrid";
 import SelectBreed, { loader as breedLoader } from "./page/create/[theme]/[animal]/page";
 import Collection, { loader as collectionLoader } from "./page/collection/page";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Checkout, { loader as checkoutLoader } from './page/checkout/page.tsx';
+import Checkout from './page/checkout/page.tsx';
 import PaymentComplete from './page/payment-complete/page.tsx';
 import Upload from './page/create/[theme]/[animal]/[breed]/upload/page.tsx';
-import Redirect from './page/redirect/page.tsx';
+import Redirect, { loader as redirectLoader } from './page/redirect/page.tsx';
 import axios from 'axios';
 import PaymentHistory, { loader as paymenyHistoryLoader } from './page/payment/history/page.tsx';
+import { paymentLoader } from './util/requestPaymet.ts';
+import Test from './page/test/page.tsx';
 
 
 function newApiClient() {
@@ -80,7 +82,8 @@ export default function App() {
                   { path: '', element: <Checkout />},
                 ]
               },
-              { path: '/payment/:paymentId', element: <Redirect /> },
+              { path: '/payment/:paymentId', loader : redirectLoader, element: <Redirect/>},
+              { path: '/payment', element: <Test />},
               { path: '/payment-complete', element: <PaymentComplete /> },
               { path: '/collection', element: <Collection />, loader: collectionLoader(queryClient, authClient) },
               { path: '/payment/history', element: <PaymentHistory />, loader: paymenyHistoryLoader(queryClient, authClient)},

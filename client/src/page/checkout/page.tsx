@@ -24,14 +24,6 @@ export const tossWidgetQuery = (customerkey: string) => ({
   staleTime: 1000 * 60 * 60 * 24 // 1 days
 })
 
-export const loader = (queryClient: QueryClient) =>
-  () => {
-    const query = tossWidgetQuery('ANONYMOUS')
-    const data = queryClient.ensureQueryData(query)
-    return data
-  }
-
-
 
 
 export default function Checkout() {
@@ -42,7 +34,6 @@ export default function Checkout() {
   //위젯 로드
   const { data: paymentWidget } = useQuery({
     ...tossWidgetQuery(user.id),
-    // initialData: useLoaderData() as Awaited<ReturnType<ReturnType<typeof loader>>>,
   })
   const paymentMethodsWidgetRef = useRef<ReturnType<PaymentWidgetInstance["renderPaymentMethods"]> | null>(null);
   const amount = Number(albumDetails?.theme.price?.replaceAll(',', ''))
@@ -81,11 +72,12 @@ export default function Checkout() {
         customerName: user.name,
         customerEmail: user.email,
       }
-      const paymentId = await getPaymentId({
-        orderId: paymentInfo.orderId,
-        amount: Number(albumDetails?.theme.price?.replaceAll(',', '')),
-        authClient
-      })
+      // const paymentId = await getPaymentId({
+      //   orderId: paymentInfo.orderId,
+      //   amount: Number(albumDetails?.theme.price?.replaceAll(',', '')),
+      //   authClient
+      // })
+      const paymentId = 'fefefefefefe'
       if (!paymentId) {
         alert('주문 생성에 실패했습니다.')
         return
