@@ -16,10 +16,9 @@ import useAuth from "../../util/useAuth";
 
 
 const collectionQuery = (authClient:AxiosInstance) => ({
-  queryKey: ["collection",authClient],
+  queryKey: ["collection"],
   queryFn: async () => {
     try {
-      console.log('collectionQuery 작동')
       const { data: { data: collection } } = await authClient.get(`/album/list?sort=&order=&limit=&page=`)
       return collection as AlbumItem[]
     } catch (error) {
@@ -31,15 +30,17 @@ const collectionQuery = (authClient:AxiosInstance) => ({
 });
 
 
-export const loader = (queryClient: QueryClient, authClient:AxiosInstance) =>
-  () => {
-    const query = collectionQuery(authClient)
-    const data = queryClient.ensureQueryData(query)
-
-    console.log('data', data)
-    return null
+  export const loader = (queryClient: QueryClient, authClient: AxiosInstance) =>
+  async () => {
+    const query = collectionQuery(authClient);
+    try {
+      const data = await queryClient.fetchQuery(query)
+      return data;
+    } catch (error) {
+      queryClient.removeQueries(query);
+      return null;
+    }
   }
-
 
 
 export default function Collection() {
@@ -58,18 +59,10 @@ export default function Collection() {
       <PetimegeThemeWH full>
         <TabContainer>
           <Tabs elevation={3}>
-            <Tab role="tab" aria-label="payments" aria-selected={pathname === '/payments'}>
-              결제 내역
-            </Tab>
             <Tab role="tab" aria-label="album" aria-selected={pathname === '/collection'}>
               갤러리
             </Tab>
           </Tabs>
-          {/* <TabPanel role="tabpanel" hidden={pathname === '/collection'}>
-            <Stack spacing={2}>
-              {payments?.map((payment) => <Payment key={payment._id} data={payment} />)}
-            </Stack>
-          </TabPanel> */}
           <TabPanel role="tabpanel" hidden={pathname === '/payments'}>
             <Stack spacing={2}>
               {albums?.map((album) => <Album key={album._id} data={album} />)}

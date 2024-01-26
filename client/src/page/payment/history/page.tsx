@@ -5,7 +5,6 @@ import { QueryClient } from "@tanstack/react-query";
 import { useLoaderData, useLocation } from "react-router-dom";
 import { AxiosInstance } from "axios";
 import useAuth from "../../../util/useAuth";
-
 import { PaymentHistory } from "../../../types";
 import { Stack } from "@mui/material";
 import Payment from "./Payment";
@@ -31,7 +30,7 @@ export const loader = (queryClient: QueryClient, authClient: AxiosInstance) =>
   async () => {
     const query = paymentHistoryQuery(authClient);
     try {
-      const data = await queryClient.fetchQuery(query); // Use await here
+      const data = await queryClient.fetchQuery(query)
       return data;
     } catch (error) {
       queryClient.removeQueries(query);
@@ -60,9 +59,6 @@ export default function PaymentHistory() {
           <Tabs elevation={3}>
             <Tab role="tab" aria-label="payments" aria-selected={pathname === '/payment/history'}>
               결제 내역
-            </Tab>
-            <Tab role="tab" aria-label="album" aria-selected={pathname === '/collection'}>
-              갤러리
             </Tab>
           </Tabs>
           <TabPanel role="tabpanel" hidden={pathname === '/collection'}>
