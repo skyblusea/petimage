@@ -20,7 +20,7 @@ import SelectAnimal from "./page/create/[theme]/SelectAnimalGrid";
 import SelectBreed, { loader as breedLoader } from "./page/create/[theme]/[animal]/page";
 import Collection, { loader as collectionLoader } from "./page/collection/page";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Checkout from './page/checkout/page.tsx';
+import Checkout, { loader as checkoutLoader } from './page/checkout/page.tsx';
 import PaymentComplete from './page/payment-complete/page.tsx';
 import Upload from './page/create/[theme]/[animal]/[breed]/upload/page.tsx';
 import Redirect from './page/redirect/page.tsx';
@@ -77,7 +77,7 @@ export default function App() {
               },
               {
                 path: '/checkout', element: <CreateLayout />, children: [
-                  { path: '', element: <Checkout /> },
+                  { path: '', element: <Checkout />, loader : checkoutLoader(queryClient)},
                 ]
               },
               { path: '/payment/:paymentId', element: <Redirect /> },

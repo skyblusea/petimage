@@ -45,10 +45,9 @@ export default function Header() {
           to="/auth"
           sx={{
             flexShrink: 0,
-            borderColor: 'var(--primary)',
           }}
           variant="outlined"
-          color="primary"
+          color={hasGifBG ?'secondary' :'primary'}
           endIcon={<AccountCircleOutlinedIcon />}>
           로그인
         </LinkButton>

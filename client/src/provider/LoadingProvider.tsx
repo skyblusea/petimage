@@ -2,12 +2,12 @@ import Backdrop from '@mui/material/Backdrop';
 import Loading from '../components/Loading';
 import { createContext, useState } from 'react';
 
-type LoadingContextType = {
-  setIsLoading: (isLoading: boolean) => void;
+export type LoadingContextType = {
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const initialContextState: LoadingContextType = {
-  setIsLoading: () => { },
+  setIsLoading: () => {},
 };
 
 export const LoadingContext = createContext<LoadingContextType>(initialContextState);

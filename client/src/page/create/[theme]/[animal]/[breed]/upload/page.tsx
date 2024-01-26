@@ -92,10 +92,10 @@ export default function Upload() {
 
   return (
     <Grid container spacing={3}>
-      <Grid xs={6}>
+      <Grid xs={6} display={!files.length ? 'flex' : 'none'}>
         <GuideLine />
       </Grid>
-      <Grid xs={6} >
+      <Grid xs={!files.length ? 6 : 12} >
         <DragNDropBox
           onDragEnter={onDragEnterHandler}
           onDragLeave={onDragLeaveHandler}
@@ -128,7 +128,7 @@ export default function Upload() {
             onChange={onChangeHandler} />
           <Grid container spacing={1} sx={{ width: '100%' }}>
             {files.map((file) => (
-              <Grid key={file.id} xs={4}>
+              <Grid key={file.id} xs={2}>
                 <AlbumItemWrapper>
                   <Box
                     sx={{

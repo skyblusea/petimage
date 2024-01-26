@@ -18,6 +18,7 @@ export default function BaseImgBox({
   square,
   ratio,
   to,
+  inValid,
 }: {
   children?: React.ReactNode
   src: string,
@@ -27,6 +28,7 @@ export default function BaseImgBox({
   square?: boolean,
   ratio?: string,
   to?: LinkProps['to'];
+  inValid?: boolean
 }) {
 
   return (
@@ -49,6 +51,7 @@ export default function BaseImgBox({
 const ImgWrraper = styled.div`
   position: relative;
   width: 100%;
+  height: 100%;
   overflow: hidden;
   border-radius: var(--border-radius-lg);
   svg {
@@ -63,7 +66,7 @@ type BaseCreateBoxProps = {
 }
 
 
-export const BaseCreateBox = styled(LinkBox) <BaseCreateBoxProps>` 
+export const BaseCreateBox = styled(LinkBox)<BaseCreateBoxProps>` 
   width: 100%;
   height: 100%;
   display: flex;
@@ -71,10 +74,6 @@ export const BaseCreateBox = styled(LinkBox) <BaseCreateBoxProps>`
   flex-direction: column;
   gap: var(--gap-md);
   img{
-    border-radius: var(--border-radius-lg);
-    width: 100%;
-    height: auto;
-    object-fit: cover;
     aspect-ratio: ${props => props.ratio};
   }
 `

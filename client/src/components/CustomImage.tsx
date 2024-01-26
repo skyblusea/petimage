@@ -14,7 +14,7 @@ export default function CustomImage(props: React.ImgHTMLAttributes<HTMLImageElem
     }
   };
 
-  
+
   useLayoutEffect(() => {
     const imgElCurrent = imgEl.current;
     if (imgElCurrent) {
@@ -28,7 +28,7 @@ export default function CustomImage(props: React.ImgHTMLAttributes<HTMLImageElem
     <>
       {/* <Placeholder src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO8UA8AAiUBUcc3qzwAAAAASUVORK5CYII=" loaded={false}/> */}
       <Image src={props.src} alt={props.alt} ref={imgEl} loaded={loaded} />
-      {!loaded && <Placeholder src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO8UA8AAiUBUcc3qzwAAAAASUVORK5CYII=" loaded={loaded}/>}
+      {!loaded && <Placeholder src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO8UA8AAiUBUcc3qzwAAAAASUVORK5CYII=" loaded={loaded} />}
     </>
   )
 }
@@ -41,13 +41,14 @@ const Placeholder = styled.img<PlaceholderProps>`
   object-fit: cover !important;
   /* width: 500px !important; */
   flex-grow: 1;
-  background-size: cover;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
   display: ${({ loaded }) => loaded ? 'none' : 'block'};
 `
 
 
 const Image = styled.img<PlaceholderProps>`
+  border-radius: var(--border-radius-lg);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: ${({ loaded }) => loaded ? 'block' : 'none'};
 `

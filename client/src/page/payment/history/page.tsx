@@ -1,30 +1,28 @@
-
-import { PetimageThemeBG, PetimegeThemeWH, RoundPaper } from "../../components/Containers";
+import { PetimageThemeBG, PetimegeThemeWH, RoundPaper } from "../../../components/Containers";
 import styled from "@emotion/styled"
-import Payment from "./Payment";
-import { Stack } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import Album from "./Album";
 import { QueryClient } from "@tanstack/react-query";
 import { useLoaderData, useLocation } from "react-router-dom";
-import { AlbumItem, Payment as PaymentType } from "../../types";
 import { AxiosInstance } from "axios";
-import useAuth from "../../util/useAuth";
+import useAuth from "../../../util/useAuth";
+
+import { PaymentHistory } from "../../../types";
+import { Stack } from "@mui/material";
+import Payment from "./Payment";
 
 
 
-
-
-const collectionQuery = (authClient:AxiosInstance) => ({
-  queryKey: ["collection",authClient],
+const paymentHistoryQuery = (authClient:AxiosInstance) => ({
+  queryKey: ['paymentHistory',authClient],
   queryFn: async () => {
     try {
-      console.log('collectionQuery 작동')
-      const { data: { data: collection } } = await authClient.get(`/album/list?sort=&order=&limit=&page=`)
-      return collection as AlbumItem[]
+      console.log('paymentHistoryQuery 작동')
+      const { data: { data: { payments : paymentHistory } } } = await authClient.get(`/payment/list?sort=&order=&limit=&page=`) 
+      console.log('paymentHistory', paymentHistory)
+      return paymentHistory as PaymentHistory[]
     } catch (error) {
-      console.error('collectionQuery error')
-      throw error
+      console.error('paymentHistoryQuery error',error)
+      return null
     }
   },
   staleTime: 1000 * 60 * 60 * 24 * 7, // 7 days
@@ -33,48 +31,52 @@ const collectionQuery = (authClient:AxiosInstance) => ({
 
 export const loader = (queryClient: QueryClient, authClient:AxiosInstance) =>
   () => {
-    const query = collectionQuery(authClient)
+    console.log('loader작동')
+    const query = paymentHistoryQuery(authClient)
     const data = queryClient.ensureQueryData(query)
-
     console.log('data', data)
     return null
   }
 
 
 
-export default function Collection() {
+
+export default function PaymentHistory() {
   const initialData = useLoaderData() as Awaited<ReturnType<ReturnType<typeof loader>>>
   // console.log('initialData', initialData ? initialData : undefined)
   const authClient = useAuth().authClient
-  const { data : albums } = useQuery({
-    ...collectionQuery(authClient),
-    initialData
+  const user = useAuth().user
+
+  console.log('initialData', initialData)
+  const { data : payments } = useQuery({
+    ...paymentHistoryQuery(authClient),
+    initialData,
+    enabled: !!user
   })
   const pathname = useLocation().pathname
 
-  
   return (
     <PetimageThemeBG>
       <PetimegeThemeWH full>
         <TabContainer>
           <Tabs elevation={3}>
-            <Tab role="tab" aria-label="payments" aria-selected={pathname === '/payments'}>
+            <Tab role="tab" aria-label="payments" aria-selected={pathname === '/payment/history'}>
               결제 내역
             </Tab>
             <Tab role="tab" aria-label="album" aria-selected={pathname === '/collection'}>
               갤러리
             </Tab>
           </Tabs>
-          {/* <TabPanel role="tabpanel" hidden={pathname === '/collection'}>
+          <TabPanel role="tabpanel" hidden={pathname === '/collection'}>
             <Stack spacing={2}>
               {payments?.map((payment) => <Payment key={payment._id} data={payment} />)}
             </Stack>
-          </TabPanel> */}
-          <TabPanel role="tabpanel" hidden={pathname === '/payments'}>
+          </TabPanel>
+          {/* <TabPanel role="tabpanel" hidden={pathname === '/payments'}>
             <Stack spacing={2}>
               {albums?.map((album) => <Album key={album._id} data={album} />)}
             </Stack>
-          </TabPanel>
+          </TabPanel> */}
         </TabContainer>
       </PetimegeThemeWH>
     </PetimageThemeBG>

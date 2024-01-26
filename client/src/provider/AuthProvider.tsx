@@ -91,8 +91,6 @@ export default function AuthProvider({
   // const tokenRef = useRef<Token>(null);
   const navigate = useNavigate();
 
-  console.log('AuthProvider 실행중 토큰', token)
-
   useEffect(() => {
     console.log('init interceptor')
     const authRequestInterceptor = authClient.interceptors.request.use(

@@ -6,13 +6,13 @@ import Box from '@mui/material/Box';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import { loadPaymentWidget, ANONYMOUS, PaymentWidgetInstance } from "@tosspayments/payment-widget-sdk";
 import { nanoid } from "nanoid";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styled from '@emotion/styled';
 import { Button } from '@mui/material';
 import { useQuery } from "@tanstack/react-query"
 import useAuth from '../../util/useAuth';
 import { getPaymentId } from '../../util/getPaymentId';
-import { useLocation } from 'react-router-dom';
+import { useLoaderData, useLocation } from 'react-router-dom';
 
 
 
@@ -24,20 +24,32 @@ export const tossWidgetQuery = (customerkey: string) => ({
   staleTime: 1000 * 60 * 60 * 24 // 1 days
 })
 
+export const loader = (queryClient: QueryClient) =>
+  () => {
+    const query = tossWidgetQuery('ANONYMOUS')
+    const data = queryClient.ensureQueryData(query)
+    return data
+  }
+
+
 
 
 export default function Checkout() {
   //결제 정보 불러오기
-  const { state : albumDetails } = useLocation()
+  const { state: albumDetails } = useLocation()
   const user = useAuth().user ?? { id: '', name: '익명', email: ANONYMOUS }
+  const authClient = useAuth().authClient
   //위젯 로드
-  const { data: paymentWidget } = useQuery(tossWidgetQuery(user?.id ?? 'ANONYMOUS'))
+  const { data: paymentWidget } = useQuery({
+    ...tossWidgetQuery(user.id),
+    initialData: useLoaderData() as Awaited<ReturnType<ReturnType<typeof loader>>>,
+  })
   const paymentMethodsWidgetRef = useRef<ReturnType<PaymentWidgetInstance["renderPaymentMethods"]> | null>(null);
   const amount = Number(albumDetails?.theme.price?.replaceAll(',', ''))
   // //결제 동의
   const [agree, setAgree] = useState(false)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!paymentWidget) {
       return;
     }
@@ -71,7 +83,8 @@ export default function Checkout() {
       }
       const paymentId = await getPaymentId({
         orderId: paymentInfo.orderId,
-        amount: Number(albumDetails?.theme.price?.replaceAll(',', ''))
+        amount: Number(albumDetails?.theme.price?.replaceAll(',', '')),
+        authClient
       })
       if (!paymentId) {
         alert('주문 생성에 실패했습니다.')

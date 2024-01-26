@@ -35,9 +35,9 @@ export default function MenuModal({
       }}
     >
       <LinkListItemButton
-        to="/payments"
+        to="/payment/history"
         LinkComponent={Link}
-        selected={pathname === '/payments'}
+        selected={pathname === '/payment/history'}
       >
         <ListItemAvatar>
           <Avatar sx={{ bgcolor: 'petimage.main' }}>

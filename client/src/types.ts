@@ -9,7 +9,7 @@ export interface Breed {
 }
 
 
-export type Payment = {
+export type PaymentHistory = {
   _id: string;
   totalAmount: number;
   method: string;
@@ -94,6 +94,7 @@ export type Token = {
 
 //upload
 export interface FileWithUrl {
+  id: string,
   file: File,
   imgUrl: string,
   isValid?: boolean
