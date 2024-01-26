@@ -23,10 +23,9 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Checkout from './page/checkout/page.tsx';
 import PaymentComplete from './page/payment-complete/page.tsx';
 import Upload from './page/create/[theme]/[animal]/[breed]/upload/page.tsx';
-import Redirect, { loader as redirectLoader } from './page/redirect/page.tsx';
+import Redirect, { loader as redirectLoader } from './page/payment/Redirect.tsx';
 import axios from 'axios';
 import PaymentHistory, { loader as paymenyHistoryLoader } from './page/payment/history/page.tsx';
-import { paymentLoader } from './util/requestPaymet.ts';
 import Test from './page/test/page.tsx';
 
 
