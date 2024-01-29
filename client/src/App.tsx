@@ -10,7 +10,7 @@ import {
 } from '@tanstack/react-query'
 import RootLayout from "./RootLayout";
 import Service from "./page/service/page";
-import Product from "./page/product/page";
+import Product, { loader as productLoader } from "./page/product/page";
 import About from "./page/about/page";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import SelectTheme, { loader as themeLoader } from "./page/create/page";
@@ -56,7 +56,7 @@ export default function App() {
           // public
           { path: '', element: <Home /> },
           { path: '/service', element: <Service /> },
-          { path: '/product', element: <Product /> },
+          { path: '/product', element: <Product />, loader: productLoader(queryClient) },
           { path: '/about', element: <About /> },
           { path: '/auth', element: <Login /> },
           // protected

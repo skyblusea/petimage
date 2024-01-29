@@ -67,7 +67,6 @@ export const PetimegeThemeWH = styled.div<PetimageThemeProps>`
 `
 
 export const PetimageThemeContainer = styled.section`
-  flex: 1;
   display: flex;
   flex-direction: column;
 `

@@ -3,16 +3,10 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { PetimageThemeContainer, PetimegeThemeContent, PetimegeThemeHeader } from '../../components/Containers';
-import { Wrapper, Status } from "@googlemaps/react-wrapper";
-import { useEffect, useRef } from 'react';
+import { Wrapper } from "@googlemaps/react-wrapper";
 import styled from '@emotion/styled';
 import GoogleMap from '../../components/GoogleMap';
 
-// const render = (status: Status): ReactElement => {
-//   if (status === Status.LOADING) return <h3>{status} ..</h3>;
-//   if (status === Status.FAILURE) return <h3>{status} ...</h3>;
-//   return null;
-// };
 
 
 export default function About() {
@@ -32,8 +26,8 @@ export default function About() {
       <PetimegeThemeContent full={true}>
         <Grid container spacing={3}>
           <Grid xs={12} md={6}>
-            <Box display="flex" height="100%" flexDirection="column">
-              <Box display="flex" height="100%" flexDirection="column">
+            <Box display="flex" height="100%" flexDirection="column" gap="var(--gap-md)">
+              <Box display="flex" height="100%" flexDirection="column" >
                 <Typography variant="body1">서울특별시 마포구 동교로 22길 50, 2층 SR universe 사무실</Typography>
                 <Typography variant="body1">E-mail : admin@sruniverse.kr</Typography>
                 <Typography variant="body1">Tel : 010-1234-5678</Typography>

@@ -24,7 +24,6 @@ export default function MenuModal({
 
   return (
     <Menu
-
       disableScrollLock={true}
       id="user-menu"
       anchorEl={anchorEl}
@@ -32,6 +31,14 @@ export default function MenuModal({
       open={!!anchorEl}
       MenuListProps={{
         'aria-labelledby': 'user-menu-btn',
+      }}
+      sx={{
+        '& .MuiPaper-root' : {
+          marginTop : 'var(--gap-sm)'
+        },
+        '.css-6hp17o-MuiList-root-MuiMenu-list':{
+          paddingBottom: 0,
+        }
       }}
     >
       <LinkListItemButton
