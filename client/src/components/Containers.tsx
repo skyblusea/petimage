@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { StyledEngineProvider } from "@mui/material";
 import Paper from '@mui/material/Paper';
 
 
@@ -23,13 +22,14 @@ export const MainContainer = styled.main`
 `
 
 export const SingleSection = styled.section`
-  flex: 1;
+  /* flex: 1; */
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: var(--pd-nav);
+  /* max-height: calc(100vh - calc( var(--nav-h) + var(--footer-h))); */
 `
 
 export const MultiSection = styled.section`

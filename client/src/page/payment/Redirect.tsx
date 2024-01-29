@@ -25,5 +25,5 @@ export const loader = async ({ params, request }: { params: Params, request: Req
 
 export default function Redirect () {
   const data = useLoaderData()  
-  return <Navigate to="/payment-complete" replace={true} state={data}/>
+  return <Navigate to="/payment" replace={true} state={data}/>
 }

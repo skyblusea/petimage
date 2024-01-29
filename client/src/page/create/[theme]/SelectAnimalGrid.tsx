@@ -7,16 +7,16 @@ import BaseImgBox from "../../../components/Boxes";
 export default function SelectAnimal() {
   const { theme } = useParams();
   return (
-    <Grid container spacing={3}>
-      <Grid xs={6}>
-        <BaseImgBox ratio="3/4" to={`/create/${theme}/dog`} src="/dog.png" alt="강아지">
+    <Grid container spacing={3} >
+      <Grid xs={6} display="flex">
+        <BaseImgBox to={`/create/${theme}/dog`} src="/dog.png" alt="강아지">
           <Typography component="span" color='primary' sx={{ typography: { xs: 'subtitle2', lg: 'subtitle1' } }}>
             강아지
           </Typography>
         </BaseImgBox>
       </Grid>
-      <Grid xs={6}>
-        <BaseImgBox ratio="3/4" to={`/create/${theme}/cat`} src="/cat.png" alt="고양이">
+      <Grid xs={6} display="flex">
+        <BaseImgBox to={`/create/${theme}/cat`} src="/cat.png" alt="고양이">
           <Typography component="span" color='primary' sx={{ typography: { xs: 'subtitle2', lg: 'subtitle1' } }}>
             강아지
           </Typography>

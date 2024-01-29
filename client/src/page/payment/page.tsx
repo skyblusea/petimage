@@ -1,38 +1,57 @@
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
 import { Navigate, redirect, useLocation, useNavigate, useRouteLoaderData } from "react-router-dom"
 import useAuth from "../../util/useAuth"
-
+import CreditCardIcon from '@mui/icons-material/CreditCard';
+import { SingleSection } from "../../components/Containers";
+import { Typography } from "@mui/material";
+import { LoadingContext } from "../../provider/LoadingProvider";
+import axios, { AxiosError } from "axios";
 
 export default function Payment() {
-
+  const { setIsLoading } = useContext(LoadingContext)
   const { createAlbumData, requestPaymentData } = useLocation().state
   const { authClient } = useAuth()
   const navigate = useNavigate()
-  console.log('createAlbumData', createAlbumData)
-  console.log('requestPaymentData', requestPaymentData)
   useEffect(() => {
+    setIsLoading(true)
     const requestPayment = async () => {
-      const paymentGranted = await authClient.post("/payment/toss", requestPaymentData);
-      if (paymentGranted.status === 200) {
-        const isAlbumCreated = await authClient.post("/album/new", {
-          themeId: createAlbumData.theme.themeId,
-          animalCode: createAlbumData.animalCode,
-          inputFiles: createAlbumData.inputFiles
-        })
-        if (isAlbumCreated) {
-          alert('결제가 완료되었습니다.')
-          return navigate('/payment-complete')
-        } else {
-          alert('앨범 생성에 실패했습니다. 다시 시도해주세요.')
-          //TODO : 결제취소 요청 추가
-          return navigate('/create')
+      try {
+        const paymentGranted = await authClient.post("/payment/toss",requestPaymentData);
+        if (paymentGranted.status === 200) {
+          const isAlbumCreated = await authClient.post("/album/new", {
+            themeId: createAlbumData.theme.themeId,
+            animalCode: createAlbumData.animalCode,
+            inputFiles: createAlbumData.inputFiles
+          })
+          if (isAlbumCreated) {
+            alert('결제가 완료되었습니다.')
+            setIsLoading(false)
+            return navigate('/payment-complete')
+          }
+        }
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          // axios에서 발생한 error
+          const { url } = error.config 
+          if(url.includes('album/new')){
+            alert('앨범 생성에 실패했습니다. 다시 시도해주세요.')
+            setIsLoading(false)
+            //TODO : 결제취소 요청 추가
+            return navigate(-1)
+          }
+          alert('결제 승인에 실패했습니다. 다시 시도해주세요.')
+          setIsLoading(false)
+          return navigate(-1)
         }
       }
-      alert('결제에 실패했습니다. 다시 시도해주세요.')
-      navigate(-1)
     }
     requestPayment()
   }, [])
 
-  return null
+  return (
+    <SingleSection>
+      <CreditCardIcon sx={{ fontSize: '10rem' }} />
+      <Typography component="h4" sx={{ fontWeight: '700', typography: { xs: 'subtitle2', md: 'subtitle1' } }}>결제를 진행중입니다.</Typography>
+    </SingleSection>
+  )
 }

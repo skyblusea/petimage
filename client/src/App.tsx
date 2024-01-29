@@ -84,10 +84,10 @@ export default function App() {
                 ]
               },
               { path: '/payment/:paymentId', loader : redirectLoader, element: <Redirect/>},
-              { path: '/payment', element: <Payment />},
+              { path: '/payment', element: <LoadingProvider><Payment /></LoadingProvider>},
               { path: '/payment/fail', element: <PaymentFail />},
               // { path: '/test', element: <Test />},
-              { path: '/payment-complete', element: <LoadingProvider><PaymentComplete /></LoadingProvider> },
+              { path: '/payment-complete', element: <PaymentComplete /> },
               { path: '/collection', element: <Collection />, loader: collectionLoader(queryClient, authClient) },
               { path: '/payment/history', element: <PaymentHistory />, loader: paymenyHistoryLoader(queryClient, authClient)},
 

@@ -19,10 +19,11 @@ type FooterProps = {
 
 const FooterContainer = styled.footer<FooterProps>`
   width: 100%;
-  height: 30px;
+  height: var(--footer-h);
   color: ${props => props.hasGifBG ? 'white' : 'var(--black)'};
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: var(--gap-sm);
+  margin-top: 20px;
+  padding: var(--pd-nav);
+  align-items: end;
+  gap: var(--gap-lg);
 `

@@ -141,8 +141,7 @@ export default function SelectTheme() {
 const BannerWrapper = styled.div`
   display: flex;
   color: var(--white);
-  /* width: calc(100% - 40px); */
-  width: calc(100%);
+  width: 100%;
   position: relative;
   
   .swiper-slide{

@@ -103,10 +103,10 @@ const reset = css`
     }
 
     --nav-h: 92px;
-    --footer-h: 30px;
-    /* @media screen and (max-width: 900px){
+    --footer-h: 50px;
+    @media screen and (max-width: 900px){
       --nav-h: 60px;
-    } */
+    }
   }
 
 
