@@ -22,7 +22,6 @@
     "@tosspayments/payment-widget-sdk": "^0.10.2",
     "axios": "^1.6.3",
     "country-to-currency": "^1.1.1",
-    "js-cookie": "^3.0.5",
     "react": "^18.2.0",
     "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
