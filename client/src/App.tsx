@@ -27,6 +27,8 @@ import Redirect, { loader as redirectLoader } from './page/payment/Redirect.tsx'
 import axios from 'axios';
 import PaymentHistory, { loader as paymenyHistoryLoader } from './page/payment/history/page.tsx';
 import Test from './page/test/page.tsx';
+import Payment from './page/payment/page.tsx';
+import PaymentFail from './page/payment/fail/page.tsx';
 
 
 function newApiClient() {
@@ -82,10 +84,13 @@ export default function App() {
                 ]
               },
               { path: '/payment/:paymentId', loader : redirectLoader, element: <Redirect/>},
-              { path: '/payment', element: <Test />},
-              { path: '/payment-complete', element: <PaymentComplete /> },
+              { path: '/payment', element: <Payment />},
+              { path: '/payment/fail', element: <PaymentFail />},
+              // { path: '/test', element: <Test />},
+              { path: '/payment-complete', element: <LoadingProvider><PaymentComplete /></LoadingProvider> },
               { path: '/collection', element: <Collection />, loader: collectionLoader(queryClient, authClient) },
               { path: '/payment/history', element: <PaymentHistory />, loader: paymenyHistoryLoader(queryClient, authClient)},
+
             ]
           },
         ]

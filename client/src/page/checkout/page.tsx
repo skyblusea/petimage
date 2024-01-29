@@ -15,7 +15,7 @@ import { getPaymentId } from '../../util/getPaymentId';
 import { useLoaderData, useLocation } from 'react-router-dom';
 
 
-
+//위젯 로드
 export const tossWidgetQuery = (customerkey: string) => ({
   queryKey: ['tossWidget', customerkey],
   queryFn: () => {
@@ -25,10 +25,10 @@ export const tossWidgetQuery = (customerkey: string) => ({
 })
 
 
-
 export default function Checkout() {
   //결제 정보 불러오기
   const { state: albumDetails } = useLocation()
+
   const user = useAuth().user ?? { id: '', name: '익명', email: ANONYMOUS }
   const authClient = useAuth().authClient
   //위젯 로드
@@ -37,7 +37,7 @@ export default function Checkout() {
   })
   const paymentMethodsWidgetRef = useRef<ReturnType<PaymentWidgetInstance["renderPaymentMethods"]> | null>(null);
   const amount = Number(albumDetails?.theme.price?.replaceAll(',', ''))
-  // //결제 동의
+  //결제 동의
   const [agree, setAgree] = useState(false)
 
   useLayoutEffect(() => {
@@ -64,7 +64,6 @@ export default function Checkout() {
 
 
   const handlePaymentRequest = async () => {
-
     try {
       const paymentInfo = {
         orderId: nanoid(),
@@ -72,21 +71,24 @@ export default function Checkout() {
         customerName: user.name,
         customerEmail: user.email,
       }
-      // const paymentId = await getPaymentId({
-      //   orderId: paymentInfo.orderId,
-      //   amount: Number(albumDetails?.theme.price?.replaceAll(',', '')),
-      //   authClient
-      // })
-      const paymentId = 'fefefefefefe'
+      // 서버에 paymentId 요청
+      const paymentId = await getPaymentId({
+        orderId: paymentInfo.orderId,
+        amount: Number(albumDetails?.theme.price?.replaceAll(',', '')),
+        authClient
+      })
       if (!paymentId) {
         alert('주문 생성에 실패했습니다.')
         return
       }
+      // 결제 요청 전 앨범 정보 로컬 저장
       localStorage.setItem('albumDetails', JSON.stringify(albumDetails));
+
+      // 결제 요청
       await paymentWidget?.requestPayment({
         ...paymentInfo,
         successUrl: `${window.location.origin}/payment/${paymentId}`,
-        failUrl: `${window.location.origin}/fail`,
+        failUrl: `${window.location.origin}/payment/fail`,
       });
     } catch (error) {
       console.error("Error requesting payment:", error);

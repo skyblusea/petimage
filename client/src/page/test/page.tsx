@@ -1,11 +1,10 @@
-import { useLocation, useRouteLoaderData } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 
 export default function Test ( ){ 
-
   const state = useLocation().state
   console.log('state', state)
-  const {createAlbumData} = state
-  console.log('createAlbumData', createAlbumData)
+  console.log('history',history.state)
 
-  return <div>ee</div>
+
+  return <div>test</div>
 }

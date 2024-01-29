@@ -6,9 +6,7 @@ export const getPaymentId = async ({ orderId, amount, authClient }: { orderId: s
     // 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
     const res = await authClient.post("/payment/new", { orderId, totalAmount :amount });
     if (res.status === 200) {
-      const {
-        data: { ok, data },
-      } = res;
+      const { data: { ok, data } } = res;
       if (ok) {
         const { _id: paymentId} = data;
         return paymentId as string;
