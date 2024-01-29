@@ -55,40 +55,12 @@ export default function SelectTheme() {
         <Swiper
           modules={[Pagination]}
           centeredSlides={true}
-          slidesPerView={'auto'}
+          slidesPerView={1}
           loop={true}
           pagination={true}
           grabCursor={true}
           navigation={{ nextEl: ".arrow-left", prevEl: ".arrow-right" }}
         >
-          {theme.map((content, idx) =>
-            <SwiperSlide key={content._id}>
-              <Box padding="var(--pd-sm)" paddingBottom="calc(var(--gap-lg) + 20px)">
-                <Link to={`/create/${content._id}`}>
-                  <RoundPaper elevation={3}>
-                    <BaseImgBox ratio="16/9" src={content.sample[0]} alt={`banner${idx}`} />
-                    <Box display="flex" alignItems="center" justifyContent="space-between" width="100%">
-                      <Typography variant="h4" component="h1" sx={{ typography: { xs: 'h4', lg: 'h3' } }}>
-                        {content.name}
-                      </Typography>
-                      <Typography
-                        variant="subtitle2"
-                        sx={{
-                          color: 'error.main',
-                          typography: { xs: 'subtitle1', lg: 'subtitle0' }
-                        }}>
-                        {content.price} 원
-                      </Typography>
-                    </Box>
-                    <Box display="flex" width="100%">
-                      <Typography variant="body1" sx={{ typography: { xs: 'body2', md: 'body1' } }}>
-                        {content.desc}
-                      </Typography>
-                    </Box>
-                  </RoundPaper>
-                </Link>
-              </Box>
-            </SwiperSlide>)}
           {theme.map((content, idx) =>
             <SwiperSlide key={content._id}>
               <Box padding="var(--pd-sm)" paddingBottom="calc(var(--gap-lg) + 20px)">
@@ -147,17 +119,8 @@ const BannerWrapper = styled.div`
   color: var(--white);
   width: 100%;
   position: relative;
-  .swiper-slide-prev, .swiper-slide-next{
-    a >div :nth-of-type(n+2){
-      display: none !important;
-    }
-    img{
-      aspect-ratio: 1/1;
-    }
-  }
 
   .swiper-slide{
-    width: 30%;
   /* 슬라이드 레이아웃 */
     & >div{
       display: flex;
@@ -166,9 +129,7 @@ const BannerWrapper = styled.div`
     }
   }
 
-  .swiper-slide-active {
-    width: 60% !important;
-  }
+
 
   .arrow-left, .arrow-right{
     position: absolute;

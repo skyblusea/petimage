@@ -19,6 +19,7 @@ import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRound
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 import Image from '../../components/Image';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
+import CustomImage from '../../components/CustomImage';
 
 export const loader = (queryClient: QueryClient) =>
   async () => {
@@ -64,7 +65,7 @@ export default function Product() {
           </Grid>
           <Grid container xs={12} spacing={2}>
             <Grid xs={12} md={6}>
-              <Image src={theme[tap].sample[0]} alt="product_img0" />
+              <CustomImage src={theme[tap].sample[0]} alt="product_img0" />
             </Grid>
             <Grid xs={12} md={6} display="flex" flexDirection="column" justifyContent="space-between">
               <Typography variant="body1">{theme[tap].desc}</Typography>
@@ -88,7 +89,7 @@ export default function Product() {
                 >
                   {theme[tap].sample.map((src, idx) =>
                     <SwiperSlide key={idx}>
-                      <Image src={src} alt={`product_img${idx}`} />
+                      <CustomImage src={src} alt={`product_img${idx}`} />
                     </SwiperSlide>)}
                   <ArrowBackIosNewRoundedIcon
                     className="arrow-left" color="primary"

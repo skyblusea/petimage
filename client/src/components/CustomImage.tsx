@@ -8,18 +8,15 @@ export default function CustomImage(props: React.ImgHTMLAttributes<HTMLImageElem
   const imgEl = React.useRef<HTMLImageElement>(null);
   const [loaded, setLoaded] = React.useState(false);
 
-  const onImageLoaded = (e) => {
-    if (e.target.complete) {
-      setLoaded(true);
+  const onImageLoaded = () => {
+    if (imgEl.current) {
+      setLoaded(imgEl.current.complete);
     }
   };
 
-
   useLayoutEffect(() => {
-    const imgElCurrent = imgEl.current;
-    if (imgElCurrent) {
-      imgElCurrent.addEventListener('load', onImageLoaded);
-      return () => imgElCurrent.removeEventListener('load', onImageLoaded);
+    if (imgEl.current) {
+      setLoaded(imgEl.current.complete);
     }
   }, [imgEl]);
 
@@ -27,7 +24,7 @@ export default function CustomImage(props: React.ImgHTMLAttributes<HTMLImageElem
   return (
     <>
       {/* <Placeholder src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO8UA8AAiUBUcc3qzwAAAAASUVORK5CYII=" loaded={false}/> */}
-      <Image src={props.src} alt={props.alt} ref={imgEl} loaded={loaded} />
+      <Image src={props.src} alt={props.alt} ref={imgEl} loaded={loaded} onLoad={onImageLoaded}/>
       {!loaded && <Placeholder src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO8UA8AAiUBUcc3qzwAAAAASUVORK5CYII=" loaded={loaded} />}
     </>
   )
@@ -39,9 +36,10 @@ interface PlaceholderProps {
 
 const Placeholder = styled.img<PlaceholderProps>`
   object-fit: cover !important;
-  /* width: 500px !important; */
+  width: 100%;
+  height: 100%;
   flex-grow: 1;
-  display: ${({ loaded }) => loaded ? 'none' : 'block'};
+  display: ${({ loaded }) => loaded ? 'block' : 'block'};
 `
 
 

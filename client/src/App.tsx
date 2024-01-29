@@ -1,6 +1,6 @@
 import AuthProvider from './provider/AuthProvider.tsx'
 import LoadingProvider from './provider/LoadingProvider.tsx'
-import { Navigate, Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Error from "./error";
 import Home from "./page/home/page";
 
@@ -26,7 +26,6 @@ import Upload from './page/create/[theme]/[animal]/[breed]/upload/page.tsx';
 import Redirect, { loader as redirectLoader } from './page/payment/Redirect.tsx';
 import axios from 'axios';
 import PaymentHistory, { loader as paymenyHistoryLoader } from './page/payment/history/page.tsx';
-import Test from './page/test/page.tsx';
 import Payment from './page/payment/page.tsx';
 import PaymentFail from './page/payment/fail/page.tsx';
 import Auth from './page/auth/page.tsx';
@@ -87,7 +86,6 @@ export default function App() {
               { path: '/payment/:paymentId', loader : redirectLoader, element: <Redirect/>},
               { path: '/payment', element: <LoadingProvider><Payment /></LoadingProvider>},
               { path: '/payment/fail', element: <PaymentFail />},
-              // { path: '/test', element: <Test />},
               { path: '/payment-complete', element: <PaymentComplete /> },
               { path: '/collection', element: <Collection />, loader: collectionLoader(queryClient, authClient) },
               { path: '/payment/history', element: <PaymentHistory />, loader: paymenyHistoryLoader(queryClient, authClient)},
