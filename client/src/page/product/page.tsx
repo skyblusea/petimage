@@ -1,4 +1,4 @@
-import { PetimageThemeBG, PetimegeThemeWH } from "../../components/Containers";
+import { MultiSection } from "../../components/Containers";
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
@@ -6,8 +6,8 @@ import Image from "../../components/Image";
 
 export default function Product() {
   return (
-    <PetimageThemeBG>
-      <PetimegeThemeWH>
+    <MultiSection>
+      {/* <PetimegeThemeWH>
         <Grid container spacing={3}>
           <Grid xs={12} md={4}>
             <Typography variant="h2" color="petimage.main">상품 소개</Typography>
@@ -40,7 +40,7 @@ export default function Product() {
           </Grid>
 
         </Grid>
-      </PetimegeThemeWH>
-    </PetimageThemeBG>
+      </PetimegeThemeWH> */}
+    </MultiSection>
   )
 }

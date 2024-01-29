@@ -1,5 +1,5 @@
 
-import { PetimageThemeBG, PetimegeThemeWH, RoundPaper } from "../../components/Containers";
+import { MultiSection, PetimegeThemeWH, RoundPaper } from "../../components/Containers";
 import styled from "@emotion/styled"
 import Payment from "./Payment";
 import { Stack } from "@mui/material";
@@ -56,7 +56,7 @@ export default function Collection() {
 
 
   return (
-    <PetimageThemeBG>
+    <MultiSection>
       <PetimegeThemeWH full>
         <TabContainer>
           <Tabs elevation={3}>
@@ -71,7 +71,7 @@ export default function Collection() {
           </TabPanel>
         </TabContainer>
       </PetimegeThemeWH>
-    </PetimageThemeBG>
+    </MultiSection>
   )
 }
 

@@ -101,4 +101,7 @@ const Nav = styled.nav<HeaderContainerProps>`
   line-height: 1;
   mix-blend-mode: normal; // 투과 모드
   padding-bottom: 12px; //로고랑 높이 맞추기
+  @media screen and (max-width: 900px){
+    padding-bottom: 0px;
+    }
 `

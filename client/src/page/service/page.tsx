@@ -1,37 +1,23 @@
-import { PetimageThemeBG, PetimegeThemeWH } from "../../components/Containers";
+
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
 import Image from "../../components/Image";
-import { Button } from "@mui/material";
-import { useState } from "react";
-
-
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import MenuModal from "../../components/MenuModal";
+import { PetimageThemeContainer, PetimegeThemeContent, PetimegeThemeHeader } from '../../components/Containers';
 
 
 export default function Service() {
 
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-
 
   return (
-    <PetimageThemeBG>
-      <PetimegeThemeWH full={true}>
+    <PetimageThemeContainer>
+      <PetimegeThemeHeader>
+        <Typography variant="h2" color="secondary">서비스 소개</Typography>
+        <Typography sx={{ typography: { xs: 'subtitle2', lg: 'subtitle1' } }}>페티마제(petimage)는 Pet + Image를 합친 말로 부르기 쉽게
+          ‘페티마제’라는 국문명으로 서비스 명칭을 정하였습니다.
+        </Typography>
+      </PetimegeThemeHeader>
+      <PetimegeThemeContent full={true}>
         <Grid container spacing={3}>
-          <Grid xs={12} md={4}>
-            <Typography variant="h2" color="petimage.main">서비스 소개</Typography>
-          </Grid>
-          <Grid xs={12} md={8}>
-            <Typography sx={{ typography: { xs: 'subtitle2', lg: 'subtitle1' } }}>페티마제(petimage)는 Pet + Image를 합친 말로 부르기 쉽게
-              ‘페티마제’라는 국문명으로 서비스 명칭을 정하였습니다.
-            </Typography>
-          </Grid>
-          <Grid xs={12}>
-            <Divider />
-          </Grid>
           <Grid xs={12}>
             <Typography variant="body1">페티마제(Petimage)에서 개발 중인 인공지능 기술을 통해 반려동물의 새로운 모습을 만나볼 수 있으며, 사용자에게 가치 있는 소비와 재미를 드리기 위해 기술 연구와 다양한 서비스를 기획하고 있습니다.</Typography>
           </Grid>
@@ -49,26 +35,10 @@ export default function Service() {
           <Grid xs={6}>
             <Image src="/service/service3.png" alt="service_intro1" />
           </Grid>
-          <Grid xs={6}>
-            <Button
-              id="user-menu-btn"
-              sx={{
-                flexShrink: 0,
-                borderColor: 'var(--primary)',
-              }}
-              onClick={(e) => setAnchorEl(e.currentTarget)}
-              startIcon={<AccountCircleOutlinedIcon />}
-              aria-controls={open ? 'user-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
-              variant="outlined"
-              color="primary"
-            >내 정보</Button>
-            {open && <MenuModal anchorEl={anchorEl} setAnchorEl={setAnchorEl} />}
-          </Grid>
         </Grid>
-      </PetimegeThemeWH>
-    </PetimageThemeBG>
+      </PetimegeThemeContent>
+    </PetimageThemeContainer>
+
   )
 }
 

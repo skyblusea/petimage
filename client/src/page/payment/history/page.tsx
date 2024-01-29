@@ -1,4 +1,4 @@
-import { PetimageThemeBG, PetimegeThemeWH, RoundPaper } from "../../../components/Containers";
+import { MultiSection, PetimegeThemeWH, RoundPaper } from "../../../components/Containers";
 import styled from "@emotion/styled"
 import { useQuery } from "@tanstack/react-query";
 import { QueryClient } from "@tanstack/react-query";
@@ -52,7 +52,7 @@ export default function PaymentHistory() {
   const pathname = useLocation().pathname
 
   return (
-    <PetimageThemeBG>
+    <MultiSection>
       <PetimegeThemeWH full>
         <TabContainer>
           <Tabs elevation={3}>
@@ -67,7 +67,7 @@ export default function PaymentHistory() {
           </TabPanel>
         </TabContainer>
       </PetimegeThemeWH>
-    </PetimageThemeBG>
+    </MultiSection>
   )
 }
 

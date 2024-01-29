@@ -39,6 +39,7 @@ export const MultiSection = styled.section`
   align-items: center;
   justify-content: center;
   padding: var(--pd-nav);
+  flex-direction: column;
 `
 
 export const PetimageThemeBG = styled.section`
@@ -50,20 +51,51 @@ export const PetimageThemeBG = styled.section`
   padding-top: 200px;
 `
 
+
 interface PetimageThemeProps {
   color?: string;
   full?: boolean;
 }
 
 export const PetimegeThemeWH = styled.div<PetimageThemeProps>`
-  border-top-right-radius: var(--border-radius-xl);
-  border-top-left-radius: var(--border-radius-xl);
   background-color: ${props => props.color || "white"};
   padding: var(--pd-nav);
   padding-top: 40px;
   width: 100%;
   height: 100%;
   flex-grow: ${props => props.full && 1};
+`
+
+export const PetimageThemeContainer = styled.section`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+`
+export const PetimegeThemeHeader = styled.div<PetimageThemeProps>`
+  background-color: var(--petimage);
+  padding: var(--pd-nav);
+  padding-top: 60px;
+  padding-bottom: var(--gap-lg);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  @media screen and (max-width: 900px){
+    flex-direction: column;
+    }
+  h2 {
+    flex-shrink: 0;
+    margin-right: var(--gap-md);
+  }
+`
+
+export const PetimegeThemeContent = styled.div<PetimageThemeProps>`
+  background-color: white;
+  width: 100%;
+  padding: var(--pd-nav);
+  padding-bottom: var(--gap-lg);
+  padding-top: var(--gap-lg);
+
 `
 
 
