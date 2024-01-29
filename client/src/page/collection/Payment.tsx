@@ -2,7 +2,6 @@ import { CollectionBox } from "../../components/Boxes";
 import styled from "@emotion/styled"
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import { Payment } from "../../types";
 import countryToCurrency, { Countries } from "country-to-currency";
 
 

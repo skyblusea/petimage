@@ -18,7 +18,6 @@ import { AlbumDetails } from "../../../../../../types";
 import { FileWithUrl } from "../../../../../../types";
 import { readFile } from "../../../../../../util/readFile";
 import useAuth from "../../../../../../util/useAuth";
-import { ConstructionOutlined } from "@mui/icons-material";
 
 
 export default function Upload() {

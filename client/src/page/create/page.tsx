@@ -1,23 +1,20 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, EffectCoverflow } from 'swiper/modules';
+import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-
-
-import { Box, Button, SvgIcon, Typography } from '@mui/material';
 import styled from '@emotion/styled';
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 import { RoundPaper, SingleSection } from '../../components/Containers';
-
 import { QueryClient, useQuery } from "@tanstack/react-query"
 import { Link, useLoaderData } from 'react-router-dom';
 import BaseImgBox from '../../components/Boxes';
 import { Theme } from '../../types';
 import { apiClient } from '../../util/axiosInstance';
 import { isMobile } from 'react-device-detect';
-
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 
 export const loader = (queryClient: QueryClient) =>

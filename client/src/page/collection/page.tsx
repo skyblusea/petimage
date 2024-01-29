@@ -1,13 +1,12 @@
 
 import { MultiSection, PetimegeThemeWH, RoundPaper } from "../../components/Containers";
 import styled from "@emotion/styled"
-import Payment from "./Payment";
 import { Stack } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import Album from "./Album";
 import { QueryClient } from "@tanstack/react-query";
 import { useLoaderData, useLocation } from "react-router-dom";
-import { AlbumItem, Payment as PaymentType } from "../../types";
+import { AlbumItem } from "../../types";
 import { AxiosInstance } from "axios";
 import useAuth from "../../util/useAuth";
 

@@ -12,7 +12,7 @@ import { Button } from '@mui/material';
 import { useQuery } from "@tanstack/react-query"
 import useAuth from '../../util/useAuth';
 import { getPaymentId } from '../../util/getPaymentId';
-import { useLoaderData, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 
 //위젯 로드

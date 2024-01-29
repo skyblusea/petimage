@@ -1,6 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
 import useAuth from "../util/useAuth";
-import { User } from "../types";
 
 
 

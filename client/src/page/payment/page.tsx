@@ -1,11 +1,11 @@
 import { useContext, useEffect } from "react"
-import { Navigate, redirect, useLocation, useNavigate, useRouteLoaderData } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import useAuth from "../../util/useAuth"
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import { SingleSection } from "../../components/Containers";
 import { Typography } from "@mui/material";
 import { LoadingContext } from "../../provider/LoadingProvider";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
 export default function Payment() {
   const { setIsLoading } = useContext(LoadingContext)

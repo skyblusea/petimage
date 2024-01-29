@@ -1,13 +1,9 @@
 import { Typography } from "@mui/material";
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import styled from "@emotion/styled";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { SingleSection } from "../../components/Containers";
 import { LinkButton } from "../../components/LinkComponents";
-import useAuth from "../../util/useAuth";
-import { useContext, useEffect } from "react";
-import { LoadingContext } from "../../provider/LoadingProvider";
-
 
 
 

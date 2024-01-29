@@ -1,7 +1,5 @@
-import { redirect, Params } from "react-router-dom";
-import { createAlbum } from "./createAlbum";
+import { Params } from "react-router-dom";
 import { AlbumDetails } from "../types";
-import { authClient } from "../provider/AuthProvider";
 
 
 export const paymentLoader = async ({ params, request }: { params: Params, request: Request }) => {

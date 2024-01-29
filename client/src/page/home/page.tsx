@@ -7,7 +7,6 @@ import Logo from '../../assets/logo.svg?react'
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
-import { SvgIcon } from "@mui/material";
 
 
 export default function Home() {
