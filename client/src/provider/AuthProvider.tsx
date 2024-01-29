@@ -112,7 +112,7 @@ export default function AuthProvider({
     const authResponseInterceptor = authClient.interceptors.response.use(undefined,
       (error) => {
         const errorMsg = error.response.data.data;
-        const originalRequest = error.config;
+        // const originalRequest = error.config;
         console.log('interceptor catched error', error)
         switch (error.response.status) {
           case 401:
