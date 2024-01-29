@@ -79,6 +79,7 @@ export const PetimegeThemeHeader = styled.div<PetimageThemeProps>`
   height: 100%;
   display: flex;
   flex-direction: row;
+  align-items: top;
   @media screen and (max-width: 900px){
     flex-direction: column;
     }

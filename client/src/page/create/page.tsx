@@ -16,6 +16,7 @@ import { Link, useLoaderData } from 'react-router-dom';
 import BaseImgBox from '../../components/Boxes';
 import { Theme } from '../../types';
 import { apiClient } from '../../util/axiosInstance';
+import { isMobile } from 'react-device-detect';
 
 
 
@@ -42,18 +43,20 @@ export const themeQuery = () => ({
 //TODO 추후 migration 필요
 export default function SelectTheme() {
   const initialData = useLoaderData() as Array<Theme>
-  const { data : theme } = useQuery({
+  const { data: theme } = useQuery({
     ...themeQuery(),
     initialData,
   })
+  console.log('isMobile', isMobile)
 
   return (
     <SingleSection>
       <BannerWrapper>
         <Swiper
           modules={[Pagination]}
-          // centeredSlides={true}
-          // slidesPerView={3}
+          centeredSlides={true}
+          slidesPerView={'auto'}
+          loop={true}
           pagination={true}
           grabCursor={true}
           navigation={{ nextEl: ".arrow-left", prevEl: ".arrow-right" }}
@@ -88,7 +91,7 @@ export default function SelectTheme() {
             </SwiperSlide>)}
           {theme.map((content, idx) =>
             <SwiperSlide key={content._id}>
-              <Box padding="var(--pd-sm)"  paddingBottom="calc(var(--gap-lg) + 20px)">
+              <Box padding="var(--pd-sm)" paddingBottom="calc(var(--gap-lg) + 20px)">
                 <Link to={`/create/${content._id}`}>
                   <RoundPaper elevation={3}>
                     <BaseImgBox ratio="16/9" src={content.sample[0]} alt={`banner${idx}`} />
@@ -105,7 +108,7 @@ export default function SelectTheme() {
                         {content.price} 원
                       </Typography>
                     </Box>
-                    <Box display="flex" width="100%">
+                    <Box display="flex" width="100%" >
                       <Typography variant="body1" sx={{ typography: { xs: 'body2', md: 'body1' } }}>
                         {content.desc}
                       </Typography>
@@ -116,7 +119,7 @@ export default function SelectTheme() {
             </SwiperSlide>)}
         </Swiper>
         <ArrowBackIosNewRoundedIcon
-          className="arrow-left" color="primary"
+          className="arrow-left" color="secondary"
           sx={{
             display: { xs: 'none !important', md: 'flex !important' },
             fontSize: { xs: '2.25rem', lg: '3rem' },
@@ -124,12 +127,13 @@ export default function SelectTheme() {
           }}
         />
         <ArrowForwardIosRoundedIcon
-          className="arrow-right" color="primary"
+          className="arrow-right" color="secondary"
           sx={{
             display: { xs: 'none !important', md: 'flex !important' },
             fontSize: { xs: '2.25rem', lg: '3rem' },
             right: { xs: 'calc(-2.25rem - 16px)', lg: 'calc(-3rem - 16px)' }
           }} />
+
       </BannerWrapper>
     </SingleSection>
 
@@ -143,8 +147,17 @@ const BannerWrapper = styled.div`
   color: var(--white);
   width: 100%;
   position: relative;
-  
+  .swiper-slide-prev, .swiper-slide-next{
+    a >div :nth-of-type(n+2){
+      display: none !important;
+    }
+    img{
+      aspect-ratio: 1/1;
+    }
+  }
+
   .swiper-slide{
+    width: 30%;
   /* 슬라이드 레이아웃 */
     & >div{
       display: flex;
@@ -152,6 +165,11 @@ const BannerWrapper = styled.div`
       flex: 1;
     }
   }
+
+  .swiper-slide-active {
+    width: 60% !important;
+  }
+
   .arrow-left, .arrow-right{
     position: absolute;
     top: 50%;

@@ -3,7 +3,7 @@ import LoadingProvider from './provider/LoadingProvider.tsx'
 import { Navigate, Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import Error from "./error";
 import Home from "./page/home/page";
-import Login from "./page/login/page";
+
 import {
   QueryClient,
   QueryClientProvider,
@@ -29,6 +29,7 @@ import PaymentHistory, { loader as paymenyHistoryLoader } from './page/payment/h
 import Test from './page/test/page.tsx';
 import Payment from './page/payment/page.tsx';
 import PaymentFail from './page/payment/fail/page.tsx';
+import Auth from './page/auth/page.tsx';
 
 
 function newApiClient() {
@@ -58,7 +59,7 @@ export default function App() {
           { path: '/service', element: <Service /> },
           { path: '/product', element: <Product />, loader: productLoader(queryClient) },
           { path: '/about', element: <About /> },
-          { path: '/auth', element: <Login /> },
+          { path: '/auth', element: <Auth /> },
           // protected
           {
             element: <ProtectedRoute />,
