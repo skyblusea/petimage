@@ -18,7 +18,7 @@ export default function SelectAnimal() {
       <Grid xs={6} display="flex">
         <BaseImgBox to={`/create/${theme}/cat`} src="/cat.png" alt="고양이">
           <Typography component="span" color='primary' sx={{ typography: { xs: 'subtitle2', lg: 'subtitle1' } }}>
-            강아지
+            고양이
           </Typography>
         </BaseImgBox>
       </Grid>

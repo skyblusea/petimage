@@ -1,5 +1,5 @@
 
-import { MultiSection, PetimegeThemeWH, RoundPaper } from "../../components/Containers";
+import { PetimageThemeContainer, PetimegeThemeWH, RoundPaper } from "../../components/Containers";
 import styled from "@emotion/styled"
 import { Stack } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
@@ -54,7 +54,7 @@ export default function Collection() {
 
 
   return (
-    <MultiSection>
+    <PetimageThemeContainer>
       <PetimegeThemeWH full>
         <TabContainer>
           <Tabs elevation={3}>
@@ -69,7 +69,7 @@ export default function Collection() {
           </TabPanel>
         </TabContainer>
       </PetimegeThemeWH>
-    </MultiSection>
+    </PetimageThemeContainer>
   )
 }
 

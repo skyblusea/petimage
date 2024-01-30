@@ -56,7 +56,7 @@ export default function SelectTheme() {
           loop={true}
           pagination={true}
           grabCursor={true}
-          navigation={{ nextEl: ".arrow-left", prevEl: ".arrow-right" }}
+          navigation={{ prevEl: ".arrow-left", nextEl: ".arrow-right" }}
         >
           {theme.map((content, idx) =>
             <SwiperSlide key={content._id}>
