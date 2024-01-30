@@ -13,9 +13,9 @@ export default function AppleLoginBtn() {
       }
       //@ts-ignore
       window.AppleID.auth.init({
-        clientId: 'petimage.src.com',
+        clientId: `${import.meta.env.VITE_APPLE_CLIENT_ID}`,
         scope: 'name email',
-        redirectURI: 'http://localhost:5173',
+        redirectURI: `${import.meta.env.VITE_URL}`,
         state: 'state',
         nonce: 'nonce',
         usePopup: true
