@@ -6,7 +6,7 @@ export default function Loading() {
     <DotLottiePlayer
       style={{ height: '200px', width: '200px' }}
       loop
-      src="/loading.lottie"
+      src="loading.lottie"
       autoplay
     >
     </DotLottiePlayer>

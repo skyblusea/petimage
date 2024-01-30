@@ -3,64 +3,64 @@
     {
       "id": 0,
       "name": "선명하게 나온",
-      "img": "/guideline/correct/0.jpg"
+      "img": "guideline/correct/0.jpg"
     },
     {
       "id": 1,
       "name": "동일한 반려동물",
-      "img": "/guideline/correct/1.jpg"
+      "img": "guideline/correct/1.jpg"
     },
     {
       "id": 2,
       "name": "동일한 미용상태",
-      "img": "/guideline/correct/2.jpg"
+      "img": "guideline/correct/2.jpg"
     },
     {
       "id": 3,
       "name": "다양한 자세",
-      "img": "/guideline/correct/3.jpg"
+      "img": "guideline/correct/3.jpg"
     },
     {
       "id": 4,
       "name": "전신",
-      "img": "/guideline/correct/4.jpg"
+      "img": "guideline/correct/4.jpg"
     },
     {
       "id": 5,
       "name": "다양한 각도/배경",
-      "img": "/guideline/correct/5.jpg"
+      "img": "guideline/correct/5.jpg"
     }
   ],
   "wrong": [
     {
       "id": 0,
       "name": "흐리게 나온",
-      "img": "/guideline/wrong/0.jpg"
+      "img": "guideline/wrong/0.jpg"
     },
     {
       "id": 1,
       "name": "사람과 함께 찍은",
-      "img": "/guideline/wrong/1.jpg"
+      "img": "guideline/wrong/1.jpg"
     },
     {
       "id": 2,
       "name": "1마리 이상",
-      "img": "/guideline/wrong/2.jpg"
+      "img": "guideline/wrong/2.jpg"
     },
     {
       "id": 3,
       "name": "멀리있는",
-      "img": "/guideline/wrong/3.jpg"
+      "img": "guideline/wrong/3.jpg"
     },
     {
       "id": 4,
       "name": "얼굴을 가린",
-      "img": "/guideline/wrong/4.jpg"
+      "img": "guideline/wrong/4.jpg"
     },
     {
       "id": 5,
       "name": "흑백",
-      "img": "/guideline/wrong/5.jpg"
+      "img": "guideline/wrong/5.jpg"
     }
   ]
 }
