@@ -40,9 +40,7 @@ export default function Product() {
   })
 
   const [tap, setTap] = useState(0)
-  console.log('theme', theme)
   const tags = theme[tap].tag.split(',')
-  console.log('tag', tags)
   return (
 
     <PetimageThemeContainer>

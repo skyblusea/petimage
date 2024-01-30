@@ -10,13 +10,11 @@ const tokenRefresh = async (token:{access:string|undefined,refresh:string|undefi
       },
     })
     .then((res) => {
-      console.log('발급 성공!')
       const { access, refresh } = res.data.data;
       localStorage.setItem("access", access);
       localStorage.setItem("refresh", refresh);
     })
     .catch((err) => {
-      console.log('발급 실패!')
       if (err.response.status === 401) {
         alert("로그인이 만료되었습니다.");
       }

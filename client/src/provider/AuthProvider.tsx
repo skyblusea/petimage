@@ -99,10 +99,8 @@ export default function AuthProvider({
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('init interceptor')
     const authRequestInterceptor = authClient.interceptors.request.use(
       (config) => {
-        console.log('requestInterceptor 작동중')
         // Attach current access token ref value to outgoing request headers
         config.headers["Authorization"] = `Bearer ${token.access}`;
         return config;
@@ -160,11 +158,9 @@ export default function AuthProvider({
         return response;
       },
       );
-    console.log('interceptor attached')
     dispatch({ type: 'SETAUTH', isAuthenticated: true })
     // Return cleanup function to remove interceptors if apiClient updates
     return () => {
-      console.log('cleanup interceptor')
       authClient.interceptors.request.eject(authRequestInterceptor);
       authClient.interceptors.response.eject(authResponseInterceptor);
       apiClient.interceptors.response.eject(apiResponseInterceptor);
@@ -172,7 +168,6 @@ export default function AuthProvider({
   }, [token, queryClient]);
 
   const signInWithGoogle = async (response: google.accounts.id.CredentialResponse) => {
-    console.log('signInWithGoogle 실행중')
     try {
       const res = await apiClient.post('/user/google', { token: response.credential })
       if (res.data.ok) {
@@ -196,7 +191,6 @@ export default function AuthProvider({
         },
       })
       .catch((err) => {
-        console.log('발급 실패!')
         if (err.response.status === 401) {
           alert("로그인이 만료되었습니다.")
           return logout()

@@ -15,7 +15,7 @@ export const readFile = async (fileList: FileList, state : FileWithUrl[], setSta
 
   //병렬처리
   setIsLoading(true)
-  const results = await Promise.allSettled(selectedFiles.map((file,idx) => getBase64(file, state, idx)))
+  const results = await Promise.allSettled(selectedFiles.map((file) => getBase64(file, state)))
   const fulfilled = results.filter(result => result.status === 'fulfilled') as PromiseFulfilledResult<FileWithUrl>[]
   if (fulfilled.length) {
     setState([...state, ...fulfilled.map(result => result.value)])
@@ -27,8 +27,7 @@ export const readFile = async (fileList: FileList, state : FileWithUrl[], setSta
   setIsLoading(false)
 }
 
-const getBase64 = (file: File, packedFile:  FileWithUrl[], idx:number) => {
-  console.log(idx,'번째 파일 getBase64 start')
+const getBase64 = (file: File, packedFile:  FileWithUrl[]) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -38,7 +37,6 @@ const getBase64 = (file: File, packedFile:  FileWithUrl[], idx:number) => {
       if (isExist) {
         reject('이미 존재하는 파일입니다.')
       } else {
-        console.log(idx,'번째 파일 getBase64 resolve')
         const result = { id: nanoid() ,file, imgUrl, isValid: true }
         resolve(result as FileWithUrl)
       }

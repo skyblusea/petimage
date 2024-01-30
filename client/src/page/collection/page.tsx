@@ -44,7 +44,6 @@ export const loader = (queryClient: QueryClient, authClient: AxiosInstance) =>
 
 export default function Collection() {
   const initialData = useLoaderData() as Awaited<ReturnType<ReturnType<typeof loader>>>
-  // console.log('initialData', initialData ? initialData : undefined)
   const { authClient, isAuthenticated } = useAuth()
   const { data: albums } = useQuery({
     ...collectionQuery(authClient),
