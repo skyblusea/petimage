@@ -95,7 +95,9 @@ export default function App() {
         ]
       }]
   }
-  ])
+  ],{
+    basename: import.meta.env.VITE_BASENAME,
+  })
 
 
   return (

@@ -24,7 +24,7 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Type checking */
-    "types": ["vite-plugin-svgr/client","google.accounts"]
+    "types": ["vite-plugin-svgr/client","google.accounts","vite/client"]
   },
   "include": ["src", "src/provider/AuthProvider.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
