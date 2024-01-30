@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https:/skyblusea.github.io/petimage/",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -44,6 +45,5 @@
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
     "vite-plugin-svgr": "^4.2.0"
-  },
-  "homepage": "https://skyblusea.github.io/petimage/"
+  }
 }
