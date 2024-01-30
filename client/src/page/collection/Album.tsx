@@ -27,7 +27,7 @@ export default function Album({ data }: { data: AlbumItem }) {
           a.download = "파일명";
           document.body.appendChild(a);
           a.click();
-          setTimeout((_) => {
+          setTimeout(() => {
             window.URL.revokeObjectURL(url);
           }, 60000);
           a.remove();

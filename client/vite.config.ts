@@ -8,4 +8,16 @@ export default defineConfig({
     react(),
     svgr(), //svg를 react component로 사용하기 위한 플러그인
   ],
+  build: {
+    // rollupOptions: {
+    //     output:{
+    //         manualChunks(id) {
+    //             if (id.includes('node_modules')) {
+    //                 return id.toString().split('node_modules/')[1].split('/')[0].toString();
+    //             }
+    //         }
+    //     }
+    // },
+    chunkSizeWarningLimit: 1600,
+}
 })

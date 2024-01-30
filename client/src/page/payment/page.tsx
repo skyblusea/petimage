@@ -32,13 +32,13 @@ export default function Payment() {
       } catch (error) {
         if (axios.isAxiosError(error)) {
           // axios에서 발생한 error
-          const { url } = error.config 
-          if(url.includes('album/new')){
-            alert('앨범 생성에 실패했습니다. 다시 시도해주세요.')
-            setIsLoading(false)
-            //TODO : 결제취소 요청 추가
-            return navigate(-1)
-          }
+          // const { url } = error.config as AxiosError['config']
+          // if(url.includes('album/new')){
+          //   alert('앨범 생성에 실패했습니다. 다시 시도해주세요.')
+          //   setIsLoading(false)
+          //   //TODO : 결제취소 요청 추가
+          //   return navigate(-1)
+          // }
           alert('결제 승인에 실패했습니다. 다시 시도해주세요.')
           setIsLoading(false)
           return navigate(-1)

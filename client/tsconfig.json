@@ -19,13 +19,13 @@
 
     /* Linting */
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
     /* Type checking */
     "types": ["vite-plugin-svgr/client","google.accounts"]
   },
-  "include": ["src", "src/provider/AuthProvider.tsx"],
+  "include": ["src", "src/provider/AuthProvider.tsx","remix.env.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

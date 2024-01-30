@@ -10,10 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@dotlottie/react-player": "^1.6.3",
+    "@dotlottie/react-player": "^1.6.15",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@googlemaps/markerclusterer": "^2.5.2",
     "@googlemaps/react-wrapper": "^1.1.35",
     "@mui/icons-material": "^5.15.2",
     "@mui/material": "^5.15.1",
@@ -26,13 +25,12 @@
     "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
     "react-player": "^2.14.1",
-    "react-router-dom": "^6.21.1",
+    "react-router-dom": "^6.21.3",
     "swiper": "^11.0.5"
   },
   "devDependencies": {
     "@types/google.accounts": "^0.0.14",
     "@types/google.maps": "^3.55.1",
-    "@types/js-cookie": "^3.0.6",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
