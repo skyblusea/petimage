@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
+import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -50,7 +50,7 @@ export default function SelectTheme() {
     <SingleSection>
       <BannerWrapper>
         <Swiper
-          modules={[Pagination]}
+          modules={[Pagination,Navigation]}
           centeredSlides={true}
           slidesPerView={1}
           loop={true}
@@ -102,7 +102,6 @@ export default function SelectTheme() {
             fontSize: { xs: '2.25rem', lg: '3rem' },
             right: { xs: 'calc(-2.25rem - 16px)', lg: 'calc(-3rem - 16px)' }
           }} />
-
       </BannerWrapper>
     </SingleSection>
 
