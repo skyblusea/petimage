@@ -1,4 +1,4 @@
-import { MultiSection, PetimegeThemeWH, RoundPaper } from "../../../components/Containers";
+import { PetimageThemeContainer, PetimegeThemeWH, RoundPaper } from "../../../components/Containers";
 import styled from "@emotion/styled"
 import { useQuery } from "@tanstack/react-query";
 import { QueryClient } from "@tanstack/react-query";
@@ -8,6 +8,8 @@ import useAuth from "../../../util/useAuth";
 import { PaymentHistory } from "../../../types";
 import { Stack } from "@mui/material";
 import Payment from "./Payment";
+import { Tab, TabContainer, TabPanel, Tabs } from "../../collection/page";
+
 
 
 
@@ -52,7 +54,7 @@ export default function PaymentHistory() {
   const pathname = useLocation().pathname
 
   return (
-    <MultiSection>
+    <PetimageThemeContainer>
       <PetimegeThemeWH full>
         <TabContainer>
           <Tabs elevation={3}>
@@ -67,64 +69,7 @@ export default function PaymentHistory() {
           </TabPanel>
         </TabContainer>
       </PetimegeThemeWH>
-    </MultiSection>
+    </PetimageThemeContainer>
   )
 }
 
-
-const TabContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-`
-
-
-const Tab = styled.button`
-  height: 100%;
-  font-size: var(--h2);
-  font-weight: bold;
-  transition: .3s;
-  color: #8f8f8f;
-  position: relative;
-  padding: var(--pd-md);
-  :after {
-    content: "";
-    width: 100%;
-    height: 0.375rem;
-    position: absolute;
-    background-color: var(--petimage);
-    left: 0;
-    bottom: 0;
-    opacity: 0;
-  }
-  &[aria-selected="true"]{
-    color: var(--petimage);
-    span {
-      color: var(--petimage);
-    }
-    ::after {
-    opacity: 1;
-    }
-  }
-`
-
-const Tabs = styled(RoundPaper)`
-  transform: translateY(calc(-50% - 40px));
-  display: flex;
-  width: 100%;
-  flex-direction: row;
-  max-width: 900px;
-  justify-content: space-around;
-  align-items: center;
-  margin-bottom: var(--gap-lg);
-`
-
-
-const TabPanel = styled.div`
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--gap-lg);
-`

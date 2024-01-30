@@ -75,7 +75,7 @@ export default function Collection() {
 }
 
 
-const TabContainer = styled.div`
+export const TabContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -84,7 +84,7 @@ const TabContainer = styled.div`
 `
 
 
-const Tab = styled.button`
+export const Tab = styled.button`
   height: 100%;
   font-size: var(--h2);
   font-weight: bold;
@@ -113,8 +113,7 @@ const Tab = styled.button`
   }
 `
 
-const Tabs = styled(RoundPaper)`
-  transform: translateY(calc(-50% - 40px));
+export const Tabs = styled(RoundPaper)`
   display: flex;
   width: 100%;
   flex-direction: row;
@@ -125,7 +124,7 @@ const Tabs = styled(RoundPaper)`
 `
 
 
-const TabPanel = styled.div`
+export const TabPanel = styled.div`
   width: 100%;
   flex-direction: column;
   align-items: center;
