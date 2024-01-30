@@ -44,7 +44,7 @@ export default function SelectTheme() {
     ...themeQuery(),
     initialData,
   })
-  console.log('isMobile', isMobile)
+
 
   return (
     <SingleSection>

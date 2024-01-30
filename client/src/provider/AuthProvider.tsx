@@ -111,7 +111,6 @@ export default function AuthProvider({
       (error) => {
         const errorMsg = error.response.data.data;
         // const originalRequest = error.config;
-        console.log('interceptor catched error', error)
         switch (error.response.status) {
           case 401:
             console.error("refresh token error | ", errorMsg);
@@ -131,7 +130,6 @@ export default function AuthProvider({
 
     const apiResponseInterceptor = apiClient.interceptors.response.use(
       async (response) => {
-        console.log('responseInterceptor 작동중')
         // 로그인 
         if (response.config.url === '/user/google') {
           const { data: res } = response
