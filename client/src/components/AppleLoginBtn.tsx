@@ -1,39 +1,30 @@
 
 import styled from "@emotion/styled";
 import { useEffect } from "react";
+import useAuth from "../util/useAuth";
 
 export default function AppleLoginBtn() {
 
 
   useEffect(() => {
-    const signInWithApple = async () => {
-      //@ts-ignore
-      if (typeof window === "undefined" || !window.AppleID) {
-        return;
-      }
-      //@ts-ignore
-      window.AppleID.auth.init({
-        clientId: `${import.meta.env.VITE_APPLE_CLIENT_ID}`,
-        scope: 'name email',
-        redirectURI: `${import.meta.env.VITE_URL}`,
-        state: 'state',
-        nonce: 'nonce',
-        usePopup: true
-      });
-      // try {
-      //   const res = await window.AppleID.auth.signIn()
-      //   console.log('res', res)
-      //   // Handle successful response.
-      // } catch (error) {
-      //   // Handle error.
-      // }
+    //@ts-ignore
+    if (typeof window === "undefined" || !window.AppleID) {
+      return;
     }
-    signInWithApple()
+    //@ts-ignore
+    window.AppleID.auth.init({
+      clientId: `${import.meta.env.VITE_APPLE_CLIENT_ID}`,
+      redirectURI: `${import.meta.env.VITE_APPLE_REDIRECT_URL}`,
+      scope: 'name email',
+      usePopup: true
+    });
   }, [])
 
+  const { signInWithApple } = useAuth()
 
 
-  return <ButtonWrapper><div id="appleid-signin" className="appleid-signin" data-color="black" data-border="true" data-type="sign in" /></ButtonWrapper>
+  return <ButtonWrapper>
+    <div onClick={signInWithApple} id="appleid-signin" className="appleid-signin" data-color="black" data-border="true" data-type="sign in" /></ButtonWrapper>
 }
 
 const ButtonWrapper = styled.div`
