@@ -15,6 +15,7 @@ export type AuthContextType = {
   signInWithGoogle?: (response: google.accounts.id.CredentialResponse) => Promise<void>;
   signInWithApple: () => Promise<void>;
   logout: () => void;
+  signout: () => void;
   token: Token;
   authClient: AxiosInstance;
   isAuthenticated: boolean;
@@ -35,6 +36,7 @@ const initialContextState: AuthContextType = {
   signInWithGoogle: () => Promise.resolve(),
   signInWithApple: () => Promise.resolve(),
   logout: () => { },
+  signout: () => { },
   isAuthenticated: false,
 };
 
@@ -236,6 +238,21 @@ export default function AuthProvider({
     return navigate('/')
   }
 
+  const signout = async () => {
+    try {
+      //@ts-ignore
+      if(res){
+        const res = await authClient.post('/user/delete')
+        if(res.data.ok) {
+          alert('회원 탈퇴가 완료되었습니다.')
+          navigate('/')
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const context = {
     user,
     token,
@@ -244,6 +261,7 @@ export default function AuthProvider({
     signInWithGoogle,
     signInWithApple,
     logout,
+    signout,
   };
 
 
