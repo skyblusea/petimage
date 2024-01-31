@@ -67,7 +67,7 @@ export default function Checkout() {
     try {
       const paymentInfo = {
         orderId: nanoid(),
-        orderName: albumDetails!.theme.name,
+        orderName: albumDetails!.theme.name, //우주여행/AI컨셉사진 theme type/amount장
         customerName: user.name,
         customerEmail: user.email,
       }

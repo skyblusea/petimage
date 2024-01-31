@@ -104,9 +104,10 @@ export default function Upload() {
               <div>
                 <CloudUploadIcon />
                 <Typography component="p" variant="body1" color="primary" sx={{ typography: { xs: 'body3', lg: 'body1' } }}>드래그로 파일 첨부하기</Typography>
+                <Typography component="p" variant="body1" color="primary" sx={{ typography: { xs: 'body3', lg: 'body1' } }}>또는</Typography>
               </div>
-              <Typography component="p" variant="body1" color="primary" sx={{ typography: { xs: 'body3', lg: 'body1' } }}>또는</Typography>
               <Button
+                sx={{ width: '40%' }}
                 htmlFor="file-input"
                 role="button"
                 component="label"
@@ -146,7 +147,7 @@ export default function Upload() {
                     color="inherit"
                     sx={{ color: "#bbb" }}
                     aria-label="delete" size="small">
-                      <SvgIcon component={DeleteIcon} inheritViewBox />
+                    <SvgIcon component={DeleteIcon} inheritViewBox />
                   </IconButton>
                   {!file.isValid && <HighlightOffRoundedIcon fontSize="medium" color="error" />}
                 </AlbumItemWrapper>
@@ -160,7 +161,9 @@ export default function Upload() {
                   role="button"
                   component="label"
                   variant="outlined"
-                  sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', aspectRatio: '1/1' }}
+                  sx={{ 
+                    borderRadius: 'var(--border-radius-lg)',
+                    flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', aspectRatio: '1/1' }}
                 >
                   <AddRoundedIcon fontSize="large" />
                 </Button>
@@ -169,16 +172,18 @@ export default function Upload() {
           </Grid>
         </DragNDropBox>
       </Grid>
-      <Grid xs={12}>
-        <Button
-          disabled={files.length < 10 || files.length > 12}
-          endIcon={<ArrowForwardRoundedIcon />}
-          color="petimage"
-          variant="contained"
-          onClick={submitHandler}
-          sx={{ width: '100%' }}
-        >이미지 생성하기</Button>
-      </Grid>
+      {(0 < files.length)
+        &&
+        <Grid xs={12} display="flex" justifyContent="end" >
+          <Button
+            disabled={files.length < 10 || files.length > 12}
+            endIcon={<ArrowForwardRoundedIcon />}
+            color="petimage"
+            variant="contained"
+            onClick={submitHandler}
+            sx={{ width: '100%' }}
+          >이미지 생성하기</Button>
+        </Grid>}
     </Grid >
   )
 }

@@ -15,6 +15,9 @@ export default function Header() {
   const open = Boolean(anchorEl);
   const pathname = useLocation().pathname
   const hasGifBG = pathname === '/' || pathname === '/create'
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
 
   return (
     <HeaderContainer hasGifBG={hasGifBG}>
@@ -32,7 +35,7 @@ export default function Header() {
           sx={{
             flexShrink: 0,
           }}
-          onClick={(e) => setAnchorEl(e.currentTarget)}
+          onClick={handleClick}
           endIcon={<AccountCircleOutlinedIcon />}
           aria-controls={open ? 'user-menu' : undefined}
           aria-haspopup="true"
@@ -43,9 +46,7 @@ export default function Header() {
         : <LinkButton
           component={Link}
           to="/auth"
-          sx={{
-            flexShrink: 0,
-          }}
+          sx={{flexShrink: 0}}
           variant="outlined"
           color={hasGifBG ?'secondary' :'primary'}
           endIcon={<AccountCircleOutlinedIcon />}>
@@ -100,7 +101,7 @@ const Nav = styled.nav<HeaderContainerProps>`
   padding: 0 var(--gap-lg);
   line-height: 1;
   mix-blend-mode: normal; // 투과 모드
-  padding-bottom: 12px; //로고랑 높이 맞추기
+  padding-bottom: 5px; //로고랑 높이 맞추기
   @media screen and (max-width: 900px){
     padding-bottom: 0px;
     }

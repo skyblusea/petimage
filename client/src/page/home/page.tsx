@@ -9,6 +9,7 @@ import Box from "@mui/material/Box";
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 
 
+
 export default function Home() {
   return (
     <SingleSection>
@@ -23,10 +24,10 @@ export default function Home() {
           <Logo />
         </Box>
         <Box>
-          <Typography color="white" variant="body1" sx={{ typography: { xs: 'body3' } }}>
+          <Typography color="white" variant="body1">
             페티마제는 반려동물 AI 프로필 사진을 생성해주는 서비스입니다.
           </Typography>
-          <Typography color="white" variant="body1" sx={{ typography: { xs: 'body3' } }}>
+          <Typography color="white" variant="body1">
             페티마제와 함께 반려동물이 뛰어노는 세상으로 여행해볼까요?
           </Typography>
         </Box>
@@ -39,6 +40,9 @@ export default function Home() {
         color="petimage"
         endIcon={<ArrowForwardRoundedIcon />}
         sx={{
+          //! 버튼
+          fontSize: '1rem',
+          borderRadius: '100px',
           padding: { xs: '0.75rem 2.5rem', lg: '1rem 3rem' },
         }}>
         AI 이미지 제작하기

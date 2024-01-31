@@ -51,9 +51,9 @@ export default function SelectTheme() {
       <BannerWrapper>
         <Swiper
           modules={[Pagination,Navigation]}
-          centeredSlides={true}
-          slidesPerView={1}
-          loop={true}
+          // centeredSlides={true}
+          slidesPerView={3}
+          // loop={true}
           pagination={true}
           grabCursor={true}
           navigation={{ prevEl: ".arrow-left", nextEl: ".arrow-right" }}
@@ -63,9 +63,9 @@ export default function SelectTheme() {
               <Box padding="var(--pd-sm)" paddingBottom="calc(var(--gap-lg) + 20px)">
                 <Link to={`/create/${content._id}`}>
                   <RoundPaper elevation={3}>
-                    <BaseImgBox ratio="16/9" src={content.sample[0]} alt={`banner${idx}`} />
+                    <BaseImgBox src={content.sample[0]} alt={`banner${idx}`} />
                     <Box display="flex" alignItems="center" justifyContent="space-between" width="100%">
-                      <Typography variant="h4" component="h1" sx={{ typography: { xs: 'h4', lg: 'h3' } }}>
+                      <Typography variant="h4" component="h1" sx={{ typography: { xs: 'subtitle0'}, fontWeight:'700'}}>
                         {content.name}
                       </Typography>
                       <Typography

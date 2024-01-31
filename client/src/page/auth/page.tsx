@@ -31,7 +31,11 @@ export default function Auth() {
         >
           <CloseIcon />
         </IconButton>
-        <DialogContent>
+        <DialogContent sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 'var(--gap-md)',
+        }}>
           <GoogleLoginBtn />
           <AppleLoginBtn />
         </DialogContent>
@@ -47,7 +51,6 @@ export default function Auth() {
 
 const BtnWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
   padding: 8px 16px;
   text-align: center;
 `

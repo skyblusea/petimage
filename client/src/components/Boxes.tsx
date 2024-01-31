@@ -60,7 +60,7 @@ const ImgWrraper = styled.div`
   width: 100%;
   height: 100%;
   overflow: hidden;
-  border-radius: var(--border-radius-lg);
+  border-radius: var(--border-radius-sm);
   svg {
     position: absolute;
     bottom: 4px;
@@ -81,7 +81,7 @@ export const BaseCreateBox = styled(LinkBox) <BaseCreateBoxProps>`
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: var(--gap-md);
+  gap: var(--gap-xs);
   ${props => props.view && `      
     cursor: zoom-in;
     `}

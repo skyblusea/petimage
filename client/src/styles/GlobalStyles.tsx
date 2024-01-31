@@ -59,7 +59,7 @@ const reset = css`
 
     /* border-radius */
     --border-radius-xl: 80px;
-    --border-radius-lg: 20px;
+    --border-radius-lg: 10px; //!
     --border-radius-sm: 10px;
     @media screen and (max-width: 900px){
       --border-radius-xl : 40px;
@@ -96,16 +96,17 @@ const reset = css`
     --gap-lg: 24px;
     --gap-md: 16px;
     --gap-sm: 8px;
+    --gap-xs: 4px;
     @media screen and (max-width: 900px){
       --gap-lg: 16px;
       --gap-md: 8px;
       --gap-sm: 4px;
     }
 
-    --nav-h: 92px;
+    --nav-h: 60px;
     --footer-h: 50px;
     @media screen and (max-width: 900px){
-      --nav-h: 60px;
+      --nav-h: 40px;
     }
   }
 

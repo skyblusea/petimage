@@ -35,7 +35,7 @@ export default function Album({ data }: { data: AlbumItem }) {
   return (
     <AlbumContainer>
       <AlbumHeader>
-        <Typography variant="subtitle1">{new Intl.DateTimeFormat(undefined, { dateStyle: 'medium' }).format(new Date(data.createdAt))}</Typography>
+        <Typography variant="subtitle1" sx={{fontSize:'18px'}}>{new Intl.DateTimeFormat(undefined, { dateStyle: 'medium' }).format(new Date(data.createdAt))}</Typography>
         <IconButton aria-label="download" onClick={downloadFile} >
           <DownloadIcon fontSize="large" />
         </IconButton>
@@ -46,7 +46,7 @@ export default function Album({ data }: { data: AlbumItem }) {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography variant="h4" color="petimage.main">컨셉사진 / {data.themeName} / {data.outputFiles.length}장</Typography>
+          <Typography variant="h4" sx={{fontSize:'24px'}} color="petimage.main">컨셉사진 / {data.themeName} / {data.outputFiles.length}장</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Grid container spacing={1}>

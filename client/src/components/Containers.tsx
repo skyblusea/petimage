@@ -74,7 +74,7 @@ export const PetimegeThemeHeader = styled.div<PetimageThemeProps>`
   background-color: var(--petimage);
   padding: var(--pd-nav);
   padding-top: 60px;
-  padding-bottom: var(--gap-lg);
+  padding-bottom: var(--gap-sm);
   width: 100%;
   height: 100%;
   display: flex;
@@ -106,7 +106,7 @@ export const RoundPaper = styled(Paper)`
   align-items: center;
   flex-direction: column;
   gap: var(--gap-md);
-  padding: var(--gap-lg);
+  padding: var(--pd-md);
 `
 
 export const BgContainer = styled.div`

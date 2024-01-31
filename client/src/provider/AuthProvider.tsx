@@ -1,4 +1,3 @@
-
 import { createContext, useEffect, useReducer } from "react";
 import { QueryClient } from "@tanstack/react-query"
 import { tossWidgetQuery } from "../page/checkout/page";
@@ -22,10 +21,14 @@ export type AuthContextType = {
 };
 
 const initialContextState: AuthContextType = {
-  user: null,
+  user: {
+    "id": "658a43a4e26d9227a64da419",
+    "email": "blueseablueskyblueme@gmail.com",
+    "name": "김민지"
+  },
   token: {
-    access: localStorage.getItem('access'),
-    refresh: localStorage.getItem('refresh'),
+    access: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OGE0M2E0ZTI2ZDkyMjdhNjRkYTQxOSIsImlhdCI6MTcwNjU5OTgxNSwiZXhwIjoxNzA3MjA0NjE1fQ.esuwcnaF8s1Dxb1H3ZSQ-M-uTKT2LasgOtRHOD7Snb4',
+    refresh: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDY1OTk4MTUsImV4cCI6MTcxNDM3NTgxNX0.x2GuViV1nb8Wqvekhfh-_5aQNweJhHgeQFhSI9AuqYc',
   },
   authClient: axios.create({
     baseURL: `${import.meta.env.VITE_URL}`,
@@ -62,10 +65,14 @@ type AuthState = {
 
 
 const initialReducerState: AuthState = {
-  user: JSON.parse(localStorage.getItem('user') || 'null'),
+  user: {
+    "id": "658a43a4e26d9227a64da419",
+    "email": "blueseablueskyblueme@gmail.com",
+    "name": "김민지"
+  },
   token: {
-    access: localStorage.getItem('access'),
-    refresh: localStorage.getItem('refresh'),
+    access: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OGE0M2E0ZTI2ZDkyMjdhNjRkYTQxOSIsImlhdCI6MTcwNjU5OTgxNSwiZXhwIjoxNzA3MjA0NjE1fQ.esuwcnaF8s1Dxb1H3ZSQ-M-uTKT2LasgOtRHOD7Snb4',
+    refresh: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDY1OTk4MTUsImV4cCI6MTcxNDM3NTgxNX0.x2GuViV1nb8Wqvekhfh-_5aQNweJhHgeQFhSI9AuqYc',
   },
   isAuthenticated: false,
 };
@@ -96,7 +103,7 @@ export default function AuthProvider({
   authClient: AxiosInstance
 }) {
   const [state, dispatch] = useReducer(authReducer, initialReducerState);
-  const { user, token, isAuthenticated} = state;
+  const { user, token, isAuthenticated } = state;
   // const tokenRef = useRef<Token>(null);
   const navigate = useNavigate();
 
@@ -108,7 +115,7 @@ export default function AuthProvider({
         return config;
       })
 
-    
+
     const authResponseInterceptor = authClient.interceptors.response.use(undefined,
       (error) => {
         const errorMsg = error.response.data.data;
@@ -128,7 +135,7 @@ export default function AuthProvider({
         }
       }
     );
-    
+
 
     const apiResponseInterceptor = apiClient.interceptors.response.use(
       async (response) => {
@@ -157,7 +164,7 @@ export default function AuthProvider({
         }
         return response;
       },
-      );
+    );
     dispatch({ type: 'SETAUTH', isAuthenticated: true })
     // Return cleanup function to remove interceptors if apiClient updates
     return () => {
@@ -184,15 +191,15 @@ export default function AuthProvider({
     try {
       //@ts-ignore
       const res = await window.AppleID.auth.signIn();
-      if(res){
+      if (res) {
         const { authorization: { id_token } } = res
         const user = res.user
-        const login = await apiClient.post('/user/apple', { 
-          token : id_token,
-          name : user ?`${user.name.lastName}${user.name.lastName}`: null,
-          email : user ? user.email : null,
-         })
-        if(login.data.ok) {
+        const login = await apiClient.post('/user/apple', {
+          token: id_token,
+          name: user ? `${user.name.lastName}${user.name.lastName}` : null,
+          email: user ? user.email : null,
+        })
+        if (login.data.ok) {
           alert('로그인이 완료되었습니다.')
           navigate('/')
         }
@@ -241,9 +248,9 @@ export default function AuthProvider({
   const signout = async () => {
     try {
       //@ts-ignore
-      if(res){
+      if (res) {
         const res = await authClient.post('/user/delete')
-        if(res.data.ok) {
+        if (res.data.ok) {
           alert('회원 탈퇴가 완료되었습니다.')
           navigate('/')
         }

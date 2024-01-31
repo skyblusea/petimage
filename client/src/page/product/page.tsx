@@ -11,7 +11,7 @@ import { useLoaderData } from 'react-router-dom';
 import { QueryClient, useQuery } from '@tanstack/react-query';
 import { Theme } from '../../types';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
+import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -66,45 +66,45 @@ export default function Product() {
             </Grid>
             <Grid xs={12} md={6} display="flex" flexDirection="column" justifyContent="space-between">
               <Typography variant="body1">{theme[tap].desc}</Typography>
-              <Box>
-                <Box display="flex">
-                  <CheckRoundedIcon />
-                  <Typography variant="body1">Image Point</Typography>
+              <Box display="flex" flexDirection="column" sx={{gap:'var(--gap-sm)'}}>
+                <Box>
+                  <Box display="flex" sx={{ gap: 'var(--gap-xs)' }}>
+                    <CheckRoundedIcon />
+                    <Typography variant="body1">Image Point</Typography>
+                  </Box>
+                  <Stack direction="row" spacing={1}>{tags.map((tag, idx) => <p key={idx}>#{tag}</p>)}</Stack>
                 </Box>
-                <Stack direction="row" spacing={1}>{tags.map((tag, idx) => <p key={idx}>#{tag}</p>)}</Stack>
+                <Wrapper>
+                  <Swiper
+                    slidesPerView={3}
+                    spaceBetween={8}
+                    modules={[Pagination, Navigation]}
+                    pagination={true}
+                    grabCursor={true}
+                    navigation={{ nextEl: ".arrow-left", prevEl: ".arrow-right" }}
+                  >
+                    {theme[tap].sample.map((src, idx) =>
+                      <SwiperSlide key={idx}>
+                        <CustomImage src={src} alt={`product_img${idx}`} />
+                      </SwiperSlide>)}
+                    <ArrowBackIosNewRoundedIcon
+                      className="arrow-left" color="primary"
+                      sx={{
+                        display: { xs: 'none !important', md: 'flex !important' },
+                        fontSize: { xs: '2.25rem', lg: '3rem' },
+                        left: { xs: 'calc(-2.25rem - 16px)', lg: 'calc(-3rem - 16px)' }
+                      }}
+                    />
+                    <ArrowForwardIosRoundedIcon
+                      className="arrow-right" color="primary"
+                      sx={{
+                        display: { xs: 'none !important', md: 'flex !important' },
+                        fontSize: { xs: '2.25rem', lg: '3rem' },
+                        right: { xs: 'calc(-2.25rem - 16px)', lg: 'calc(-3rem - 16px)' }
+                      }} />
+                  </Swiper>
+                </Wrapper>
               </Box>
-            </Grid>
-            <Grid xs={12}>
-              <Wrapper>
-                <Swiper
-                  slidesPerView={3}
-                  spaceBetween={16}
-                  modules={[Pagination]}
-                  pagination={true}
-                  grabCursor={true}
-                  navigation={{ nextEl: ".arrow-left", prevEl: ".arrow-right" }}
-                >
-                  {theme[tap].sample.map((src, idx) =>
-                    <SwiperSlide key={idx}>
-                      <CustomImage src={src} alt={`product_img${idx}`} />
-                    </SwiperSlide>)}
-                  <ArrowBackIosNewRoundedIcon
-                    className="arrow-left" color="primary"
-                    sx={{
-                      display: { xs: 'none !important', md: 'flex !important' },
-                      fontSize: { xs: '2.25rem', lg: '3rem' },
-                      left: { xs: 'calc(-2.25rem - 16px)', lg: 'calc(-3rem - 16px)' }
-                    }}
-                  />
-                  <ArrowForwardIosRoundedIcon
-                    className="arrow-right" color="primary"
-                    sx={{
-                      display: { xs: 'none !important', md: 'flex !important' },
-                      fontSize: { xs: '2.25rem', lg: '3rem' },
-                      right: { xs: 'calc(-2.25rem - 16px)', lg: 'calc(-3rem - 16px)' }
-                    }} />
-                </Swiper>
-              </Wrapper>
             </Grid>
           </Grid>
         </Grid>

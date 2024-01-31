@@ -66,7 +66,7 @@ const theme = createTheme({
             textTransform: 'none',
             color: 'rgba(0, 0, 0, 0.26)',
             backgroundColor: 'rgba(0, 0, 0, 0.12)',
-            borderRadius: '24px',
+            borderRadius: '100px',
             '&:hover': {
               backgroundColor: '#ff5658',
               color: '#fff',
@@ -92,6 +92,9 @@ const theme = createTheme({
     ].join(','),
     h2: {
       fontWeight: '400',
+    },
+    h5: {
+      fontWeight: '700', //!
     },
     body1: {
       fontWeight: '400',

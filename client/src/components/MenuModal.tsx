@@ -1,6 +1,8 @@
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
@@ -8,9 +10,10 @@ import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Link, useLocation } from 'react-router-dom';
-import { LinkListItemButton } from './LinkComponents';
+import { LinkListItemButton, LinkMenuItem } from './LinkComponents';
 import Menu from '@mui/material/Menu';
 import useAuth from '../util/useAuth';
+
 
 export default function MenuModal({
   anchorEl,
@@ -20,7 +23,7 @@ export default function MenuModal({
   setAnchorEl: React.Dispatch<React.SetStateAction<HTMLElement | null>>
 }) {
   const pathname = useLocation().pathname
-  const { logout, signout } = useAuth()
+  const { logout } = useAuth()
 
   return (
     <Menu
@@ -29,55 +32,77 @@ export default function MenuModal({
       anchorEl={anchorEl}
       onClose={() => setAnchorEl(null)} // close menu
       open={!!anchorEl}
-      MenuListProps={{
-        'aria-labelledby': 'user-menu-btn',
-      }}
       sx={{
         '& .MuiPaper-root': {
           marginTop: 'var(--gap-sm)'
-        },
-        '.css-6hp17o-MuiList-root-MuiMenu-list': {
-          paddingBottom: 0,
         }
       }}
+      slotProps={{
+        paper: {
+          elevation: 0,
+          sx: {
+            overflow: 'visible',
+            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+            mt: 1.5,
+            '& .MuiAvatar-root': {
+              width: 32,
+              height: 32,
+              ml: -0.5,
+              mr: 1,
+            },
+            '&::before': {
+              content: '""',
+              display: 'block',
+              position: 'absolute',
+              top: 0,
+              right: 50,
+              width: 10,
+              height: 10,
+              bgcolor: 'background.paper',
+              transform: 'translateY(-50%) rotate(45deg)',
+              zIndex: 0,
+            },
+          },
+        }
+      }}
+
     >
-      <LinkListItemButton
+      <LinkMenuItem
+        component={Link}
         to="/payment/history"
-        LinkComponent={Link}
         selected={pathname === '/payment/history'}
       >
-        <ListItemAvatar>
+        <ListItemIcon>
           <Avatar sx={{ bgcolor: 'petimage.main' }}>
             <ReceiptOutlinedIcon />
           </Avatar>
-        </ListItemAvatar>
+        </ListItemIcon>
         <ListItemText>결제 내역</ListItemText>
-      </LinkListItemButton>
-      <LinkListItemButton
+      </LinkMenuItem>
+      <LinkMenuItem
         to="/collection"
-        LinkComponent={Link}
+        component={Link}
         selected={pathname === '/collection'}
       >
-        <ListItemAvatar>
+        <ListItemIcon>
           <Avatar sx={{ bgcolor: 'petimage.main' }}>
             <InsertPhotoOutlinedIcon />
           </Avatar>
-        </ListItemAvatar>
-        <ListItemText>보관함</ListItemText>
-      </LinkListItemButton>
+        </ListItemIcon>
+        <ListItemText sx={{height:'100%'}}>보관함</ListItemText>
+      </LinkMenuItem>
       <Divider />
-      <ListItem >
-        <Button
-          onClick={() => {
-            setAnchorEl(null)
-            logout()
-          }}
-          color="error"
-          startIcon={<LogoutIcon />}
-        >
-          로그아웃
-        </Button>
-        <Button
+      <MenuItem
+        onClick={() => {
+          setAnchorEl(null)
+          logout()
+        }}
+      >
+        <ListItemIcon>
+          <LogoutIcon fontSize="small" />
+        </ListItemIcon>
+        <ListItemText primary="로그아웃" />
+        {/* <Button
           // onClick={() => {
           //   setAnchorEl(null) // close menu
           //   signout()
@@ -86,8 +111,8 @@ export default function MenuModal({
           variant="text"
         >
           회원탈퇴
-        </Button>
-      </ListItem>
+        </Button> */}
+      </MenuItem>
     </Menu>
   )
 }
