@@ -17,7 +17,7 @@ import ZoomInMapRoundedIcon from '@mui/icons-material/ZoomInMapRounded';
 
 export default function Album({ data }: { data: AlbumItem }) {
   //TODO : rendering delay
-  const [open, setOpen] = useState<number|undefined>()
+  const [open, setOpen] = useState<number | undefined>()
 
   const downloadFile = useCallback(async () => {
     const name = `petimage_${data.themeName}_${data.createdAt.slice(0, 10)}`
@@ -52,15 +52,13 @@ export default function Album({ data }: { data: AlbumItem }) {
         <AccordionDetails>
           <Grid container spacing={1}>
             {data.outputFiles.map((file, idx) =>
-            <>
-              <Grid key={idx} xs={12 / 5}>
-                <BaseImgBox view hover square src={file} alt="dog" onClick={() => setOpen(idx)}></BaseImgBox>
-              </Grid>
-              {open === idx && 
-              <Backdrop open={open===idx} onClick={() => setOpen(undefined)} sx={{zIndex:100, cursor:"zoom-out"}}>
-                <img src={file} alt="dog" />
-              </Backdrop>}
-            </>
+                <Grid key={idx} xs={12 / 5}>
+                  <BaseImgBox view hover square src={file} alt="dog" onClick={() => setOpen(idx)}></BaseImgBox>
+                  {open === idx &&
+                    <Backdrop open={open === idx} onClick={() => setOpen(undefined)} sx={{ zIndex: 100, cursor: "zoom-out" }}>
+                      <img src={file} alt="dog" />
+                    </Backdrop>}
+                </Grid>
             )}
           </Grid>
         </AccordionDetails>

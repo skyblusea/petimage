@@ -17,13 +17,8 @@ import useAuth from "../../util/useAuth";
 const collectionQuery = (authClient: AxiosInstance) => ({
   queryKey: ["collection"],
   queryFn: async () => {
-    try {
-      const { data: { data: collection } } = await authClient.get(`/album/list?sort=&order=&limit=&page=`)
-      return collection as AlbumItem[]
-    } catch (error) {
-      console.error('collectionQuery error')
-      throw error
-    }
+    const { data: { data: collection } } = await authClient.get(`/album/list?sort=&order=&limit=&page=`)
+    return collection as AlbumItem[]
   },
   staleTime: 1000 * 60 * 60 * 24 * 7, // 7 days
 });

@@ -14,7 +14,6 @@ export const getPaymentId = async ({ orderId, amount, authClient }: { orderId: s
     }
   } catch (error) {
     console.log(error);
-    throw error;
   }
 };
 

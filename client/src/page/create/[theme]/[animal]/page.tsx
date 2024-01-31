@@ -51,7 +51,7 @@ export default function SelectBreed() {
     <Grid container spacing={3}>
       {breeds?.map((breed) => (
         <Grid xs={4} md={3} lg={12 / 5} key={breed._id}>
-          <BaseImgBox hover square to={`${pathname}/${breed.code}/notice`} src={breed.img} alt={breed.name}>
+          <BaseImgBox hover view square to={`${pathname}/${breed.code}/notice`} src={breed.img} alt={breed.name}>
             <Typography component="span" sx={{
               color: 'primary',
               typography: { xs: 'subtitle2', lg: 'subtitle1' }

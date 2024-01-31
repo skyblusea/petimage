@@ -16,13 +16,8 @@ import { Tab, TabContainer, TabPanel, Tabs } from "../../collection/page";
 const paymentHistoryQuery = (authClient: AxiosInstance) => ({
   queryKey: ['paymentHistory'],
   queryFn: async () => {
-    try {
-      const { data: { data: { payments: paymentHistory } } } = await authClient.get(`/payment/list?sort=&order=&limit=&page=`)
-      return paymentHistory as PaymentHistory[]
-    } catch (error) {
-      console.error('paymentHistoryQuery error', error)
-      throw error
-    }
+    const { data: { data: { payments: paymentHistory } } } = await authClient.get(`/payment/list?sort=&order=&limit=&page=`)
+    return paymentHistory as PaymentHistory[]
   },
   staleTime: 1000 * 60 * 60 * 24 * 7, // 7 days
 });
