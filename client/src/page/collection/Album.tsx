@@ -5,28 +5,32 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
+import Backdrop from '@mui/material/Backdrop';
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import { AlbumItem } from "../../types";
 import BaseImgBox from "../../components/Boxes";
 import { IconButton } from "@mui/material";
 import JSZip from 'jszip'
 import { saveAs } from "file-saver";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
+import ZoomInMapRoundedIcon from '@mui/icons-material/ZoomInMapRounded';
 
 export default function Album({ data }: { data: AlbumItem }) {
   //TODO : rendering delay
-  const downloadFile = useCallback(async() => {
-    const name = `petimage_${data.themeName}_${data.createdAt.slice(0,10)}`
+  const [open, setOpen] = useState<number|undefined>()
+
+  const downloadFile = useCallback(async () => {
+    const name = `petimage_${data.themeName}_${data.createdAt.slice(0, 10)}`
     const zip = new JSZip()
     const imagesFolder = zip.folder(name)
-    const imgFetcher = await Promise.all(data.outputFiles.map((url) => fetch(url).then(res=>res.blob())))
+    const imgFetcher = await Promise.all(data.outputFiles.map((url) => fetch(url).then(res => res.blob())))
     imgFetcher.forEach((blob, idx) => {
       imagesFolder?.file(`${data.themeName}${idx}.png`, blob)
     })
     zip.generateAsync({ type: "blob" }).then((content) => {
       saveAs(content, `${name}.zip`);
     });
-  },[])
+  }, [])
 
 
   return (
@@ -48,9 +52,15 @@ export default function Album({ data }: { data: AlbumItem }) {
         <AccordionDetails>
           <Grid container spacing={1}>
             {data.outputFiles.map((file, idx) =>
+            <>
               <Grid key={idx} xs={12 / 5}>
-                <BaseImgBox square src={file} alt="dog"></BaseImgBox>
+                <BaseImgBox view hover square src={file} alt="dog" onClick={() => setOpen(idx)}></BaseImgBox>
               </Grid>
+              {open === idx && 
+              <Backdrop open={open===idx} onClick={() => setOpen(undefined)} sx={{zIndex:100, cursor:"zoom-out"}}>
+                <img src={file} alt="dog" />
+              </Backdrop>}
+            </>
             )}
           </Grid>
         </AccordionDetails>
@@ -81,3 +91,23 @@ const AccordionBox = styled(Accordion)`
     display: none;
   }
 `
+// type BackdropProps = {
+//   open?: boolean
+// }
+
+// const Backdrop = styled.div<BackdropProps>`
+//   animation: fadein ease-in forwards;
+//   position: fixed;
+//   inset: 0;
+//   overflow: hidden;
+//   z-index: 100;
+//   background-color: rgba(0, 0, 0, 0.9);
+//   @keyframes fadein {
+//     0% {
+//       opacity: 0;
+//     }
+//     100% {
+//       opacity: 1;
+//     }
+//   }
+// `

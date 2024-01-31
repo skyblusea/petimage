@@ -18,6 +18,9 @@ export default function BaseImgBox({
   square,
   ratio,
   to,
+  hover,
+  view,
+  onClick,
 }: {
   children?: React.ReactNode
   src: string,
@@ -27,6 +30,9 @@ export default function BaseImgBox({
   square?: boolean,
   ratio?: string,
   to?: LinkProps['to'];
+  hover?: boolean;
+  view?: boolean;
+  onClick?: React.MouseEventHandler<HTMLDivElement>
 }) {
 
   return (
@@ -34,6 +40,9 @@ export default function BaseImgBox({
       component={to ? Link : 'div'}
       to={to}
       ratio={square ? '1/1' : ratio}
+      hover={hover}
+      view={view}
+      onClick={onClick}
     >
       <ImgWrraper>
         <CustomImage src={src} alt={alt} />
@@ -61,6 +70,8 @@ const ImgWrraper = styled.div`
 
 type BaseCreateBoxProps = {
   ratio?: string
+  hover?: boolean
+  view?: boolean
 }
 
 
@@ -71,7 +82,16 @@ export const BaseCreateBox = styled(LinkBox) <BaseCreateBoxProps>`
   align-items: center;
   flex-direction: column;
   gap: var(--gap-md);
+  ${props => props.view && `      
+    cursor: zoom-in;
+    `}
   img{
+    ${props => props.hover && `      
+      :hover {
+        transform: scale(1.1);
+        transition: transform 0.5s;
+      }
+    `}
     aspect-ratio: ${props => props.ratio};
   }
 `
