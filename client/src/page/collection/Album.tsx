@@ -9,44 +9,31 @@ import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import { AlbumItem } from "../../types";
 import BaseImgBox from "../../components/Boxes";
 import { IconButton } from "@mui/material";
+import JSZip from 'jszip'
+import { saveAs } from "file-saver";
+import { useCallback } from "react";
 
 export default function Album({ data }: { data: AlbumItem }) {
   //TODO : rendering delay
-
-  const onClickHandler = () => {
-    
-    const downloadFile = (url: string) => {
-      fetch(url, { method: 'GET' })
-        .then((res) => {
-          return res.blob();
-        })
-        .then((blob) => {
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = "파일명";
-          document.body.appendChild(a);
-          a.click();
-          setTimeout(() => {
-            window.URL.revokeObjectURL(url);
-          }, 60000);
-          a.remove();
-        })
-        .catch((err) => {
-          console.error('err: ', err);
-        });
-    }
-
-    data.outputFiles.forEach((file) => {
-      downloadFile(file)
+  const downloadFile = useCallback(async() => {
+    const name = `petimage_${data.themeName}_${data.createdAt.slice(0,10)}`
+    const zip = new JSZip()
+    const imagesFolder = zip.folder(name)
+    const imgFetcher = await Promise.all(data.outputFiles.map((url) => fetch(url).then(res=>res.blob())))
+    imgFetcher.forEach((blob, idx) => {
+      imagesFolder?.file(`${data.themeName}${idx}.png`, blob)
     })
+    zip.generateAsync({ type: "blob" }).then((content) => {
+      saveAs(content, `${name}.zip`);
+    });
+  },[])
 
-  };
+
   return (
     <AlbumContainer>
       <AlbumHeader>
         <Typography variant="subtitle1">{new Intl.DateTimeFormat(undefined, { dateStyle: 'medium' }).format(new Date(data.createdAt))}</Typography>
-        <IconButton aria-labe="download" onClick={onClickHandler} >
+        <IconButton aria-label="download" onClick={downloadFile} >
           <DownloadIcon fontSize="large" />
         </IconButton>
       </AlbumHeader>
