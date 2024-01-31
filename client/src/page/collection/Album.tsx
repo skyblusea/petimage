@@ -13,8 +13,7 @@ import { IconButton } from "@mui/material";
 import JSZip from 'jszip'
 import { saveAs } from "file-saver";
 import { useCallback, useState } from "react";
-import ZoomInMapRoundedIcon from '@mui/icons-material/ZoomInMapRounded';
-
+import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
 export default function Album({ data }: { data: AlbumItem }) {
   //TODO : rendering delay
   const [open, setOpen] = useState<number | undefined>()
@@ -52,13 +51,18 @@ export default function Album({ data }: { data: AlbumItem }) {
         <AccordionDetails>
           <Grid container spacing={1}>
             {data.outputFiles.map((file, idx) =>
-                <Grid key={idx} xs={12 / 5}>
-                  <BaseImgBox view hover square src={file} alt="dog" onClick={() => setOpen(idx)}></BaseImgBox>
-                  {open === idx &&
-                    <Backdrop open={open === idx} onClick={() => setOpen(undefined)} sx={{ zIndex: 100, cursor: "zoom-out" }}>
+              <Grid key={idx} xs={12 / 5}>
+                <BaseImgBox view hover square src={file} alt="dog" onClick={() => setOpen(idx)}></BaseImgBox>
+                {open === idx &&
+                  <Backdrop open={open === idx} onClick={() => setOpen(undefined)} sx={{ zIndex: 100, cursor: "zoom-out" }}>
+                    <ImgWrraper>
                       <img src={file} alt="dog" />
-                    </Backdrop>}
-                </Grid>
+                      <IconButton sx={{ position: 'absolute', right: 0, top: 0 }} onClick={() => setOpen(undefined)}>
+                        <CloseFullscreenIcon color="secondary" />
+                      </IconButton>
+                    </ImgWrraper>
+                  </Backdrop>}
+              </Grid>
             )}
           </Grid>
         </AccordionDetails>
@@ -89,23 +93,8 @@ const AccordionBox = styled(Accordion)`
     display: none;
   }
 `
-// type BackdropProps = {
-//   open?: boolean
-// }
 
-// const Backdrop = styled.div<BackdropProps>`
-//   animation: fadein ease-in forwards;
-//   position: fixed;
-//   inset: 0;
-//   overflow: hidden;
-//   z-index: 100;
-//   background-color: rgba(0, 0, 0, 0.9);
-//   @keyframes fadein {
-//     0% {
-//       opacity: 0;
-//     }
-//     100% {
-//       opacity: 1;
-//     }
-//   }
-// `
+const ImgWrraper = styled.div`
+  position: relative;
+  margin: auto;
+`
