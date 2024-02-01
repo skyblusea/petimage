@@ -29,7 +29,7 @@ export const SingleSection = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: var(--pd-nav);
+  padding: 0 var(--pd-nav);
 `
 
 export const MultiSection = styled.section`
@@ -38,7 +38,7 @@ export const MultiSection = styled.section`
   height: 100%;
   align-items: center;
   justify-content: center;
-  padding: var(--pd-nav);
+  padding: 0 var(--pd-nav);
   flex-direction: column;
 `
 
@@ -59,7 +59,7 @@ interface PetimageThemeProps {
 
 export const PetimegeThemeWH = styled.div<PetimageThemeProps>`
   background-color: ${props => props.color || "white"};
-  padding: var(--pd-nav);
+  padding: 0 var(--pd-nav);
   padding-top: 40px;
   width: 100%;
   height: 100%;
@@ -72,7 +72,7 @@ export const PetimageThemeContainer = styled.section`
 `
 export const PetimegeThemeHeader = styled.div<PetimageThemeProps>`
   background-color: var(--petimage);
-  padding: var(--pd-nav);
+  padding: 0 var(--pd-nav);
   padding-top: 60px;
   padding-bottom: var(--gap-sm);
   width: 100%;
@@ -90,7 +90,7 @@ export const PetimegeThemeHeader = styled.div<PetimageThemeProps>`
 export const PetimegeThemeContent = styled.div<PetimageThemeProps>`
   background-color: white;
   width: 100%;
-  padding: var(--pd-nav);
+  padding: 0 var(--pd-nav);
   padding-bottom: var(--gap-lg);
   padding-top: var(--gap-lg);
 

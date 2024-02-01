@@ -28,11 +28,11 @@ export default function Header() {
   const { setLoginModal, loginModalOpen } = useAuth()
 
   return (
-    <HeaderContainer hasGifBG={hasGifBG}>
+    <HeaderContainer hasGifBG={hasGifBG} loginModalOpen={loginModalOpen}>
       <Link to="/" className="logo">
         <Logo />
       </Link>
-      {loginModalOpen && <LoginModal/>}
+      {loginModalOpen && <LoginModal />}
       {isMobile ? <>
         <IconButton
           color="inherit"
@@ -45,7 +45,7 @@ export default function Header() {
         </IconButton>
         <MobileNav drawerOpen={drawerOpen} handleDrawerClose={handleDrawerClose} />
       </>
-        : <WebNav/>
+        : <WebNav />
       }
     </HeaderContainer>
   )
@@ -53,6 +53,7 @@ export default function Header() {
 
 type HeaderContainerProps = {
   hasGifBG: boolean
+  loginModalOpen: boolean
 }
 
 const HeaderContainer = styled.header<HeaderContainerProps>`
@@ -61,10 +62,11 @@ const HeaderContainer = styled.header<HeaderContainerProps>`
   align-items: center;
   width: 100%;
   height: ${isMobile ? '92px' : 'var(--nav-h)'};
-  padding: var(--pd-nav);
+  padding: 0 var(--pd-nav);
   padding-top: 10px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #EAEDEF;;
+  border-bottom: 1px solid #EAEDEF;
+  padding-right: ${props => props.loginModalOpen ? 'calc(var(--pd-nav) + 14px)' :'var(--pd-nav)'};
   position: fixed;
   top:0;
   z-index: 100;

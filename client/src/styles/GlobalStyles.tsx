@@ -74,15 +74,15 @@ const reset = css`
     --swiper-theme-color: var(--petimage);
 
     /* nav-padding */
-    --pd-nav: 0 22.72rem;
+    --pd-nav: 22.72rem;
     @media screen and (max-width: 1600px){
-      --pd-nav: 0 8rem;
+      --pd-nav: 8rem;
     }
     @media screen and (max-width: 1200px){
-      --pd-nav: 0 3rem;
+      --pd-nav: 3rem;
     }
     @media screen and (max-width: 900px){
-      --pd-nav: 0 1rem;
+      --pd-nav: 1rem;
     }
 
 

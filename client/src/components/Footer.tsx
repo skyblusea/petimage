@@ -23,7 +23,7 @@ const FooterContainer = styled.footer<FooterProps>`
   color: ${props => props.hasGifBG ? 'white' : 'var(--black)'};
   display: flex;
   margin-top: 20px;
-  padding: var(--pd-nav);
+  padding: 0 var(--pd-nav);
   align-items: end;
   gap: var(--gap-lg);
 `

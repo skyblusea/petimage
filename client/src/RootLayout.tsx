@@ -16,6 +16,7 @@ export default function RootLayout() {
       <Header />
       <MainContainer>
         <Outlet />
+        
         <Footer />
         {(pathname === '/' || pathname === '/create') && <ReactPlayer className="bg" url="bg.mp4" width="100%" height="100%" playing={true} />}
       </MainContainer>
