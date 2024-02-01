@@ -32,6 +32,7 @@ export default function Header() {
       <Link to="/" className="logo">
         <Logo />
       </Link>
+      {loginModalOpen && <LoginModal/>}
       {isMobile ? <>
         <IconButton
           color="inherit"
@@ -46,8 +47,6 @@ export default function Header() {
       </>
         : <WebNav/>
       }
-      {loginModalOpen && <LoginModal/>}
-
     </HeaderContainer>
   )
 }

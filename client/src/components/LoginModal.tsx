@@ -14,42 +14,40 @@ import useAuth from '../util/useAuth';
 
 export default function LoginModal() {
   const navigate = useNavigate();
-  const { setLoginModal } = useAuth() 
+  const { setLoginModal } = useAuth()
   const handleLoginClose = () => setLoginModal(false)
 
   return (
-    <SingleSection>
-      <Dialog
-        sx={{ width:'100% !important'}}
-        open={true}
-        aria-labelledby="login-dialog"
-        onClose={handleLoginClose}
+    <Dialog
+      sx={{ width: '100% !important' }}
+      open={true}
+      aria-labelledby="login-dialog"
+      onClose={handleLoginClose}
+    >
+      <DialogTitle id="login-dialog">로그인</DialogTitle>
+      <IconButton
+        aria-label="close"
+        onClick={(e) => {
+          e.stopPropagation()
+          handleLoginClose()
+        }}
+        sx={{ position: 'absolute', right: '8px', top: '8px' }}
       >
-        <DialogTitle id="login-dialog">로그인</DialogTitle>
-        <IconButton
-          aria-label="close"
-          onClick={(e) => {
-            e.stopPropagation()
-            handleLoginClose()
-          }}
-          sx={{ position: 'absolute', right: '8px', top: '8px' }}
-        >
-          <CloseIcon />
-        </IconButton>
-        <DialogContent sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 'var(--gap-md)',
-        }}>
-          <GoogleLoginBtn />
-          <AppleLoginBtn />
-        </DialogContent>
-        <BtnWrapper>
-          <Button variant='text' sx={{ color: 'var(--black)' }}>이용약관</Button>
-          <Button variant='text' sx={{ color: 'var(--black)' }}>개인정보처리방침</Button>
-        </BtnWrapper>
-      </Dialog>
-    </SingleSection>
+        <CloseIcon />
+      </IconButton>
+      <DialogContent sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 'var(--gap-md)',
+      }}>
+        <GoogleLoginBtn />
+        <AppleLoginBtn />
+      </DialogContent>
+      <BtnWrapper>
+        <Button variant='text' sx={{ color: 'var(--black)' }}>이용약관</Button>
+        <Button variant='text' sx={{ color: 'var(--black)' }}>개인정보처리방침</Button>
+      </BtnWrapper>
+    </Dialog>
   )
 }
 

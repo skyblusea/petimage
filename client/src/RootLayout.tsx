@@ -3,11 +3,14 @@ import { MainContainer } from "./components/Containers"
 import Footer from "./components/Footer"
 import Header from "./components/Header"
 import ReactPlayer from "react-player/file";
+import useAuth from "./util/useAuth";
+import LoginModal from "./components/LoginModal";
 
 
 
 export default function RootLayout() {
   const pathname = useLocation().pathname
+
   return (
     <>
       <Header />
