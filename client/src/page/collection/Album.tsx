@@ -13,7 +13,9 @@ import { IconButton } from "@mui/material";
 import JSZip from 'jszip'
 import { saveAs } from "file-saver";
 import { useCallback, useState } from "react";
-import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import { isMobile } from "react-device-detect";
+
 export default function Album({ data }: { data: AlbumItem }) {
   //TODO : rendering delay
   const [open, setOpen] = useState<number | undefined>()
@@ -57,8 +59,8 @@ export default function Album({ data }: { data: AlbumItem }) {
                   <Backdrop open={open === idx} onClick={() => setOpen(undefined)} sx={{ zIndex: 100, cursor: "zoom-out" }}>
                     <ImgWrraper>
                       <img src={file} alt="dog" />
-                      <IconButton sx={{ position: 'absolute', right: 0, top: 0 }} onClick={() => setOpen(undefined)}>
-                        <CloseFullscreenIcon color="secondary" />
+                      <IconButton sx={{ position: 'absolute', right: '24px', top: '8px' }} onClick={() => setOpen(undefined)}>
+                        <CloseRoundedIcon sx={{fontSize:`${isMobile ?'48px' :'24px' }`}} />
                       </IconButton>
                     </ImgWrraper>
                   </Backdrop>}

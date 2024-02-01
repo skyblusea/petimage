@@ -1,15 +1,14 @@
-import { PetimageThemeContainer, PetimegeThemeWH, RoundPaper } from "../../../components/Containers";
-import styled from "@emotion/styled"
+import { PetimageThemeContainer, PetimegeThemeHeader, PetimegeThemeContent } from "../../../components/Containers";
 import { useQuery } from "@tanstack/react-query";
 import { QueryClient } from "@tanstack/react-query";
-import { useLoaderData, useLocation } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { AxiosInstance } from "axios";
 import useAuth from "../../../util/useAuth";
 import { PaymentHistory } from "../../../types";
-import { Stack } from "@mui/material";
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
 import Payment from "./Payment";
-import { Tab, TabContainer, TabPanel, Tabs } from "../../collection/page";
-
 
 
 
@@ -46,24 +45,20 @@ export default function PaymentHistory() {
     initialData: initialData ? initialData : undefined,
     enabled: isAuthenticated,
   })
-  const pathname = useLocation().pathname
 
   return (
     <PetimageThemeContainer>
-      <PetimegeThemeWH full>
-        <TabContainer>
-          <Tabs elevation={3}>
-            <Tab role="tab" aria-label="payments" aria-selected={pathname === '/payment/history'}>
-              결제 내역
-            </Tab>
-          </Tabs>
-          <TabPanel role="tabpanel" hidden={pathname === '/collection'}>
-            <Stack spacing={2}>
-              {payments?.map((payment) => <Payment key={payment._id} data={payment} />)}
-            </Stack>
-          </TabPanel>
-        </TabContainer>
-      </PetimegeThemeWH>
+      <PetimegeThemeHeader>
+        <Box display="flex" flexGrow={1} justifyContent="center">
+          <Typography variant="h2" color="secondary">결제 내역</Typography>
+        </Box>
+      </PetimegeThemeHeader>
+      <PetimegeThemeContent full>
+        <Stack spacing={2}>
+          {payments?.map((payment) => <Payment key={payment._id} data={payment} />)}
+        </Stack>
+
+      </PetimegeThemeContent>
     </PetimageThemeContainer>
   )
 }

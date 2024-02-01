@@ -44,6 +44,7 @@ export interface AlbumDetails {
     amount: number;
     name: string;
     price: string;
+    type: string;
   }
   animalCode : string | undefined;
   inputFiles : string[] | null;

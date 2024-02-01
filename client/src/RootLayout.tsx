@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom"
 import { MainContainer } from "./components/Containers"
 import Footer from "./components/Footer"
-import Header from "./components/Nav"
+import Header from "./components/Header"
 import ReactPlayer from "react-player/file";
 
 

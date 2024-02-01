@@ -1,12 +1,13 @@
 import styled from "@emotion/styled";
 import Paper from '@mui/material/Paper';
+import { isMobile } from "react-device-detect";
 
 
 export const MainContainer = styled.main`
   width: 100%;
   height: 100%;
   min-height: 100vh;
-  padding-top: var( --nav-h);
+  padding-top: ${isMobile ? '92px' : 'var(--nav-h)'};
   flex-direction: column;
   display: flex;
   position: relative;
@@ -29,7 +30,6 @@ export const SingleSection = styled.section`
   align-items: center;
   justify-content: center;
   padding: var(--pd-nav);
-  /* max-height: calc(100vh - calc( var(--nav-h) + var(--footer-h))); */
 `
 
 export const MultiSection = styled.section`
@@ -80,9 +80,7 @@ export const PetimegeThemeHeader = styled.div<PetimageThemeProps>`
   display: flex;
   flex-direction: row;
   align-items: top;
-  @media screen and (max-width: 900px){
-    flex-direction: column;
-    }
+  flex-direction: ${isMobile ? 'column' : 'row'};
   h2 {
     flex-shrink: 0;
     margin-right: var(--gap-md);

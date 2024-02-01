@@ -77,7 +77,7 @@ const theme = createTheme({
       styleOverrides: {
         root: ({ ownerState }) => ({
           ...((ownerState.variant === 'contained' || ownerState.variant === 'outlined') && {
-             borderRadius: '24px',
+             borderRadius: '100px',
             }),
         }),
       }, 
@@ -95,6 +95,10 @@ const theme = createTheme({
     },
     h5: {
       fontWeight: '700', //!
+    },
+    body0: {
+      fontWeight: '400',
+      fontSize: '1.5rem',
     },
     body1: {
       fontWeight: '400',

@@ -18,6 +18,7 @@ import { AlbumDetails } from "../../../../../../types";
 import { FileWithUrl } from "../../../../../../types";
 import { readFile } from "../../../../../../util/readFile";
 import useAuth from "../../../../../../util/useAuth";
+import { isMobile } from "react-device-detect";
 
 
 export default function Upload() {
@@ -86,13 +87,13 @@ export default function Upload() {
     }
   }
 
-
+  
   return (
     <Grid container spacing={3}>
-      <Grid xs={6} display={!files.length ? 'flex' : 'none'}>
+      <Grid xs={isMobile ? 12 : 6 } display={!files.length ? 'flex' : 'none'}>
         <GuideLine />
       </Grid>
-      <Grid xs={!files.length ? 6 : 12} >
+      <Grid xs={(!!files.length || isMobile) ?12 :6} >
         <DragNDropBox
           onDragEnter={onDragEnterHandler}
           onDragLeave={onDragLeaveHandler}
@@ -126,7 +127,7 @@ export default function Upload() {
             onChange={onChangeHandler} />
           <Grid container spacing={1} sx={{ width: '100%' }}>
             {files.map((file) => (
-              <Grid key={file.id} xs={2}>
+              <Grid key={file.id} xs={isMobile ? 4 : 2 }>
                 <AlbumItemWrapper>
                   <Box
                     sx={{
@@ -139,6 +140,7 @@ export default function Upload() {
                       border: `${file.isValid ? 'none' : '2px solid'}`,
                       borderColor: `${file.isValid ? 'none' : 'error.main'}`
                     }} />
+                  {/* 삭제 아이콘 */}
                   <IconButton
                     onClick={() => {
                       const filtered = files.filter(f => f.id !== file.id)
@@ -147,7 +149,7 @@ export default function Upload() {
                     color="inherit"
                     sx={{ color: "#bbb" }}
                     aria-label="delete" size="small">
-                    <SvgIcon component={DeleteIcon} inheritViewBox />
+                    <SvgIcon component={DeleteIcon} inheritViewBox sx={{fontSize: `${isMobile ? '48px' : '24px' }`}}/>
                   </IconButton>
                   {!file.isValid && <HighlightOffRoundedIcon fontSize="medium" color="error" />}
                 </AlbumItemWrapper>
@@ -155,7 +157,8 @@ export default function Upload() {
             ))}
             {(0 < files.length && files.length < 12)
               &&
-              <Grid xs={2} display="flex">
+              <Grid xs={isMobile ? 4 : 2 } display="flex">
+                {/* 이미지 추가 버튼 */}
                 <Button
                   htmlFor="file-input"
                   role="button"
@@ -165,7 +168,7 @@ export default function Upload() {
                     borderRadius: 'var(--border-radius-lg)',
                     flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', aspectRatio: '1/1' }}
                 >
-                  <AddRoundedIcon fontSize="large" />
+                  <AddRoundedIcon sx={{fontSize: `${isMobile ? '56px' : '48px' }`}} />
                 </Button>
               </Grid>
             }

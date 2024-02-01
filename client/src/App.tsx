@@ -28,7 +28,7 @@ import axios from 'axios';
 import PaymentHistory, { loader as paymenyHistoryLoader } from './page/payment/history/page.tsx';
 import Payment from './page/payment/page.tsx';
 import PaymentFail from './page/payment/fail/page.tsx';
-import Auth from './page/auth/page.tsx';
+import Auth from './components/LoginModal.tsx';
 
 
 function newApiClient() {
@@ -58,7 +58,6 @@ export default function App() {
           { path: '/service', element: <Service /> },
           { path: '/product', element: <Product />, loader: productLoader(queryClient) },
           { path: '/about', element: <About /> },
-          { path: '/auth', element: <Auth /> },
           // protected
           {
             element: <ProtectedRoute />,

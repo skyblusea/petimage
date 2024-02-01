@@ -6,15 +6,13 @@ import 'swiper/css/pagination';
 import styled from '@emotion/styled';
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
-import { RoundPaper, SingleSection } from '../../components/Containers';
+import { SingleSection } from '../../components/Containers';
 import { QueryClient, useQuery } from "@tanstack/react-query"
-import { Link, useLoaderData } from 'react-router-dom';
-import BaseImgBox from '../../components/Boxes';
+import { useLoaderData } from 'react-router-dom';
 import { Theme } from '../../types';
 import { apiClient } from '../../util/axiosInstance';
 import { isMobile } from 'react-device-detect';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import Banner from './Banner';
 
 
 export const loader = (queryClient: QueryClient) =>
@@ -48,74 +46,59 @@ export default function SelectTheme() {
 
   return (
     <SingleSection>
-      <BannerWrapper>
-        <Swiper
-          modules={[Pagination,Navigation]}
-          // centeredSlides={true}
-          slidesPerView={3}
-          // loop={true}
-          pagination={true}
-          grabCursor={true}
-          navigation={{ prevEl: ".arrow-left", nextEl: ".arrow-right" }}
-        >
-          {theme.map((content, idx) =>
-            <SwiperSlide key={content._id}>
-              <Box padding="var(--pd-sm)" paddingBottom="calc(var(--gap-lg) + 20px)">
-                <Link to={`/create/${content._id}`}>
-                  <RoundPaper elevation={3}>
-                    <BaseImgBox src={content.sample[0]} alt={`banner${idx}`} />
-                    <Box display="flex" alignItems="center" justifyContent="space-between" width="100%">
-                      <Typography variant="h4" component="h1" sx={{ typography: { xs: 'subtitle0'}, fontWeight:'700'}}>
-                        {content.name}
-                      </Typography>
-                      <Typography
-                        variant="subtitle2"
-                        sx={{
-                          color: 'error.main',
-                          typography: { xs: 'subtitle1', lg: 'subtitle0' }
-                        }}>
-                        {content.price} 원
-                      </Typography>
-                    </Box>
-                    <Box display="flex" width="100%" >
-                      <Typography variant="body1" sx={{ typography: { xs: 'body2', md: 'body1' } }}>
-                        {content.desc}
-                      </Typography>
-                    </Box>
-                  </RoundPaper>
-                </Link>
-              </Box>
-            </SwiperSlide>)}
-        </Swiper>
-        <ArrowBackIosNewRoundedIcon
-          className="arrow-left" color="secondary"
-          sx={{
-            display: { xs: 'none !important', md: 'flex !important' },
-            fontSize: { xs: '2.25rem', lg: '3rem' },
-            left: { xs: 'calc(-2.25rem - 16px)', lg: 'calc(-3rem - 16px)' }
-          }}
-        />
-        <ArrowForwardIosRoundedIcon
-          className="arrow-right" color="secondary"
-          sx={{
-            display: { xs: 'none !important', md: 'flex !important' },
-            fontSize: { xs: '2.25rem', lg: '3rem' },
-            right: { xs: 'calc(-2.25rem - 16px)', lg: 'calc(-3rem - 16px)' }
-          }} />
+      <BannerWrapper isMobile={isMobile}>
+        {isMobile
+          ? <>{theme.map((content, idx) => <Banner content={content} idx={idx} />)}</>
+          : <>
+            <Swiper
+              modules={[Pagination, Navigation]}
+              // centeredSlides={true}
+              slidesPerView={3}
+              // loop={true}
+              pagination={true}
+              grabCursor={true}
+              navigation={{ prevEl: ".arrow-left", nextEl: ".arrow-right" }}
+            >
+              {theme.map((content, idx) =>
+                <SwiperSlide key={content._id}>
+                  <Banner content={content} idx={idx} />
+                </SwiperSlide>)}
+            </Swiper>
+            <ArrowBackIosNewRoundedIcon
+              className="arrow-left" color="secondary"
+              sx={{
+                display: { xs: 'none !important', md: 'flex !important' },
+                fontSize: { xs: '2.25rem', lg: '3rem' },
+                left: { xs: 'calc(-2.25rem - 16px)', lg: 'calc(-3rem - 16px)' }
+              }}
+            />
+            <ArrowForwardIosRoundedIcon
+              className="arrow-right" color="secondary"
+              sx={{
+                display: { xs: 'none !important', md: 'flex !important' },
+                fontSize: { xs: '2.25rem', lg: '3rem' },
+                right: { xs: 'calc(-2.25rem - 16px)', lg: 'calc(-3rem - 16px)' }
+              }} />
+          </>
+        }
+
       </BannerWrapper>
     </SingleSection>
 
   )
 }
 
+type BannerWrapperProps = {
+  isMobile: boolean
+}
 
 
-const BannerWrapper = styled.div`
+const BannerWrapper = styled.div<BannerWrapperProps>`
   display: flex;
   color: var(--white);
   width: 100%;
   position: relative;
-
+  flex-direction: ${props => props.isMobile ? 'column' : 'row'};
   .swiper-slide{
   /* 슬라이드 레이아웃 */
     & >div{

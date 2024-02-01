@@ -105,9 +105,6 @@ const reset = css`
 
     --nav-h: 60px;
     --footer-h: 50px;
-    @media screen and (max-width: 900px){
-      --nav-h: 40px;
-    }
   }
 
 

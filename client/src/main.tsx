@@ -13,10 +13,8 @@ import App from './App.tsx'
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <Global styles={reset} />
-      <App />
-    </ThemeProvider>
-  </React.StrictMode >,
+  <ThemeProvider theme={theme}>
+    <Global styles={reset} />
+    <App />
+  </ThemeProvider>
 )

@@ -25,7 +25,8 @@ export const loader = (queryClient: QueryClient) =>
       themeId : filtered._id,
       amount : filtered.amount,
       name : filtered.name,
-      price : filtered.price
+      price : filtered.price,
+      type : filtered.type,
     }
     return themeData
   }

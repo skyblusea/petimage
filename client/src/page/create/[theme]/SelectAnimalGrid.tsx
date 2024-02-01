@@ -9,14 +9,14 @@ export default function SelectAnimal() {
   return (
     <Grid container spacing={10} >
       <Grid xs={6} display="flex">
-        <BaseImgBox square to={`/create/${theme}/dog`} src="/dog.png" alt="강아지">
+        <BaseImgBox hover square to={`/create/${theme}/dog`} src="/dog.png" alt="강아지">
           <Typography component="span" color='primary' sx={{ typography: { xs: 'subtitle2', lg: 'subtitle1' } }}>
             강아지
           </Typography>
         </BaseImgBox>
       </Grid>
       <Grid xs={6} display="flex">
-        <BaseImgBox square to={`/create/${theme}/cat`} src="/cat.png" alt="고양이">
+        <BaseImgBox hover square to={`/create/${theme}/cat`} src="/cat.png" alt="고양이">
           <Typography component="span" color='primary' sx={{ typography: { xs: 'subtitle2', lg: 'subtitle1' } }}>
             고양이
           </Typography>

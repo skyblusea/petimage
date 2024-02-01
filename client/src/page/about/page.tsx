@@ -19,7 +19,7 @@ export default function About() {
     <PetimageThemeContainer>
       <PetimegeThemeHeader>
         <Typography variant="h2" color="secondary">회사 소개</Typography>
-        <Typography sx={{ typography: { xs: 'subtitle2', lg: 'subtitle1' } }}>페티마제(petimage)는 Pet + Image를 합친 말로 부르기 쉽게
+        <Typography sx={{ typography: { xs: 'body1', lg: 'body0' } }}>페티마제(petimage)는 Pet + Image를 합친 말로 부르기 쉽게
           ‘페티마제’라는 국문명으로 서비스 명칭을 정하였습니다.
         </Typography>
       </PetimegeThemeHeader>

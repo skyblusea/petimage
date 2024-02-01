@@ -9,11 +9,11 @@ export const loader = async ({ params, request }: { params: Params, request: Req
   const { orderId, paymentKey, amount } = Object.fromEntries(searchParams.entries())
   const requestPaymentData = {
     orderId,
-    amount : Number(amount),
+    amount: Number(amount),
     paymentKey,
     paymentId
   }
-  const createAlbumData =  JSON.parse(localStorage.getItem('albumDetails')??'') as AlbumDetails
+  const createAlbumData = await JSON.parse(localStorage.getItem('albumDetails') ?? '') as AlbumDetails
   localStorage.removeItem('albumDetails')
   return { requestPaymentData, createAlbumData }
 }
@@ -23,7 +23,7 @@ export const loader = async ({ params, request }: { params: Params, request: Req
 // 결제 승인을 위한 post 요청동안 url로 일정시간 이상 노출 되는 것을 방지하고자
 // loader에서 catch 후 바로 redirect를 하도록 함
 
-export default function Redirect () {
-  const data = useLoaderData()  
-  return <Navigate to="/payment" replace={true} state={data}/>
+export default function Redirect() {
+  const data = useLoaderData()
+  return <Navigate to="/payment" replace={true} state={data} />
 }

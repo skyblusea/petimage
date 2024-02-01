@@ -1,15 +1,16 @@
 
-import { PetimageThemeContainer, PetimegeThemeWH, RoundPaper } from "../../components/Containers";
+import { PetimageThemeContainer, PetimegeThemeHeader, PetimegeThemeContent, RoundPaper } from "../../components/Containers";
 import styled from "@emotion/styled"
-import { Stack } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import Album from "./Album";
 import { QueryClient } from "@tanstack/react-query";
-import { useLoaderData, useLocation } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { AlbumItem } from "../../types";
 import { AxiosInstance } from "axios";
 import useAuth from "../../util/useAuth";
-
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
 
 
 
@@ -45,25 +46,20 @@ export default function Collection() {
     initialData: initialData ? initialData : undefined,
     enabled: isAuthenticated,
   })
-  const pathname = useLocation().pathname
 
 
   return (
     <PetimageThemeContainer>
-      <PetimegeThemeWH full>
-        <TabContainer>
-          <Tabs elevation={3}>
-            <Tab role="tab" aria-label="album" aria-selected={pathname === '/collection'}>
-              갤러리
-            </Tab>
-          </Tabs>
-          <TabPanel role="tabpanel" hidden={pathname === '/payments'}>
-            <Stack spacing={2}>
-              {albums?.map((album) => <Album key={album._id} data={album} />)}
-            </Stack>
-          </TabPanel>
-        </TabContainer>
-      </PetimegeThemeWH>
+      <PetimegeThemeHeader>
+        <Box display="flex" flexGrow={1} justifyContent="center">
+          <Typography variant="h2" color="secondary">갤러리</Typography>
+        </Box>
+      </PetimegeThemeHeader>
+      <PetimegeThemeContent full>
+        <Stack spacing={2}>
+          {albums?.map((album) => <Album key={album._id} data={album} />)}
+        </Stack>
+      </PetimegeThemeContent>
     </PetimageThemeContainer>
   )
 }

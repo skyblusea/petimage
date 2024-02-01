@@ -216,3 +216,222 @@
 
  success시
     'http://localhost:5173/payment/success?paymentType=…p&paymentKey=tviva20240123113226cIMi0&amount=4900'
+
+//themekiader
+
+[
+  {
+      "_id": "657953f6ed59584aa4b2c983",
+      "name": "우주여행",
+      "desc": "반려동물이 광활한 우주를 여행하는 모습은 어떠신가요? 수많은 별들과 은하수를 구경하고, 지구를 바라보는 우주비행사! 재밌는 여행을 하고 있는지 한번 구경해 봐요!",
+      "prompt": [
+          {
+              "steps": "40",
+              "cfg_scale": "9",
+              "sampler_index": "DPM++ 2M SDE Karras",
+              "negative_prompt": "text, watermark, ugly, blurred, blurry, low quality",
+              "batch_size": "10",
+              "width": "1024",
+              "height": "1024",
+              "prompt": "(qwer animal_name:[species_name animal_name:39] :1.4) (qwer animal_name swims in space) ,8k, best quality, realistic, photo-realistic, masterpiece, best quality, photo , <lora:album_id:1>"
+          },
+          {
+              "batch_size": "10",
+              "width": "1024",
+              "height": "1024",
+              "steps": "42",
+              "cfg_scale": "7.5",
+              "sampler_index": "DPM++ 2M Karras",
+              "negative_prompt": "((extra fingers,fewer fingers,strange fingers), human:1.5, bad face), bad anatomy, negativeXL_D, (worst quality:2), lowres, normal quality, watermark, signature, patreon logo, id, text, bad hands, bad arms, misssing limbs, ugly",
+              "refiner_checkpoint": "sd_xl_refiner_1.0.safetensors [7440042bbd]",
+              "refiner_switch_at": "0.8",
+              "prompt": "(qwer  animal_name:[species_name animal_name:36]:1.4), (is doing space walk:1.8), galaxy, space, stars, planets, (medium shot:1.2), (isolated on the earth background:1.5), (space:0.3), (photorealistic:1.4), realism, 8k, Ultra-High-Definition, (Masterpiece:1.5), (best quality:1.5), digital camera style, <lora:space:0.5>, <lora:album_id:1>"
+          },
+          {
+              "steps": "42",
+              "cfg_scale": "9",
+              "sampler_index": "DPM++ 2M Karras",
+              "batch_size": "10",
+              "width": "1024",
+              "height": "1024",
+              "refiner_checkpoint": "sd_xl_refiner_1.0.safetensors [7440042bbd]",
+              "refiner_switch_at": "0.8",
+              "prompt": "(qwer animal_name is wearing astronaut suit:1.3, qwer animal_name : [species_name animal_name:36] explore the planet:1.5),  (isolated on the earth background:1.7), spacesuit boots, realism, 8k, Ultra-High-Definition, (Masterpiece:1.5, best quality:1.5), realistic, digital camera style, <lora:album_id:1>",
+              "negative_prompt": "(human:1.5), face human, extra legs, missing legs ,  (more than one animal_name) , human, signature, (close-up), selfie, bad anatomy, anime style, negativeXL_D"
+          }
+      ],
+      "background": "background example",
+      "tag": "우주여행,달 착륙,행성,탐험",
+      "type": "AI 컨셉사진",
+      "price": "4,900",
+      "popular": 229,
+      "amount": 30,
+      "sample": [
+          "https://petimage.kr/files/pet/65b3051586d2c262a1a2518b/image1_1706239348183.png",
+          "https://petimage.kr/files/pet/65b3051586d2c262a1a2518b/image2_1706239474583.png",
+          "https://petimage.kr/files/pet/65b3051586d2c262a1a2518b/image3_1706239604922.png",
+          "https://petimage.kr/files/pet/65b304e086d2c262a1a25174/image3_1706238843466.png"
+      ],
+      "trial": [
+          {
+              "class": "고양이",
+              "img": "https://petimage.kr/files/uploads/admin/샴.jpg",
+              "output": "https://petimage.kr/files/pet/admin/ast1.png"
+          },
+          {
+              "class": "강아지(임시)",
+              "img": "https://petimage.kr/files/uploads/admin/샴.jpg",
+              "output": "https://petimage.kr/files/pet/admin/ast2.png"
+          }
+      ],
+      "createdAt": "2023-12-14T05:34:05.617Z",
+      "updatedAt": "2024-02-01T03:10:35.921Z",
+      "category": [
+          "NEW",
+          "HOT"
+      ],
+      "priceCode": "petimage_basic_theme",
+      "status": 1
+  },
+  {
+      "_id": "657953f6ed59584aa4b2c984",
+      "name": "여름휴가",
+      "desc": "365일 내내 귀여우느라 고생한 당신, 떠나라! 저 멀리 여유로운 휴양지에서 달콤한 휴가를 보내고 있는 우리 친구들을 만나보세요!",
+      "prompt": [
+          {
+              "sampler_index": "DPM++ 2M SDE Karras",
+              "batch_size": "10",
+              "width": "1024",
+              "steps": "41",
+              "cfg_scale": "7.5",
+              "negative_prompt": "bad feets, bad hands, human, human hands, (hind legs) ,  negativeXL_D",
+              "height": "1024",
+              "prompt": "([qwer animal_name:species_name animal_name:33]:1.5), ((A qwer animal_name enjoying suntan on the beach:1.4, qwer animal_name in a Hawaiian shirt)), aloha shirt, mojito, best quality, masterpiece, sun bed, a beautiful beach, colorful, dynamic angle, realistic, Cinemascope, Full shot, sunshine over the sea surface, digital camera style <lora:album_id:1>"
+          },
+          {
+              "sampler_index": "DPM++ 2M Karras",
+              "batch_size": "10",
+              "width": "1024",
+              "height": "1024",
+              "steps": "42",
+              "cfg_scale": "7.5",
+              "negative_prompt": "extra legs, missing legs , fin, fishreg (mixed, synthesized),  more than one animal_name , human, signature, (close-up), selfie, bad anatomy, anime style, negativeXL_D",
+              "prompt": "(([qwer animal_name:species_name animal_name: 40] is sea walking:1.4)) under the sea (without diving mask),(background is tropical fish and tropical coral) is nearby qwer animal_name, colorful, (medium shot:1.3), 4k, Ultra-High-Definition, (Masterpiece , best quality:1.2, photo realistic:1.2), Cinemascope,<lora:album_id:1>"
+          },
+          {
+              "steps": "41",
+              "cfg_scale": "7.5",
+              "sampler_index": "DPM++ 2M Karras",
+              "batch_size": "10",
+              "width": "1024",
+              "height": "1024",
+              "negative_prompt": "bad feet, bad hand, human, human hands, (hind legs)",
+              "prompt": "([qwer animal_name:species_name animal_name:33]:1.4):), (animal_name is surf nicely with surfing board in the sea:1.4) , best quality, masterpiece, beautiful and aesthetic:1.2, colorful, dynamic angle, realistic, Cinemascope ,Full shot, sunshine over the sea surface,  digital camera style, qwer animal_name <lora:album_id:1>"
+          }
+      ],
+      "background": null,
+      "tag": "해변,물놀이,서핑,열대어",
+      "type": "AI 컨셉사진",
+      "price": "4,900",
+      "popular": 159,
+      "amount": 30,
+      "sample": [
+          "https://petimage.kr/files/pet/65b3371086d2c262a1a25359/image1_1706253250525.png",
+          "https://petimage.kr/files/pet/65b3371086d2c262a1a25359/image2_1706253369142.png",
+          "https://petimage.kr/files/pet/65b3371086d2c262a1a25359/image3_1706253483630.png"
+      ],
+      "trial": [
+          {
+              "img": "https://petimage.kr/files/uploads/admin/샴.jpg",
+              "output": "https://petimage.kr/files/pet/admin/scb1.png",
+              "class": "고양이"
+          },
+          {
+              "class": "강아지(임시)",
+              "img": "https://petimage.kr/files/uploads/admin/샴.jpg",
+              "output": "https://petimage.kr/files/pet/admin/scb2.png"
+          }
+      ],
+      "createdAt": "2023-12-14T05:34:05.617Z",
+      "updatedAt": "2024-02-01T03:45:29.933Z",
+      "category": [
+          "NEW",
+          "HOT"
+      ],
+      "priceCode": "petimage_basic_theme",
+      "status": 1
+  },
+  {
+      "_id": "65a47fda2cb46337695875b9",
+      "name": "한복",
+      "desc": "즐거운 새해 눈오는 겨울날. 눈덮힌 자연 경관과 예쁜 한옥에서 한복을 입고 있는 모습 생각해보셨나요?",
+      "prompt": [
+          {
+              "cfg_scale": "8",
+              "negative_prompt": "((human:2, 2 animal_name, more than one animal_name, nsfw)), (worst quality, bad quality:1.4, fennis,glans , long neck, bad anatomy, long neck:1.2), (worst face, bad face:1.2, censored),(extra legs, missing legs , extra limbs, extra head, extra tails, disfigured, deformed)painting, cartoon, text, bad art, beginner, amateur, distorted face, watermark, low quality, medium quality, blurry, signature, negativeXL_D",
+              "steps": "42",
+              "sampler_index": "DPM++ 2M SDE Karras",
+              "batch_size": "15",
+              "width": "1024",
+              "refiner_checkpoint": "sd_xl_refiner_1.0.safetensors [7440042bbd]",
+              "prompt": "(([qwer animal_name:species_name animal_name:35]:1.4)),((qwer animal_name wearing Hanbok clothes:1.5)), (Centered:1.2, looking at the viewer , Create a breathtaking natural landscape with vivid details, photorealistic) , (ultra high res, (Masterpiece:1.2), best quality: 1.2) , 8k, dslr, vibrant colors and a sense of tranquility, <lora:SDXL_Hanbok_LoRA_beta7:1>,  <lora:album_id:1>",
+              "height": "1024",
+              "refiner_switch_at": "0.9"
+          },
+          {
+              "sampler_index": "DPM++ 2M Karras",
+              "steps": "38",
+              "prompt": "((([qwer animal_name:species_name animal_name:35]:1.4))),((one qwer animal_name wearing Hanbok clothes and Sitting in front of :1.7)) , dslr, ((Centered, looking at the viewer)) , (ultra-detailed, ultra high res, (Masterpiece:1.3), best quality:1.5), Set against the backdrop of a snow-covered Hanok (traditional Korean house), a delightful qwer animal_name , adorned in a vibrant Hanbok, joyfully frolics in the falling snow, Korean New Year's Day, the Lunar New year, photorealistic , vibrant colors, and a sense of tranquility, <lora:SDXL_Hanbok_LoRA_beta7:1.2>, <lora:album_id:1>",
+              "cfg_scale": "8",
+              "negative_prompt": "((human:2, 2 animal_name, more than one animal_name, nsfw)), (worst quality, bad quality:1.4, fennis,glans , long neck, bad anatomy, long neck:1.2), (worst face, bad face:1.2, censored),(extra legs, missing legs , extra limbs, extra head, extra tails, disfigured, deformed)painting, cartoon, text, bad art, beginner, amateur, distorted face, watermark, low quality, medium quality, blurry, signature, negativeXL_D",
+              "batch_size": "15",
+              "width": "1024",
+              "height": "1024",
+              "refiner_checkpoint": "sd_xl_refiner_1.0.safetensors [7440042bbd]",
+              "refiner_switch_at": "0.8"
+          }
+      ],
+      "background": "https://petimage.kr/files/uploads/admin/asdfasdf.png",
+      "tag": "한복,한옥,겨울,자연경관",
+      "type": "AI 컨셉사진",
+      "price": "4,900",
+      "popular": 18,
+      "amount": 30,
+      "sample": [
+          "https://petimage.kr/files/uploads/admin/asdfasdf.png",
+          "https://petimage.kr/files/uploads/admin/898989.png"
+      ],
+      "trial": [],
+      "createdAt": "2024-01-31T18:42:44.401Z",
+      "updatedAt": "2024-02-01T03:55:24.667Z",
+      "category": [
+          "NEW",
+          "HOT"
+      ],
+      "priceCode": "petimage_basic_theme",
+      "status": 1
+  },
+  {
+      "_id": "65ba52cc6836c0193866b3c2",
+      "prompt": [],
+      "sample": [
+          "https://petimage.kr/files/uploads/admin/158202485.jpg"
+      ],
+      "trial": [],
+      "name": "Comming soon😉",
+      "desc": "Comming soon😉",
+      "tag": "Comming soon😉",
+      "type": "AI 컨셉사진",
+      "price": "0",
+      "popular": 0,
+      "amount": 0,
+      "category": [
+          "NEW"
+      ],
+      "priceCode": "",
+      "createdAt": "2023-12-14T05:34:05.617Z",
+      "updatedAt": "2024-02-01T02:36:01.229Z",
+      "__v": 0,
+      "status": 1
+  }
+]

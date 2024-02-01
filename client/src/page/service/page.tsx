@@ -1,6 +1,7 @@
 
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import Image from "../../components/Image";
 import { PetimageThemeContainer, PetimegeThemeContent, PetimegeThemeHeader } from '../../components/Containers';
 
@@ -11,10 +12,10 @@ export default function Service() {
   return (
     <PetimageThemeContainer>
       <PetimegeThemeHeader>
-        <Typography variant="h2" color="secondary">서비스 소개</Typography>
-        <Typography sx={{ typography: { xs: 'subtitle2', lg: 'subtitle1' } }}>페티마제(petimage)는 Pet + Image를 합친 말로 부르기 쉽게
-          ‘페티마제’라는 국문명으로 서비스 명칭을 정하였습니다.
-        </Typography>
+          <Typography variant="h2" color="secondary">서비스 소개</Typography>
+          <Typography sx={{ typography: { xs: 'body1', lg: 'body0' } }}>페티마제(petimage)는 Pet + Image를 합친 말로 부르기 쉽게
+            ‘페티마제’라는 국문명으로 서비스 명칭을 정하였습니다.
+          </Typography>
       </PetimegeThemeHeader>
       <PetimegeThemeContent full={true}>
         <Grid container spacing={3}>

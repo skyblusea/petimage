@@ -15,12 +15,6 @@ export const breedsQuery = (animal: string) => ({
   queryFn: async (): Promise<Array<Breed>> => {
     const en = animal === 'dog' ? '강아지' : '고양이'
     const { data: { data } } = await apiClient.get(`/animal/list?class=${en}`)
-      // .catch((error) => {
-      //   console.log('breedsQuery', error)
-      //   //! 서버 에러시 더미 데이터 반환 !! 나중에 삭제
-      //   return { data: dummy }
-      // }
-      // )
     return data
   },
   staleTime: 1000 * 60 * 60 * 24 // 1 days

@@ -40,9 +40,7 @@ export default function Home() {
         color="petimage"
         endIcon={<ArrowForwardRoundedIcon />}
         sx={{
-          //! 버튼
           fontSize: '1rem',
-          borderRadius: '100px',
           padding: { xs: '0.75rem 2.5rem', lg: '1rem 3rem' },
         }}>
         AI 이미지 제작하기

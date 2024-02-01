@@ -3,6 +3,7 @@ import Typography from "@mui/material/Typography";
 import Grid from '@mui/material/Unstable_Grid2';
 import guildeline from './guildeline.json'
 import BaseImgBox from '../../../../../../components/Boxes';
+import { isMobile } from 'react-device-detect';
 
 
 
@@ -43,7 +44,7 @@ function GuideBox(props: GuideBoxProps) {
       </Grid>
       {guide.map((ele, index) => {
         return (
-          <Grid xs={4} key={index}>
+          <Grid xs={ isMobile ? 2 : 4 } key={index}>
             <BaseImgBox src={ele.img} square={true} success={props.title === "올바른 사진"} error={props.title === "잘못된 사진"}>
               {ele.name}
             </BaseImgBox>

@@ -13,6 +13,7 @@ import { useQuery } from "@tanstack/react-query"
 import useAuth from '../../util/useAuth';
 import { getPaymentId } from '../../util/getPaymentId';
 import { useLocation } from 'react-router-dom';
+import { AlbumDetails } from '../../types';
 
 
 //위젯 로드
@@ -27,8 +28,8 @@ export const tossWidgetQuery = (customerkey: string) => ({
 
 export default function Checkout() {
   //결제 정보 불러오기
-  const { state: albumDetails } = useLocation()
-
+  const { state } = useLocation();
+  const albumDetails = state as AlbumDetails;
   const user = useAuth().user ?? { id: '', name: '익명', email: ANONYMOUS }
   const authClient = useAuth().authClient
   //위젯 로드
@@ -67,7 +68,7 @@ export default function Checkout() {
     try {
       const paymentInfo = {
         orderId: nanoid(),
-        orderName: albumDetails!.theme.name, //우주여행/AI컨셉사진 theme type/amount장
+        orderName: `${albumDetails!.theme.name}/${albumDetails!.theme.type}/${albumDetails!.theme.amount}장`, //우주여행/AI컨셉사진 theme type/amount장
         customerName: user.name,
         customerEmail: user.email,
       }
@@ -83,7 +84,6 @@ export default function Checkout() {
       }
       // 결제 요청 전 앨범 정보 로컬 저장
       localStorage.setItem('albumDetails', JSON.stringify(albumDetails));
-
       // 결제 요청
       await paymentWidget?.requestPayment({
         ...paymentInfo,

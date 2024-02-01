@@ -10,6 +10,7 @@ import axios from "axios";
 export default function Payment() {
   const { setIsLoading } = useContext(LoadingContext)
   const { createAlbumData, requestPaymentData } = useLocation().state
+  console.log(createAlbumData, requestPaymentData)
   const { authClient } = useAuth()
   const navigate = useNavigate()
   useEffect(() => {
