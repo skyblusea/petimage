@@ -21,6 +21,8 @@ import { readFile } from "../../../../../../util/readFile";
 import useAuth from "../../../../../../util/useAuth";
 import { isMobile } from "react-device-detect";
 import IncorrectIcon from '../../../../../../assets/incorrect.svg?react';
+import { themeQuery } from "../../../../page";
+import { useQuery } from "@tanstack/react-query";
 
 
 
@@ -29,18 +31,24 @@ export default function Upload() {
   const navigate = useNavigate()
   const { setIsLoading } = useContext(LoadingContext)
   const { breed, animal, theme } = useParams()
-  const { authClient } = useAuth()
 
-  //상품정보 잘 안바뀌므로 QueryData 사용 or Action 통해 api 호출(이 방법 사용시 상태XX Context setting 필요)
-  const allThemeData = useRouteLoaderData('theme') as Theme[]
-  const selectedTheme = allThemeData.filter(ele => ele.name === theme)[0]
-  const themeData = {
+  const initialData = useRouteLoaderData('theme') as Theme[]
+  const { authClient, isAuthenticated } = useAuth()
+  const { data: allThemeData } = useQuery({
+    ...themeQuery(authClient),
+    initialData: initialData ? initialData : undefined,
+    enabled: isAuthenticated,
+  })
+  const selectedTheme = allThemeData?.filter(ele => ele.name === theme)[0]
+  const themeData = selectedTheme 
+  ? {
     themeId: selectedTheme._id,
     amount: selectedTheme.amount,
     name: selectedTheme.name,
     price: selectedTheme.price,
     type: selectedTheme.type,
-  } as AlbumDetails['theme']
+   } as AlbumDetails['theme']
+  : undefined
 
   const animalKor = animal === 'dog' ? '강아지' : '고양이'
 
@@ -102,7 +110,7 @@ export default function Upload() {
 
   
   return (
-    <Grid container spacing={3}>
+    <Grid container width="100%" spacing={3}>
       <Grid xs={isMobile ? 12 : 6 } display={!files.length ? 'flex' : 'none'}>
         <GuideLine />
       </Grid>
@@ -116,7 +124,7 @@ export default function Upload() {
           {!files.length &&
             <>
               <div>
-                <SvgIcon component={CloudUploadIcon} inheritViewBox sx={{width:'50%', height:'auto'}} />
+                <SvgIcon component={CloudUploadIcon} inheritViewBox sx={{ width:'50%', height:'auto' }} />
                 <Typography component="p" variant="body1" color="primary" sx={{ typography: { xs: 'body3', lg: 'body1' } }}>드래그로 파일 첨부하기</Typography>
                 <Typography component="p" variant="body1" color="primary" sx={{ typography: { xs: 'body3', lg: 'body1' } }}>또는</Typography>
               </div>

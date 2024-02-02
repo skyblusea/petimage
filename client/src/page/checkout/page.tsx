@@ -3,6 +3,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import Tooltip from '@mui/material/Tooltip';
 import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import { loadPaymentWidget, ANONYMOUS, PaymentWidgetInstance } from "@tosspayments/payment-widget-sdk";
 import { nanoid } from "nanoid";
@@ -97,7 +98,7 @@ export default function Checkout() {
 
   //TODO
   return (
-    <>
+    <Container>
       <DialogTitle component="h4" sx={{ fontWeight: "700" }}>구매 상품</DialogTitle>
       <DialogContent dividers>
         <Box display="flex" justifyContent="space-between">
@@ -123,7 +124,7 @@ export default function Checkout() {
         onClick={handlePaymentRequest}
         endIcon={<ArrowForwardRoundedIcon />}
         variant="contained" color="petimage" disabled={!agree} sx={{ width: '100%' }}>결제하기</Button>
-    </>
+    </Container>
   )
 }
 

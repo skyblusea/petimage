@@ -15,7 +15,7 @@ import About from "./page/about/page";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import SelectTheme, { loader as themeLoader } from "./page/create/page";
 import Notice from "./page/create/[theme]/[animal]/[breed]/notice/page";
-import CreateLayout, { loader as themeDataLoader } from "./page/create/[theme]/layout";
+import CreateLayout from "./page/create/[theme]/layout";
 import SelectAnimal from "./page/create/[theme]/SelectAnimalGrid";
 import SelectBreed, { loader as breedLoader } from "./page/create/[theme]/[animal]/page";
 import Collection, { loader as collectionLoader } from "./page/collection/page";
@@ -61,7 +61,6 @@ export default function App() {
           {
             element: <ProtectedRoute />,
             children: [
-              { path: '/create/:theme/:animal/:breed/notice', element: <Notice /> },
               {
                 id: 'theme',
                 loader: themeLoader(queryClient, authClient),
@@ -72,6 +71,7 @@ export default function App() {
                   },
                   { path: ':theme', element: <SelectAnimal /> },
                   { path: ':theme/:animal', element: <SelectBreed />, loader: breedLoader(queryClient) },
+                  { path: ':theme/:animal/:breed/notice', element: <Notice />},
                   { path: ':theme/:animal/:breed/upload', element: <LoadingProvider><Upload /></LoadingProvider>},
                 ],
               },
