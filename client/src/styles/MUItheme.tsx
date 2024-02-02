@@ -56,6 +56,12 @@ const theme = createTheme({
     secondary: {
       main: '#ffffff',
     },
+    error: {
+      main: '#CE0000',
+    },
+    success: {
+      main: '#00C337',
+    },
   },
   components: {
     MuiButton: {
@@ -90,10 +96,15 @@ const theme = createTheme({
       '-apple-system',
       'sans-serif',
     ].join(','),
+    h4: {
+      fontSize: '40px',
+      fontWeight: '700',
+    },
     h2: {
-      fontWeight: '400',
+      fontWeight: '700',
     },
     h5: {
+      fontSize: '34px',
       fontWeight: '700', //!
     },
     body0: {

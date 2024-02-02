@@ -1,13 +1,10 @@
 import MenuModal from "./MenuModal";
-import { LinkButton, LinkListItemButton } from "./LinkComponents";
 import useAuth from "../util/useAuth";
 import Button from '@mui/material/Button';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import styled from "@emotion/styled"
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom"
-import Auth from "./LoginModal";
-
+import UserIcon from '../assets/user.svg?react'
 
 export default function WebNav() {
   const { user, setLoginModal } = useAuth()
@@ -31,11 +28,9 @@ export default function WebNav() {
         user
           ? <Button
             id="user-menu-btn"
-            sx={{
-              flexShrink: 0,
-            }}
+            sx={{ flexShrink: 0 }}
             onClick={handleClick}
-            endIcon={<AccountCircleOutlinedIcon />}
+            endIcon={<UserIcon />}
             aria-controls={open ? 'user-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
@@ -47,7 +42,7 @@ export default function WebNav() {
             sx={{ flexShrink: 0 }}
             variant="outlined"
             color={hasGifBG ? 'secondary' : 'primary'}
-            endIcon={<AccountCircleOutlinedIcon />}>
+            endIcon={<UserIcon />}>
             로그인
           </Button>
       }

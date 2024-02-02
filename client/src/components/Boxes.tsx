@@ -1,11 +1,12 @@
 import styled from '@emotion/styled'
-import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
-import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded';
+import CorrectIcon from '../assets/correct.svg?react';
+import IncorrectIcon from '../assets/incorrect.svg?react';
 import Typography from '@mui/material/Typography';
 import CustomImage from './CustomImage';
 import { Stack } from '@mui/material';
 import { LinkBox } from './LinkComponents';
 import { Link, LinkProps } from "react-router-dom";
+import SvgIcon from '@mui/material/SvgIcon';
 
 
 
@@ -46,8 +47,8 @@ export default function BaseImgBox({
     >
       <ImgWrraper>
         <CustomImage src={src} alt={alt} />
-        {success && <CheckCircleOutlineRoundedIcon fontSize="medium" color="success" />}
-        {error && <HighlightOffRoundedIcon fontSize="medium" color="error" />}
+        {success && <SvgIcon component={CorrectIcon} fontSize="medium" color="success" />}
+        {error && <SvgIcon component={IncorrectIcon} fontSize="medium" color="error" />}
       </ImgWrraper>
       {children && <Typography variant='body3'>{children}</Typography>}
     </BaseCreateBox>

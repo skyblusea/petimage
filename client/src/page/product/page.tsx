@@ -1,12 +1,12 @@
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
+import SvgIcon from '@mui/material/SvgIcon';
 import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
 import { PetimageThemeContainer, PetimegeThemeContent, PetimegeThemeHeader } from '../../components/Containers';
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import { themeQuery } from '../create/page';
 import { useLoaderData } from 'react-router-dom';
 import { QueryClient, useQuery } from '@tanstack/react-query';
 import { Theme } from '../../types';
@@ -15,14 +15,32 @@ import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
-import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
-import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
+import ArrowIcon from '../../assets/arrow.svg?react';
+import CheckIcon from '../../assets/check.svg?react';
 import CustomImage from '../../components/CustomImage';
+import { apiClient } from '../../util/axiosInstance';
+
+
+export const adminThemeQuery = () => ({
+  queryKey: ['adminTheme'],
+  queryFn: async (): Promise<Array<Theme>> => {
+    const { data: { data: { themes: data } } } = await apiClient.get('/theme/list',{
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization":`Bearer admin`
+      },
+    })
+    return data
+  },
+  staleTime: 1000 * 60 * 60 * 24 // 1 days
+})
+
+
+
 
 export const loader = (queryClient: QueryClient) =>
   async () => {
-    const query = themeQuery()
+    const query = adminThemeQuery()
     const data = queryClient.ensureQueryData(query)
     return data
   }
@@ -35,7 +53,7 @@ export default function Product() {
 
   const initialData = useLoaderData() as Array<Theme>
   const { data: theme } = useQuery({
-    ...themeQuery(),
+    ...adminThemeQuery(),
     initialData,
   })
 
@@ -69,7 +87,7 @@ export default function Product() {
               <Box display="flex" flexDirection="column" sx={{gap:'var(--gap-sm)'}}>
                 <Box>
                   <Box display="flex" sx={{ gap: 'var(--gap-xs)' }}>
-                    <CheckRoundedIcon />
+                    <SvgIcon component={CheckIcon} />
                     <Typography variant="body1">Image Point</Typography>
                   </Box>
                   <Stack direction="row" spacing={1}>{tags.map((tag, idx) => <p key={idx}>#{tag}</p>)}</Stack>
@@ -87,15 +105,18 @@ export default function Product() {
                       <SwiperSlide key={idx}>
                         <CustomImage src={src} alt={`product_img${idx}`} />
                       </SwiperSlide>)}
-                    <ArrowBackIosNewRoundedIcon
+                    <SvgIcon
+                      component={ArrowIcon}
                       className="arrow-left" color="primary"
                       sx={{
+                        transform: 'rotate(180deg)',
                         display: { xs: 'none !important', md: 'flex !important' },
                         fontSize: { xs: '2.25rem', lg: '3rem' },
                         left: { xs: 'calc(-2.25rem - 16px)', lg: 'calc(-3rem - 16px)' }
                       }}
                     />
-                    <ArrowForwardIosRoundedIcon
+                    <SvgIcon
+                      component={ArrowIcon}
                       className="arrow-right" color="primary"
                       sx={{
                         display: { xs: 'none !important', md: 'flex !important' },

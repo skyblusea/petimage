@@ -3,9 +3,9 @@ import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
-import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
-import LogoutIcon from '@mui/icons-material/Logout';
+import AlbumIcon from '../assets/album.svg?react';
+import ReceiptIcon from '../assets/receipt.svg?react';
+import LogoutIcon from '../assets/logout.svg?react';
 import { Link, useLocation } from 'react-router-dom';
 import { LinkMenuItem } from './LinkComponents';
 import Menu from '@mui/material/Menu';
@@ -71,7 +71,7 @@ export default function MenuModal({
       >
         <ListItemIcon>
           <Avatar sx={{ bgcolor: 'petimage.main' }}>
-            <ReceiptOutlinedIcon />
+            <ReceiptIcon />
           </Avatar>
         </ListItemIcon>
         <ListItemText>결제 내역</ListItemText>
@@ -83,7 +83,7 @@ export default function MenuModal({
       >
         <ListItemIcon>
           <Avatar sx={{ bgcolor: 'petimage.main' }}>
-            <InsertPhotoOutlinedIcon />
+            <AlbumIcon />
           </Avatar>
         </ListItemIcon>
         <ListItemText sx={{height:'100%'}}>보관함</ListItemText>

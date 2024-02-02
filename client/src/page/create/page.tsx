@@ -4,29 +4,35 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import styled from '@emotion/styled';
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
-import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
-import { SingleSection } from '../../components/Containers';
 import { QueryClient, useQuery } from "@tanstack/react-query"
-import { useLoaderData } from 'react-router-dom';
+import { useRouteLoaderData } from 'react-router-dom';
 import { Theme } from '../../types';
-import { apiClient } from '../../util/axiosInstance';
 import { isMobile } from 'react-device-detect';
 import Banner from './Banner';
+import { AxiosInstance } from "axios";
+import useAuth from '../../util/useAuth';
+import ArrowForward from '../../assets/arrow.svg?react';
+import SvgIcon from '@mui/material/SvgIcon';
 
 
-export const loader = (queryClient: QueryClient) =>
+export const loader = (queryClient: QueryClient, authClient: AxiosInstance) =>
   async () => {
-    const query = themeQuery()
-    const data = queryClient.ensureQueryData(query)
-    return data
+    const query = themeQuery(authClient)
+    try {
+      const data = await queryClient.fetchQuery(query)
+      console.log('theme', data)
+      return data;
+    } catch (error) {
+      queryClient.removeQueries(query);
+      return null;
+    }
   }
 
 
-export const themeQuery = () => ({
+export const themeQuery = (authClient: AxiosInstance) => ({
   queryKey: ['theme'],
   queryFn: async (): Promise<Array<Theme>> => {
-    const { data: { data: { themes: data } } } = await apiClient.get('/theme/list')
+    const { data: { data: { themes: data } } } = await authClient.get('/theme/list')
     return data
   },
   staleTime: 1000 * 60 * 60 * 24 // 1 days
@@ -37,18 +43,19 @@ export const themeQuery = () => ({
 
 //TODO 추후 migration 필요
 export default function SelectTheme() {
-  const initialData = useLoaderData() as Array<Theme>
+  const initialData = useRouteLoaderData('theme') as Array<Theme>
+  const { authClient, isAuthenticated } = useAuth()
   const { data: theme } = useQuery({
-    ...themeQuery(),
-    initialData,
+    ...themeQuery(authClient),
+    initialData: initialData ? initialData : undefined,
+    enabled: isAuthenticated,
   })
 
 
   return (
-    <SingleSection>
       <BannerWrapper isMobile={isMobile}>
         {isMobile
-          ? <>{theme.map((content, idx) => <Banner content={content} idx={idx} />)}</>
+          ? <>{theme?.map((content, idx) => <Banner content={content} idx={idx} />)}</>
           : <>
             <Swiper
               modules={[Pagination, Navigation]}
@@ -59,20 +66,25 @@ export default function SelectTheme() {
               grabCursor={true}
               navigation={{ prevEl: ".arrow-left", nextEl: ".arrow-right" }}
             >
-              {theme.map((content, idx) =>
+              {theme?.map((content, idx) =>
                 <SwiperSlide key={content._id}>
                   <Banner content={content} idx={idx} />
                 </SwiperSlide>)}
             </Swiper>
-            <ArrowBackIosNewRoundedIcon
+            <SvgIcon
+              inheritViewBox
+              component={ArrowForward}
               className="arrow-left" color="secondary"
               sx={{
+                transform: 'rotate(180deg)',
                 display: { xs: 'none !important', md: 'flex !important' },
                 fontSize: { xs: '2.25rem', lg: '3rem' },
                 left: { xs: 'calc(-2.25rem - 16px)', lg: 'calc(-3rem - 16px)' }
               }}
             />
-            <ArrowForwardIosRoundedIcon
+            <SvgIcon
+              inheritViewBox
+              component={ArrowForward}
               className="arrow-right" color="secondary"
               sx={{
                 display: { xs: 'none !important', md: 'flex !important' },
@@ -83,7 +95,6 @@ export default function SelectTheme() {
         }
 
       </BannerWrapper>
-    </SingleSection>
 
   )
 }
@@ -94,7 +105,6 @@ type BannerWrapperProps = {
 
 
 const BannerWrapper = styled.div<BannerWrapperProps>`
-  display: flex;
   color: var(--white);
   width: 100%;
   position: relative;

@@ -10,7 +10,7 @@ import MobileNav from "./MobileNav";
 import WebNav from "./WebNav";
 import LoginModal from "./LoginModal";
 import useAuth from "../util/useAuth";
-
+import User from '../assets/user.svg?react'
 
 
 export default function Header() {
@@ -25,10 +25,10 @@ export default function Header() {
   const handleDrawerClose = () => {
     setDrawerOpen(false);
   };
-  const { setLoginModal, loginModalOpen } = useAuth()
+  const { loginModalOpen } = useAuth()
 
   return (
-    <HeaderContainer hasGifBG={hasGifBG} loginModalOpen={loginModalOpen}>
+    <HeaderContainer hasGifBG={hasGifBG} loginModalOpen={!!loginModalOpen}>
       <Link to="/" className="logo">
         <Logo />
       </Link>

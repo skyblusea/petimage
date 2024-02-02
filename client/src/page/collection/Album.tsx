@@ -1,19 +1,20 @@
 import styled from "@emotion/styled"
-import DownloadIcon from '@mui/icons-material/Download';
+import DownloadIcon from '../../assets/download.svg?react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Unstable_Grid2';
 import Accordion from '@mui/material/Accordion';
+import SvgIcon from '@mui/material/SvgIcon';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Backdrop from '@mui/material/Backdrop';
-import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
+import ExpandMoreRoundedIcon from '../../assets/arrow.svg?react';
 import { AlbumItem } from "../../types";
 import BaseImgBox from "../../components/Boxes";
 import { IconButton } from "@mui/material";
 import JSZip from 'jszip'
 import { saveAs } from "file-saver";
 import { useCallback, useState } from "react";
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import CloseIcon from '../../assets/close.svg?react';
 import { isMobile } from "react-device-detect";
 
 export default function Album({ data }: { data: AlbumItem }) {
@@ -39,12 +40,12 @@ export default function Album({ data }: { data: AlbumItem }) {
       <AlbumHeader>
         <Typography variant="subtitle1" sx={{fontSize:'18px'}}>{new Intl.DateTimeFormat(undefined, { dateStyle: 'medium' }).format(new Date(data.createdAt))}</Typography>
         <IconButton aria-label="download" onClick={downloadFile} >
-          <DownloadIcon fontSize="large" />
+          <SvgIcon component={DownloadIcon} />
         </IconButton>
       </AlbumHeader>
       <AccordionBox TransitionProps={{ unmountOnExit: true }} disabled={!data.status} >
         <AccordionSummary
-          expandIcon={<ExpandMoreRoundedIcon fontSize="large" color="petimage" />}
+          expandIcon={<SvgIcon component={ExpandMoreRoundedIcon} inheritViewBox sx={{transform:'rotate(90deg)'}} fontSize="large" color="petimage" />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
@@ -60,7 +61,7 @@ export default function Album({ data }: { data: AlbumItem }) {
                     <ImgWrraper>
                       <img src={file} alt="dog" />
                       <IconButton sx={{ position: 'absolute', right: '24px', top: '8px' }} onClick={() => setOpen(undefined)}>
-                        <CloseRoundedIcon sx={{fontSize:`${isMobile ?'48px' :'24px' }`}} />
+                        <SvgIcon component={CloseIcon} sx={{fontSize:`${isMobile ?'48px' :'24px' }`}} />
                       </IconButton>
                     </ImgWrraper>
                   </Backdrop>}

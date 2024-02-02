@@ -10,7 +10,7 @@ import { LinkButton } from "../../components/LinkComponents";
 export default function PaymentComplete() {
 
   return (
-    <SingleSection>
+    <SingleSection center>
       <MsgContainer>
         <RoundPaper3 
         elevation={5}>

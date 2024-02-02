@@ -3,23 +3,24 @@ import Grid from '@mui/material/Unstable_Grid2';
 import styled from '@emotion/styled'
 import Button from '@mui/material/Button';
 import CloudUploadIcon from '../../../../../../assets/upload-cloud.svg?react';
+import AddIcon from '../../../../../../assets/add.svg?react';
+import Arrow from '../../../../../../assets/arrow2.svg?react';
 import { useNavigate, useParams, useRouteLoaderData } from "react-router-dom";
 import { useContext, useState } from "react"
-import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import GuideLine from "./GuideLine";
 import DeleteIcon from '../../../../../../assets/delete.svg?react';
-import { Box, IconButton, SvgIcon } from "@mui/material";
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import SvgIcon from '@mui/material/SvgIcon';
 import { uploadFiles } from "../../../../../../util/uploadFiles";
 import { validateFiles } from "../../../../../../util/validateFiles";
-import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded';
 import { LoadingContext } from "../../../../../../provider/LoadingProvider";
-import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import { AlbumDetails } from "../../../../../../types";
 import { FileWithUrl } from "../../../../../../types";
 import { readFile } from "../../../../../../util/readFile";
 import useAuth from "../../../../../../util/useAuth";
 import { isMobile } from "react-device-detect";
-
+import IncorrectIcon from '../../../../../../assets/incorrect.svg?react';
 
 export default function Upload() {
   const navigate = useNavigate()
@@ -103,7 +104,7 @@ export default function Upload() {
           {!files.length &&
             <>
               <div>
-                <CloudUploadIcon />
+                <SvgIcon component={CloudUploadIcon} inheritViewBox sx={{width:'50%', height:'auto'}} />
                 <Typography component="p" variant="body1" color="primary" sx={{ typography: { xs: 'body3', lg: 'body1' } }}>드래그로 파일 첨부하기</Typography>
                 <Typography component="p" variant="body1" color="primary" sx={{ typography: { xs: 'body3', lg: 'body1' } }}>또는</Typography>
               </div>
@@ -151,7 +152,7 @@ export default function Upload() {
                     aria-label="delete" size="small">
                     <SvgIcon component={DeleteIcon} inheritViewBox sx={{fontSize: `${isMobile ? '48px' : '24px' }`}}/>
                   </IconButton>
-                  {!file.isValid && <HighlightOffRoundedIcon fontSize="medium" color="error" />}
+                  {!file.isValid && <SvgIcon component={IncorrectIcon} fontSize="medium" color="error" />}
                 </AlbumItemWrapper>
               </Grid>
             ))}
@@ -168,7 +169,7 @@ export default function Upload() {
                     borderRadius: 'var(--border-radius-lg)',
                     flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', aspectRatio: '1/1' }}
                 >
-                  <AddRoundedIcon sx={{fontSize: `${isMobile ? '56px' : '48px' }`}} />
+                  <SvgIcon component={AddIcon} inheritViewBox sx={{fontSize: `${isMobile ? '56px' : '48px' }`}}/>
                 </Button>
               </Grid>
             }
@@ -180,7 +181,7 @@ export default function Upload() {
         <Grid xs={12} display="flex" justifyContent="end" >
           <Button
             disabled={files.length < 10 || files.length > 12}
-            endIcon={<ArrowForwardRoundedIcon />}
+            endIcon={<SvgIcon component={Arrow} inheritViewBox />}
             color="petimage"
             variant="contained"
             onClick={submitHandler}

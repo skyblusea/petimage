@@ -21,14 +21,16 @@ export const MainContainer = styled.main`
     }
   }
 `
+interface SingleSectionProps  {
+  center?: boolean;
+}
 
-export const SingleSection = styled.section`
-  /* flex: 1; */
+export const SingleSection = styled.section<SingleSectionProps>`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: ${props => props.center ? 'center' : 'flex-start'};
   padding: 0 var(--pd-nav);
 `
 

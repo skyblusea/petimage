@@ -1,19 +1,18 @@
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
-import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
 import styled from "@emotion/styled"
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import useAuth from '../util/useAuth';
-import { LinkButton, LinkListItemButton } from './LinkComponents';
-import { Link, useNavigate } from 'react-router-dom';
+import { LinkListItemButton } from './LinkComponents';
+import ReceiptIcom from '../assets/receipt.svg?react';
+import AlbumIcon from '../assets/album.svg?react';
+import Arrow from '../assets/arrow.svg?react';
+
 
 
 export default function MobileNav({
@@ -34,7 +33,7 @@ export default function MobileNav({
     >
       <DrawerHeader>
         <IconButton onClick={handleDrawerClose}>
-          <ChevronRightIcon sx={{ fontSize: '48px' }} />
+          <Arrow />
         </IconButton>
       </DrawerHeader>
       <ListItem>
@@ -48,7 +47,6 @@ export default function MobileNav({
           sx={{ borderRadius: '10px', width: '100%', textAlign: 'center' }}
         >로그인</Button>
       </ListItem>
-
       <Divider />
       <List>
         {['결제 내역', '보관함'].map((text, index) => (
@@ -58,7 +56,7 @@ export default function MobileNav({
               onClick={handleDrawerClose}
             >
               <ListItemIcon sx={{ minWidth: '40px' }}>
-                {index === 0 ? <ReceiptOutlinedIcon /> : <InboxIcon />}
+                {index === 0 ? <ReceiptIcom /> : <AlbumIcon />}
               </ListItemIcon>
               <ListItemText primary={text} />
             </LinkListItemButton>

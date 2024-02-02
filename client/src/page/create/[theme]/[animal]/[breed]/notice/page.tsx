@@ -1,11 +1,12 @@
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import styled from '@emotion/styled'
-import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
+import CheckRoundedIcon from '../../../../../../assets/check.svg?react';
 import { Link, useParams } from 'react-router-dom';
 import { RoundPaper, SingleSection } from '../../../../../../components/Containers';
 import BaseImgBox from '../../../../../../components/Boxes';
 import { LinkButton } from '../../../../../../components/LinkComponents';
+import SvgIcon from '@mui/material/SvgIcon';
 
 
 
@@ -14,7 +15,7 @@ export default function Notice() {
   const { theme, animal, breed } = useParams()
 
   return (
-    <SingleSection>
+    <SingleSection center>
       <RoundPaper2 elevation={3}>
         <Typography variant='h5' color='error'>
           업로드 전 안내사항
@@ -37,7 +38,7 @@ export default function Notice() {
           component={Link}
           sx={{ marginTop: '8px'}}
           to={`/create/${theme}/${animal}/${breed}/upload`}
-          variant="reverseContained" color="petimage" startIcon={<CheckRoundedIcon />}>
+          variant="reverseContained" color="petimage" startIcon={<SvgIcon component={CheckRoundedIcon}/>}>
           상기 내용을 확인하였습니다.
         </LinkButton>
       </RoundPaper2 >

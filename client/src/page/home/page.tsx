@@ -6,13 +6,12 @@ import Symbol from '../../assets/symbol.svg?react'
 import Logo from '../../assets/logo.svg?react'
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
-
+import Arrow from '../../assets/arrow2.svg?react';
 
 
 export default function Home() {
   return (
-    <SingleSection>
+    <SingleSection center>
       <ContentWrapper>
         <StyledSymbol />
         <Box display="flex" justifyContent="center" alignItems="center" sx={{ 
@@ -38,7 +37,7 @@ export default function Home() {
         component={Link}
         size='large'
         color="petimage"
-        endIcon={<ArrowForwardRoundedIcon />}
+        endIcon={<Arrow />}
         sx={{
           fontSize: '1rem',
           padding: { xs: '0.75rem 2.5rem', lg: '1rem 3rem' },

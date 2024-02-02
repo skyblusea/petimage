@@ -2,18 +2,14 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from '../assets/close.svg?react';
 import GoogleLoginBtn from './GoogleLoginBtn';
 import AppleLoginBtn from './AppleLoginBtn';
 import Button from '@mui/material/Button';
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router-dom';
-import { SingleSection } from './Containers';
-import { isMobile } from 'react-device-detect';
 import useAuth from '../util/useAuth';
 
 export default function LoginModal() {
-  const navigate = useNavigate();
   const { setLoginModal } = useAuth()
   const handleLoginClose = () => setLoginModal(false)
 

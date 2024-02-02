@@ -50,7 +50,7 @@ export default function Payment() {
   }, [])
 
   return (
-    <SingleSection>
+    <SingleSection center>
       <CreditCardIcon sx={{ fontSize: '10rem' }} />
       <Typography component="h4" sx={{ fontWeight: '700', typography: { xs: 'subtitle2', md: 'subtitle1' } }}>결제를 진행중입니다.</Typography>
     </SingleSection>
