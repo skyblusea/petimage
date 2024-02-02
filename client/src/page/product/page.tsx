@@ -5,29 +5,23 @@ import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
 import { PetimageThemeContainer, PetimegeThemeContent, PetimegeThemeHeader } from '../../components/Containers';
-import styled from '@emotion/styled';
 import { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { QueryClient, useQuery } from '@tanstack/react-query';
 import { Theme } from '../../types';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import ArrowIcon from '../../assets/arrow.svg?react';
 import CheckIcon from '../../assets/check.svg?react';
 import CustomImage from '../../components/CustomImage';
 import { apiClient } from '../../util/axiosInstance';
+import Slider from './Slider';
 
 
 export const adminThemeQuery = () => ({
   queryKey: ['adminTheme'],
   queryFn: async (): Promise<Array<Theme>> => {
-    const { data: { data: { themes: data } } } = await apiClient.get('/theme/list',{
+    const { data: { data: { themes: data } } } = await apiClient.get('/theme/list', {
       headers: {
         "Content-Type": "application/json",
-        "Authorization":`Bearer admin`
+        "Authorization": `Bearer admin`
       },
     })
     return data
@@ -58,9 +52,7 @@ export default function Product() {
   })
 
   const [tap, setTap] = useState(0)
-  const tags = theme[tap].tag.split(',')
   return (
-
     <PetimageThemeContainer>
       <PetimegeThemeHeader>
         <Typography variant="h2" color="secondary">상품 소개</Typography>
@@ -77,56 +69,7 @@ export default function Product() {
                 <Chip key={content._id} color="primary" label={content.name} variant={idx === tap ? 'filled' : 'outlined'} onClick={() => setTap(idx)} />
               )}
             </Stack>
-          </Grid>
-          <Grid container xs={12} spacing={2}>
-            <Grid xs={12} md={6}>
-              <CustomImage src={theme[tap].sample[0]} alt="product_img0" />
-            </Grid>
-            <Grid xs={12} md={6} display="flex" flexDirection="column" justifyContent="space-between">
-              <Typography variant="body1">{theme[tap].desc}</Typography>
-              <Box display="flex" flexDirection="column" sx={{gap:'var(--gap-sm)'}}>
-                <Box>
-                  <Box display="flex" sx={{ gap: 'var(--gap-xs)' }}>
-                    <SvgIcon component={CheckIcon} />
-                    <Typography variant="body1">Image Point</Typography>
-                  </Box>
-                  <Stack direction="row" spacing={1}>{tags.map((tag, idx) => <p key={idx}>#{tag}</p>)}</Stack>
-                </Box>
-                <Wrapper>
-                  <Swiper
-                    slidesPerView={3}
-                    spaceBetween={8}
-                    modules={[Pagination, Navigation]}
-                    pagination={true}
-                    grabCursor={true}
-                    navigation={{ nextEl: ".arrow-left", prevEl: ".arrow-right" }}
-                  >
-                    {theme[tap].sample.map((src, idx) =>
-                      <SwiperSlide key={idx}>
-                        <CustomImage src={src} alt={`product_img${idx}`} />
-                      </SwiperSlide>)}
-                    <SvgIcon
-                      component={ArrowIcon}
-                      className="arrow-left" color="primary"
-                      sx={{
-                        transform: 'rotate(180deg)',
-                        display: { xs: 'none !important', md: 'flex !important' },
-                        fontSize: { xs: '2.25rem', lg: '3rem' },
-                        left: { xs: 'calc(-2.25rem - 16px)', lg: 'calc(-3rem - 16px)' }
-                      }}
-                    />
-                    <SvgIcon
-                      component={ArrowIcon}
-                      className="arrow-right" color="primary"
-                      sx={{
-                        display: { xs: 'none !important', md: 'flex !important' },
-                        fontSize: { xs: '2.25rem', lg: '3rem' },
-                        right: { xs: 'calc(-2.25rem - 16px)', lg: 'calc(-3rem - 16px)' }
-                      }} />
-                  </Swiper>
-                </Wrapper>
-              </Box>
-            </Grid>
+            <Slider tap={tap} theme={theme} />
           </Grid>
         </Grid>
       </PetimegeThemeContent>
@@ -134,37 +77,4 @@ export default function Product() {
   )
 }
 
-
-const Wrapper = styled.div`
-  /* display: flex; */
-  /* flex-direction: row; */
-  /* color: var(--white); */
-  /* width: 100%; */
-  /* position: relative; */
-    /* margin: 0 auto;
-    position: relative;
-    overflow: hidden;
-    list-style: none;
-    padding: 0;
-    z-index: 1; */
-  .swiper-slide{
-  /* 슬라이드 레이아웃 */
-    /* & >div{
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    } */
-  }
-  .arrow-left, .arrow-right{
-    position: absolute;
-    top: 50%;
-    margin-top: calc(0px - (var(--swiper-navigation-size) / 2));
-    z-index: 10;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-`
 

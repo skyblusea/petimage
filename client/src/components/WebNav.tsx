@@ -3,7 +3,7 @@ import useAuth from "../util/useAuth";
 import Button from '@mui/material/Button';
 import styled from "@emotion/styled"
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom"
+import { Link } from "react-router-dom"
 import UserIcon from '../assets/user.svg?react'
 
 export default function WebNav() {
@@ -13,8 +13,6 @@ export default function WebNav() {
   };
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const pathname = useLocation().pathname
-  const hasGifBG = pathname === '/' || pathname === '/create'
 
 
   return (
@@ -35,13 +33,13 @@ export default function WebNav() {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
             variant="outlined"
-            color={hasGifBG ? 'secondary' : 'primary'}
+            color='primary'
           >내 정보</Button>
           : <Button
             onClick={() => setLoginModal(true)}
             sx={{ flexShrink: 0 }}
             variant="outlined"
-            color={hasGifBG ? 'secondary' : 'primary'}
+            color='primary'
             endIcon={<UserIcon />}>
             로그인
           </Button>
