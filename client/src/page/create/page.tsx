@@ -20,7 +20,6 @@ export const loader = (queryClient: QueryClient, authClient: AxiosInstance) =>
     const query = themeQuery(authClient)
     try {
       const data = await queryClient.fetchQuery(query)
-      console.log('theme', data)
       return data;
     } catch (error) {
       queryClient.removeQueries(query);

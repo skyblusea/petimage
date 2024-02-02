@@ -13,21 +13,11 @@ import { Theme } from '../../../types';
 import useAuth from "../../../util/useAuth";
 
 
-export default function CreateLayout() {
+export default function ThemeLayout() {
   const params = useParams();
   const navigate = useNavigate();
   const pathname = useLocation().pathname;
-  const initialData = useLoaderData() as Array<Theme>
-  const { authClient, isAuthenticated } = useAuth()
-  const { data: theme } = useQuery({
-    ...themeQuery(authClient),
-    initialData: initialData ? initialData : undefined,
-    enabled: isAuthenticated,
-  })
-
-  const selectedTheme = params.theme
-  const bg = selectedTheme && theme?.filter(ele => ele.name === selectedTheme)[0].background
-
+ 
   const title = {
     theme: '테마를 선택해주세요.',
     animal: '동물을 선택해주세요.',
@@ -46,10 +36,9 @@ export default function CreateLayout() {
     upload: '가이드를 확인하시고 10~12장 사진을 업로드해주세요.',
   }
 
-
   return (
-    <ThemedBG bg={bg}>
-      <Grid container spacing={{ xs: 2, md: 5.5 }} color="secondary.main" sx={{ width: '100%' }}>
+    <>
+      <Grid container spacing={{ xs: 2, md: 5.5 }} color={params.theme ?'secondary.main' :'primary.main'} sx={{ width: '100%' }}>
         <Grid xs={12} display="flex" alignItems="center" justifyContent="center" height="200px">
           <Box display="flex" width="100%" alignItems="start">
             <IconButton onClick={() => navigate(-1)} aria-label="arrow-back" color="inherit" sx={{ mt: '-8px' }}>
@@ -102,14 +91,6 @@ export default function CreateLayout() {
           <Outlet />
         </Grid>
       </Grid>
-    </ThemedBG>
+    </>
   )
 }
-
-interface ThemedBGProps {
-  bg?: string
-}
-
-const ThemedBG = styled(SingleSection) <ThemedBGProps>`
-  ${props => props.bg && `background-image: url(${props.bg})`}
-`

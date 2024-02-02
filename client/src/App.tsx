@@ -15,7 +15,7 @@ import About from "./page/about/page";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import SelectTheme, { loader as themeLoader } from "./page/create/page";
 import Notice from "./page/create/[theme]/[animal]/[breed]/notice/page";
-import CreateLayout from "./page/create/[theme]/layout";
+import CreateLayout from "./page/create/layout";
 import SelectAnimal from "./page/create/[theme]/SelectAnimalGrid";
 import SelectBreed, { loader as breedLoader } from "./page/create/[theme]/[animal]/page";
 import Collection, { loader as collectionLoader } from "./page/collection/page";
@@ -28,6 +28,7 @@ import axios from 'axios';
 import PaymentHistory, { loader as paymenyHistoryLoader } from './page/payment/history/page.tsx';
 import Payment from './page/payment/page.tsx';
 import PaymentFail from './page/payment/fail/page.tsx';
+import ThemeLayout from './page/create/[theme]/layout.tsx';
 
 
 function newApiClient() {
@@ -64,26 +65,28 @@ export default function App() {
               {
                 id: 'theme',
                 loader: themeLoader(queryClient, authClient),
-                path: '/create', element: <CreateLayout />, children: [
+                path: '', element: <CreateLayout />, children: [
                   {
-                    path: '',
-                    element: <SelectTheme />,
+                    path: '/create',
+                    element: <ThemeLayout />, children: [
+                      { path: '', element: <SelectTheme /> },
+                      { path: ':theme', element: <SelectAnimal /> },
+                      { path: ':theme/:animal', element: <SelectBreed />, loader: breedLoader(queryClient) },
+                      { path: ':theme/:animal/:breed/notice', element: <Notice />},
+                      { path: ':theme/:animal/:breed/upload', element: <LoadingProvider><Upload /></LoadingProvider>},
+                    ]
                   },
-                  { path: ':theme', element: <SelectAnimal /> },
-                  { path: ':theme/:animal', element: <SelectBreed />, loader: breedLoader(queryClient) },
-                  { path: ':theme/:animal/:breed/notice', element: <Notice />},
-                  { path: ':theme/:animal/:breed/upload', element: <LoadingProvider><Upload /></LoadingProvider>},
+                  {
+                    path: '/checkout', element: <ThemeLayout />, children: [
+                      { path: '', element: <Checkout />},
+                    ]
+                  },
+                  { path: '/payment/:paymentId', loader : redirectLoader, element: <Redirect/>},
+                  { path: '/payment', element: <LoadingProvider><Payment /></LoadingProvider>},
+                  { path: '/payment/fail', element: <PaymentFail />},
+                  { path: '/payment-complete', element: <PaymentComplete /> },
                 ],
               },
-              {
-                path: '/checkout', element: <CreateLayout />, children: [
-                  { path: '', element: <Checkout />},
-                ]
-              },
-              { path: '/payment/:paymentId', loader : redirectLoader, element: <Redirect/>},
-              { path: '/payment', element: <LoadingProvider><Payment /></LoadingProvider>},
-              { path: '/payment/fail', element: <PaymentFail />},
-              { path: '/payment-complete', element: <PaymentComplete /> },
               { path: '/collection', element: <Collection />, loader: collectionLoader(queryClient, authClient) },
               { path: '/payment/history', element: <PaymentHistory />, loader: paymenyHistoryLoader(queryClient, authClient)},
             ]
