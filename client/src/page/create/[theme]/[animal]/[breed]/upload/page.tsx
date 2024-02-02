@@ -40,15 +40,15 @@ export default function Upload() {
     enabled: isAuthenticated,
   })
   const selectedTheme = allThemeData?.filter(ele => ele.name === theme)[0]
-  const themeData = selectedTheme 
-  ? {
-    themeId: selectedTheme._id,
-    amount: selectedTheme.amount,
-    name: selectedTheme.name,
-    price: selectedTheme.price,
-    type: selectedTheme.type,
-   } as AlbumDetails['theme']
-  : undefined
+  const themeData = selectedTheme
+    ? {
+      themeId: selectedTheme._id,
+      amount: selectedTheme.amount,
+      name: selectedTheme.name,
+      price: selectedTheme.price,
+      type: selectedTheme.type,
+    } as AlbumDetails['theme']
+    : undefined
 
   const animalKor = animal === 'dog' ? '강아지' : '고양이'
 
@@ -108,13 +108,13 @@ export default function Upload() {
     }
   }
 
-  
+
   return (
     <Grid container width="100%" spacing={3}>
-      <Grid xs={isMobile ? 12 : 6 } display={!files.length ? 'flex' : 'none'}>
+      <Grid xs={isMobile ? 12 : 6} display={!files.length ? 'flex' : 'none'}>
         <GuideLine />
       </Grid>
-      <Grid xs={(!!files.length || isMobile) ?12 :6} >
+      <Grid xs={(!!files.length || isMobile) ? 12 : 6} >
         <DragNDropBox
           onDragEnter={onDragEnterHandler}
           onDragLeave={onDragLeaveHandler}
@@ -124,7 +124,7 @@ export default function Upload() {
           {!files.length &&
             <>
               <div>
-                <SvgIcon component={CloudUploadIcon} inheritViewBox sx={{ width:'50%', height:'auto' }} />
+                <SvgIcon component={CloudUploadIcon} inheritViewBox sx={{ width: '50%', height: 'auto' }} />
                 <Typography component="p" variant="body1" color="primary" sx={{ typography: { xs: 'body3', lg: 'body1' } }}>드래그로 파일 첨부하기</Typography>
                 <Typography component="p" variant="body1" color="primary" sx={{ typography: { xs: 'body3', lg: 'body1' } }}>또는</Typography>
               </div>
@@ -148,7 +148,7 @@ export default function Upload() {
             onChange={onChangeHandler} />
           <Grid container spacing={1} sx={{ width: '100%' }}>
             {files.map((file) => (
-              <Grid key={file.id} xs={isMobile ? 4 : 2 }>
+              <Grid key={file.id} xs={isMobile ? 4 : 2}>
                 <AlbumItemWrapper>
                   <Box
                     sx={{
@@ -170,7 +170,7 @@ export default function Upload() {
                     color="inherit"
                     sx={{ color: "#bbb" }}
                     aria-label="delete" size="small">
-                    <SvgIcon component={DeleteIcon} inheritViewBox sx={{fontSize: `${isMobile ? '48px' : '24px' }`}}/>
+                    <SvgIcon component={DeleteIcon} inheritViewBox sx={{ fontSize: `${isMobile ? '48px' : '24px'}` }} />
                   </IconButton>
                   {!file.isValid && <SvgIcon component={IncorrectIcon} fontSize="medium" color="error" />}
                 </AlbumItemWrapper>
@@ -178,18 +178,19 @@ export default function Upload() {
             ))}
             {(0 < files.length && files.length < 12)
               &&
-              <Grid xs={isMobile ? 4 : 2 } display="flex">
+              <Grid xs={isMobile ? 4 : 2} display="flex">
                 {/* 이미지 추가 버튼 */}
                 <Button
                   htmlFor="file-input"
                   role="button"
                   component="label"
                   variant="outlined"
-                  sx={{ 
+                  sx={{
                     borderRadius: 'var(--border-radius-lg)',
-                    flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', aspectRatio: '1/1' }}
+                    flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', aspectRatio: '1/1'
+                  }}
                 >
-                  <SvgIcon component={AddIcon} inheritViewBox sx={{fontSize: `${isMobile ? '56px' : '48px' }`}}/>
+                  <SvgIcon component={AddIcon} inheritViewBox sx={{ fontSize: `${isMobile ? '56px' : '48px'}` }} />
                 </Button>
               </Grid>
             }
@@ -198,15 +199,16 @@ export default function Upload() {
       </Grid>
       {(0 < files.length)
         &&
-        <Grid xs={12} display="flex" justifyContent="end" >
-          <Button
-            disabled={files.length < 10 || files.length > 12}
-            endIcon={<SvgIcon component={Arrow} inheritViewBox />}
-            color="petimage"
-            variant="contained"
-            onClick={submitHandler}
-            sx={{ width: '100%' }}
-          >이미지 생성하기</Button>
+        <Grid xs={12} >
+          <Box display="flex" width="full" justifyContent="end">
+            <Button
+              disabled={files.length < 10 || files.length > 12}
+              endIcon={<SvgIcon component={Arrow} inheritViewBox />}
+              color="petimage"
+              variant="contained"
+              onClick={submitHandler}
+            >이미지 생성하기</Button>
+          </Box>
         </Grid>}
     </Grid >
   )
