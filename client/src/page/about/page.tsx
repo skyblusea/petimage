@@ -26,9 +26,17 @@ export default function About() {
       <PetimegeThemeContent full={true}>
         <Grid container spacing={3}>
           <Grid xs={12} md={6}>
-            <Box display="flex" height="100%" flexDirection="column" gap="var(--gap-md)">
-              <Box display="flex" height="100%" flexDirection="column" >
-                <Typography variant="body1">서울특별시 마포구 동교로 22길 50, 2층 SR universe 사무실</Typography>
+            <Box display="flex" height="100%" flexDirection="column" justifyContent="space-between" gap="var(--gap-md)">
+              <Box display="flex" flexDirection="column" >
+                <Typography color="petimage.main" sx={{ typography: { xs: 'subtitle2', md: 'subtitle1' } }}>
+                  오시는 길
+                </Typography>
+                <Typography variant="body1">서울특별시 마포구 동교로 22길 50,<br/>2층 SR universe 사무실</Typography>
+              </Box>
+              <Box display="flex"flexDirection="column" >
+                <Typography color="petimage.main" sx={{ typography: { xs: 'subtitle2', md: 'subtitle1' } }}>
+                  담당자
+                </Typography>
                 <Typography variant="body1">E-mail : admin@sruniverse.kr</Typography>
                 <Typography variant="body1">Tel : 010-1234-5678</Typography>
               </Box>

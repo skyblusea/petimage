@@ -1,12 +1,11 @@
 import styled from "@emotion/styled"
-import { Link, useLocation } from "react-router-dom"
+import { Link } from "react-router-dom"
 import Box from '@mui/material/Box';
 
 export default function Footer() {
-  const pathname = useLocation().pathname
-  const hasGifBG = pathname === '/' || pathname === '/create'
+
   return (
-    <FooterContainer hasGifBG={hasGifBG}>
+    <FooterContainer>
       <Box display="flex" gap="var(--gap-md)">
         <Link to="#">개인정보처리방침</Link>
         <Link to="#">이용약관</Link>
@@ -20,14 +19,14 @@ export default function Footer() {
   )
 }
 
-type FooterProps = {
-  hasGifBG: boolean
-}
 
-const FooterContainer = styled.footer<FooterProps>`
+
+const FooterContainer = styled.footer`
   width: 100%;
   height: var(--footer-h);
-  color: ${props => props.hasGifBG ? 'white' : 'var(--black)'};
+  color: var(--primary);
+  background-color: white;
+  border-: 1px solid #EAEDEF;
   display: flex;
   padding: 0 var(--pd-nav);
   align-items: center;

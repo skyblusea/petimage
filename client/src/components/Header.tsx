@@ -14,9 +14,6 @@ import User from '../assets/user.svg?react'
 
 
 export default function Header() {
-  const pathname = useLocation().pathname
-  const hasGifBG = pathname === '/' || pathname === '/create'
-
   const [drawerOpen, setDrawerOpen] = useState(false)
   const handleDrawerOpen = () => {
     setDrawerOpen(true);
@@ -28,7 +25,7 @@ export default function Header() {
   const { loginModalOpen } = useAuth()
 
   return (
-    <HeaderContainer hasGifBG={hasGifBG} loginModalOpen={!!loginModalOpen}>
+    <HeaderContainer loginModalOpen={!!loginModalOpen}>
       <Link to="/" className="logo">
         <Logo />
       </Link>
@@ -52,7 +49,6 @@ export default function Header() {
 }
 
 type HeaderContainerProps = {
-  hasGifBG: boolean
   loginModalOpen: boolean
 }
 
@@ -70,8 +66,8 @@ const HeaderContainer = styled.header<HeaderContainerProps>`
   position: fixed;
   top:0;
   z-index: 100;
-  background-color: ${props => props.hasGifBG ? 'transparent' : 'white'};
-  color: ${props => props.hasGifBG ? 'white' : 'var(--primary)'};
+  background-color: white;
+  color: var(--primary) ;
   .logo {
     width: auto;
     height: 100%;
