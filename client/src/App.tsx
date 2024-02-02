@@ -63,12 +63,12 @@ export default function App() {
             children: [
               { path: '/create/:theme/:animal/:breed/notice', element: <Notice /> },
               {
+                id: 'theme',
+                loader: themeLoader(queryClient, authClient),
                 path: '/create', element: <CreateLayout />, children: [
                   {
-                    id: 'theme',
                     path: '',
                     element: <SelectTheme />,
-                    loader: themeLoader(queryClient, authClient),
                   },
                   { path: ':theme', element: <SelectAnimal /> },
                   { path: ':theme/:animal', element: <SelectBreed />, loader: breedLoader(queryClient) },

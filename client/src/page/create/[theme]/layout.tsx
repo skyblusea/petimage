@@ -55,7 +55,7 @@ export default function CreateLayout() {
   })
 
   const selectedTheme = params.theme
-  const bg = selectedTheme && theme?.filter(ele => ele._id === selectedTheme)[0].background
+  const bg = selectedTheme && theme?.filter(ele => ele.name === selectedTheme)[0].background
 
   const title = {
     theme: '테마를 선택해주세요.',
@@ -77,10 +77,10 @@ export default function CreateLayout() {
 
   return (
     <ThemedBG bg={bg}>
-      <Grid container spacing={{ xs: 2, md: 5.5 }} color="primary.main" sx={{ width: '100%' }}>
-        <Grid xs={12} color="secondary.main" display="flex" alignItems="center" justifyContent="center" height="200px">
+      <Grid container spacing={{ xs: 2, md: 5.5 }} color="secondary.main" sx={{ width: '100%' }}>
+        <Grid xs={12}  display="flex" alignItems="center" justifyContent="center" height="200px">
           <Box display="flex" width="100%" alignItems="start">
-            <IconButton onClick={() => navigate(-1)} aria-label="arrow-back" color="inherit" sx={{ paddingTop: 0 }}>
+            <IconButton onClick={() => navigate(-1)} aria-label="arrow-back" color="inherit" sx={{ mt: '-8px' }}>
               <SvgIcon component={ArrowIcon} inheritViewBox sx={{ transform: 'rotate(180deg)', typography: { xs: 'h5', lg: 'h4' } }} />
             </IconButton>
             <Box sx={{ flex: '1' }}>

@@ -15,21 +15,33 @@ import SvgIcon from '@mui/material/SvgIcon';
 import { uploadFiles } from "../../../../../../util/uploadFiles";
 import { validateFiles } from "../../../../../../util/validateFiles";
 import { LoadingContext } from "../../../../../../provider/LoadingProvider";
-import { AlbumDetails } from "../../../../../../types";
+import { AlbumDetails, Theme } from "../../../../../../types";
 import { FileWithUrl } from "../../../../../../types";
 import { readFile } from "../../../../../../util/readFile";
 import useAuth from "../../../../../../util/useAuth";
 import { isMobile } from "react-device-detect";
 import IncorrectIcon from '../../../../../../assets/incorrect.svg?react';
 
+
+
+
 export default function Upload() {
   const navigate = useNavigate()
   const { setIsLoading } = useContext(LoadingContext)
-  const { breed, animal } = useParams()
+  const { breed, animal, theme } = useParams()
   const { authClient } = useAuth()
 
   //상품정보 잘 안바뀌므로 QueryData 사용 or Action 통해 api 호출(이 방법 사용시 상태XX Context setting 필요)
-  const themeData = useRouteLoaderData('createWithTheme') as AlbumDetails['theme']
+  const allThemeData = useRouteLoaderData('theme') as Theme[]
+  const selectedTheme = allThemeData.filter(ele => ele.name === theme)[0]
+  const themeData = {
+    themeId: selectedTheme._id,
+    amount: selectedTheme.amount,
+    name: selectedTheme.name,
+    price: selectedTheme.price,
+    type: selectedTheme.type,
+  } as AlbumDetails['theme']
+
   const animalKor = animal === 'dog' ? '강아지' : '고양이'
 
   //Handling InputFile for Preview

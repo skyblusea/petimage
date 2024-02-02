@@ -32,6 +32,7 @@ export const SingleSection = styled.section<SingleSectionProps>`
   align-items: center;
   justify-content: ${props => props.center ? 'center' : 'flex-start'};
   padding: 0 var(--pd-nav);
+  padding-bottom: 20px; //footer과의 간격
 `
 
 export const MultiSection = styled.section`

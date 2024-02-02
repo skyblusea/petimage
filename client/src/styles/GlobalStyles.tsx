@@ -104,7 +104,7 @@ const reset = css`
     }
 
     --nav-h: 60px;
-    --footer-h: 50px;
+    --footer-h: 40px;
   }
 
 

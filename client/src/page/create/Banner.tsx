@@ -14,7 +14,7 @@ export default function Banner({
 }) {
   return (
     <Box padding="var(--pd-sm)" paddingBottom="calc(var(--gap-lg) + 20px)">
-    <Link to={`/create/${content._id}`}>
+    <Link to={`/create/${content.name}`}>
       <RoundPaper elevation={3}>
         <BaseImgBox src={content.sample[0]} alt={`banner${idx}`} />
         <Box display="flex" alignItems="center" justifyContent="space-between" width="100%">

@@ -25,7 +25,7 @@ export default function CustomImage(props: React.ImgHTMLAttributes<HTMLImageElem
     <>
       {/* <Placeholder src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO8UA8AAiUBUcc3qzwAAAAASUVORK5CYII=" loaded={false}/> */}
       <Image src={props.src} alt={props.alt} ref={imgEl} loaded={loaded} onLoad={onImageLoaded}/>
-      {!loaded && <Placeholder src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO8UA8AAiUBUcc3qzwAAAAASUVORK5CYII=" loaded={loaded} />}
+      {!loaded && <Placeholder src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO8+gcAAqwB0yXtZ3IAAAAASUVORK5CYII=" loaded={loaded} />}
     </>
   )
 }
