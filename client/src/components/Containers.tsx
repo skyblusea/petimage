@@ -13,11 +13,15 @@ export const MainContainer = styled.main`
   position: relative;
   .bg{
     position : absolute;
-    padding-top: var(--nav-h);
+    top: var(--nav-h);
     inset: 0;
+    background-image: url('/bg_capture.png');
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
     /* flex : 1; */
     /* top: var(--nav-h); */
-    /* object-fit: cover; */
     z-index: -100;
     overflow: hidden;
     /* display: flex; */

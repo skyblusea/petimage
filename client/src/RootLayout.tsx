@@ -15,8 +15,8 @@ export default function RootLayout() {
       <MainContainer>
         <Outlet />
         {(pathname === '/' || pathname === '/create') && 
-        <ReactPlayer 
-        fallback={<img src="bg_capture.png" alt="bg" style={{width: '100%', height: '100%'}} />}
+        <ReactPlayer
+        poster={<img src="bg_capture.png" alt="bg" className="bg"/>}
         muted={true} playing={true} loop={true} className="bg" url="bg.mp4" width="100%" height="100%" 
         />}
         <Footer />
