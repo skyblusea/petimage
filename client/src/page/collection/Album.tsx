@@ -1,5 +1,4 @@
 import styled from "@emotion/styled"
-import DownloadIcon from '../../assets/download.svg?react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Unstable_Grid2';
 import Accordion from '@mui/material/Accordion';
@@ -15,6 +14,8 @@ import JSZip from 'jszip'
 import { saveAs } from "file-saver";
 import { useCallback, useState } from "react";
 import CloseIcon from '../../assets/close.svg?react';
+import DownloadIcon from '../../assets/download.svg?react';
+import ZoomOutIcon from '../../assets/zoom-out.svg?react';
 import { isMobile } from "react-device-detect";
 
 export default function Album({ data }: { data: AlbumItem }) {
@@ -32,8 +33,12 @@ export default function Album({ data }: { data: AlbumItem }) {
     zip.generateAsync({ type: "blob" }).then((content) => {
       saveAs(content, `${name}.zip`);
     });
-  }, [])
-  console.log(data)
+  }, [data._id])
+
+  const downloadSinglefile = useCallback(async (url: string) => {
+    const img = await fetch(url).then(res => res.blob())
+    saveAs(img, url.split('/').pop());
+  },[])
 
   return (
     <AlbumContainer>
@@ -57,9 +62,13 @@ export default function Album({ data }: { data: AlbumItem }) {
               <Grid key={idx} xs={12 / 5}>
                 <BaseImgBox view hover square src={file} alt="dog" onClick={() => setOpen(idx)}></BaseImgBox>
                 {open === idx &&
+                  //이미지 미리보기
                   <Backdrop open={open === idx} onClick={() => setOpen(undefined)} sx={{ zIndex: 100, cursor: "zoom-out" }}>
                     <ImgWrraper>
                       <img src={file} alt="dog" />
+                      <IconButton sx={{ position: 'absolute', left: '24px', top: '8px' }} onClick={()=>downloadSinglefile(file)} >
+                        <SvgIcon component={DownloadIcon} sx={{fontSize:`${isMobile ?'48px' :'24px' }`}} />
+                      </IconButton>
                       <IconButton sx={{ position: 'absolute', right: '24px', top: '8px' }} onClick={() => setOpen(undefined)}>
                         <SvgIcon component={CloseIcon} sx={{fontSize:`${isMobile ?'48px' :'24px' }`}} />
                       </IconButton>
@@ -100,4 +109,11 @@ const AccordionBox = styled(Accordion)`
 const ImgWrraper = styled.div`
   position: relative;
   margin: auto;
+  height: 100%;
+  aspect-ratio: 1/1;
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `
