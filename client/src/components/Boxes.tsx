@@ -104,13 +104,17 @@ export const SquareCreateBox = styled(BaseCreateBox)`
   }
 `
 
-export const CollectionBox = styled(Stack)` 
+interface CollectionBoxProps {
+  isMobile?: boolean
+}
+
+export const CollectionBox = styled(Stack)<CollectionBoxProps>` 
   display: flex;
   align-items: center;
   justify-content: space-between;
   border: 2px solid var(--petimage);
   border-radius: var(--border-radius-sm);
-  padding: 2.12rem 2.94rem;
+  padding: ${props => props.isMobile ? 'var(--gap-md) var(--gap-lg)' : '2.12rem 2.94rem'};
   width: 100%;
   gap: var(--gap-md);
 `
