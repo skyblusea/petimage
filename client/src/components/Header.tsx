@@ -5,12 +5,13 @@ import Logo from "../assets/logo.svg?react"
 import { useState } from "react";
 import { isMobile } from "react-device-detect";
 import IconButton from '@mui/material/IconButton';
-import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import MenuIcon from '../assets/menu.svg?react';
 import MobileNav from "./MobileNav";
 import WebNav from "./WebNav";
 import LoginModal from "./LoginModal";
 import useAuth from "../util/useAuth";
 import User from '../assets/user.svg?react'
+import { SvgIcon } from "@mui/material";
 
 
 export default function Header() {
@@ -38,7 +39,7 @@ export default function Header() {
           onClick={handleDrawerOpen}
           sx={{ ...(drawerOpen && { display: 'none' }) }}
         >
-          <MenuRoundedIcon sx={{ fontSize: '48px' }} />
+          <SvgIcon component={MenuIcon} inheritViewBox color="petimage" />
         </IconButton>
         <MobileNav drawerOpen={drawerOpen} handleDrawerClose={handleDrawerClose} />
       </>
@@ -57,7 +58,7 @@ const HeaderContainer = styled.header<HeaderContainerProps>`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: ${isMobile ? '92px' : 'var(--nav-h)'};
+  height: var(--nav-h);
   padding: 0 var(--pd-nav);
   padding-top: 10px;
   padding-bottom: 10px;
@@ -71,7 +72,6 @@ const HeaderContainer = styled.header<HeaderContainerProps>`
   .logo {
     width: auto;
     height: 100%;
-    max-height: 60px;
     svg {
       color: var(--petimage);
       height: 100%;

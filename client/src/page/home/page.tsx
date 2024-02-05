@@ -17,16 +17,14 @@ export default function Home() {
         <Box display="flex" justifyContent="center" alignItems="center" sx={{ 
           'svg': {height: '48px'},
           gap: { xs: 'var(--gap-sm)', md: 'var(--gap-lg)' }, width: '100%', flexDirection: { xs: 'column', md: 'row' }, color: 'white' }}>
-          <Typography color="white" variant="h1" sx={{ typography: { xs: 'h3' }, flexShrink: 0 }}>
+          <Typography color="white" sx={{ typography: { xs: 'h4', md:'h3' }, flexShrink: 0 }}>
             WELCOME TO
           </Typography>
           <Logo />
         </Box>
         <Box>
-          <Typography color="white" variant="body1">
-            페티마제는 반려동물 AI 프로필 사진을 생성해주는 서비스입니다.
-          </Typography>
-          <Typography color="white" variant="body1">
+          <Typography color="white" sx={{ typography: { xs: 'body2', md: 'body1' }}}>
+            페티마제는 반려동물 AI 프로필 사진을 생성해주는 서비스입니다.<br/>
             페티마제와 함께 반려동물이 뛰어노는 세상으로 여행해볼까요?
           </Typography>
         </Box>

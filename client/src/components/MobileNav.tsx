@@ -35,7 +35,7 @@ export default function MobileNav({
     >
       <DrawerHeader>
         <IconButton onClick={handleDrawerClose}>
-          <SvgIcon inheritViewBox component={Arrow} sx={{ fontSize: '48px' }} />
+          <SvgIcon inheritViewBox component={Arrow} fontSize='large' />
         </IconButton>
       </DrawerHeader>
       <Divider />
@@ -70,7 +70,8 @@ export default function MobileNav({
         ))}
       </List>
       <Divider />
-      {user && (
+      {user
+        ?
         <ListItem>
           <Button
             sx={{ color: 'text.secondary', ml: '-8px' }}
@@ -82,7 +83,19 @@ export default function MobileNav({
             로그아웃
           </Button>
         </ListItem>
-      )}
+        :
+        <ListItem>
+          <Button
+            sx={{ color: 'text.secondary', ml: '-8px' }}
+            onClick={() => {
+              handleDrawerClose()
+              setLoginModal(true)
+            }}
+          >
+            로그인
+          </Button>
+        </ListItem>
+      }
     </Drawer>
   )
 }
