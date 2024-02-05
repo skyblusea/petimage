@@ -7,11 +7,13 @@ import Divider from '@mui/material/Divider';
 import styled from "@emotion/styled"
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
+import SvgIcon from '@mui/material/SvgIcon';
 import useAuth from '../util/useAuth';
 import { LinkListItemButton } from './LinkComponents';
 import ReceiptIcom from '../assets/receipt.svg?react';
 import AlbumIcon from '../assets/album.svg?react';
 import Arrow from '../assets/arrow.svg?react';
+
 
 
 
@@ -33,20 +35,9 @@ export default function MobileNav({
     >
       <DrawerHeader>
         <IconButton onClick={handleDrawerClose}>
-          <Arrow />
+          <SvgIcon inheritViewBox component={Arrow} sx={{ fontSize: '48px' }} />
         </IconButton>
       </DrawerHeader>
-      <ListItem>
-        <Button
-          size="large"
-          variant="outlined"
-          onClick={() => {
-            handleDrawerClose()
-            setLoginModal(true)
-          }}
-          sx={{ borderRadius: '10px', width: '100%', textAlign: 'center' }}
-        >로그인</Button>
-      </ListItem>
       <Divider />
       <List>
         {['결제 내역', '보관함'].map((text, index) => (
@@ -56,7 +47,9 @@ export default function MobileNav({
               onClick={handleDrawerClose}
             >
               <ListItemIcon sx={{ minWidth: '40px' }}>
-                {index === 0 ? <ReceiptIcom /> : <AlbumIcon />}
+                {index === 0 
+                ? <SvgIcon inheritViewBox component={ReceiptIcom} />
+                : <SvgIcon inheritViewBox component={AlbumIcon} />}
               </ListItemIcon>
               <ListItemText primary={text} />
             </LinkListItemButton>
