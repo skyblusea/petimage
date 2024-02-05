@@ -66,6 +66,7 @@ export default function Slider({ tap, theme }: { tap: number, theme: Theme[] }) 
             }} />
         </Swiper>
         <Swiper
+          //@ts-ignore
           onSwiper={setThumbsSwiper}
           loop={true}
           spaceBetween={10}

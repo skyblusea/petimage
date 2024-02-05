@@ -4,6 +4,7 @@ import { PaletteColor, SimplePaletteColorOptions } from "@mui/material/styles";
 
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
+    body0: true;
     body3: true;
     subtitle3: true;
   }
@@ -105,7 +106,10 @@ const theme = createTheme({
     },
     h5: {
       fontSize: '34px',
-      fontWeight: '700', //!
+      fontWeight: '700',
+    },
+    h6: {
+      fontWeight: '700', 
     },
     body0: {
       fontWeight: '400',

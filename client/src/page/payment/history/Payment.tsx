@@ -10,14 +10,14 @@ export default function Payment({ data }: { data: PaymentHistory}) {
   return (
     <CollectionBox>
       <PaymentWrapper>
-        <Typography variant="h4" >{data.orderName}</Typography>
-        <Typography variant="h4" color="petimage.main" >{new Intl.NumberFormat(undefined, { style: 'currency', currency: 'KRW' }).format(data.totalAmount)}</Typography>
+        <Typography variant="h5" >{data.orderName}</Typography>
+        <Typography variant="h5" color="petimage.main" >{new Intl.NumberFormat(undefined, { style: 'currency', currency: 'KRW' }).format(data.totalAmount)}</Typography>
         {/* <Typography variant="h4" color="petimage.main" >{new Intl.NumberFormat(undefined, { style: 'currency', currency: countryToCurrency[data.country as Countries] }).format(data.totalAmount)}</Typography> */}
       </PaymentWrapper>
       <Divider flexItem />
       <PaymentWrapper>
-        <Typography variant="h4" >승인 일자</Typography>
-        <Typography variant="h4" color="text.secondary" >{
+        <Typography variant="h5" >승인 일자</Typography>
+        <Typography variant="body0" color="text.secondary" >{
           new Intl.DateTimeFormat(undefined, { // undefined 시 browser default locale
             dateStyle: 'long',
             timeStyle: 'medium'

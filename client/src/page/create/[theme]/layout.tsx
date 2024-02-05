@@ -6,11 +6,6 @@ import IconButton from "@mui/material/IconButton";
 import { Outlet, useLoaderData, useLocation, useNavigate, useParams } from "react-router-dom";
 import Grid from '@mui/material/Unstable_Grid2';
 import Box from "@mui/material/Box";
-import { useQuery } from "@tanstack/react-query"
-import { themeQuery } from "../page";
-import styled from "@emotion/styled";
-import { Theme } from '../../../types';
-import useAuth from "../../../util/useAuth";
 
 
 export default function ThemeLayout() {
@@ -35,10 +30,11 @@ export default function ThemeLayout() {
     breeds: 'AI 이미지를 제작하고자 하는 동물을 선택해주세요.',
     upload: '가이드를 확인하시고 10~12장 사진을 업로드해주세요.',
   }
+  console.log(pathname)
 
   return (
     <>
-      <Grid container spacing={{ xs: 2, md: 5.5 }} color={params.theme ?'secondary.main' :'primary.main'} sx={{ width: '100%' }}>
+      <Grid container spacing={{ xs: 2, md: 5.5 }} color={(params.theme||pathname==='/create') ?'secondary.main' :'primary.main'} sx={{ width: '100%' }}>
         <Grid xs={12} display="flex" alignItems="center" justifyContent="center" height="200px">
           <Box display="flex" width="100%" alignItems="start">
             <IconButton onClick={() => navigate(-1)} aria-label="arrow-back" color="inherit" sx={{ mt: '-8px' }}>

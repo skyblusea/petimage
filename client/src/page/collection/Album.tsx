@@ -33,7 +33,7 @@ export default function Album({ data }: { data: AlbumItem }) {
       saveAs(content, `${name}.zip`);
     });
   }, [])
-
+  console.log(data)
 
   return (
     <AlbumContainer>
@@ -49,7 +49,7 @@ export default function Album({ data }: { data: AlbumItem }) {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography variant="h4" sx={{fontSize:'24px'}} color="petimage.main">컨셉사진 / {data.themeName} / {data.outputFiles.length}장</Typography>
+          <Typography variant="h6" color="petimage.main">{data.themeName}</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Grid container spacing={1}>
