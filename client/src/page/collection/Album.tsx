@@ -38,19 +38,19 @@ export default function Album({ data }: { data: AlbumItem }) {
   const downloadSinglefile = useCallback(async (url: string) => {
     const img = await fetch(url).then(res => res.blob())
     saveAs(img, url.split('/').pop());
-  },[])
+  }, [])
 
   return (
     <AlbumContainer>
       <AlbumHeader>
-        <Typography variant="subtitle1" sx={{fontSize:'18px'}}>{new Intl.DateTimeFormat(undefined, { dateStyle: 'medium' }).format(new Date(data.createdAt))}</Typography>
+        <Typography variant="subtitle1" sx={{ fontSize: '18px' }}>{new Intl.DateTimeFormat(undefined, { dateStyle: 'medium' }).format(new Date(data.createdAt))}</Typography>
         <IconButton aria-label="download" onClick={downloadFile} >
           <SvgIcon component={DownloadIcon} />
         </IconButton>
       </AlbumHeader>
       <AccordionBox TransitionProps={{ unmountOnExit: true }} disabled={!data.status} >
         <AccordionSummary
-          expandIcon={<SvgIcon component={ExpandMoreRoundedIcon} inheritViewBox sx={{transform:'rotate(90deg)'}} fontSize="large" color="petimage" />}
+          expandIcon={<SvgIcon component={ExpandMoreRoundedIcon} inheritViewBox sx={{ transform: 'rotate(90deg)' }} fontSize="large" color="petimage" />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
@@ -63,14 +63,17 @@ export default function Album({ data }: { data: AlbumItem }) {
                 <BaseImgBox view hover square src={file} alt="dog" onClick={() => setOpen(idx)}></BaseImgBox>
                 {open === idx &&
                   //이미지 미리보기
-                  <Backdrop open={open === idx} onClick={() => setOpen(undefined)} sx={{ zIndex: 100, cursor: "zoom-out" }}>
+                  <Backdrop open={open === idx} onClick={() => setOpen(undefined)} sx={{ 
+                    zIndex: 100, cursor: "zoom-out" }}>
+                  {/* <Backdrop2> */}
                     <ImgWrraper>
                       <img src={file} alt="dog" />
-                      <IconButton sx={{ position: 'absolute', left: '24px', top: '8px' }} onClick={()=>downloadSinglefile(file)} >
-                        <SvgIcon component={DownloadIcon} sx={{fontSize:`${isMobile ?'48px' :'24px' }`}} />
+                      <IconButton sx={{ 
+                        position: 'absolute', left: '24px', top: '8px' }} onClick={() => downloadSinglefile(file)} >
+                        <SvgIcon component={DownloadIcon} />
                       </IconButton>
                       <IconButton sx={{ position: 'absolute', right: '24px', top: '8px' }} onClick={() => setOpen(undefined)}>
-                        <SvgIcon component={CloseIcon} sx={{fontSize:`${isMobile ?'48px' :'24px' }`}} />
+                        <SvgIcon component={CloseIcon} />
                       </IconButton>
                     </ImgWrraper>
                   </Backdrop>}
@@ -95,6 +98,7 @@ const AlbumHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 16px;
 `
 
 const AccordionBox = styled(Accordion)`
@@ -106,14 +110,17 @@ const AccordionBox = styled(Accordion)`
   }
 `
 
+
 const ImgWrraper = styled.div`
   position: relative;
   margin: auto;
-  height: 100%;
-  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 100%;
   img{
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
 `
