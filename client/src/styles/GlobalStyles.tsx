@@ -35,6 +35,9 @@ const reset = css`
   body {
     font-family: 'Pretendard', sans-serif;
   }
+  #root{
+    min-height: 100vh;
+  }
 
   :root {
     --petimage: #ff5658;

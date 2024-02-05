@@ -7,15 +7,20 @@ export const MainContainer = styled.main`
   width: 100%;
   height: 100%;
   min-height: 100vh;
-  padding-top: ${isMobile ? '92px' : 'var(--nav-h)'};
+  padding-top: var(--nav-h);
   flex-direction: column;
   display: flex;
   position: relative;
   .bg{
-    position: absolute;
-    top: 0;
+    position : absolute;
+    padding-top: var(--nav-h);
+    inset: 0;
+    /* flex : 1; */
+    /* top: var(--nav-h); */
+    /* object-fit: cover; */
     z-index: -100;
-    display: flex;
+    overflow: hidden;
+    /* display: flex; */
     video {
       object-fit: cover;
     }
@@ -26,7 +31,7 @@ interface SingleSectionProps  {
 }
 
 export const SingleSection = styled.section<SingleSectionProps>`
-  flex-grow: 1;
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -3,8 +3,6 @@ import { MainContainer } from "./components/Containers"
 import Footer from "./components/Footer"
 import Header from "./components/Header"
 import ReactPlayer from "react-player/file";
-import useAuth from "./util/useAuth";
-import LoginModal from "./components/LoginModal";
 
 
 
@@ -16,9 +14,12 @@ export default function RootLayout() {
       <Header />
       <MainContainer>
         <Outlet />
-        
+        {(pathname === '/' || pathname === '/create') && 
+        <ReactPlayer 
+        fallback={<img src="bg_capture.png" alt="bg" style={{width: '100%', height: '100%'}} />}
+        muted={true} playing={true} loop={true} className="bg" url="bg.mp4" width="100%" height="100%" 
+        />}
         <Footer />
-        {(pathname === '/' || pathname === '/create') && <ReactPlayer className="bg" url="bg.mp4" width="100%" height="100%" playing={true} />}
       </MainContainer>
     </>
   )
