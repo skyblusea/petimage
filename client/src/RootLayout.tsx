@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from "react-router-dom"
+import { Outlet, ScrollRestoration, useLocation } from "react-router-dom"
 import { MainContainer } from "./components/Containers"
 import Footer from "./components/Footer"
 import Header from "./components/Header"
@@ -11,6 +11,7 @@ export default function RootLayout() {
 
   return (
     <>
+      <ScrollRestoration/>
       <Header />
       <MainContainer>
         <Outlet />

@@ -1,6 +1,6 @@
 import AuthProvider from './provider/AuthProvider.tsx'
 import LoadingProvider from './provider/LoadingProvider.tsx'
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, ScrollRestoration, createBrowserRouter } from "react-router-dom";
 import Error from "./error";
 import Home from "./page/home/page";
 
@@ -100,7 +100,7 @@ export default function App() {
   return (
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
-        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
 
   )

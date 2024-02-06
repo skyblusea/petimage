@@ -32,7 +32,8 @@ export const themeQuery = (authClient: AxiosInstance) => ({
   queryKey: ['theme'],
   queryFn: async (): Promise<Array<Theme>> => {
     const { data: { data: { themes: data } } } = await authClient.get('/theme/list')
-    return data
+    const filtered = data.filter((ele: Theme) => ele.prompt.length > 0)
+    return filtered
   },
   staleTime: 1000 * 60 * 60 * 24 // 1 days
 })

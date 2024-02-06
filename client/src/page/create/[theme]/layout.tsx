@@ -35,7 +35,7 @@ export default function ThemeLayout() {
   return (
     <>
       <Grid container spacing={{ xs: 2, md: 5.5 }} color={(params.theme||pathname==='/create') ?'secondary.main' :'primary.main'} sx={{ width: '100%' }}>
-        <Grid xs={12} display="flex" alignItems="center" justifyContent="center" height="200px">
+        <Grid xs={12} display="flex" alignItems="center" justifyContent="center" height={isMobile ? '100px' :'200px'}>
           <Box display="flex" width="100%" alignItems="start">
             <IconButton onClick={() => navigate(-1)} aria-label="arrow-back" color="inherit" sx={{ mt: '-8px', ml: '-10px' }}>
               <SvgIcon component={ArrowIcon} inheritViewBox sx={{ transform: 'rotate(180deg)', typography: { xs: 'h5', lg: 'h4' } }} />
