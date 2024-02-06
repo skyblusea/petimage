@@ -20,7 +20,7 @@ export default function CreateLayout() {
 
   const selectedTheme = params.theme
   const bg = selectedTheme && theme?.filter(ele => ele.name === selectedTheme)[0].background
-  console.log('bg', theme?.filter(ele => ele.name === selectedTheme)[0], bg)
+
   return (
     <ThemedBG bg={bg}>
       <Outlet />

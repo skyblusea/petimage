@@ -106,7 +106,7 @@ export const SquareCreateBox = styled(BaseCreateBox)`
 `
 
 interface CollectionBoxProps {
-  $isMobile?: boolean
+  isMobile?: boolean
 }
 
 export const CollectionBox = styled(Stack)<CollectionBoxProps>` 
@@ -115,7 +115,7 @@ export const CollectionBox = styled(Stack)<CollectionBoxProps>`
   justify-content: space-between;
   border: 2px solid var(--petimage);
   border-radius: var(--border-radius-sm);
-  padding: ${props => props.$isMobile ? 'var(--gap-md) var(--gap-lg)' : '2.12rem 2.94rem'};
+  padding: ${props => props.isMobile ? 'var(--gap-md) var(--gap-lg)' : '2.12rem 2.94rem'};
   width: 100%;
   gap: var(--gap-md);
 `
