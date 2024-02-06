@@ -44,7 +44,7 @@ function GuideBox(props: GuideBoxProps) {
       </Grid>
       {guide.map((ele, index) => {
         return (
-          <Grid xs={ isMobile ? 2 : 4 } key={index}>
+          <Grid xs={4} key={index}>
             <BaseImgBox src={ele.img} square={true} success={props.title === "올바른 사진"} error={props.title === "잘못된 사진"}>
               {ele.name}
             </BaseImgBox>

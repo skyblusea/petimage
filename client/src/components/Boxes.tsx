@@ -40,9 +40,9 @@ export default function BaseImgBox({
     <BaseCreateBox
       component={to ? Link : 'div'}
       to={to}
-      ratio={square ? '1/1' : ratio}
-      hover={hover}
-      view={view}
+      ratio={square ? '1/1' :ratio}
+      hover={hover ?'true' : 'false'}
+      view={view ?'true' : 'false'}
       onClick={onClick}
     >
       <ImgWrraper>
@@ -71,8 +71,8 @@ const ImgWrraper = styled.div`
 
 type BaseCreateBoxProps = {
   ratio?: string
-  hover?: boolean
-  view?: boolean
+  hover?: string;
+  view?: string;
 }
 
 
@@ -83,11 +83,12 @@ export const BaseCreateBox = styled(LinkBox) <BaseCreateBoxProps>`
   align-items: center;
   flex-direction: column;
   gap: var(--gap-xs);
-  ${props => props.view && `      
+
+  ${props => props.view==="true" && `      
     cursor: zoom-in;
     `}
   img{
-    ${props => props.hover && `      
+    ${props => props.hover==='true' && `      
       :hover {
         transform: scale(1.1);
         transition: transform 0.5s;
@@ -105,7 +106,7 @@ export const SquareCreateBox = styled(BaseCreateBox)`
 `
 
 interface CollectionBoxProps {
-  isMobile?: boolean
+  $isMobile?: boolean
 }
 
 export const CollectionBox = styled(Stack)<CollectionBoxProps>` 
@@ -114,7 +115,7 @@ export const CollectionBox = styled(Stack)<CollectionBoxProps>`
   justify-content: space-between;
   border: 2px solid var(--petimage);
   border-radius: var(--border-radius-sm);
-  padding: ${props => props.isMobile ? 'var(--gap-md) var(--gap-lg)' : '2.12rem 2.94rem'};
+  padding: ${props => props.$isMobile ? 'var(--gap-md) var(--gap-lg)' : '2.12rem 2.94rem'};
   width: 100%;
   gap: var(--gap-md);
 `

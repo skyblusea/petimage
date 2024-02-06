@@ -54,7 +54,7 @@ export default function SelectTheme() {
   return (
       <BannerWrapper isMobile={isMobile}>
         {isMobile
-          ? <>{theme?.map((content, idx) => <Banner content={content} idx={idx} />)}</>
+          ? <>{theme?.map((content, idx) => <Banner key={content._id} content={content} idx={idx} />)}</>
           : <>
             <Swiper
               modules={[Pagination, Navigation]}

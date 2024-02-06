@@ -39,6 +39,7 @@ export const SingleSection = styled.section<SingleSectionProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
   justify-content: ${props => props.center ? 'center' : 'flex-start'};
   padding: 0 var(--pd-nav);
   padding-bottom: 20px; //footer과의 간격

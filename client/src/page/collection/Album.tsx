@@ -15,8 +15,6 @@ import { saveAs } from "file-saver";
 import { useCallback, useState } from "react";
 import CloseIcon from '../../assets/close.svg?react';
 import DownloadIcon from '../../assets/download.svg?react';
-import ZoomOutIcon from '../../assets/zoom-out.svg?react';
-import { isMobile } from "react-device-detect";
 
 export default function Album({ data }: { data: AlbumItem }) {
   //TODO : rendering delay

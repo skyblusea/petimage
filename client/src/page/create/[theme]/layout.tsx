@@ -6,6 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import { Outlet, useLoaderData, useLocation, useNavigate, useParams } from "react-router-dom";
 import Grid from '@mui/material/Unstable_Grid2';
 import Box from "@mui/material/Box";
+import { isMobile } from "react-device-detect";
 
 
 export default function ThemeLayout() {
@@ -20,7 +21,7 @@ export default function ThemeLayout() {
       dog: '견종을 선택해주세요.',
       cat: '묘종을 선택해주세요.'
     },
-    notice: '업로드 전 안내사항을',
+    notice: '업로드 전 안내사항',
     upload: '10-12장의 사진을 업로드 해주세요.',
     checkout: '결제를 진행해주세요.'
   }
@@ -30,14 +31,13 @@ export default function ThemeLayout() {
     breeds: 'AI 이미지를 제작하고자 하는 동물을 선택해주세요.',
     upload: '가이드를 확인하시고 10~12장 사진을 업로드해주세요.',
   }
-  console.log(pathname)
 
   return (
     <>
       <Grid container spacing={{ xs: 2, md: 5.5 }} color={(params.theme||pathname==='/create') ?'secondary.main' :'primary.main'} sx={{ width: '100%' }}>
         <Grid xs={12} display="flex" alignItems="center" justifyContent="center" height="200px">
           <Box display="flex" width="100%" alignItems="start">
-            <IconButton onClick={() => navigate(-1)} aria-label="arrow-back" color="inherit" sx={{ mt: '-8px' }}>
+            <IconButton onClick={() => navigate(-1)} aria-label="arrow-back" color="inherit" sx={{ mt: '-8px', ml: '-10px' }}>
               <SvgIcon component={ArrowIcon} inheritViewBox sx={{ transform: 'rotate(180deg)', typography: { xs: 'h5', lg: 'h4' } }} />
             </IconButton>
             <Box sx={{ flex: '1' }}>
@@ -66,7 +66,9 @@ export default function ThemeLayout() {
                   </Typography>
                 </Box>
                 :
-                <Typography sx={{ textAlign: "center", width: '100%', margin: 0, typography: { xs: 'body2', lg: 'body1' } }}>
+                <Typography sx={{
+                  display:`${isMobile ? 'none' : 'block'}`,
+                  textAlign: "center", width: '100%', margin: 0, typography: { xs: 'body2', lg: 'body1' } }}>
                   {
                     params.theme
                       ? params.animal
@@ -83,7 +85,7 @@ export default function ThemeLayout() {
             </Box>
           </Box>
         </Grid>
-        <Grid xs={12} display="flex" justifyContent="center" flexDirection="column" >
+        <Grid xs={12} display="flex" justifyContent="center" flexDirection="column" alignItems="center">
           <Outlet />
         </Grid>
       </Grid>

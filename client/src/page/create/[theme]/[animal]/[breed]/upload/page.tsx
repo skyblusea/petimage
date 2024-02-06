@@ -2,6 +2,8 @@ import Typography from "@mui/material/Typography";
 import Grid from '@mui/material/Unstable_Grid2';
 import styled from '@emotion/styled'
 import Button from '@mui/material/Button';
+import Fab from '@mui/material/Fab';
+import Dialog from '@mui/material/Dialog';
 import CloudUploadIcon from '../../../../../../assets/upload-cloud.svg?react';
 import AddIcon from '../../../../../../assets/add.svg?react';
 import Arrow from '../../../../../../assets/arrow2.svg?react';
@@ -11,6 +13,7 @@ import GuideLine from "./GuideLine";
 import DeleteIcon from '../../../../../../assets/delete.svg?react';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
+import Zoom from '@mui/material/Zoom';
 import SvgIcon from '@mui/material/SvgIcon';
 import { uploadFiles } from "../../../../../../util/uploadFiles";
 import { validateFiles } from "../../../../../../util/validateFiles";
@@ -23,6 +26,11 @@ import { isMobile } from "react-device-detect";
 import IncorrectIcon from '../../../../../../assets/incorrect.svg?react';
 import { themeQuery } from "../../../../page";
 import { useQuery } from "@tanstack/react-query";
+import CloseIcon from '../../../../../../assets/close.svg?react'
+import Paper from '@mui/material/Paper';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import Grow from '@mui/material/Grow';
 
 
 
@@ -108,12 +116,41 @@ export default function Upload() {
     }
   }
 
+  //fab state
+  const [open, setOpen] = useState<boolean>(true)
 
   return (
-    <Grid container width="100%" spacing={3}>
-      <Grid xs={isMobile ? 12 : 6} display={!files.length ? 'flex' : 'none'}>
-        <GuideLine />
-      </Grid>
+    <Grid container width="100%" spacing={3} >
+      {isMobile
+        ? <>
+          <Fab
+            onClick={() => setOpen(!open)}
+            sx={{
+              position: 'fixed', bottom: 'var(--gap-lg)', right: 'var(--gap-lg)'
+            }}
+            color="petimage">?</Fab>
+          <Dialog
+            onClose={() => setOpen(false)}
+            open={open}>
+            <IconButton
+              aria-label="close"
+              onClick={() => setOpen(!open)}
+              sx={{
+                position: 'absolute', right: 8, top: 8,
+                color: (theme) => theme.palette.grey[500],
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+            <GuideLine />
+          </Dialog>
+        </>
+        : <Grid xs={6} display={!files.length ? 'flex' : 'none'}>
+          <GuideLine />
+        </Grid>
+      }
+
+
       <Grid xs={(!!files.length || isMobile) ? 12 : 6} >
         <DragNDropBox
           onDragEnter={onDragEnterHandler}
@@ -170,7 +207,7 @@ export default function Upload() {
                     color="inherit"
                     sx={{ color: "#bbb" }}
                     aria-label="delete" size="small">
-                    <SvgIcon component={DeleteIcon} inheritViewBox sx={{ fontSize: `${isMobile ? '48px' : '24px'}` }} />
+                    <SvgIcon component={DeleteIcon} inheritViewBox fontSize="large" />
                   </IconButton>
                   {!file.isValid && <SvgIcon component={IncorrectIcon} fontSize="medium" color="error" />}
                 </AlbumItemWrapper>

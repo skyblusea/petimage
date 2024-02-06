@@ -2,12 +2,13 @@ import Typography from "@mui/material/Typography";
 import { useParams } from "react-router-dom";
 import Grid from '@mui/material/Unstable_Grid2';
 import BaseImgBox from "../../../components/Boxes";
+import { isMobile } from "react-device-detect";
 
 
 export default function SelectAnimal() {
   const { theme } = useParams();
   return (
-    <Grid container spacing={10} >
+    <Grid container spacing={isMobile ? 2 : 10} >
       <Grid xs={6} display="flex">
         <BaseImgBox hover square to={`/create/${theme}/dog`} src="/dog.png" alt="강아지">
           <Typography component="span" sx={{ typography: { xs: 'subtitle2', lg: 'subtitle1' } }}>

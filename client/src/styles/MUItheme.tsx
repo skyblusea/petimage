@@ -39,6 +39,11 @@ declare module '@mui/material/SvgIcon' {
     petimage: true;
   }
 }
+declare module '@mui/material/Fab' {
+  interface FabPropsColorOverrides {
+    petimage: true;
+  }
+}
 
 interface ExtendedTypographyOptions extends TypographyOptions {
   body3: React.CSSProperties;

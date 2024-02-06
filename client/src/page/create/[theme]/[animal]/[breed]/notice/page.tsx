@@ -17,9 +17,9 @@ export default function Notice() {
 
   return (
     <>
-      <Grid container spacing={1}>
+      <Grid container spacing={2}>
         {[1, 2, 3, 4, 5, 6, 7, 8].map((idx) =>
-          <Grid xs={3} ><BaseImgBox key={idx} src={`/notice${idx}.png`} square={true} /></Grid>)}
+          <Grid xs={3} key={idx}><BaseImgBox key={idx} src={`/notice${idx}.png`} square={true} /></Grid>)}
         <Grid xs={12}>
           <Box display="flex" width="full" justifyContent="center">
             <LinkButton
