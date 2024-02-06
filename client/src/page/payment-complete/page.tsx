@@ -12,12 +12,12 @@ import Box from '@mui/material/Box';
 export default function PaymentComplete() {
 
   return (
-    <SingleSection center>
-      <MsgContainer>
+    <>
+      <MsgContainer >
         <RoundPaper3 elevation={5}>
           <Typography component="h4" color="petimage.main" sx={{ fontWeight: '700', fontSize: '40px' }} gutterBottom>AI 사진 생성 중입니다.</Typography>
           <Typography sx={{ typography: { xs: 'subtitle2', md: 'subtitle1' } }}>사진의 해상도나 정확도에 따라<br />약 4분 ~ 10분이 소요됩니다.</Typography>
-          <Box sx={{m: '-50px 0'}}>
+          <Box sx={{ m: '-50px 0' }}>
             <Loading />
           </Box>
           <ButtonWrraper>
@@ -26,7 +26,7 @@ export default function PaymentComplete() {
           </ButtonWrraper>
         </RoundPaper3>
       </MsgContainer>
-    </SingleSection>
+    </>
   )
 }
 
@@ -41,14 +41,13 @@ const ButtonWrraper = styled.div`
 const MsgContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 900px;
   gap: 2rem;
   text-align: center;
+  margin: auto;
 `
 
-const Msg = styled.div`
-  display: flex;
-  flex-direction: column;
-`
 
 const RoundPaper3 = styled(RoundPaper)`
   padding: var(--pd-lg);

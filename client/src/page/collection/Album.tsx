@@ -2,6 +2,7 @@ import styled from "@emotion/styled"
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Unstable_Grid2';
 import Accordion from '@mui/material/Accordion';
+import Zoom from '@mui/material/Zoom';
 import SvgIcon from '@mui/material/SvgIcon';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -12,13 +13,14 @@ import BaseImgBox from "../../components/Boxes";
 import { IconButton } from "@mui/material";
 import JSZip from 'jszip'
 import { saveAs } from "file-saver";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import CloseIcon from '../../assets/close.svg?react';
 import DownloadIcon from '../../assets/download.svg?react';
 
 export default function Album({ data }: { data: AlbumItem }) {
   //TODO : rendering delay
   const [open, setOpen] = useState<number | undefined>()
+  const previewRef = useRef<HTMLDivElement>(null)
 
   const downloadFile = useCallback(async () => {
     const name = `petimage_${data.themeName}_${data.createdAt.slice(0, 10)}`
@@ -37,6 +39,7 @@ export default function Album({ data }: { data: AlbumItem }) {
     const img = await fetch(url).then(res => res.blob())
     saveAs(img, url.split('/').pop());
   }, [])
+
 
   return (
     <AlbumContainer>
@@ -61,19 +64,22 @@ export default function Album({ data }: { data: AlbumItem }) {
                 <BaseImgBox view hover square src={file} alt="dog" onClick={() => setOpen(idx)}></BaseImgBox>
                 {open === idx &&
                   //이미지 미리보기
-                  <Backdrop open={open === idx} onClick={() => setOpen(undefined)} sx={{ 
-                    zIndex: 100, cursor: "zoom-out" }}>
-                  {/* <Backdrop2> */}
+                  <Backdrop open={open === idx} onClick={() => setOpen(undefined)} sx={{ zIndex: 100, cursor: "zoom-out" }}>
+                    <Zoom in={open === idx} unmountOnExit >
                     <ImgWrraper>
                       <img src={file} alt="dog" />
-                      <IconButton sx={{ 
-                        position: 'absolute', left: '24px', top: '8px' }} onClick={() => downloadSinglefile(file)} >
+                      {/* 개별 다운로드 */}
+                      <IconButton
+                        sx={{ position: 'absolute', left: '24px', top: '8px' }}
+                        onClick={() => downloadSinglefile(file)} >
                         <SvgIcon component={DownloadIcon} />
                       </IconButton>
+                      {/* 닫기 버튼 */}
                       <IconButton sx={{ position: 'absolute', right: '24px', top: '8px' }} onClick={() => setOpen(undefined)}>
                         <SvgIcon component={CloseIcon} />
                       </IconButton>
                     </ImgWrraper>
+                    </Zoom>
                   </Backdrop>}
               </Grid>
             )}

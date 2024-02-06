@@ -6,6 +6,7 @@ import type { Params } from '@remix-run/router/utils';
 import { QueryClient } from "@tanstack/react-query"
 import { Breed } from "../../../../types";
 import { apiClient } from "../../../../util/axiosInstance";
+import { isMobile } from "react-device-detect";
 
 
 
@@ -48,7 +49,7 @@ export default function SelectBreed() {
           <BaseImgBox hover view square to={`${pathname}/${breed.code}/notice`} src={breed.img} alt={breed.name}>
             <Typography component="span" sx={{
               color: 'primary',
-              typography: { xs: 'subtitle2', lg: 'subtitle1' }
+              typography: { xs: isMobile ?'body1' :'subtitle2' , md: 'subtitle1' }
             }}>
               {breed.name}
             </Typography>

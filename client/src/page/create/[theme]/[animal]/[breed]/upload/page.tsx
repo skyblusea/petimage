@@ -125,13 +125,9 @@ export default function Upload() {
         ? <>
           <Fab
             onClick={() => setOpen(!open)}
-            sx={{
-              position: 'fixed', bottom: 'var(--gap-lg)', right: 'var(--gap-lg)'
-            }}
+            sx={{ position: 'fixed', bottom: '16px', right: '16px' }}
             color="petimage">?</Fab>
-          <Dialog
-            onClose={() => setOpen(false)}
-            open={open}>
+          <Dialog onClose={() => setOpen(false)} open={open}>
             <IconButton
               aria-label="close"
               onClick={() => setOpen(!open)}

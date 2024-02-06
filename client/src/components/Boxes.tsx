@@ -7,6 +7,7 @@ import { Stack } from '@mui/material';
 import { LinkBox } from './LinkComponents';
 import { Link, LinkProps } from "react-router-dom";
 import SvgIcon from '@mui/material/SvgIcon';
+import { isMobile } from 'react-device-detect';
 
 
 
@@ -41,7 +42,7 @@ export default function BaseImgBox({
       component={to ? Link : 'div'}
       to={to}
       ratio={square ? '1/1' :ratio}
-      hover={hover ?'true' : 'false'}
+      hover={ (hover && !isMobile) ?'true' : 'false'}
       view={view ?'true' : 'false'}
       onClick={onClick}
     >
@@ -50,7 +51,7 @@ export default function BaseImgBox({
         {success && <SvgIcon component={CorrectIcon} fontSize="medium" color="success" />}
         {error && <SvgIcon component={IncorrectIcon} fontSize="medium" color="error" />}
       </ImgWrraper>
-      {children && <Typography variant='body3'>{children}</Typography>}
+      {children && <Typography sx={{ width:'100%', textAlign:'center', overflow:'hidden', whiteSpace: 'nowrap', textOverflow:'clip'}} variant='body3'>{children}</Typography>}
     </BaseCreateBox>
   )
 }

@@ -41,7 +41,7 @@ export default function ThemeLayout() {
               <SvgIcon component={ArrowIcon} inheritViewBox sx={{ transform: 'rotate(180deg)', typography: { xs: 'h5', lg: 'h4' } }} />
             </IconButton>
             <Box sx={{ flex: '1' }}>
-              <Typography component="h1" sx={{ textAlign: "center", width: '100%', mb: "var(--gap-sm)", typography: { xs: 'h5', lg: 'h4' } }}>
+              <Typography component="h1" sx={{ textAlign: "center", width: '100%', mb: "var(--gap-sm)", fontWeight:'700', typography: { xs: isMobile ?'subtitle0' :'h5', lg: 'h4' } }}>
                 {
                   params.theme
                     ? params.animal

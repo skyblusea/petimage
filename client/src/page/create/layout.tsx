@@ -23,7 +23,7 @@ export default function CreateLayout() {
 
   return (
     <ThemedBG bg={bg}>
-      <Outlet />
+        <Outlet />
     </ThemedBG>
   )
 }
@@ -33,5 +33,14 @@ interface ThemedBGProps {
 }
 
 const ThemedBG = styled(SingleSection) <ThemedBGProps>`
-  ${props => props.bg && `background-image: url(${props.bg})`}
+
+  ${props => props.bg && `
+  background-image: url(${props.bg});
+  background-position-x: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  `}
+
 `
+

@@ -10,7 +10,6 @@ import MobileNav from "./MobileNav";
 import WebNav from "./WebNav";
 import LoginModal from "./LoginModal";
 import useAuth from "../util/useAuth";
-import User from '../assets/user.svg?react'
 import { SvgIcon } from "@mui/material";
 
 
