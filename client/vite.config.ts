@@ -19,5 +19,9 @@ export default defineConfig({
     //     }
     // },
     chunkSizeWarningLimit: 1600,
+    
   },
+  optimizeDeps: {
+    include: ['@emotion/react', '@emotion/styled','@mui/material/Unstable_Grid2']
+  }
 });
