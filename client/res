@@ -1,3 +1,615 @@
+/breedsloader
+[
+  {
+      "_id": "6597945f7ef02d682782aa2a",
+      "name": "선택 안 함",
+      "class": "고양이",
+      "code": "mixxed_cat",
+      "img": "https://petimage.kr/files/uploads/admin/1706864295088e110.jpg",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2024-02-02T08:59:00.765Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa2b",
+      "name": "코리안 숏헤어",
+      "class": "고양이",
+      "code": "koreanshorthair_cat",
+      "img": "https://petimage.kr/files/uploads/admin/코리안 숏헤어.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa2c",
+      "name": "페르시안",
+      "class": "고양이",
+      "code": "persian_cat",
+      "img": "https://petimage.kr/files/uploads/admin/페르시안.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa2d",
+      "name": "러시안 블루",
+      "class": "고양이",
+      "code": "russianblue_cat",
+      "img": "https://petimage.kr/files/uploads/admin/러시안 블루.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa2e",
+      "name": "샴",
+      "class": "고양이",
+      "code": "siamese_cat",
+      "img": "https://petimage.kr/files/uploads/admin/샴.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa2f",
+      "name": "터키쉬 앙고라",
+      "class": "고양이",
+      "code": "turkishangora_cat",
+      "img": "https://petimage.kr/files/uploads/admin/터키쉬 앙고라.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa30",
+      "name": "스코티쉬 폴드",
+      "class": "고양이",
+      "code": "scottishfold_cat",
+      "img": "https://petimage.kr/files/uploads/admin/스코티쉬 폴드.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa31",
+      "name": "노르웨이 숲",
+      "class": "고양이",
+      "code": "norwegianforest_cat",
+      "img": "https://petimage.kr/files/uploads/admin/노르웨이 숲.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa32",
+      "name": "랙돌",
+      "class": "고양이",
+      "code": "ragdoll_cat",
+      "img": "https://petimage.kr/files/uploads/admin/랙돌.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa33",
+      "name": "뱅갈",
+      "class": "고양이",
+      "code": "bengal_cat",
+      "img": "https://petimage.kr/files/uploads/admin/뱅갈.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa34",
+      "name": "스핑크스",
+      "class": "고양이",
+      "code": "sphynx_cat",
+      "img": "https://petimage.kr/files/uploads/admin/스핑크스.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa35",
+      "name": "아비시니안",
+      "class": "고양이",
+      "code": "abyssinian_cat",
+      "img": "https://petimage.kr/files/uploads/admin/아비시니안.jpg",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "65a75b0aecc60d4ca5d86d8a",
+      "name": "먼치킨",
+      "class": "고양이",
+      "code": "munchkin_cat",
+      "img": "https://petimage.kr/files/uploads/admin/먼치킨.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  }
+]
+
+[
+  {
+      "_id": "6597945f7ef02d682782aa16",
+      "name": "선택 안 함",
+      "class": "강아지",
+      "code": "mixxed_dog",
+      "img": "https://petimage.kr/files/uploads/admin/17068642950879492.jpg",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2024-02-02T08:58:50.635Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa17",
+      "name": "몰티즈",
+      "class": "강아지",
+      "code": "maltese_dog",
+      "img": "https://petimage.kr/files/uploads/admin/몰티즈.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa18",
+      "name": "푸들",
+      "class": "강아지",
+      "code": "poodle_dog",
+      "img": "https://petimage.kr/files/uploads/admin/푸들.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa19",
+      "name": "포메라니안",
+      "class": "강아지",
+      "code": "pomeranian_dog",
+      "img": "https://petimage.kr/files/uploads/admin/포메라니안.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa1a",
+      "name": "진돗개",
+      "class": "강아지",
+      "code": "jindo_dog",
+      "img": "https://petimage.kr/files/uploads/admin/진돗개.jpg",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa1b",
+      "name": "시추",
+      "class": "강아지",
+      "code": "shihtzu_dog",
+      "img": "https://petimage.kr/files/uploads/admin/시추.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa1c",
+      "name": "비숑 프리제",
+      "class": "강아지",
+      "code": "bichonfrise_dog",
+      "img": "https://petimage.kr/files/uploads/admin/비숑 프리제.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa1d",
+      "name": "요크셔테리어",
+      "class": "강아지",
+      "code": "yorkshire_dog",
+      "img": "https://petimage.kr/files/uploads/admin/요크셔테리어.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa1e",
+      "name": "시바이누",
+      "class": "강아지",
+      "code": "shibainu_dog",
+      "img": "https://petimage.kr/files/uploads/admin/시바이누.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa1f",
+      "name": "웰시코기",
+      "class": "강아지",
+      "code": "welshcorgi_dog",
+      "img": "https://petimage.kr/files/uploads/admin/웰시코기.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa20",
+      "name": "리트리버",
+      "class": "강아지",
+      "code": "retriever_dog",
+      "img": "https://petimage.kr/files/uploads/admin/리트리버.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa21",
+      "name": "보더콜리",
+      "class": "강아지",
+      "code": "bordercollie_dog",
+      "img": "https://petimage.kr/files/uploads/admin/보더콜리.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa22",
+      "name": "치와와",
+      "class": "강아지",
+      "code": "chihuahua_dog",
+      "img": "https://petimage.kr/files/uploads/admin/치와와.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa23",
+      "name": "닥스훈트",
+      "class": "강아지",
+      "code": "dachshund_dog",
+      "img": "https://petimage.kr/files/uploads/admin/닥스훈트.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa24",
+      "name": "허스키",
+      "class": "강아지",
+      "code": "siberianhusky_dog",
+      "img": "https://petimage.kr/files/uploads/admin/허스키.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa25",
+      "name": "사모예드",
+      "class": "강아지",
+      "code": "samoyed_dog",
+      "img": "https://petimage.kr/files/uploads/admin/사모예드.jpg",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa26",
+      "name": "프렌치 불도그",
+      "class": "강아지",
+      "code": "bulldog_dog",
+      "img": "https://petimage.kr/files/uploads/admin/프렌치 불도그.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa27",
+      "name": "비글",
+      "class": "강아지",
+      "code": "beagle_dog",
+      "img": "https://petimage.kr/files/uploads/admin/비글.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa28",
+      "name": "그레이 하운드",
+      "class": "강아지",
+      "code": "greyhound_dog",
+      "img": "https://petimage.kr/files/uploads/admin/그레이 하운드.jpg",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  },
+  {
+      "_id": "6597945f7ef02d682782aa29",
+      "name": "슈나우저",
+      "class": "강아지",
+      "code": "schnauzer_dog",
+      "img": "https://petimage.kr/files/uploads/admin/슈나우저.png",
+      "createdAt": "2023-12-13T07:41:27.706Z",
+      "updatedAt": "2023-12-13T07:41:27.706Z"
+  }
+]
+
+
+/create theme
+
+[
+  {
+      "_id": "657953f6ed59584aa4b2c983",
+      "name": "우주여행",
+      "desc": "반려동물이 광활한 우주를 여행하는 모습은 어떠신가요? 수많은 별들과 은하수를 구경하고, 지구를 바라보는 우주비행사! 재밌는 여행을 하고 있는지 한번 구경해 봐요!",
+      "prompt": [
+          {
+              "steps": "40",
+              "cfg_scale": "9",
+              "sampler_index": "DPM++ 2M SDE Karras",
+              "negative_prompt": "text, watermark, ugly, blurred, blurry, low quality",
+              "batch_size": "10",
+              "width": "1024",
+              "height": "1024",
+              "prompt": "(qwer animal_name:[species_name animal_name:39] :1.4) (qwer animal_name swims in space) ,8k, best quality, realistic, photo-realistic, masterpiece, best quality, photo , <lora:album_id:1>",
+              "base_model": ""
+          },
+          {
+              "batch_size": "10",
+              "width": "1024",
+              "height": "1024",
+              "steps": "42",
+              "cfg_scale": "7.5",
+              "sampler_index": "DPM++ 2M Karras",
+              "negative_prompt": "((extra fingers,fewer fingers,strange fingers), human:1.5, bad face), bad anatomy, negativeXL_D, (worst quality:2), lowres, normal quality, watermark, signature, patreon logo, id, text, bad hands, bad arms, misssing limbs, ugly",
+              "refiner_checkpoint": "sd_xl_refiner_1.0.safetensors [7440042bbd]",
+              "refiner_switch_at": "0.8",
+              "prompt": "(qwer  animal_name:[species_name animal_name:36]:1.4), (is doing space walk:1.8), galaxy, space, stars, planets, (medium shot:1.2), (isolated on the earth background:1.5), (space:0.3), (photorealistic:1.4), realism, 8k, Ultra-High-Definition, (Masterpiece:1.5), (best quality:1.5), digital camera style, <lora:space:0.5>, <lora:album_id:1>",
+              "base_model": ""
+          },
+          {
+              "steps": "42",
+              "cfg_scale": "9",
+              "sampler_index": "DPM++ 2M Karras",
+              "batch_size": "10",
+              "width": "1024",
+              "height": "1024",
+              "refiner_checkpoint": "sd_xl_refiner_1.0.safetensors [7440042bbd]",
+              "refiner_switch_at": "0.8",
+              "prompt": "(qwer animal_name is wearing astronaut suit:1.3, qwer animal_name : [species_name animal_name:36] explore the planet:1.5),  (isolated on the earth background:1.7), spacesuit boots, realism, 8k, Ultra-High-Definition, (Masterpiece:1.5, best quality:1.5), realistic, digital camera style, <lora:album_id:1>",
+              "negative_prompt": "(human:1.5), face human, extra legs, missing legs ,  (more than one animal_name) , human, signature, (close-up), selfie, bad anatomy, anime style, negativeXL_D",
+              "base_model": ""
+          }
+      ],
+      "background": "https://img.freepik.com/free-photo/abstract-surface-and-textures-of-white-concrete-stone-wall_74190-8189.jpg?size=626&ext=jpg&ga=GA1.1.1788068356.1707004800&semt=ais",
+      "tag": "우주여행,달 착륙,행성,탐험",
+      "type": "AI 컨셉사진",
+      "price": "1,100",
+      "popular": 249,
+      "amount": 30,
+      "sample": [
+          "https://petimage.kr/files/pet/65b3051586d2c262a1a2518b/image1_1706239348183.png",
+          "https://petimage.kr/files/pet/65b3051586d2c262a1a2518b/image2_1706239474583.png",
+          "https://petimage.kr/files/pet/65b3051586d2c262a1a2518b/image3_1706239604922.png",
+          "https://petimage.kr/files/pet/65b304e086d2c262a1a25174/image3_1706238843466.png"
+      ],
+      "trial": [
+          {
+              "class": "고양이",
+              "img": "https://petimage.kr/files/uploads/admin/샴.jpg",
+              "output": "https://petimage.kr/files/pet/admin/ast1.png"
+          },
+          {
+              "class": "강아지(임시)",
+              "img": "https://petimage.kr/files/uploads/admin/샴.jpg",
+              "output": "https://petimage.kr/files/pet/admin/ast2.png"
+          }
+      ],
+      "createdAt": "2023-12-14T05:34:05.617Z",
+      "updatedAt": "2024-02-06T01:01:46.257Z",
+      "category": [
+          "NEW",
+          "HOT"
+      ],
+      "priceCode": "petimage_basic_theme",
+      "status": 1,
+      "originalPrice": "12,900"
+  },
+  {
+      "_id": "657953f6ed59584aa4b2c984",
+      "name": "여름휴가",
+      "desc": "365일 내내 귀여우느라 고생한 당신, 떠나라! 저 멀리 여유로운 휴양지에서 달콤한 휴가를 보내고 있는 우리 친구들을 만나보세요!",
+      "prompt": [
+          {
+              "sampler_index": "DPM++ 2M SDE Karras",
+              "batch_size": "10",
+              "width": "1024",
+              "steps": "41",
+              "cfg_scale": "7.5",
+              "negative_prompt": "bad feets, bad hands, human, human hands, (hind legs) ,  negativeXL_D",
+              "height": "1024",
+              "prompt": "([qwer animal_name:species_name animal_name:33]:1.5), ((A qwer animal_name enjoying suntan on the beach:1.4, qwer animal_name in a Hawaiian shirt)), aloha shirt, mojito, best quality, masterpiece, sun bed, a beautiful beach, colorful, dynamic angle, realistic, Cinemascope, Full shot, sunshine over the sea surface, digital camera style <lora:album_id:1>",
+              "base_model": ""
+          },
+          {
+              "sampler_index": "DPM++ 2M Karras",
+              "batch_size": "10",
+              "width": "1024",
+              "height": "1024",
+              "steps": "42",
+              "cfg_scale": "7.5",
+              "negative_prompt": "extra legs, missing legs , fin, fishreg (mixed, synthesized),  more than one animal_name , human, signature, (close-up), selfie, bad anatomy, anime style, negativeXL_D",
+              "prompt": "(([qwer animal_name:species_name animal_name: 40] is sea walking:1.4)) under the sea (without diving mask),(background is tropical fish and tropical coral) is nearby qwer animal_name, colorful, (medium shot:1.3), 4k, Ultra-High-Definition, (Masterpiece , best quality:1.2, photo realistic:1.2), Cinemascope,<lora:album_id:1>",
+              "base_model": ""
+          },
+          {
+              "steps": "41",
+              "cfg_scale": "7.5",
+              "sampler_index": "DPM++ 2M Karras",
+              "batch_size": "10",
+              "width": "1024",
+              "height": "1024",
+              "negative_prompt": "bad feet, bad hand, human, human hands, (hind legs)",
+              "prompt": "([qwer animal_name:species_name animal_name:33]:1.4):), (animal_name is surf nicely with surfing board in the sea:1.4) , best quality, masterpiece, beautiful and aesthetic:1.2, colorful, dynamic angle, realistic, Cinemascope ,Full shot, sunshine over the sea surface,  digital camera style, qwer animal_name <lora:album_id:1>",
+              "base_model": ""
+          }
+      ],
+      "background": "https://img.freepik.com/free-photo/abstract-surface-and-textures-of-white-concrete-stone-wall_74190-8189.jpg?size=626&ext=jpg&ga=GA1.1.1788068356.1707004800&semt=ais",
+      "tag": "해변,물놀이,서핑,열대어",
+      "type": "AI 컨셉사진",
+      "price": "1,100",
+      "popular": 179,
+      "amount": 30,
+      "sample": [
+          "https://petimage.kr/files/pet/65b3371086d2c262a1a25359/image1_1706253250525.png",
+          "https://petimage.kr/files/pet/65b3371086d2c262a1a25359/image2_1706253369142.png",
+          "https://petimage.kr/files/pet/65b3371086d2c262a1a25359/image3_1706253483630.png"
+      ],
+      "trial": [
+          {
+              "img": "https://petimage.kr/files/uploads/admin/샴.jpg",
+              "output": "https://petimage.kr/files/pet/admin/scb1.png",
+              "class": "고양이"
+          },
+          {
+              "class": "강아지(임시)",
+              "img": "https://petimage.kr/files/uploads/admin/샴.jpg",
+              "output": "https://petimage.kr/files/pet/admin/scb2.png"
+          }
+      ],
+      "createdAt": "2023-12-14T05:34:05.617Z",
+      "updatedAt": "2024-02-06T01:21:03.519Z",
+      "category": [
+          "NEW",
+          "HOT"
+      ],
+      "priceCode": "petimage_basic_theme",
+      "status": 1,
+      "originalPrice": "12,900"
+  },
+  {
+      "_id": "65a47fda2cb46337695875b9",
+      "name": "한 복이 왔어용",
+      "desc": "즐거운 새해를 맞이하여 복덩어리 준비해봤습니다!",
+      "prompt": [
+          {
+              "cfg_scale": "8",
+              "negative_prompt": "((human:2, 2 animal_name, more than one animal_name, nsfw)), (worst quality, bad quality:1.4, fennis,glans , long neck, bad anatomy, long neck:1.2), (worst face, bad face:1.2, censored),(extra legs, missing legs , extra limbs, extra head, extra tails, disfigured, deformed)painting, cartoon, text, bad art, beginner, amateur, distorted face, watermark, low quality, medium quality, blurry, signature, negativeXL_D",
+              "steps": "42",
+              "sampler_index": "DPM++ 2M SDE Karras",
+              "batch_size": "15",
+              "width": "1024",
+              "refiner_checkpoint": "sd_xl_refiner_1.0.safetensors [7440042bbd]",
+              "height": "1024",
+              "refiner_switch_at": "0.9",
+              "prompt": "(([qwer animal_name:species_name animal_name:35]:1.4)),((qwer animal_name wearing Hanbok clothes:1.5)), (Centered:1.2, looking at the viewer , Create a breathtaking natural landscape with vivid details, photorealistic) , (ultra high res, (Masterpiece:1.2), best quality: 1.2) , 8k, dslr, vibrant colors and a sense of tranquility, <lora:SDXL_Hanbok_LoRA_beta7:1>,  <lora:album_id:1.1>",
+              "base_model": ""
+          },
+          {
+              "sampler_index": "DPM++ 2M Karras",
+              "steps": "38",
+              "cfg_scale": "8",
+              "negative_prompt": "((human:2, 2 animal_name, more than one animal_name, nsfw)), (worst quality, bad quality:1.4, fennis,glans , long neck, bad anatomy, long neck:1.2), (worst face, bad face:1.2, censored),(extra legs, missing legs , extra limbs, extra head, extra tails, disfigured, deformed)painting, cartoon, text, bad art, beginner, amateur, distorted face, watermark, low quality, medium quality, blurry, signature, negativeXL_D",
+              "batch_size": "15",
+              "width": "1024",
+              "height": "1024",
+              "refiner_checkpoint": "sd_xl_refiner_1.0.safetensors [7440042bbd]",
+              "refiner_switch_at": "0.8",
+              "prompt": "((([qwer animal_name:species_name animal_name:35]:1.4))),((one qwer animal_name wearing Hanbok clothes and Sitting in front of :1.7)) , dslr, ((Centered, looking at the viewer)) , (ultra-detailed, ultra high res, (Masterpiece:1.3), best quality:1.5), Set against the backdrop of a snow-covered Hanok (traditional Korean house), a delightful qwer animal_name , adorned in a vibrant Hanbok, joyfully frolics in the falling snow, Korean New Year's Day, the Lunar New year, photorealistic , vibrant colors, and a sense of tranquility, <lora:SDXL_Hanbok_LoRA_beta7:1.2>, <lora:album_id:1.1>",
+              "base_model": ""
+          }
+      ],
+      "background": "https://img.freepik.com/free-photo/abstract-surface-and-textures-of-white-concrete-stone-wall_74190-8189.jpg?size=626&ext=jpg&ga=GA1.1.1788068356.1707004800&semt=ais",
+      "tag": "한복,한옥,겨울,자연경관",
+      "type": "AI 컨셉사진",
+      "price": "1,100",
+      "popular": 80,
+      "amount": 30,
+      "sample": [
+          "https://petimage.kr/files/uploads/admin/asdfasdf.png",
+          "https://petimage.kr/files/uploads/admin/898989.png"
+      ],
+      "trial": [],
+      "createdAt": "2024-01-31T18:42:44.401Z",
+      "updatedAt": "2024-02-06T15:38:52.439Z",
+      "category": [
+          "NEW",
+          "HOT"
+      ],
+      "priceCode": "petimage_basic_theme",
+      "status": 1,
+      "originalPrice": "12,900"
+  },
+  {
+      "_id": "65bb475a67a0d910b63af526",
+      "prompt": [
+          {
+              "prompt": "([qwer animal_name:species_name animal_name:41]:1.4) isolated qwer animal_name face,(is smiling:2), (whole animal_name body covered with pajamas:2), (with headband on:1.5), (grabbing a beer with hand:1.4), (drinking beer:1.5), (fried chicken's on the table:1.4), (sofa's on the background), (medium shot:1.5), 8k, Ultra-High-Definition, (Masterpiece:1.5), (best quality:1.5), realistic, digital camera style,   <lora:album_id:1>",
+              "steps": "42",
+              "cfg_scale": "9.5",
+              "sampler_index": "DPM++ 2M Karras",
+              "batch_size": "6",
+              "width": "1024",
+              "height": "1024",
+              "refiner_checkpoint": "sd_xl_refiner_1.0.safetensors [7440042bbd]",
+              "refiner_switch_at": "0.8",
+              "negative_prompt": "(human:2.0), (((qwer animal_name face human))), (tongue), letters, text, (hind legs), human hands, bedding, more than one qwer animal_name, bad anatomy, bad face, bad paws, many paws, bad  selfie, full-body, standing pose, (human arms:2), (human legs:2), (human hands:2), (human feet:2)",
+              "base_model": "photopediaXL_45.safetensors [2a52d86f4a]"
+          },
+          {
+              "prompt": "([qwer animal_name:species_name animal_name:41]:1.4), isolated qwer animal_name face,  smile, clothed animal, animal focus, no human, konbini, convenience store, scenery, shop, indoors, items and shopping basket on the store counter, a (qwer animal_name) that (whole animal_name body covered with convenience store employee uniform:2) working at a convenience store, Cui Bai, regionalism, cyberpunk style, a stock photo, 8k, Ultra-High-Definition, (Masterpiece:1.5), (best quality:1.5), realistic, digital camera style,  <lora:album_id:1>  <lora:7eleven_scenery_SDXL_V1:1>",
+              "steps": "42",
+              "cfg_scale": "9.5",
+              "sampler_index": "DPM++ 2M Karras",
+              "negative_prompt": "(human:2.0), (((qwer animal_name face human))), (tongue), letters,( hind legs), human hands, bedding, more than one qwer animal_name, bad anatomy, bad face, bad paws, many paws, bad  selfie, full-body, standing pose, (human arms, human legs, human hands, human feet:2)",
+              "batch_size": "6",
+              "width": "1024",
+              "height": "1024",
+              "refiner_checkpoint": "sd_xl_refiner_1.0.safetensors [7440042bbd]",
+              "refiner_switch_at": "0.8",
+              "base_model": "photopediaXL_45.safetensors [2a52d86f4a]"
+          },
+          {
+              "refiner_checkpoint": "sd_xl_refiner_1.0.safetensors [7440042bbd]",
+              "refiner_switch_at": "0.8",
+              "width": "1024",
+              "height": "1024",
+              "batch_size": "6",
+              "prompt": "([qwer animal_name:species_name animal_name:41]:1.4), isolated qwer animal_name face, (wearing glasses:1.4), clothed animal, shirt, necktie, (whole body covered with shirt:2),  (look tired), (is sitting on chair:2), (tapping laptop keyboard:1.3), (looking at laptop screen:1.4), (papers on the table), (bright city view  background), (crowded office, many people in background, window, desk, chair, computer, ceiling, ceiling light, office), (medium shot:1.5), animal focus, 8k, Ultra-High-Definition, (Masterpiece:1.5), (best quality:1.5), realistic, digital camera style, <lora:album_id:1.2>",
+              "steps": "42",
+              "cfg_scale": "9.5",
+              "sampler_index": "DPM++ 2M Karras",
+              "negative_prompt": "(long paws),(long arms), (long legs), (human:2.0), qwer animal_name face human, (tongue), letters on suit, (hind legs), human hands, bedding, more than one qwer animal_name, bad anatomy, bad face, bad paws, many paws, bad  selfie, full-body, standing pose",
+              "base_model": "photopediaXL_45.safetensors [2a52d86f4a]"
+          },
+          {
+              "prompt": "([qwer animal_name:species_name animal_name:39]:1.4), (on the public transportation), isolated qwer animal_name face, (is looking through the window), (wearing (dress shirt) and necktie:2), (holding briefcase:1.5), no humans, crowded place, animal focus, on its way to work, (medium shot:1.5), 8k, Ultra-High-Definition, (Masterpiece:1.5), (best quality:1.5), realistic, digital camera style,  <lora:album_id:1>",
+              "steps": "40",
+              "cfg_scale": "9",
+              "sampler_index": "DPM++ 2M SDE Karras",
+              "negative_prompt": "(human  body with qwer animal_name face:2.0), (((qwer animal_name face human))), (tongue), letters on suit, (hind legs), human hands, bedding, more than one qwer animal_name, bad anatomy, bad face, bad paws, many paws, bad  selfie, full-body, standing pose, (human arms, human legs, human hands, human feet:2), (animal_name harness:2.0), necklace",
+              "batch_size": "6",
+              "width": "1024",
+              "height": "1024",
+              "refiner_checkpoint": "sd_xl_refiner_1.0.safetensors [7440042bbd]",
+              "refiner_switch_at": "0.8",
+              "base_model": "photopediaXL_45.safetensors [2a52d86f4a]"
+          },
+          {
+              "refiner_checkpoint": "sd_xl_refiner_1.0.safetensors [7440042bbd]",
+              "refiner_switch_at": "0.5",
+              "height": "1024",
+              "width": "1024",
+              "batch_size": "6",
+              "sampler_index": "DPM++ 2M SDE Karras",
+              "cfg_scale": "9",
+              "steps": "40",
+              "prompt": "([qwer animal_name:species_name animal_name:39]:1.4), isolated qwer animal_name face,  clothed animal, animal focus, no human, a (qwer animal_name) ((dressed as a maid:1.5)) working for a cleaning company, grabbing (toilet cleaning brush),  is cleaning toilet bowl in a colorful bathroom, bubbles all around, Elke Vogelsang, institutional critique, brush hard, a stock photo, 8k, Ultra-High-Definition, (Masterpiece:1.5), (best quality:1.5), realistic, digital camera style,  <lora:album_id:1>",
+              "negative_prompt": "(animal_name in the toilet bowl), (human body with qwer animal_name face:2.0), (((qwer animal_name face human))), (tongue), letters on suit, (hind legs), human hands, bedding, more than one qwer animal_name, bad anatomy, bad face, bad paws, many paws, bad selfie, full-body, (standing pose:2), (human arms, human legs, human hands, human feet:2), (text:2), (blob:2), necklace",
+              "base_model": "photopediaXL_45.safetensors [2a52d86f4a]"
+          }
+      ],
+      "sample": [
+          "https://petimage.kr/files/uploads/admin/5.png",
+          "https://petimage.kr/files/uploads/admin/4.png",
+          "https://petimage.kr/files/uploads/admin/1.png",
+          "https://petimage.kr/files/uploads/admin/2.png",
+          "https://petimage.kr/files/uploads/admin/3.png"
+      ],
+      "trial": [],
+      "name": "열일하개(테스트)",
+      "desc": "<p>※현재 테스트 중인 테마로 퀄리티가 다른 테마보다 낮을 수 있습니다.※<br></p><p>견주를 위해! 집사를 위해!</p><p>이번에는 우리가 사료값 벌어오겠습니다!</p><p>어디 한 번 출근을 해볼까요?</p>",
+      "price": "1,100",
+      "popular": 30,
+      "amount": 30,
+      "category": [
+          "NEW"
+      ],
+      "priceCode": "petimage_basic_theme",
+      "status": 2,
+      "createdAt": "2024-02-01T07:25:14.124Z",
+      "updatedAt": "2024-02-06T02:07:41.285Z",
+      "__v": 0,
+      "type": "AI 컨셉사진",
+      "background": "https://petimage.kr/files/uploads/admin/2.png",
+      "tag": "출근,사무실,치맥,아르바이트,청소",
+      "originalPrice": "12,900"
+  }
+]
+
+
+
+
+
+
 로그인 res
 
 

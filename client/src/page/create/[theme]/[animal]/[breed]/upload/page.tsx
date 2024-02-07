@@ -13,7 +13,6 @@ import GuideLine from "./GuideLine";
 import DeleteIcon from '../../../../../../assets/delete.svg?react';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import Zoom from '@mui/material/Zoom';
 import SvgIcon from '@mui/material/SvgIcon';
 import { uploadFiles } from "../../../../../../util/uploadFiles";
 import { validateFiles } from "../../../../../../util/validateFiles";
@@ -27,11 +26,6 @@ import IncorrectIcon from '../../../../../../assets/incorrect.svg?react';
 import { themeQuery } from "../../../../page";
 import { useQuery } from "@tanstack/react-query";
 import CloseIcon from '../../../../../../assets/close.svg?react'
-import Paper from '@mui/material/Paper';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import Grow from '@mui/material/Grow';
-import { width } from "@mui/system";
 
 
 

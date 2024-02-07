@@ -38,7 +38,6 @@ export const loader =
 
 
 export default function SelectBreed() {
-
   const breeds = useLoaderData() as Awaited<ReturnType<ReturnType<typeof loader>>>;
   const pathname = useLocation().pathname;
 
@@ -46,7 +45,7 @@ export default function SelectBreed() {
     <Grid container spacing={2}>
       {breeds?.map((breed) => (
         <Grid xs={4} md={3} lg={12 / 5} key={breed._id}>
-          <BaseImgBox hover view square to={`${pathname}/${breed.code}/notice`} src={breed.img} alt={breed.name}>
+          <BaseImgBox hover square to={`${pathname}/${breed.code}/notice`} src={breed.img} alt={breed.name}>
             <Typography component="span" sx={{
               color: 'primary',
               typography: { xs: isMobile ?'body1' :'subtitle2' , md: 'subtitle1' }

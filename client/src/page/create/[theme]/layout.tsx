@@ -1,9 +1,8 @@
-import { SingleSection } from "../../../components/Containers";
 import ArrowIcon from '../../../assets/arrow.svg?react';
 import SvgIcon from "@mui/material/SvgIcon";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import { Outlet, useLoaderData, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import Grid from '@mui/material/Unstable_Grid2';
 import Box from "@mui/material/Box";
 import { isMobile } from "react-device-detect";

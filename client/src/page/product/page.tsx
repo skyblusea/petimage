@@ -1,16 +1,12 @@
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
-import SvgIcon from '@mui/material/SvgIcon';
 import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
-import Box from '@mui/material/Box';
 import { PetimageThemeContainer, PetimegeThemeContent, PetimegeThemeHeader } from '../../components/Containers';
 import { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { QueryClient, useQuery } from '@tanstack/react-query';
 import { Theme } from '../../types';
-import CheckIcon from '../../assets/check.svg?react';
-import CustomImage from '../../components/CustomImage';
 import { apiClient } from '../../util/axiosInstance';
 import Slider from './Slider';
 

@@ -1,9 +1,6 @@
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import styled from '@emotion/styled'
 import CheckRoundedIcon from '../../../../../../assets/check.svg?react';
 import { Link, useParams } from 'react-router-dom';
-import { RoundPaper, SingleSection } from '../../../../../../components/Containers';
 import BaseImgBox from '../../../../../../components/Boxes';
 import { LinkButton } from '../../../../../../components/LinkComponents';
 import SvgIcon from '@mui/material/SvgIcon';
