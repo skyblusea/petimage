@@ -24,7 +24,8 @@ export const adminThemeQuery = () => ({
         "Authorization": `Bearer admin`
       },
     })
-    return data
+    const filtered = data.filter((ele: Theme) => ele.prompt.length > 0)
+    return filtered
   },
   staleTime: 1000 * 60 * 60 * 24 // 1 days
 })

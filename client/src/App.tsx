@@ -1,9 +1,8 @@
 import AuthProvider from './provider/AuthProvider.tsx'
 import LoadingProvider from './provider/LoadingProvider.tsx'
-import { RouterProvider, ScrollRestoration, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Error from "./error";
 import Home from "./page/home/page";
-
 import {
   QueryClient,
   QueryClientProvider,

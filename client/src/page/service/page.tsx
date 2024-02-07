@@ -29,10 +29,10 @@ export default function Service() {
               공하도록 노력하겠습니다. 많은 관심과 사랑 부탁드립니다!</Typography>
           </Grid>
           <Grid xs={6}>
-            <Image src="/service2.png" alt="service_intro1" />
+            <Image src="/service2.png" alt="service_intro2" />
           </Grid>
           <Grid xs={6}>
-            <Image src="/service3.png" alt="service_intro1" />
+            <Image src="/service3.png" alt="service_intro3" />
           </Grid>
         </Grid>
       </PetimegeThemeContent>

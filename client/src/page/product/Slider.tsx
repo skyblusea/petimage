@@ -105,18 +105,19 @@ interface WrapperProps {
 const Wrapper = styled.div<WrapperProps>`
   position: relative;
   .swiper-initialized{
-    width: ${props => props.isMobile ? '100%' : 'calc(50% - 8px)'};
+    width: ${props => props.isMobile ? '100%' : 'calc(50% - 5px)'}; // preview 간격이 10px이므로 5px
     margin: 0;
     height: 100%;
   }
   ${props => props.isMobile
-    ? '> :nth-child(2){ margin-top : var(--gap-sm); > :nth-child(2){ display: none; }  }'
-    : `> :nth-child(2){
+
+    ? '> :nth-of-type(2){ margin-top : 10px; > :nth-of-type(2){ display: none; }  }' // 모바일 간격 조정 & image point 숨김, preview 간격이 10px이므로 동일하게 mt 10px
+    : `> :nth-of-type(2){
     position: absolute;
     right: 0;
     top: 0;
     display: flex;
-    > :nth-child(2){
+    > :nth-of-type(2){
       width: 100%;
       height: 100%;
       display: flex;

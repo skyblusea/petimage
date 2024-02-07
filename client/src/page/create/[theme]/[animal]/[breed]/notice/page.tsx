@@ -8,6 +8,7 @@ import BaseImgBox from '../../../../../../components/Boxes';
 import { LinkButton } from '../../../../../../components/LinkComponents';
 import SvgIcon from '@mui/material/SvgIcon';
 import Grid from '@mui/material/Unstable_Grid2';
+import { isMobile } from 'react-device-detect';
 
 
 
@@ -26,7 +27,7 @@ export default function Notice() {
               component={Link}
               sx={{ marginTop: '8px' }}
               to={`/create/${theme}/${animal}/${breed}/upload`}
-              variant="reverseContained" color="petimage" startIcon={<SvgIcon component={CheckRoundedIcon} />}>
+              variant={isMobile ?'contained' :"reverseContained"} color="petimage" startIcon={<SvgIcon component={CheckRoundedIcon} />}>
               상기 내용을 확인하였습니다.
             </LinkButton>
           </Box>

@@ -13,18 +13,17 @@ export const MainContainer = styled.main`
   position: relative;
   .bg{
     position : absolute;
-    top: var(--nav-h);
+    padding-top: var(--nav-h);
     inset: 0;
     background-image: url('/bg_capture.png');
-    background-position: center;
+    background-position-x: center;
+    background-position-y: var(--nav-h);
+    background-repeat: no-repeat;
     width: 100%;
-    height: 100%;
+    height: calc(100vh - var(--nav-h));
     background-size: cover;
-    /* flex : 1; */
-    /* top: var(--nav-h); */
     z-index: -100;
     overflow: hidden;
-    /* display: flex; */
     video {
       object-fit: cover;
     }

@@ -31,6 +31,7 @@ import Paper from '@mui/material/Paper';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Grow from '@mui/material/Grow';
+import { width } from "@mui/system";
 
 
 
@@ -233,8 +234,9 @@ export default function Upload() {
       {(0 < files.length)
         &&
         <Grid xs={12} >
-          <Box display="flex" width="full" justifyContent="end">
+          <Box display="flex" width="100%" justifyContent="end">
             <Button
+              fullWidth={isMobile ? true : false}
               disabled={files.length < 10 || files.length > 12}
               endIcon={<SvgIcon component={Arrow} inheritViewBox />}
               color="petimage"

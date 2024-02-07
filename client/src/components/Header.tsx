@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { Link, useLocation } from "react-router-dom"
+import { Link } from "react-router-dom"
 import Logo from "../assets/logo.svg?react"
 
 import { useState } from "react";
