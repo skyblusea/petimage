@@ -16,18 +16,20 @@ import Box from '@mui/material/Box';
 
 
 const collectionQuery = (authClient: AxiosInstance) => ({
-  queryKey: ["collection"],
+  queryKey: ["collection",authClient.defaults.headers.common['Authorization']],
   queryFn: async () => {
+    console.log('collectionQuery')
     const { data: { data: collection } } = await authClient.get(`/album/list?sort=&order=&limit=&page=`)
     return collection as AlbumItem[]
   },
-  staleTime: 1000 * 60 * 60 * 24 * 7, // 7 days
+  staleTime: 1000 * 60 * 5, // 5 minutes
 });
 
 
 export const loader = (queryClient: QueryClient, authClient: AxiosInstance) =>
   async () => {
     const query = collectionQuery(authClient);
+    console.log(authClient.defaults)
     try {
       const data = await queryClient.fetchQuery(query)
       return data;

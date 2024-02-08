@@ -13,12 +13,12 @@ import Payment from "./Payment";
 
 
 const paymentHistoryQuery = (authClient: AxiosInstance) => ({
-  queryKey: ['paymentHistory'],
+  queryKey: ['paymentHistory', authClient.defaults.headers.common['Authorization']],
   queryFn: async () => {
+    console.log('paymentHistoryQuery')
     const { data: { data: { payments: paymentHistory } } } = await authClient.get(`/payment/list?sort=&order=&limit=&page=`)
     return paymentHistory as PaymentHistory[]
   },
-  staleTime: 1000 * 60 * 60 * 24 * 7, // 7 days
 });
 
 
