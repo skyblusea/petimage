@@ -18,7 +18,6 @@ import Box from '@mui/material/Box';
 const collectionQuery = (authClient: AxiosInstance) => ({
   queryKey: ["collection"],
   queryFn: async () => {
-    console.log('collectionQuery')
     const { data: { data: collection } } = await authClient.get(`/album/list?sort=&order=&limit=&page=`)
     return collection as AlbumItem[]
   },
@@ -29,7 +28,6 @@ const collectionQuery = (authClient: AxiosInstance) => ({
 export const loader = (queryClient: QueryClient, authClient: AxiosInstance) =>
   async () => {
     const query = collectionQuery(authClient);
-    console.log(authClient.defaults)
     try {
       const data = await queryClient.fetchQuery(query)
       return data;
@@ -58,9 +56,10 @@ export default function Collection() {
         </Box>
       </PetimegeThemeHeader>
       <PetimegeThemeContent full>
-        <Stack spacing={2}>
-          {albums?.map((album) => <Album key={album._id} data={album} />)}
-        </Stack>
+        {albums && albums.length > 0
+          ? <Stack spacing={2}>{albums.map((album) => <Album key={album._id} data={album} />)}</Stack>
+          : <Typography variant="h6">생성한 이미지가 없습니다.</Typography>
+        }
       </PetimegeThemeContent>
     </PetimageThemeContainer>
   )

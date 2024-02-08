@@ -81,6 +81,7 @@ export const PetimegeThemeWH = styled.div<PetimageThemeProps>`
 export const PetimageThemeContainer = styled.section`
   display: flex;
   flex-direction: column;
+  flex: 1;
 `
 export const PetimegeThemeHeader = styled.div<PetimageThemeProps>`
   background-color: var(--petimage);
@@ -105,7 +106,7 @@ export const PetimegeThemeContent = styled.div<PetimageThemeProps>`
   padding: 0 var(--pd-nav);
   padding-bottom: var(--gap-lg);
   padding-top: var(--gap-lg);
-
+  height: 100%;
 `
 
 

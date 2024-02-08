@@ -53,10 +53,10 @@ export default function PaymentHistory() {
         </Box>
       </PetimegeThemeHeader>
       <PetimegeThemeContent full>
-        <Stack spacing={2}>
-          {payments?.map((payment) => <Payment key={payment._id} data={payment} />)}
-        </Stack>
-
+        {payments && payments.length > 0
+          ? <Stack spacing={2}>{payments.map((payment) => <Payment key={payment._id} data={payment} />)}</Stack>
+          : <Typography variant="h6">결제 내역이 없습니다.</Typography>
+        }
       </PetimegeThemeContent>
     </PetimageThemeContainer>
   )
