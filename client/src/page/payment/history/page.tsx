@@ -13,9 +13,8 @@ import Payment from "./Payment";
 
 
 const paymentHistoryQuery = (authClient: AxiosInstance) => ({
-  queryKey: ['paymentHistory', authClient.defaults.headers.common['Authorization']],
+  queryKey: ['paymentHistory'],
   queryFn: async () => {
-    console.log('paymentHistoryQuery')
     const { data: { data: { payments: paymentHistory } } } = await authClient.get(`/payment/list?sort=&order=&limit=&page=`)
     return paymentHistory as PaymentHistory[]
   },

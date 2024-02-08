@@ -16,13 +16,13 @@ import Box from '@mui/material/Box';
 
 
 const collectionQuery = (authClient: AxiosInstance) => ({
-  queryKey: ["collection",authClient.defaults.headers.common['Authorization']],
+  queryKey: ["collection"],
   queryFn: async () => {
     console.log('collectionQuery')
     const { data: { data: collection } } = await authClient.get(`/album/list?sort=&order=&limit=&page=`)
     return collection as AlbumItem[]
   },
-  staleTime: 1000 * 60 * 5, // 5 minutes
+  // staleTime: 1000 * 60 * 5, // 5 minutes
 });
 
 

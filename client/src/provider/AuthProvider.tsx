@@ -244,6 +244,7 @@ export default function AuthProvider({
     localStorage.removeItem('access')
     localStorage.removeItem('refresh')
     localStorage.removeItem('user')
+    queryClient.clear() // (1)loader 에선 authProvider 접근 불가능 (2)axios.interceptor status check 불가능 => querykey user 변수 불가능 하므로 clear
     dispatch({ type: 'LOGOUT' })
     alert('로그아웃 되었습니다.')
     return navigate('/')
