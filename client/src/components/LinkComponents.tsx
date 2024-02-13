@@ -2,6 +2,7 @@ import { LinkProps } from "react-router-dom";
 import Button, { ButtonProps } from "@mui/material/Button";
 import Box, { BoxProps } from "@mui/material/Box";
 import ListItemButton, {ListItemButtonOwnProps} from '@mui/material/ListItemButton';
+import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import MenuItem, {MenuItemProps} from '@mui/material/MenuItem';
 import styled from '@emotion/styled'
 
@@ -12,6 +13,11 @@ interface LinkButtonProps extends ButtonProps {
 }
 
 export const LinkButton = styled(Button)<LinkButtonProps>(() => ({}));
+
+interface LinkIconButtonProps extends IconButtonProps {
+  to: LinkProps['to'];
+}
+export const LinkIconButton = styled(IconButton)<LinkIconButtonProps>(() => ({}))
 
 
 interface ListItemButtonProps extends ListItemButtonOwnProps {
@@ -33,6 +39,7 @@ interface LinkBoxProps extends BoxProps {
 }
 
 export const LinkBox = styled(Box)<LinkBoxProps>(() => ({}))
+
 
 
 // export function LinkBox ({
