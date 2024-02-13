@@ -2,6 +2,8 @@ import styled from "@emotion/styled"
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Unstable_Grid2';
 import Accordion from '@mui/material/Accordion';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
 import Zoom from '@mui/material/Zoom';
 import SvgIcon from '@mui/material/SvgIcon';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -10,7 +12,6 @@ import Backdrop from '@mui/material/Backdrop';
 import ExpandMoreRoundedIcon from '../../assets/arrow.svg?react';
 import { AlbumItem } from "../../types";
 import BaseImgBox from "../../components/Boxes";
-import { IconButton } from "@mui/material";
 import JSZip from 'jszip'
 import { saveAs } from "file-saver";
 import { useCallback, useRef, useState } from "react";
@@ -45,17 +46,17 @@ export default function Album({ data }: { data: AlbumItem }) {
     <AlbumContainer>
       <AlbumHeader>
         <Typography variant="subtitle1" sx={{ fontSize: '18px' }}>{new Intl.DateTimeFormat(undefined, { dateStyle: 'medium' }).format(new Date(data.createdAt))}</Typography>
-        <IconButton aria-label="download" onClick={downloadFile} >
+        <IconButton aria-label="download" onClick={downloadFile} disabled={!data.status}>
           <SvgIcon component={DownloadIcon} />
         </IconButton>
       </AlbumHeader>
       <AccordionBox TransitionProps={{ unmountOnExit: true }} disabled={!data.status} >
         <AccordionSummary
-          expandIcon={<SvgIcon component={ExpandMoreRoundedIcon} inheritViewBox sx={{ transform: 'rotate(90deg)' }} fontSize="large" color="petimage" />}
+          expandIcon={<SvgIcon component={ExpandMoreRoundedIcon} inheritViewBox sx={{ transform: 'rotate(90deg)' }} fontSize="large" />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography variant="h6" color="petimage.main">{data.themeName}</Typography>
+          <Typography variant="h6">{data.status ? data.themeName : '생성 중'}</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Grid container spacing={1}>
@@ -107,7 +108,7 @@ const AlbumHeader = styled.div`
 
 const AccordionBox = styled(Accordion)`
   box-shadow: none;
-  border: 2px solid var(--petimage);
+  border: 1px solid;
   border-radius: var(--border-radius-sm) !important;
   :before {
     display: none;
