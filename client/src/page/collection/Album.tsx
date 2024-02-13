@@ -45,7 +45,7 @@ export default function Album({ data }: { data: AlbumItem }) {
   return (
     <AlbumContainer>
       <AlbumHeader>
-        <Typography variant="subtitle1" sx={{ fontSize: '18px' }}>{new Intl.DateTimeFormat(undefined, { dateStyle: 'medium' }).format(new Date(data.createdAt))}</Typography>
+        <Typography variant="subtitle1" >{new Intl.DateTimeFormat(undefined, { dateStyle: 'medium' }).format(new Date(data.createdAt))}</Typography>
         <IconButton aria-label="download" onClick={downloadFile} disabled={!data.status}>
           <SvgIcon component={DownloadIcon} />
         </IconButton>

@@ -48,8 +48,8 @@ export default function PaymentHistory() {
   return (
     <PetimageThemeContainer>
       <PetimegeThemeHeader>
-        <Box display="flex" flexGrow={1} justifyContent="center">
-          <Typography variant="h2" color="secondary">결제 내역</Typography>
+        <Box display="flex" flexGrow={1}>
+          <Typography variant="h4" color="secondary">결제 내역</Typography>
         </Box>
       </PetimegeThemeHeader>
       <PetimegeThemeContent full>

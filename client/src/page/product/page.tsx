@@ -52,11 +52,7 @@ export default function Product() {
   return (
     <PetimageThemeContainer>
       <PetimegeThemeHeader>
-        <Typography variant="h2" color="secondary">상품 소개</Typography>
-        <Typography sx={{ typography: { xs: 'body1', lg: 'body0' } }}>페티마제에서 제공하는 AI 이미지 생성 상품을 소개합니다.
-          테마는 꾸준히 업데이트 될 예정이니 소식을 받으시려면
-          마케팅 이용 동의 및 광고/홍보 수신을 동의해주세요.
-        </Typography>
+        <Typography variant='h4' color="secondary">Product</Typography>
       </PetimegeThemeHeader>
       <PetimegeThemeContent>
         <Grid container rowSpacing={4}>

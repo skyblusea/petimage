@@ -10,13 +10,13 @@ export default function Service() {
   return (
     <PetimageThemeContainer>
       <PetimegeThemeHeader>
-          <Typography variant="h2" color="secondary">서비스 소개</Typography>
-          <Typography sx={{ typography: { xs: 'body1', lg: 'body0' } }}>페티마제(petimage)는 Pet + Image를 합친 말로 부르기 쉽게
-            ‘페티마제’라는 국문명으로 서비스 명칭을 정하였습니다.
-          </Typography>
+          <Typography variant="h4" color="secondary">Service</Typography>
+
       </PetimegeThemeHeader>
       <PetimegeThemeContent full={true}>
         <Grid container spacing={3}>
+          <Grid xs={12} textAlign="center" sx={{ typography: { xs: 'subtitle2', md: 'subtitle0' } }}>페티마제(petimage)는 Pet + Image를 합친 말로 부르기 쉽게
+            ‘페티마제’라는 국문명으로 서비스 명칭을 정하였습니다.</Grid>
           <Grid xs={12}>
             <Typography variant="body1">페티마제(Petimage)에서 개발 중인 인공지능 기술을 통해 반려동물의 새로운 모습을 만나볼 수 있으며, 사용자에게 가치 있는 소비와 재미를 드리기 위해 기술 연구와 다양한 서비스를 기획하고 있습니다.</Typography>
           </Grid>

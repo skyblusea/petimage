@@ -140,7 +140,7 @@ const theme = createTheme({
       letterSpacing: "0.00406em"
     },
     subtitle1: {
-      fontSize: '1.375rem',
+      fontSize: '18px',
       letterSpacing: "0.00539em"
     },
     subtitle2: {

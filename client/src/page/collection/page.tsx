@@ -51,8 +51,8 @@ export default function Collection() {
   return (
     <PetimageThemeContainer>
       <PetimegeThemeHeader>
-        <Box display="flex" flexGrow={1} justifyContent="center">
-          <Typography variant="h2" color="secondary">갤러리</Typography>
+        <Box display="flex" flexGrow={1}>
+          <Typography variant="h4" color="secondary">갤러리</Typography>
         </Box>
       </PetimegeThemeHeader>
       <PetimegeThemeContent full>
