@@ -24,7 +24,6 @@ export default function CreateLayout() {
   return (
     <ThemedBG bg={bg}>
         <Outlet />
-        {/* <a href="https://www.freepik.com/free-photo/wave-sea_3816306.htm#query=summer&position=47&from_view=search&track=sph&uuid=fe1e9ef2-ca11-4645-8c58-059f2a46ffe4">Image by lifeforstock</a>  */}
     </ThemedBG>
   )
 }
@@ -34,13 +33,12 @@ interface ThemedBGProps {
 }
 
 const ThemedBG = styled(SingleSection) <ThemedBGProps>`
-
   ${props => props.bg && `
-  background-image: url('${props.bg}');
-  background-position-x: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 100%;
+    background-image: url('${props.bg}');
+    background-position-x: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
   `}
 
 `

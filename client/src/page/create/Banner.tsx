@@ -18,9 +18,13 @@ export default function Banner({
     <Box padding="var(--pd-sm)" paddingBottom="calc(var(--gap-lg) + 20px)">
       <Link to={`/create/${content.name}`}>
         <RoundPaper elevation={3}>
-          <BaseImgBox src={content.sample[0]} alt={`banner${idx}`} />
+          <BaseImgBox square src={content.sample[0]} alt={`banner${idx}`} />
           <Box display="flex" alignItems="center" justifyContent="space-between" width="100%">
-            <Typography variant="h4" component="h1" sx={{ typography: { xs: 'subtitle0' }, fontWeight: '700' }}>
+            <Typography variant="h4" component="h1" sx={{ 
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              typography: { xs: 'subtitle0' }, fontWeight: '700' }}>
               {content.name}
             </Typography>
             <Typography
@@ -32,7 +36,7 @@ export default function Banner({
               {content.price} 원
             </Typography>
           </Box>
-          <Box display="flex" width="100%" >
+          <Box display="flex" width="100%">
             <Typography variant="body1" sx={{ typography: { xs: 'body2', md: 'body1' } }}>
               <span dangerouslySetInnerHTML={{ __html: content.desc }} />
             </Typography>

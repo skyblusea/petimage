@@ -117,14 +117,14 @@ export const RoundPaper = styled(Paper)`
   align-items: center;
   flex-direction: column;
   gap: var(--gap-md);
-  padding: var(--pd-md);
+  padding: var(--pd-md); 
+  height: 100%;
 `
 
 export const BgContainer = styled.div`
   display: flex;
   flex: 1;
   background-color: aliceblue;
-  /* overflow: hidden; */
   position: relative;
   >div {
     position: absolute;

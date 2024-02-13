@@ -59,9 +59,7 @@ export default function SelectTheme() {
           : <>
             <Swiper
               modules={[Pagination, Navigation]}
-              // centeredSlides={true}
               slidesPerView={3}
-              // loop={true}
               pagination={true}
               grabCursor={true}
               navigation={{ prevEl: ".arrow-left", nextEl: ".arrow-right" }}
@@ -111,10 +109,9 @@ const BannerWrapper = styled.div<BannerWrapperProps>`
   flex-direction: ${props => props.isMobile ? 'column' : 'row'};
   .swiper-slide{
   /* 슬라이드 레이아웃 */
-    & >div{
-      display: flex;
-      flex-direction: column;
-      flex: 1;
+    height: auto;
+    > div {
+      height: ${props => props.isMobile ? 'undefined' : '100%'};
     }
   }
 

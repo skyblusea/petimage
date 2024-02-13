@@ -41,9 +41,9 @@ export default function BaseImgBox({
     <BaseCreateBox
       component={to ? Link : 'div'}
       to={to}
-      ratio={square ? '1/1' :ratio}
-      hover={ (hover && !isMobile) ?'true' : 'false'}
-      view={view ?'true' : 'false'}
+      $ratio={square ? '1/1' :ratio}
+      $hover={ (hover && !isMobile) ?'true' : 'false'}
+      $view={view ?'true' : 'false'}
       onClick={onClick}
     >
       <ImgWrraper>
@@ -71,31 +71,29 @@ const ImgWrraper = styled.div`
 `
 
 type BaseCreateBoxProps = {
-  ratio?: string
-  hover?: string;
-  view?: string;
+  $ratio?: string
+  $hover?: string;
+  $view?: string;
 }
 
 
 export const BaseCreateBox = styled(LinkBox) <BaseCreateBoxProps>` 
   width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: var(--gap-xs);
-
-  ${props => props.view==="true" && `      
+  ${props => props.$view==="true" && `      
     cursor: zoom-in;
     `}
   img{
-    ${props => props.hover==='true' && `      
+    ${props => props.$hover==='true' && `      
       :hover {
         transform: scale(1.1);
         transition: transform 0.5s;
       }
     `}
-    aspect-ratio: ${props => props.ratio};
+    aspect-ratio: ${props => props.$ratio};
   }
 `
 
