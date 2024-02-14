@@ -5,6 +5,7 @@ import Accordion from '@mui/material/Accordion';
 import IconButton from '@mui/material/IconButton';
 import Zoom from '@mui/material/Zoom';
 import SvgIcon from '@mui/material/SvgIcon';
+import Box from '@mui/material/Box';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Backdrop from '@mui/material/Backdrop';
@@ -60,7 +61,7 @@ export default function Album({ data }: { data: AlbumItem }) {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography variant="h6">{data.status ? data.themeName : '생성 중'}</Typography>
+          <Typography sx={{ typography: { xs: 'subtitle2', md: 'h6' } }} >{data.status ? data.themeName : '생성 중'}</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Grid container spacing={1}>
@@ -72,16 +73,26 @@ export default function Album({ data }: { data: AlbumItem }) {
                   <Backdrop open={open === idx} onClick={() => setOpen(undefined)}
                     sx={{ zIndex: 100, cursor: "zoom-out" }}>
                     {isMobile ?
-                      <PreviewWrapper>
+                      <PreviewWrapper color="primary.main">
                         <Swiper
                           zoom={true}
                           modules={[Pagination]}
                           slidesPerView={1}
-                          pagination={true}
+                          pagination={{ type: 'fraction' }}
                           grabCursor={true}
                         >
                           {data.outputFiles.map((content, idx) =>
-                            <SwiperSlide key={idx}><img src={content} alt="dog" /></SwiperSlide>)}
+                            <SwiperSlide key={idx}>
+                              <img src={content} alt="dog" />
+                              <IconButton
+                                sx={{ position: 'absolute', left: '24px', top: '8px' }}
+                                onClick={() => downloadSinglefile(file)} >
+                                <SvgIcon inheritViewBox component={DownloadIcon} fontSize="large" />
+                              </IconButton>
+                              <IconButton sx={{ position: 'absolute', right: '24px', top: '8px' }} onClick={() => setOpen(undefined)}>
+                                <SvgIcon inheritViewBox component={CloseIcon} fontSize="large" />
+                              </IconButton>
+                            </SwiperSlide>)}
                         </Swiper>
                       </PreviewWrapper>
                       :
@@ -136,7 +147,7 @@ const AccordionBox = styled(Accordion)`
   }
 `
 
-const PreviewWrapper = styled.div`
+const PreviewWrapper = styled(Box)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -150,6 +161,9 @@ const PreviewWrapper = styled.div`
     width: 100%;
     height: 100%;
     object-fit: contain;
+  }
+  .swiper-pagination{
+    font-size: 1.5rem;
   }
 `
 

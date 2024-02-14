@@ -3,7 +3,6 @@ import CorrectIcon from '../assets/correct.svg?react';
 import IncorrectIcon from '../assets/incorrect.svg?react';
 import Typography from '@mui/material/Typography';
 import CustomImage from './CustomImage';
-import { Stack } from '@mui/material';
 import { LinkBox } from './LinkComponents';
 import { Link, LinkProps } from "react-router-dom";
 import SvgIcon from '@mui/material/SvgIcon';
@@ -104,17 +103,3 @@ export const SquareCreateBox = styled(BaseCreateBox)`
   }
 `
 
-interface CollectionBoxProps {
-  isMobile?: boolean
-}
-
-export const CollectionBox = styled(Stack)<CollectionBoxProps>` 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 2px solid var(--petimage);
-  border-radius: var(--border-radius-sm);
-  padding: ${props => props.isMobile ? 'var(--gap-md) var(--gap-lg)' : '2.12rem 2.94rem'};
-  width: 100%;
-  gap: var(--gap-md);
-`
