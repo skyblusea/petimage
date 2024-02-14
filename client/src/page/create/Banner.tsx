@@ -30,6 +30,7 @@ export default function Banner({
             <Typography
               variant="subtitle2"
               sx={{
+                flexShrink: 0, 
                 color: 'error.main',
                 typography: { xs: 'subtitle1', lg: 'subtitle0' }
               }}>
