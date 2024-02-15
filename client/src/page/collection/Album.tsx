@@ -17,7 +17,7 @@ import { saveAs } from "file-saver";
 import { useCallback, useRef, useState } from "react";
 import CloseIcon from '../../assets/close.svg?react';
 import DownloadIcon from '../../assets/download.svg?react';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide, SwiperClass } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -47,12 +47,12 @@ export default function Album({ data }: { data: AlbumItem }) {
     saveAs(img, url.split('/').pop());
   }, [])
 
-  const swiperRef = useRef<Swiper | null>(null)
-  const onSwiperNext = useCallback((e) => {
+  const swiperRef = useRef<SwiperClass | null>(null)
+  const onSwiperNext = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
     swiperRef.current?.slideNext()
   }, [])
-  const onSwiperPrev = useCallback((e) => {
+  const onSwiperPrev = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
     swiperRef.current?.slidePrev()
   }, [])
@@ -112,28 +112,31 @@ export default function Album({ data }: { data: AlbumItem }) {
                               </Box>
                             </SwiperSlide>)}
                         </Swiper>
-                        <SvgIcon
-                          onClick={onSwiperPrev}
-                          inheritViewBox
-                          component={ArrowForward}
-                          className="arrow-left" color="secondary"
-                          sx={{
-                            position: 'relative',
-                            fontSize: '40px',
-                            transform: 'rotate(180deg)',
-                            left: 'var(--gap-md)'
-                          }}
-                        />
-                        <SvgIcon
-                          onClick={onSwiperNext}
-                          inheritViewBox
-                          component={ArrowForward}
-                          className="arrow-right" color="secondary"
-                          sx={{
-                            fontSize: '40px',
-                            position: 'relative',
-                            right: 'var(--gap-md)'
-                          }} />
+                        <IconButton onClick={onSwiperPrev}>
+                          <SvgIcon
+
+                            inheritViewBox
+                            component={ArrowForward}
+                            className="arrow-left" color="secondary"
+                            sx={{
+                              position: 'relative',
+                              fontSize: '40px',
+                              transform: 'rotate(180deg)',
+                              left: 'var(--gap-md)'
+                            }}
+                          />
+                        </IconButton>
+                        <IconButton onClick={onSwiperNext}>
+                          <SvgIcon
+                            inheritViewBox
+                            component={ArrowForward}
+                            className="arrow-right" color="secondary"
+                            sx={{
+                              fontSize: '40px',
+                              position: 'relative',
+                              right: 'var(--gap-md)'
+                            }} />
+                        </IconButton>
                       </PreviewWrapper>
                     </Zoom>
                   </Backdrop>}
