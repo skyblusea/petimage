@@ -35,9 +35,7 @@ export default function Slider({ tap, theme }: { tap: number, theme: Theme[] }) 
         <Swiper
           loop={true}
           spaceBetween={10}
-          pagination={{
-            type: 'fraction',
-          }}
+          pagination={{ type: 'fraction' }}
           navigation={{ nextEl: '.arrow-right', prevEl: '.arrow-left'}}
           thumbs={{ swiper: thumbsSwiper }}
           modules={[FreeMode, Navigation, Thumbs, Pagination]}

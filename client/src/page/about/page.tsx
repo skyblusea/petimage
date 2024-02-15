@@ -19,7 +19,7 @@ export default function About() {
     <PetimageThemeContainer>
       <PetimegeThemeHeader>
         <Typography variant="h2" color="secondary">About</Typography>
-        <Typography sx={{ typography: { xs: 'body1', lg: 'body0' } }}>회사 소개
+        <Typography sx={{ typography: { xs: 'body1', lg: 'body0' } }}>
         </Typography>
       </PetimegeThemeHeader>
       <PetimegeThemeContent full={true}>

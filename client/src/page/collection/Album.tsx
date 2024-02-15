@@ -21,8 +21,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import 'swiper/css/zoom';
+import 'swiper/css/navigation';
 import { isMobile } from "react-device-detect";
+import ArrowForward from '../../assets/arrow.svg?react';
 
 export default function Album({ data }: { data: AlbumItem }) {
   //TODO : rendering delay
@@ -72,54 +73,62 @@ export default function Album({ data }: { data: AlbumItem }) {
                   //이미지 미리보기
                   <Backdrop open={open === idx} onClick={() => setOpen(undefined)}
                     sx={{ zIndex: 100, cursor: "zoom-out" }}>
-                    {isMobile ?
-                      <PreviewWrapper color="primary.main">
+                    <Zoom in={open === idx} unmountOnExit>
+                      <PreviewWrapper color="secondary.main">
                         <Swiper
+                          initialSlide={idx}
                           zoom={true}
+                          centeredSlides={true}
                           modules={[Pagination]}
-                          slidesPerView={1}
                           pagination={{ type: 'fraction' }}
                           grabCursor={true}
+                          navigation={{ prevEl: ".arrow-left", nextEl: ".arrow-right" }}
                         >
                           {data.outputFiles.map((content, idx) =>
                             <SwiperSlide key={idx}>
-                              <img src={content} alt="dog" />
-                              <IconButton
-                                sx={{ position: 'absolute', left: '24px', top: '8px' }}
-                                onClick={() => downloadSinglefile(file)} >
-                                <SvgIcon inheritViewBox component={DownloadIcon} fontSize="large" />
-                              </IconButton>
-                              <IconButton sx={{ position: 'absolute', right: '24px', top: '8px' }} onClick={() => setOpen(undefined)}>
-                                <SvgIcon inheritViewBox component={CloseIcon} fontSize="large" />
-                              </IconButton>
+                              <Box sx={{ position: 'relative', display: 'inline-block', aspectRatio: '1/1', justifyContent: 'center', maxHeight: '100%' }}>
+                                <img src={content} alt="dog" />
+                                <IconButton
+                                  color="inherit"
+                                  sx={{ position: 'absolute', left: '4px', top: '4px' }}
+                                  onClick={() => downloadSinglefile(file)} >
+                                  <SvgIcon inheritViewBox component={DownloadIcon} />
+                                </IconButton>
+                                <IconButton color="inherit" sx={{ position: 'absolute', right: '4px', top: '4px' }} onClick={() => setOpen(undefined)}>
+                                  <SvgIcon inheritViewBox component={CloseIcon} />
+                                </IconButton>
+                              </Box>
                             </SwiperSlide>)}
                         </Swiper>
+                        <SvgIcon
+                          inheritViewBox
+                          component={ArrowForward}
+                          className="arrow-left" color="secondary"
+                          sx={{
+                            position: 'relative',
+                            fontSize: '40px',
+                            transform: 'rotate(180deg)',
+                            left: 'var(--gap-md)'
+                          }}
+                        />
+                        <SvgIcon
+                          inheritViewBox
+                          component={ArrowForward}
+                          className="arrow-right" color="secondary"
+                          sx={{
+                            fontSize: '40px',
+                            position: 'relative',
+                            right:  'var(--gap-md)'
+                          }} />
                       </PreviewWrapper>
-                      :
-                      <Zoom in={open === idx} unmountOnExit>
-                        <ImgWrraper>
-                          <img src={file} alt="dog" />
-                          {/* 개별 다운로드 */}
-                          <IconButton
-                            sx={{ position: 'absolute', left: '24px', top: '8px' }}
-                            onClick={() => downloadSinglefile(file)} >
-                            <SvgIcon inheritViewBox component={DownloadIcon} />
-                          </IconButton>
-                          {/* 닫기 버튼 */}
-                          <IconButton sx={{ position: 'absolute', right: '24px', top: '8px' }} onClick={() => setOpen(undefined)}>
-                            <SvgIcon inheritViewBox component={CloseIcon} />
-                          </IconButton>
-                        </ImgWrraper>
-                      </Zoom>
-
-                    }
+                    </Zoom>
                   </Backdrop>}
               </Grid>
             )}
           </Grid>
         </AccordionDetails>
       </AccordionBox>
-    </AlbumContainer>
+    </AlbumContainer >
   )
 }
 
@@ -148,36 +157,30 @@ const AccordionBox = styled(Accordion)`
 `
 
 const PreviewWrapper = styled(Box)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
+    display: flex;
+    max-width: 100%;
+    max-height: 100%;
+    position: relative;
   .swiper-slide{
     /* 슬라이드 레이아웃 */
-    position: relative;
+    text-align: center;
   }
   img{
-    width: 100%;
-    height: 100%;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
   }
   .swiper-pagination{
-    font-size: 1.5rem;
+    bottom: 12px;
+  }
+  .arrow-left, .arrow-right{
+    position: absolute;
+    top: 50%;
+    margin-top: calc(0px - (var(--swiper-navigation-size) / 2));
+    z-index: 10;
+    cursor: pointer;
   }
 `
 
-
-const ImgWrraper = styled.div`
-  position: relative;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-height: 100%;
-  img{
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-`
