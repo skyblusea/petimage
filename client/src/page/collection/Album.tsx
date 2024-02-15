@@ -118,17 +118,13 @@ export default function Album({ data }: { data: AlbumItem }) {
                             position: 'absolute',
                             zIndex: 10,
                             mt:'calc(0px - (var(--swiper-navigation-size) / 2))',
-                            fontSize: '40px',
                             transform: 'rotate(180deg)',
+                            fontSize: '40px',
                             top: '50%',
-                            left: 'var(--gap-md)'
+                            left: isMobile ?'4px' : 'var(--gap-md)'
                           }}
                           onClick={onSwiperPrev}>
-                          <SvgIcon
-                            inheritViewBox
-                            fontSize="inherit"
-                            component={ArrowForward}
-                          />
+                          <SvgIcon inheritViewBox component={ArrowForward} />
                         </IconButton>
                         <IconButton
                           color="inherit"
@@ -138,15 +134,10 @@ export default function Album({ data }: { data: AlbumItem }) {
                             mt:'calc(0px - (var(--swiper-navigation-size) / 2))',
                             fontSize: '40px',
                             top: '50%',
-                            right: 'var(--gap-md)'
+                            right: isMobile ?'4px' : 'var(--gap-md)'
                           }}
                           onClick={onSwiperNext}>
-                          <SvgIcon
-                            color="inherit"
-                            inheritViewBox
-                            fontSize="inherit"
-                            component={ArrowForward}
-                          />
+                          <SvgIcon inheritViewBox component={ArrowForward} />
                         </IconButton>
                       </PreviewWrapper>
                     </Zoom>
