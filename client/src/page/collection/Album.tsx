@@ -18,7 +18,7 @@ import { useCallback, useRef, useState } from "react";
 import CloseIcon from '../../assets/close.svg?react';
 import DownloadIcon from '../../assets/download.svg?react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
+import { Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -47,6 +47,15 @@ export default function Album({ data }: { data: AlbumItem }) {
     saveAs(img, url.split('/').pop());
   }, [])
 
+  const swiperRef = useRef<Swiper | null>(null)
+  const onSwiperNext = useCallback((e) => {
+    e.stopPropagation()
+    swiperRef.current?.slideNext()
+  }, [])
+  const onSwiperPrev = useCallback((e) => {
+    e.stopPropagation()
+    swiperRef.current?.slidePrev()
+  }, [])
 
   return (
     <AlbumContainer>
@@ -71,27 +80,30 @@ export default function Album({ data }: { data: AlbumItem }) {
                 <BaseImgBox view hover square src={file} alt="dog" onClick={() => setOpen(idx)}></BaseImgBox>
                 {open === idx &&
                   //이미지 미리보기
-                  <Backdrop open={open === idx} onClick={() => setOpen(undefined)}
+                  <Backdrop open={open === idx} onClick={() => { setOpen(undefined) }}
                     sx={{ zIndex: 100, cursor: "zoom-out" }}>
                     <Zoom in={open === idx} unmountOnExit>
-                      <PreviewWrapper color="secondary.main">
+                      <PreviewWrapper color="secondary.main" >
                         <Swiper
+                          onSwiper={(swiper) => swiperRef.current = swiper}
                           initialSlide={idx}
-                          zoom={true}
-                          centeredSlides={true}
-                          modules={[Pagination]}
+                          modules={[Pagination, Navigation]}
                           pagination={{ type: 'fraction' }}
                           grabCursor={true}
-                          navigation={{ prevEl: ".arrow-left", nextEl: ".arrow-right" }}
                         >
                           {data.outputFiles.map((content, idx) =>
                             <SwiperSlide key={idx}>
-                              <Box sx={{ position: 'relative', display: 'inline-block', aspectRatio: '1/1', justifyContent: 'center', maxHeight: '100%' }}>
+                              <Box
+                                sx={{ position: 'relative', display: 'inline-block', aspectRatio: '1/1', justifyContent: 'center', maxHeight: '100%' }}>
                                 <img src={content} alt="dog" />
                                 <IconButton
                                   color="inherit"
                                   sx={{ position: 'absolute', left: '4px', top: '4px' }}
-                                  onClick={() => downloadSinglefile(file)} >
+                                  onClick={(e) => {
+                                    e.stopPropagation()
+                                    downloadSinglefile(file)
+                                  }
+                                  } >
                                   <SvgIcon inheritViewBox component={DownloadIcon} />
                                 </IconButton>
                                 <IconButton color="inherit" sx={{ position: 'absolute', right: '4px', top: '4px' }} onClick={() => setOpen(undefined)}>
@@ -101,6 +113,7 @@ export default function Album({ data }: { data: AlbumItem }) {
                             </SwiperSlide>)}
                         </Swiper>
                         <SvgIcon
+                          onClick={onSwiperPrev}
                           inheritViewBox
                           component={ArrowForward}
                           className="arrow-left" color="secondary"
@@ -112,13 +125,14 @@ export default function Album({ data }: { data: AlbumItem }) {
                           }}
                         />
                         <SvgIcon
+                          onClick={onSwiperNext}
                           inheritViewBox
                           component={ArrowForward}
                           className="arrow-right" color="secondary"
                           sx={{
                             fontSize: '40px',
                             position: 'relative',
-                            right:  'var(--gap-md)'
+                            right: 'var(--gap-md)'
                           }} />
                       </PreviewWrapper>
                     </Zoom>
