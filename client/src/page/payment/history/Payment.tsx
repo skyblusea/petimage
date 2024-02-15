@@ -2,13 +2,12 @@ import styled from "@emotion/styled"
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import { PaymentHistory } from "../../../types";
-import { isMobile } from "react-device-detect";
 import { Stack } from '@mui/material';
 // import countryToCurrency, { Countries } from "country-to-currency";
 
 export default function Payment({ data }: { data: PaymentHistory}) {
   return (
-    <PaymentBox color="primary.main" isMobile={isMobile}>
+    <PaymentBox color="primary.main">
       <PaymentWrapper>
         <Typography sx={{ typography: { xs: 'subtitle3', md: 'h6' } }} >{data.orderName}</Typography>
         <Typography sx={{ typography: { xs: 'subtitle3', md: 'h6' } }} color="petimage.main" >{new Intl.NumberFormat(undefined, { style: 'currency', currency: 'KRW' }).format(data.totalAmount)}</Typography>
@@ -37,11 +36,8 @@ const PaymentWrapper = styled.div`
   align-items: center;
 `
 
-interface PaymentBoxProps {
-  isMobile?: boolean
-}
 
-export const PaymentBox = styled(Stack)<PaymentBoxProps>` 
+export const PaymentBox = styled(Stack)` 
   display: flex;
   align-items: center;
   justify-content: space-between;

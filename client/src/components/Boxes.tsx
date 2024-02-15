@@ -3,6 +3,7 @@ import CorrectIcon from '../assets/correct.svg?react';
 import IncorrectIcon from '../assets/incorrect.svg?react';
 import Typography from '@mui/material/Typography';
 import CustomImage from './CustomImage';
+import { Stack } from '@mui/material';
 import { LinkBox } from './LinkComponents';
 import { Link, LinkProps } from "react-router-dom";
 import SvgIcon from '@mui/material/SvgIcon';
@@ -40,9 +41,9 @@ export default function BaseImgBox({
     <BaseCreateBox
       component={to ? Link : 'div'}
       to={to}
-      $ratio={square ? '1/1' :ratio}
-      $hover={ (hover && !isMobile) ?'true' : 'false'}
-      $view={view ?'true' : 'false'}
+      ratio={square ? '1/1' :ratio}
+      hover={ (hover && !isMobile) ?'true' : 'false'}
+      view={view ?'true' : 'false'}
       onClick={onClick}
     >
       <ImgWrraper>
@@ -70,9 +71,9 @@ const ImgWrraper = styled.div`
 `
 
 type BaseCreateBoxProps = {
-  $ratio?: string
-  $hover?: string;
-  $view?: string;
+  ratio?: string
+  hover?: string;
+  view?: string;
 }
 
 
@@ -82,17 +83,17 @@ export const BaseCreateBox = styled(LinkBox) <BaseCreateBoxProps>`
   align-items: center;
   flex-direction: column;
   gap: var(--gap-xs);
-  ${props => props.$view==="true" && `      
+  ${props => props.view==="true" && `      
     cursor: zoom-in;
     `}
   img{
-    ${props => props.$hover==='true' && `      
+    ${props => props.hover==='true' && `      
       :hover {
         transform: scale(1.1);
         transition: transform 0.5s;
       }
     `}
-    aspect-ratio: ${props => props.$ratio};
+    aspect-ratio: ${props => props.ratio};
   }
 `
 
@@ -103,3 +104,17 @@ export const SquareCreateBox = styled(BaseCreateBox)`
   }
 `
 
+interface CollectionBoxProps {
+  isMobile?: boolean
+}
+
+export const CollectionBox = styled(Stack)<CollectionBoxProps>` 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid var(--petimage);
+  border-radius: var(--border-radius-sm);
+  padding: ${props => props.isMobile ? 'var(--gap-md) var(--gap-lg)' : '2.12rem 2.94rem'};
+  width: 100%;
+  gap: var(--gap-md);
+`

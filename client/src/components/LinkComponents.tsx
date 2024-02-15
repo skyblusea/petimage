@@ -22,9 +22,13 @@ export const LinkIconButton = styled(IconButton)<LinkIconButtonProps>(() => ({})
 
 interface ListItemButtonProps extends ListItemButtonOwnProps {
   to: LinkProps['to'];
+  //@ts-ignore
+  component?: React.ElementType<any, keyof React.JSX.IntrinsicElements> | undefined
 }
 
 export const LinkListItemButton = styled(ListItemButton)<ListItemButtonProps>(() => ({}))
+
+
 
 interface LinkMenuItemProps extends MenuItemProps {
   //@ts-ignore

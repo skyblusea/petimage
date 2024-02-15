@@ -1,16 +1,15 @@
 import styled from "@emotion/styled"
 import { Link } from "react-router-dom"
 import Box from '@mui/material/Box';
-import SvgIcon from '@mui/material/SvgIcon';
 import { isMobile } from "react-device-detect";
 import GooglePlayIcon from '../assets/google-play-badge.png';
 import AppleIcon from '../assets/apple-badge.svg';
-import { LinkButton, LinkIconButton } from "./LinkComponents";
+
 
 export default function Footer() {
 
   return (
-    <FooterContainer isMobile={isMobile}>
+    <FooterContainer ismobile={isMobile}>
       <Box display="flex" flexDirection="column" color="text.secondary" gap="var(--gap-xs)" >
         <Box sx={{ '& > span': { margin: '0px 4px', '::after': { content: '"|"' } } }}>
           <b>상호명</b>{' '}주식회사 에스알유니버스<span />
@@ -49,7 +48,7 @@ export default function Footer() {
 }
 
 type FooterContainerProps = {
-  isMobile: boolean
+  ismobile: boolean
 }
 
 
@@ -59,10 +58,10 @@ const FooterContainer = styled.footer<FooterContainerProps>`
   display: flex;
   padding: 0 var(--pd-nav);
   gap: var(--gap-xs);
-  /* align-items: ${props => props.isMobile ? 'flex-start' : 'center'}; */
-  padding-top : ${props => props.isMobile ? 'var(--gap-xs)' : 'var(--gap-sm)'};
-  padding-bottom : ${props => props.isMobile ? 'var(--gap-xs)' : 'var(--gap-sm)'};
+  /* align-items: ${props => props.ismobile ? 'flex-start' : 'center'}; */
+  padding-top : ${props => props.ismobile ? 'var(--gap-xs)' : 'var(--gap-sm)'};
+  padding-bottom : ${props => props.ismobile ? 'var(--gap-xs)' : 'var(--gap-sm)'};
   justify-content: space-between;
   font-size: 12px;
-  flex-direction: ${props => props.isMobile ? 'column' : 'row'};
+  flex-direction: ${props => props.ismobile ? 'column' : 'row'};
 `

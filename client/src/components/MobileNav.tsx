@@ -13,6 +13,7 @@ import { LinkListItemButton } from './LinkComponents';
 import ReceiptIcom from '../assets/receipt.svg?react';
 import AlbumIcon from '../assets/album.svg?react';
 import Arrow from '../assets/arrow.svg?react';
+import { Link } from 'react-router-dom';
 
 
 
@@ -43,6 +44,7 @@ export default function MobileNav({
         {['결제 내역', '보관함'].map((text, index) => (
           <ListItem key={text} disablePadding>
             <LinkListItemButton
+              component={Link}
               to={index === 0 ? '/payment/history' : '/collection'}
               onClick={handleDrawerClose}
             >
@@ -61,6 +63,7 @@ export default function MobileNav({
         {['Service', 'About', 'Product'].map((text) => (
           <ListItem key={text} disablePadding>
             <LinkListItemButton
+              component={Link}
               to={`/${text.toLowerCase()}`}
               onClick={handleDrawerClose}
             >
