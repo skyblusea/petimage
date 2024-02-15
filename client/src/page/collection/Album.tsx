@@ -112,30 +112,41 @@ export default function Album({ data }: { data: AlbumItem }) {
                               </Box>
                             </SwiperSlide>)}
                         </Swiper>
-                        <IconButton onClick={onSwiperPrev}>
+                        <IconButton
+                          color="inherit"
+                          sx={{
+                            position: 'absolute',
+                            zIndex: 10,
+                            mt:'calc(0px - (var(--swiper-navigation-size) / 2))',
+                            fontSize: '40px',
+                            transform: 'rotate(180deg)',
+                            top: '50%',
+                            left: 'var(--gap-md)'
+                          }}
+                          onClick={onSwiperPrev}>
                           <SvgIcon
-
                             inheritViewBox
+                            fontSize="inherit"
                             component={ArrowForward}
-                            className="arrow-left" color="secondary"
-                            sx={{
-                              position: 'relative',
-                              fontSize: '40px',
-                              transform: 'rotate(180deg)',
-                              left: 'var(--gap-md)'
-                            }}
                           />
                         </IconButton>
-                        <IconButton onClick={onSwiperNext}>
+                        <IconButton
+                          color="inherit"
+                          sx={{
+                            position: 'absolute',
+                            zIndex: 10,
+                            mt:'calc(0px - (var(--swiper-navigation-size) / 2))',
+                            fontSize: '40px',
+                            top: '50%',
+                            right: 'var(--gap-md)'
+                          }}
+                          onClick={onSwiperNext}>
                           <SvgIcon
+                            color="inherit"
                             inheritViewBox
+                            fontSize="inherit"
                             component={ArrowForward}
-                            className="arrow-right" color="secondary"
-                            sx={{
-                              fontSize: '40px',
-                              position: 'relative',
-                              right: 'var(--gap-md)'
-                            }} />
+                          />
                         </IconButton>
                       </PreviewWrapper>
                     </Zoom>
@@ -195,7 +206,7 @@ const PreviewWrapper = styled(Box)`
   .arrow-left, .arrow-right{
     position: absolute;
     top: 50%;
-    margin-top: calc(0px - (var(--swiper-navigation-size) / 2));
+    margin-top: ;
     z-index: 10;
     cursor: pointer;
   }
