@@ -21,7 +21,7 @@ export default function Footer() {
         <Box display="flex" gap="var(--gap-md)">
           <Link to="#">개인정보처리방침</Link>
           <Link to="#">이용약관</Link>
-          <Link to="#">문의하기</Link>
+          <Link to="https://docs.google.com/forms/d/e/1FAIpQLSdUEa3ZPvVzalM60NEguV4JEplD0zNdGpgjgbywcrG9nPf6NA/viewform">문의하기</Link>
         </Box>
       </Box>
       <Box color="text.secondary">

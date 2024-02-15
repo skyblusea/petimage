@@ -125,6 +125,7 @@ export default function AuthProvider({
         switch (error.response.status) {
           case 401:
             console.error("refresh token error | ", errorMsg);
+            logout();
             break;
           case 403: {
             console.error("access token error | ", errorMsg);
