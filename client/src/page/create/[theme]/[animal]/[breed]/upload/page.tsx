@@ -198,7 +198,7 @@ export default function Upload() {
                     color="inherit"
                     sx={{ color: "#bbb" }}
                     aria-label="delete" size="small">
-                    <SvgIcon component={DeleteIcon} inheritViewBox fontSize="large" />
+                    <SvgIcon component={DeleteIcon} inheritViewBox fontSize={isMobile ?'medium' :'large'} />
                   </IconButton>
                   {!file.isValid && <SvgIcon component={IncorrectIcon} fontSize="medium" color="error" />}
                 </AlbumItemWrapper>
