@@ -18,9 +18,9 @@ export default function Footer() {
           <b>주소</b>{' '}서울특별시 마포구 동교로22길 50, 202호<br />
         </Box>
         <Box display="flex" gap="var(--gap-md)">
-          <Link to="#">개인정보처리방침</Link>
-          <Link to="#">이용약관</Link>
-          <Link to="https://docs.google.com/forms/d/e/1FAIpQLSdUEa3ZPvVzalM60NEguV4JEplD0zNdGpgjgbywcrG9nPf6NA/viewform">문의하기</Link>
+          <Link to="https://voltaic-bit-3dd.notion.site/c40407dba46e423f926ca2d3b9aba495?pvs=4">개인정보처리방침</Link>
+          <Link to="https://voltaic-bit-3dd.notion.site/e48e39688343443c80d42ee37b390cf3?pvs=4">이용약관</Link>
+          <Link to="https://forms.gle/vc7rybb7vzGyZqyJ6">문의하기</Link>
         </Box>
       </Box>
       <Box color="text.secondary">
