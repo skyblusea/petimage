@@ -217,7 +217,6 @@ export default function AuthProvider({
   const tokenRefresh = async () => {
     const token = getTokenfromLocalStorage()
     if (!token) return logout()
-    console.log('tokenRefresh')
     authClient
       .get(`/user/refresh`, {
         headers: {
@@ -226,7 +225,6 @@ export default function AuthProvider({
         },
       })
       .then((res)=>{
-        console.log('res',res)
         if (res.data.ok) {
           const { accessToken, refreshToken } = res.data.data
           localStorage.setItem('access', accessToken);
