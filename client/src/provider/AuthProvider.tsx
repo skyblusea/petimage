@@ -121,7 +121,7 @@ export default function AuthProvider({
     const authResponseInterceptor = authClient.interceptors.response.use(undefined,
       (error) => {
         const errorMsg = error.response.data.data;
-        // const originalRequest = error.config;
+        const originalRequest = error.config;
         switch (error.response.status) {
           case 401:
             console.error("refresh token error | ", errorMsg);
@@ -130,7 +130,7 @@ export default function AuthProvider({
           case 403: {
             console.error("access token error | ", errorMsg);
             tokenRefresh();
-            // return authClient(originalRequest);
+            return authClient(originalRequest);
             break;
           }
           default:
@@ -217,12 +217,22 @@ export default function AuthProvider({
   const tokenRefresh = async () => {
     const token = getTokenfromLocalStorage()
     if (!token) return logout()
+    console.log('tokenRefresh')
     authClient
       .get(`/user/refresh`, {
         headers: {
           Authorization: `Bearer ${token.access}`,
           refresh: token.refresh,
         },
+      })
+      .then((res)=>{
+        console.log('res',res)
+        if (res.data.ok) {
+          const { accessToken, refreshToken } = res.data.data
+          localStorage.setItem('access', accessToken);
+          localStorage.setItem('refresh', refreshToken);
+          dispatch({ type: 'TOKEN REFRESH', token: { access: accessToken, refresh: refreshToken } })
+        }
       })
       .catch((err) => {
         if (err.response.status === 401) {
