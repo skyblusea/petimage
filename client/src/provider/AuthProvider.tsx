@@ -119,7 +119,7 @@ export default function AuthProvider({
 
     
     const authResponseInterceptor = authClient.interceptors.response.use(undefined,
-      (error) => {
+      async(error) => {
         const errorMsg = error.response.data.data;
         const originalRequest = error.config;
         switch (error.response.status) {
@@ -129,8 +129,11 @@ export default function AuthProvider({
             break;
           case 403: {
             console.error("access token error | ", errorMsg);
-            tokenRefresh();
-            return authClient(originalRequest);
+            const result = await tokenRefresh();
+            //! Test 필요
+            if (result) {
+              return authClient(originalRequest);
+            } else logout();
             break;
           }
           default:
@@ -216,7 +219,7 @@ export default function AuthProvider({
 
   const tokenRefresh = async () => {
     const token = getTokenfromLocalStorage()
-    if (!token) return logout()
+    if (!token) return false
     authClient
       .get(`/user/refresh`, {
         headers: {
@@ -230,12 +233,13 @@ export default function AuthProvider({
           localStorage.setItem('access', accessToken);
           localStorage.setItem('refresh', refreshToken);
           dispatch({ type: 'TOKEN REFRESH', token: { access: accessToken, refresh: refreshToken } })
+          return true
         }
       })
       .catch((err) => {
         if (err.response.status === 401) {
           alert("로그인이 만료되었습니다.")
-          return logout()
+          return false
         }
       });
   }

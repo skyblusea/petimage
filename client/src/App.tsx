@@ -52,7 +52,6 @@ export default function App() {
         element: <RootLayout />,
         errorElement: <Error />,
         children: [
-          // public
           { path: '', element: <Home /> },
           { path: '/service', element: <Service /> },
           { path: '/product', element: <Product />, loader: productLoader(queryClient) },
