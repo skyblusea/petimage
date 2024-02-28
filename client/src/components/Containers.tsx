@@ -20,6 +20,7 @@ export const MainContainer = styled.main`
     background-position-y: var(--nav-h);
     background-repeat: no-repeat;
     width: 100%;
+    height: 100%;
     background-size: cover;
     z-index: -100;
     overflow: hidden;

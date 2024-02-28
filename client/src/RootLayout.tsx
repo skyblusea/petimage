@@ -17,7 +17,7 @@ export default function RootLayout() {
         <Outlet />
         {(pathname === '/' || pathname === '/create') && 
         <ReactPlayer
-        // poster={<img src="bg_capture.png" alt="bg" className="bg"/>}
+        poster={<img src="bg_capture.png" alt="bg" className="bg"/>}
         muted={true} playing={true} loop={true} className="bg" url="bg.mp4" width="100%" height="100%" 
         />}
         <Footer />
