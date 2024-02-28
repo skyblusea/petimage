@@ -20,7 +20,6 @@ export const MainContainer = styled.main`
     background-position-y: var(--nav-h);
     background-repeat: no-repeat;
     width: 100%;
-    height: calc(100vh - var(--nav-h));
     background-size: cover;
     z-index: -100;
     overflow: hidden;
@@ -38,7 +37,7 @@ export const SingleSection = styled.section<SingleSectionProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
+  min-height: calc( 100vh - var(--nav-h));
   justify-content: ${props => props.center ? 'center' : 'flex-start'};
   padding: 0 var(--pd-nav);
   padding-bottom: 20px; //footer과의 간격

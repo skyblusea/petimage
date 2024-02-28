@@ -59,8 +59,8 @@ const Img = styled.img`
 `
 
 const ColoredBg = styled(SingleSection)`
+  height: 100vh;
   background-color: var(--petimage);
-  width: 100%;
   color: white;
   position: relative;
 `
