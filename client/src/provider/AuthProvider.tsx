@@ -82,7 +82,7 @@ const authReducer = (state: AuthState, action: AuthAction) => {
     case "LOGIN":
       return { ...state, user: action.user, token: action.token };
     case "LOGOUT":
-      return { ...state, user: null, token: { access: null, refresh: null } };
+      return { ...state, user: null, token: { access: null, refresh: null }, isAuthenticated: false};
     case "TOKEN REFRESH":
       return { ...state, token: action.token };
     case "SETAUTH":
@@ -108,10 +108,16 @@ export default function AuthProvider({
   const { user, token, isAuthenticated, loginModalOpen} = state;
   // const tokenRef = useRef<Token>(null);
   const navigate = useNavigate();
+  const controller = new AbortController();
 
   useEffect(() => {
     const authRequestInterceptor = authClient.interceptors.request.use(
       (config) => {
+      
+        // user 이 없을 경우 요청 취소
+        config.signal = controller.signal;
+        if(!user) controller.abort()
+      
         // Attach current access token ref value to outgoing request headers
         config.headers["Authorization"] = `Bearer ${token.access}`;
         return config;
@@ -261,7 +267,6 @@ export default function AuthProvider({
     localStorage.removeItem('user')
     queryClient.clear() // (1)loader 에선 authProvider 접근 불가능 (2)axios.interceptor status check 불가능 => querykey user 변수 불가능 하므로 clear
     dispatch({ type: 'LOGOUT' })
-    alert('로그아웃 되었습니다.')
     return navigate('/')
   }
 
