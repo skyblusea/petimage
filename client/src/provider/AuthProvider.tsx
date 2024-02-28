@@ -219,7 +219,9 @@ export default function AuthProvider({
 
   const tokenRefresh = async () => {
     const token = getTokenfromLocalStorage()
+    console.log('a')
     if (!token) return false
+    console.log('b')
     authClient
       .get(`/user/refresh`, {
         headers: {

@@ -33,7 +33,7 @@ interface ThemedBGProps {
   bg?: string
 }
 
-const ThemedBG = styled(SingleSection) <ThemedBGProps>`
+export const ThemedBG = styled(SingleSection) <ThemedBGProps>`
   ${props => props.bg && props.bg !== 'https://img.freepik.com/free-photo/abstract-surface-and-textures-of-white-concrete-stone-wall_74190-8189.jpg?size=626&ext=jpg&ga=GA1.1.1788068356.1707004800&semt=ais'
   ? `
     background-image: url('${props.bg}');

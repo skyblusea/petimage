@@ -28,6 +28,7 @@ import PaymentHistory, { loader as paymenyHistoryLoader } from './page/payment/h
 import Payment from './page/payment/page.tsx';
 import PaymentFail from './page/payment/fail/page.tsx';
 import ThemeLayout from './page/create/[theme]/layout.tsx';
+import AppDownload from './page/AppDownload/page.tsx';
 
 
 function newApiClient() {
@@ -47,7 +48,9 @@ export default function App() {
   const router = createBrowserRouter([{
     element: <AuthProvider queryClient={queryClient} authClient={authClient}/>,
     children:
-      [{
+    [
+        { path: '/appdownload', element: <AppDownload /> },
+        {
         path: '/',
         element: <RootLayout />,
         errorElement: <Error />,
