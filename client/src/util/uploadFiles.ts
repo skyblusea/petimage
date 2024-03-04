@@ -7,16 +7,15 @@ export const uploadFiles = async (formData:FormData, authClient:AxiosInstance) =
         "Content-Type": "multipart/form-data",
       },
     });
+    console.log(' uploadFiles res',res)
     if(res.status === 200) {
       const { data : { ok, data} } = res;
       if(ok) {
         return data;
-      }else {
-        throw new Error("파일 업로드에 실패했습니다.");
       }
     }
   }catch (error) {
-    console.log(error);
-    throw error;
+    console.log('uploadFiles error',error);
+    return
   }
 };

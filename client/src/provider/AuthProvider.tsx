@@ -113,33 +113,66 @@ export default function AuthProvider({
   useEffect(() => {
     const authRequestInterceptor = authClient.interceptors.request.use(
       (config) => {
-      
         // user 이 없을 경우 요청 취소
         config.signal = controller.signal;
         if(!user) controller.abort()
-      
+        
+        console.log('헤더 토큰 추가')
         // Attach current access token ref value to outgoing request headers
         config.headers["Authorization"] = `Bearer ${token.access}`;
         return config;
       })
 
     
-    const authResponseInterceptor = authClient.interceptors.response.use(undefined,
+    const authResponseInterceptor = authClient.interceptors.response.use(
+      async (response) => {
+        // 토큰 리프레시
+
+        if (response.config.url === '/user/refresh') {
+          console.log(`response.config.url === '/user/refresh'`)  
+          const { data: res } = response
+          const { accessToken, refreshToken } = res.data
+          dispatch({ type: 'TOKEN REFRESH', token: { access: accessToken, refresh: refreshToken } })
+          //TODO : 수정 필요 maybe cookie
+          console.log('토큰 리프레시됨')
+
+          localStorage.setItem('access', accessToken);
+          localStorage.setItem('refresh', refreshToken);
+          console.log('리프레시 후 토큰', accessToken, refreshToken)
+
+        }
+        return response;
+      },
       async(error) => {
         const errorMsg = error.response.data.data;
         const originalRequest = error.config;
+        console.log('error.response.status',error)
+
         switch (error.response.status) {
           case 401:
             console.error("refresh token error | ", errorMsg);
+            console.log('401에러')
+            alert('로그인이 만료되었습니다.')
             logout();
             break;
           case 403: {
             console.error("access token error | ", errorMsg);
+            console.log('리프레시 전 토큰', token.access, token.refresh)
             const result = await tokenRefresh();
+            console.log('result',result)
             //! Test 필요
             if (result) {
-              return authClient(originalRequest);
-            } else logout();
+              originalRequest.headers["Authorization"] = `Bearer ${result}`;
+              if(error.config.url === '/file/upload?filePath='){
+                // axios error 에 formData가 유지되지 않음 => 다시 시도하도록 유도
+                alert('파일 업로드에 실패했습니다. 다시 시도해주세요.')
+                return Promise.reject(error); 
+              }
+              return apiClient(originalRequest);
+            } else {
+              console.log('리프래시했지만 실패')
+              logout();
+            }
             break;
           }
           default:
@@ -164,15 +197,6 @@ export default function AuthProvider({
           //TOSS 위젯 prefetching
           const query = tossWidgetQuery(id)
           await queryClient.prefetchQuery(query)
-        }
-        // 토큰 리프레시
-        if (response.config.url === '/user/refresh') {
-          const { data: res } = response
-          const { accessToken, refreshToken } = res.data
-          dispatch({ type: 'TOKEN REFRESH', token: { access: accessToken, refresh: refreshToken } })
-          //TODO : 수정 필요 maybe cookie
-          localStorage.setItem('access', accessToken);
-          localStorage.setItem('refresh', refreshToken);
         }
         return response;
       },
@@ -223,12 +247,11 @@ export default function AuthProvider({
     }
   }
 
-  const tokenRefresh = async () => {
+  const tokenRefresh = () => {
+    console.log('토큰 리프레시')
     const token = getTokenfromLocalStorage()
-    console.log('a')
     if (!token) return false
-    console.log('b')
-    authClient
+    return authClient
       .get(`/user/refresh`, {
         headers: {
           Authorization: `Bearer ${token.access}`,
@@ -237,11 +260,8 @@ export default function AuthProvider({
       })
       .then((res)=>{
         if (res.data.ok) {
-          const { accessToken, refreshToken } = res.data.data
-          localStorage.setItem('access', accessToken);
-          localStorage.setItem('refresh', refreshToken);
-          dispatch({ type: 'TOKEN REFRESH', token: { access: accessToken, refresh: refreshToken } })
-          return true
+          const { accessToken } = res.data.data
+          return accessToken
         }
       })
       .catch((err) => {
@@ -250,6 +270,7 @@ export default function AuthProvider({
           return false
         }
       });
+    
   }
 
   const getTokenfromLocalStorage = () => {
