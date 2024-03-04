@@ -116,8 +116,6 @@ export default function AuthProvider({
         // user 이 없을 경우 요청 취소
         config.signal = controller.signal;
         if(!user) controller.abort()
-        
-        console.log('헤더 토큰 추가')
         // Attach current access token ref value to outgoing request headers
         config.headers["Authorization"] = `Bearer ${token.access}`;
         return config;
@@ -129,37 +127,27 @@ export default function AuthProvider({
         // 토큰 리프레시
 
         if (response.config.url === '/user/refresh') {
-          console.log(`response.config.url === '/user/refresh'`)  
           const { data: res } = response
           const { accessToken, refreshToken } = res.data
           dispatch({ type: 'TOKEN REFRESH', token: { access: accessToken, refresh: refreshToken } })
           //TODO : 수정 필요 maybe cookie
-          console.log('토큰 리프레시됨')
-
           localStorage.setItem('access', accessToken);
           localStorage.setItem('refresh', refreshToken);
-          console.log('리프레시 후 토큰', accessToken, refreshToken)
-
         }
         return response;
       },
       async(error) => {
         const errorMsg = error.response.data.data;
         const originalRequest = error.config;
-        console.log('error.response.status',error)
-
         switch (error.response.status) {
           case 401:
-            console.error("refresh token error | ", errorMsg);
-            console.log('401에러')
+            // console.error("refresh token error | ", errorMsg);
             alert('로그인이 만료되었습니다.')
             logout();
             break;
           case 403: {
-            console.error("access token error | ", errorMsg);
-            console.log('리프레시 전 토큰', token.access, token.refresh)
+            // console.error("access token error | ", errorMsg);
             const result = await tokenRefresh();
-            console.log('result',result)
             //! Test 필요
             if (result) {
               originalRequest.headers["Authorization"] = `Bearer ${result}`;
@@ -170,7 +158,6 @@ export default function AuthProvider({
               }
               return apiClient(originalRequest);
             } else {
-              console.log('리프래시했지만 실패')
               logout();
             }
             break;
@@ -219,7 +206,7 @@ export default function AuthProvider({
         navigate('/')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
       throw error;
     }
   }

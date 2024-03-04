@@ -7,7 +7,6 @@ export const uploadFiles = async (formData:FormData, authClient:AxiosInstance) =
         "Content-Type": "multipart/form-data",
       },
     });
-    console.log(' uploadFiles res',res)
     if(res.status === 200) {
       const { data : { ok, data} } = res;
       if(ok) {
@@ -15,7 +14,7 @@ export const uploadFiles = async (formData:FormData, authClient:AxiosInstance) =
       }
     }
   }catch (error) {
-    console.log('uploadFiles error',error);
+    console.error(error);
     return
   }
 };

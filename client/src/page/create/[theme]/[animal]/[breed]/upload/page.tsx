@@ -93,6 +93,11 @@ export default function Upload() {
     //로딩 lottie trigger
     setIsLoading(true)
     const uploaded = await uploadFiles(formData, authClient)
+    if(!uploaded) {
+      //파일 업로드 실패 시 sumbit 중단 
+      setIsLoading(false)
+      return
+    }
     //서버에 유효성 검사
     const validated = await validateFiles(uploaded, animalKor, authClient) as { check: boolean, url: string }[]
     const isAllValid = validated.every(ele => ele.check)
