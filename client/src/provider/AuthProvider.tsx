@@ -20,7 +20,7 @@ export type AuthContextType = {
   authClient: AxiosInstance;
   isAuthenticated: boolean;
   loginModalOpen?: boolean;
-  setLoginModal : (open: boolean) => void;
+  setLoginModal: (open: boolean) => void;
 };
 
 const initialContextState: AuthContextType = {
@@ -82,7 +82,7 @@ const authReducer = (state: AuthState, action: AuthAction) => {
     case "LOGIN":
       return { ...state, user: action.user, token: action.token };
     case "LOGOUT":
-      return { ...state, user: null, token: { access: null, refresh: null }, isAuthenticated: false};
+      return { ...state, user: null, token: { access: null, refresh: null }, isAuthenticated: false };
     case "TOKEN REFRESH":
       return { ...state, token: action.token };
     case "SETAUTH":
@@ -105,7 +105,7 @@ export default function AuthProvider({
   authClient: AxiosInstance
 }) {
   const [state, dispatch] = useReducer(authReducer, initialReducerState);
-  const { user, token, isAuthenticated, loginModalOpen} = state;
+  const { user, token, isAuthenticated, loginModalOpen } = state;
   // const tokenRef = useRef<Token>(null);
   const navigate = useNavigate();
   const controller = new AbortController();
@@ -115,13 +115,12 @@ export default function AuthProvider({
       (config) => {
         // user 이 없을 경우 요청 취소
         config.signal = controller.signal;
-        if(!user) controller.abort()
-        // Attach current access token ref value to outgoing request headers
+        if (!user) controller.abort()
         config.headers["Authorization"] = `Bearer ${token.access}`;
         return config;
       })
 
-    
+
     const authResponseInterceptor = authClient.interceptors.response.use(
       async (response) => {
         // 토큰 리프레시
@@ -136,8 +135,8 @@ export default function AuthProvider({
         }
         return response;
       },
-      async(error) => {
-        const errorMsg = error.response.data.data;
+      async (error) => {
+        // const errorMsg = error.response.data.data;
         const originalRequest = error.config;
         switch (error.response.status) {
           case 401:
@@ -151,10 +150,10 @@ export default function AuthProvider({
             //! Test 필요
             if (result) {
               originalRequest.headers["Authorization"] = `Bearer ${result}`;
-              if(error.config.url === '/file/upload?filePath='){
+              if (error.config.url === '/file/upload?filePath=') {
                 // axios error 에 formData가 유지되지 않음 => 다시 시도하도록 유도
                 alert('파일 업로드에 실패했습니다. 다시 시도해주세요.')
-                return Promise.reject(error); 
+                return Promise.reject(error);
               }
               return apiClient(originalRequest);
             } else {
@@ -167,7 +166,7 @@ export default function AuthProvider({
         }
       }
     );
-    
+
 
     const apiResponseInterceptor = apiClient.interceptors.response.use(
       async (response) => {
@@ -187,7 +186,7 @@ export default function AuthProvider({
         }
         return response;
       },
-      );
+    );
     dispatch({ type: 'SETAUTH', isAuthenticated: true })
     // Return cleanup function to remove interceptors if apiClient updates
     return () => {
@@ -215,15 +214,15 @@ export default function AuthProvider({
     try {
       //@ts-ignore
       const res = await window.AppleID.auth.signIn();
-      if(res){
+      if (res) {
         const { authorization: { id_token } } = res
         const user = res.user
-        const login = await apiClient.post('/user/apple', { 
-          token : id_token,
-          name : user ?`${user.name.lastName}${user.name.lastName}`: null,
-          email : user ? user.email : null,
-         })
-        if(login.data.ok) {
+        const login = await apiClient.post('/user/apple', {
+          token: id_token,
+          name: user ? `${user.name.lastName}${user.name.lastName}` : null,
+          email: user ? user.email : null,
+        })
+        if (login.data.ok) {
           alert('로그인이 완료되었습니다.')
           setLoginModal(false)
           navigate('/')
@@ -235,7 +234,6 @@ export default function AuthProvider({
   }
 
   const tokenRefresh = () => {
-    console.log('토큰 리프레시')
     const token = getTokenfromLocalStorage()
     if (!token) return false
     return authClient
@@ -245,19 +243,19 @@ export default function AuthProvider({
           refresh: token.refresh,
         },
       })
-      .then((res)=>{
+      .then((res) => {
         if (res.data.ok) {
           const { accessToken } = res.data.data
-          return accessToken
+          return accessToken as string
         }
+        return false
       })
       .catch((err) => {
         if (err.response.status === 401) {
           alert("로그인이 만료되었습니다.")
-          return false
         }
+        return false
       });
-    
   }
 
   const getTokenfromLocalStorage = () => {
@@ -281,9 +279,9 @@ export default function AuthProvider({
   const signout = async () => {
     try {
       //@ts-ignore
-      if(res){
+      if (res) {
         const res = await authClient.post('/user/delete')
-        if(res.data.ok) {
+        if (res.data.ok) {
           alert('회원 탈퇴가 완료되었습니다.')
           navigate('/')
         }
@@ -292,7 +290,7 @@ export default function AuthProvider({
       console.log(error);
     }
   }
-  const setLoginModal = (open:boolean) => {
+  const setLoginModal = (open: boolean) => {
     dispatch({ type: 'LOGIN_MODAL', loginModalOpen: open })
   }
 
