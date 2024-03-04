@@ -3,18 +3,20 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import Tooltip from '@mui/material/Tooltip';
 import Box from '@mui/material/Box';
+import SvgIcon from '@mui/material/SvgIcon';
+import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import { loadPaymentWidget, ANONYMOUS, PaymentWidgetInstance } from "@tosspayments/payment-widget-sdk";
 import { nanoid } from "nanoid";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styled from '@emotion/styled';
-import { Button } from '@mui/material';
 import { useQuery } from "@tanstack/react-query"
 import useAuth from '../../util/useAuth';
 import { getPaymentId } from '../../util/getPaymentId';
 import { useLocation } from 'react-router-dom';
 import { AlbumDetails } from '../../types';
+import ArrowIcon from '../../assets/arrow.svg?react';
 
 
 //위젯 로드
@@ -41,6 +43,7 @@ export default function Checkout() {
   const amount = Number(albumDetails?.theme.price?.replaceAll(',', ''))
   //결제 동의
   const [agree, setAgree] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   useLayoutEffect(() => {
     if (!paymentWidget) {
@@ -51,6 +54,7 @@ export default function Checkout() {
     // ------  이용약관 UI 렌더링 ------
     paymentWidget.renderAgreement("#agreement", { variantKey: "AGREEMENT" });
     paymentMethodsWidgetRef.current = paymentMethodsWidget;
+    setMounted(true)
   }, [paymentWidget, amount]);
 
 
@@ -111,9 +115,15 @@ export default function Checkout() {
         </Box>
       </DialogContent>
       <div id="payment-widget" />
+      <Agreement href="https://standing-wisteria-9ba.notion.site/eff0992931b8463c873f5f7d45d7e1fe?pvs=4"
+        target="_blank"
+        rel="noopener noreferrer">
+        <p> 결제취소 &#183; 환불정책</p>
+        <SvgIcon inheritViewBox component={ArrowIcon} fontSize="small"/>
+      </Agreement>
       <div id="agreement" />
       <TossCheckboxWrapper>
-        <Tooltip title="결제 내용을 확인 후 동의해주세요." arrow open={true} placement="left">
+        <Tooltip title="결제 내용을 확인 후 동의해주세요." arrow  placement="left">
           <TossCheckboxLabel htmlFor="agree">
             <TossCheckbox type="checkbox" id="agree" name="agree" value="agree" checked={agree} onChange={() => { setAgree(!agree) }} />
             <span>상기 결제 건에 대한 내용을 확인했습니다.</span>
@@ -135,11 +145,29 @@ const TossCheckboxLabel = styled.label`
   line-height: 1.6;
   padding-left: 24px;
   span{
-  font-weight: 400;
+  font-weight: 300;
   padding-left: 8px;
   line-height: 1.6;
   color: #4e5968;
   font-size: 15px;
+  }
+`
+
+const Agreement = styled.a`
+  margin-top: -10px;
+  padding : 10px 24px 10px 24px;
+  font-size: 13px;
+  color: #4e5968;
+  width: 100%;
+  white-space: normal;
+  text-align: left;
+  cursor: pointer;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  svg {
+    //svg자체가 center이 아님...
+    margin-top: -2px;
   }
 `
 

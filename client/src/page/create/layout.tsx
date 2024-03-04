@@ -1,5 +1,5 @@
 import { SingleSection } from "../../components/Containers";
-import { Outlet, useLoaderData, useParams } from "react-router-dom";
+import { Outlet, useLoaderData, useLocation, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query"
 import { themeQuery } from "./page";
 import styled from "@emotion/styled";
@@ -9,6 +9,7 @@ import useAuth from "../../util/useAuth";
 
 export default function CreateLayout() {
   const params = useParams();
+  const pathname = useLocation().pathname
   const initialData = useLoaderData() as Array<Theme>
   const { authClient, isAuthenticated } = useAuth()
   const { data: theme } = useQuery({
@@ -20,10 +21,9 @@ export default function CreateLayout() {
 
   const selectedTheme = params.theme
   const bg = selectedTheme && theme?.filter(ele => ele.name === selectedTheme)[0].background
-
-
+  
   return (
-    <ThemedBG bg={bg}>
+    <ThemedBG bg={bg} pathname={pathname}>
         <Outlet />
     </ThemedBG>
   )
@@ -31,6 +31,7 @@ export default function CreateLayout() {
 
 interface ThemedBGProps {
   bg?: string
+  pathname?: string
 }
 
 export const ThemedBG = styled(SingleSection) <ThemedBGProps>`
@@ -43,7 +44,7 @@ export const ThemedBG = styled(SingleSection) <ThemedBGProps>`
     height: 100%;
   `
   :`
-    background-color: var(--petimage);
+    background-color: ${props.pathname==='/checkout' ?'white' :'var(--petimage)'};
     height: 100%;
   `
 }
