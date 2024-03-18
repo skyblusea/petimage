@@ -27,7 +27,7 @@ export default function Slider({ tap, theme }: { tap: number, theme: Theme[] }) 
     <Grid xs={12}>
       {/* 메인 전시 사진 */}
       {isMobile &&
-        <Box sx={{ mb : 'var(--gap-sm)'}}>
+        <Box sx={{ mb: 'var(--gap-sm)' }}>
           <Typography variant="body1">{theme[tap].desc}</Typography>
         </Box>
       }
@@ -36,7 +36,7 @@ export default function Slider({ tap, theme }: { tap: number, theme: Theme[] }) 
           loop={true}
           spaceBetween={10}
           pagination={{ type: 'fraction' }}
-          navigation={{ nextEl: '.arrow-right', prevEl: '.arrow-left'}}
+          navigation={{ nextEl: '.arrow-right', prevEl: '.arrow-left' }}
           thumbs={{ swiper: thumbsSwiper }}
           modules={[FreeMode, Navigation, Thumbs, Pagination]}
         >
@@ -78,7 +78,9 @@ export default function Slider({ tap, theme }: { tap: number, theme: Theme[] }) 
               <CustomImage src={src} alt={`product_img${idx}`} />
             </SwiperSlide>)}
           <Box>
-            <Typography variant="body1">{theme[tap].desc}</Typography>
+            <Typography variant="body1">
+              <span dangerouslySetInnerHTML={{ __html: theme[tap].desc }} />
+            </Typography>
             <Box display="flex" flexDirection="column" sx={{ gap: 'var(--gap-sm)' }}>
               <Box>
                 <Box display="flex" sx={{ gap: 'var(--gap-xs)' }}>

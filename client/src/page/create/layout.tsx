@@ -17,10 +17,10 @@ export default function CreateLayout() {
     initialData: initialData ? initialData : undefined,
     enabled: isAuthenticated,
   })
-
-
+  
   const selectedTheme = params.theme
   const bg = selectedTheme && theme?.filter(ele => ele.name === selectedTheme)[0].background
+
   
   return (
     <ThemedBG bg={bg} pathname={pathname}>
@@ -33,6 +33,7 @@ interface ThemedBGProps {
   bg?: string
   pathname?: string
 }
+
 
 export const ThemedBG = styled(SingleSection) <ThemedBGProps>`
   ${props => props.bg && props.bg !== 'https://img.freepik.com/free-photo/abstract-surface-and-textures-of-white-concrete-stone-wall_74190-8189.jpg?size=626&ext=jpg&ga=GA1.1.1788068356.1707004800&semt=ais'

@@ -94,7 +94,7 @@ export default function Checkout() {
         ...paymentInfo,
         successUrl: `${window.location.origin}/payment/${paymentId}`,
         failUrl: `${window.location.origin}/payment/fail`,
-      });
+      }); 
     } catch (error) {
       console.error("Error requesting payment:", error);
     }
@@ -118,7 +118,7 @@ export default function Checkout() {
       <Agreement href="https://standing-wisteria-9ba.notion.site/eff0992931b8463c873f5f7d45d7e1fe?pvs=4"
         target="_blank"
         rel="noopener noreferrer">
-        <p> 결제취소 &#183; 환불정책</p>
+        <p>결제취소 &#183; 환불정책</p>
         <SvgIcon inheritViewBox component={ArrowIcon} fontSize="small"/>
       </Agreement>
       <div id="agreement" />
